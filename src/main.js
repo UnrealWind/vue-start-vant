@@ -11,6 +11,8 @@ import config from './config/config'
 
 import VanContainer from './directive/vanContainer'
 Vue.component('VanContainer', VanContainer)
+import Commodity from './directive/commodity'
+Vue.component('Commodity', Commodity)
 
 import http from './components/http'
 Vue.use(http)
@@ -29,7 +31,8 @@ const init = async() => {
     router,
     store,
     components: {
-      'van-Container': VanContainer
+      'van-Container': VanContainer,
+      'commodity': Commodity
     },
     render: h => h(App)
   })

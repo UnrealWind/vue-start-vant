@@ -68,7 +68,7 @@
         },
         computed: {
             customMain() {
-                return `margin-top:${this.height + 35}px`
+                return `margin-top:${this.height + 45}px`
             }
         },
         methods: {

@@ -38,7 +38,7 @@ const cdn = {
 module.exports = {
   publicPath: process.env.NODE_ENV === 'development' ? '/' : '/app/', // 需要区分生产环境和开发环境，不然build会报错
   outputDir: 'dist',
-  assetsDir: 'static',
+  assetsDir: 'assets',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
