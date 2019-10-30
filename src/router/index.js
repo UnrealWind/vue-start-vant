@@ -177,7 +177,6 @@ export const constantRoutes = [
       keepAlive: false
     }
   }
-
 ]
 
 const createRouter = () =>

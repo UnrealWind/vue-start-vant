@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :status="status" :tabbar="true">
+  <van-container :active="1" :status="status" :tabbar="true">
     <div slot="header" class="fix">
       <div class="hesde_l2">
         <div class="p"> 精选 </div>
