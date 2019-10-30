@@ -12,7 +12,7 @@
       <p>没有找到数据哦 (*￣︶￣*)</p>
       <van-icon :name="'smile-comment-o'" size="50px"></van-icon>
     </div>
-    <header v-if="!iframe" class="header">
+    <header v-if="!iframe" class="header" :class="{ 'hasScroll': scroll }">
       <slot name="header"></slot>
     </header>
     <main v-if="status === 'success'" class="main" :style="customMain">
@@ -78,7 +78,8 @@
         data() {
             return {
                 height: 0,
-                target: 0
+                target: 0,
+                scroll: false
             }
         },
         computed: {
@@ -104,6 +105,7 @@
                 const scrollTop = document.documentElement.scrollTop ||
                     document.body.scrollTop ||
                     document.querySelector('#scroll').scrollTop
+                scrollTop === 0 ? this.scroll = false : this.scroll = true
                 console.log(scrollTop, 22222)
             }
         }
@@ -145,7 +147,6 @@
     font-size:16px;
     font-weight:500;
     line-height:45px;
-    height:50px;
     position: fixed;
     top:0;
     width:100%;
@@ -158,7 +159,9 @@
       display: inline-block;
     }
   }
-
+  #app .hasScroll{
+    background: rgba(0,0,0,0.5);
+  }
   .main{
     flex: 1;
     position: relative;
