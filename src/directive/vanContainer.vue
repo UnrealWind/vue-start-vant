@@ -12,11 +12,11 @@
       <p>没有找到数据哦 (*￣︶￣*)</p>
       <van-icon :name="'smile-comment-o'" size="50px"></van-icon>
     </div>
-    <header class="header">
+    <header v-if="!iframe" class="header" :class="{ 'hasScroll': scroll }">
       <slot name="header"></slot>
     </header>
     <main v-if="status === 'success'" class="main" :style="customMain">
-      <div class="scroll">
+      <div id="scroll" class="scroll">
         <slot></slot>
       </div>
       <slot name="body-cover" class="body-cover">
@@ -26,6 +26,12 @@
     <div v-if="status === 'loading'" class="cover-translucent"></div>
     <footer v-if="tabbar" class="footer">
       <slot name="footer">
+        <van-tabbar v-model="target">
+          <van-tabbar-item name="index" icon="home-o" @click="go('/')">首页</van-tabbar-item>
+          <van-tabbar-item name="concentrate" icon="star-o" @click="go('/concentrate')">精选</van-tabbar-item>
+          <van-tabbar-item name="cart" icon="cart-circle-o" @click="go('/static/cart')">购物车</van-tabbar-item>
+          <van-tabbar-item name="mine" icon="friends-o" @click="go('/static/mine')">我的</van-tabbar-item>
+        </van-tabbar>
       </slot>
     </footer>
   </div>
@@ -35,13 +41,17 @@
     import {
         Button,
         Icon,
-        Loading
+        Loading,
+        Tabbar,
+        TabbarItem
     } from 'vant'
     export default {
         components: {
             'van-button': Button,
             'van-icon': Icon,
-            'van-loading': Loading
+            'van-loading': Loading,
+            'van-tabbar': Tabbar,
+            'van-tabbar-item': TabbarItem
         },
         props: {
             status: {
@@ -49,8 +59,8 @@
                 default: 'loading' // error empty waiting
             },
             active: {
-                type: String,
-                default: 'home'
+                type: Number,
+                default: 0
             },
             tabbar: {
                 type: Boolean,
@@ -59,21 +69,43 @@
             data: {
                 type: Object,
                 default: () => {}
+            },
+            iframe: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
-                height: 0
+                height: 0,
+                target: 0,
+                scroll: false
             }
         },
         computed: {
             customMain() {
-                return `margin-top:${this.height + 45}px`
+                // const str = `margin-top:${this.height + 45}px`
+                if (this.iframe) {
+                    return ''
+                } else {
+                    // return str
+                    return ''
+                }
             }
         },
+        mounted() {
+          this.target = this.active
+          window.addEventListener('scroll', this.handleScroll, true)
+        },
         methods: {
-            reload() {
-
+            go(page) {
+                this.$router.push(page)
+            },
+            handleScroll() {
+                const scrollTop = document.documentElement.scrollTop ||
+                    document.body.scrollTop ||
+                    document.querySelector('#scroll').scrollTop
+                scrollTop === 0 ? this.scroll = false : this.scroll = true
             }
         }
     }
@@ -99,6 +131,8 @@
   }
   .back {
     display: inline-block;
+    position: relative;
+    top:2px;
   }
   .container {
     display: flex;
@@ -108,17 +142,14 @@
   }
 
   .header{
-    background: #fff;
-    color: #000;
+    color: #fff;
     font-size:16px;
     font-weight:500;
-    line-height:32px;
-    height:38px;
+    line-height:45px;
     position: fixed;
     top:0;
     width:100%;
     z-index: 100;
-    padding: 3px 10px;
     van-icon {
       position: relative;
       top:3px;
@@ -127,7 +158,9 @@
       display: inline-block;
     }
   }
-
+  #app .hasScroll{
+    background: rgba(0,0,0,0.5);
+  }
   .main{
     flex: 1;
     position: relative;
@@ -138,6 +171,7 @@
       right: 0;
       top: 0;
       bottom: 0;
+      overflow: scroll;
     }
   }
 

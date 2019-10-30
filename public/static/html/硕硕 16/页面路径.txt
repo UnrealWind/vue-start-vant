@@ -1,0 +1,15 @@
+1 、 我的    ：  静态页面-商城模板\one\person\index.html
+2、 购物车 ：  静态页面-商城模板\one\home\shopcart.html
+3、 代言     :    静态页面-商城模板\朋友圈\index.html
+4、 聊天     ：  静态页面-cpts_1077_bpo/chats.html
+5、 订单列表 :  静态页面-商城模板\one\person\order.html
+6、 个人中心 :  静态页面-商城模板\one\person\information.html
+7、 设置      ： 无
+8、 提交订单 :  静态页面-商城模板\one\home\pay.html
+9、 收货地址 :  静态页面-商城模板\two\person
+10、支付方式：提交订单页面有
+11、vip会员   :   没有
+12、登录       ： 静态页面-商城模板\登录注册\login.html
+13、注册       ： 静态页面-商城模板\登录注册\register.html
+14、忘记密码 ：静态页面-商城模板\登录注册\wjmm.html
+15、修改密码 ：静态页面-商城模板\登录注册\xgmm.html
