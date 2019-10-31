@@ -2,7 +2,8 @@
   <van-VIP>
     <!-- 头部 -->
     <div slot="header" class="top">
-      <van-icon name="arrow-left" />注册云集app
+      <span @click="$router.back()"> <van-icon name="arrow-left" /> </span>
+      注册云集app
     </div>
     <div class="name clearfix">
       <div class="logo fl">

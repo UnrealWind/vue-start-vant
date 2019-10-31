@@ -27,6 +27,108 @@
 
         <div class="title"> 精选推荐 </div>
 
+        <ul class="flex_wrap gwcLits ">
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+          <li>
+            <a @click="$router.push('/static/introduction')">
+              <div class="p2">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <h4> 特卖</h4>
+              </div>
+              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+            </a>
+          </li>
+        </ul>
+
       </div>
     </div>
 
@@ -89,6 +191,54 @@ import { Swipe, SwipeItem, Icon } from 'vant'
 
 </script>
 <style lang='scss' scoped>
+
+  @import "../../public/static/750商城/css/app.css";
+  @import "../../public/static/750商城/css/style.css";
+
+  .gwcLits{
+    font-size: 14px;
+    li{
+      width: 31%;
+    }
+    p{
+      display: block;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      line-height: 24px;
+    }
+    .p2{
+     position: relative;
+      span{
+        position: absolute;
+        left: 2px;
+        bottom: 0px;
+        font-size: 12px;
+      }
+      h4{
+        position: absolute;
+        left: 5px;
+        bottom: 0px;
+        font-size: 12px;
+        color: #e01447;
+        border: 0.02667rem solid #d88aa2;
+        border-radius: 0.1rem;
+        padding: 0 0.1rem;
+        line-height: 18px;
+        font-weight: normal;
+      }
+    }
+    p.p4{
+      color: #828282;
+      font-size: 12px;
+    }
+    .p3{
+      padding-top: 0px;
+    }
+    .p3 span{
+      font-size: 12px;
+    }
+  }
   h1 {
     background: red;
     width: 375px;
@@ -135,7 +285,11 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     .p { font-size: 16px;   color: #333;  }
   }
 
-  .nav_box5{ position: relative; width:100%;overflow-x: scroll; margin: 0 auto;
+  .nav_box5{
+    position: relative;
+    width:100%;
+    overflow-x: scroll;
+    margin: 0 auto;
     .wp{ position: relative; overflow: hidden; }
     .nav_ul{ width: 1000%}
     .icon{
@@ -149,15 +303,16 @@ import { Swipe, SwipeItem, Icon } from 'vant'
       z-index: 9;}
     .li1{ display: inline-block; }
     .li1.active p { background: #ffffff; color: #86c8e8; }
-    p{ display: inline-block; color: #777; padding:8px 15px; border-radius: 50px; font-size: 12px; color: #fff;  }
+    p{ display: inline-block; color: #777; padding:8px 15px; border-radius: 50px; font-size: 12px; color: #fff; margin-top: 10px; }
   }
 
   .nav_box{
+    padding-bottom: 10px;
     .title{
       font-size: 16px;
       line-height: 30px;
       padding-top: 20px;
-      padding-bottom: 20px;
+      padding-bottom: 2px;
     }
   }
 

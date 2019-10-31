@@ -172,16 +172,23 @@ import { Icon, Search } from 'vant'
      }
   }
 
+  .header{
+    .fix{
+      padding-bottom: 10px;
+    }
+  }
+
   .hesde_l{
     margin-right: 20px;
     line-height: 38px;
-    padding-top: 15px;
+    padding-top: 12px;
     line-height: 20px;
     .van-icon{
       font-size: 20px;
       line-height: 20px;
     }
   }
+
   .hesde_l3{
     display: none;
     padding-top: 10px;
@@ -192,7 +199,7 @@ import { Icon, Search } from 'vant'
   .hesde_l2{
     position: relative;
     border-radius: 50px;
-    padding-top: 13px;
+    padding-top: 10px;
     width: 75%;
     .van-search{
       border-radius: 50px;

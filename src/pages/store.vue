@@ -93,7 +93,55 @@
             :vip-price-discribe="false"
             :btn-go="vip.btnGo"
           >
-          </commodity></div>
+          </commodity>
+        </div>
+
+        <div class="nav_box8 dan_wrap">
+          <div class="nav_li fix wp">
+            <div class="li active"> 综合  </div>
+            <div class="li"> 上新 </div>
+            <div class="li"> 价格 <span>  <van-icon name="arrow-up" class="fon-icon12" /> <van-icon name="arrow-down" class="fon-icon13" /> </span> </div>
+            <div class="li">  <van-icon name="qr" class="fon-icon" />  </div>
+          </div>
+        </div>
+
+        <div class="wp">
+          <ul class="flex_wrap gwcLits ">
+            <li>
+              <a href="javascript:;">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+                <p class="p2"><span>特卖</span> <span>新品</span></p>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+                <p class="p2"><span>特卖</span> <span>新品</span></p>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+                <p class="p2"><span>特卖</span> <span>新品</span></p>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+                <p class="p2"><span>特卖</span> <span>新品</span></p>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+              </a>
+            </li>
+          </ul>
+
+        </div>
 
       </div>
     </div>
@@ -170,6 +218,9 @@ import { Icon, Search } from 'vant'
 
 </script>
 <style lang='scss' scoped>
+  @import "../../public/static/750商城/css/app.css";
+  @import "../../public/static/750商城/css/style.css";
+
   h1 {
     background: red;
     width: 375px;
@@ -198,10 +249,16 @@ import { Icon, Search } from 'vant'
      }
   }
 
+  .header{
+    .fix{
+      padding-bottom: 10px;
+    }
+  }
+
   .hesde_l{
     margin-right: 20px;
     line-height: 38px;
-    padding-top: 15px;
+    padding-top: 12px;
     line-height: 20px;
     .van-icon{
       font-size: 20px;
@@ -218,7 +275,7 @@ import { Icon, Search } from 'vant'
   .hesde_l2{
     position: relative;
     border-radius: 50px;
-    padding-top: 13px;
+    padding-top: 10px;
     width: 75%;
     .van-search{
       border-radius: 50px;
@@ -390,7 +447,45 @@ import { Icon, Search } from 'vant'
     h4{
       color: #fff;
     }
+  }
 
+  .nav_box8 .nav_li{
+    display: block;
+    .li{
+      width: 25%; float: left;
+      margin:0 auto;
+      margin-bottom:10px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 30px;
+      padding: 0px;
+      color:#202020;
+      font-size:14px; }
+    .li.active {
+      color: #c41b3a;
+    }
+    .fon-icon{
+      font-size: 20px;
+      position: relative;
+      top: 4px;
+    }
+
+    span{
+      display: inline-block;
+      position: relative;
+      .fon-icon12{
+        display: block;
+        position: absolute;
+        top: -15px;
+        left: 0px;
+      }
+      .fon-icon13{
+        display: block;
+        position: absolute;
+        top: -7px;
+        left: 0px;
+      }
+    }
   }
 
 </style>

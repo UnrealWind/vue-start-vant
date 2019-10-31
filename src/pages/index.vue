@@ -59,7 +59,7 @@
 
     <div class="nav_box5 dan_wrap">
       <div class="wp">
-        <a href="" class="img" @click="$router.push('/升级vip')"> <img src="../assets/img/shengji1.png" alt=""> </a>
+        <a href="" class="img" @click="$router.push('/upgradeVIP')"> <img src="../assets/img/shengji1.png" alt=""> </a>
       </div>
     </div>
 
@@ -126,42 +126,6 @@
       </div>
     </div>
 
-    <div>
-      <ul class="flex_wrap gwcLits gwcLits_SG">
-        <li>
-          <a href="javascript:;">
-            <img src="../../public/static/750商城/images/timg3.png" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../public/static/750商城/images/timg3.png" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../public/static/750商城/images/timg3.png" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../public/static/750商城/images/timg3.png" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
-          </a>
-        </li>
-      </ul>
-    </div>
   </van-container>
 </template>
 
@@ -215,17 +179,17 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
               {
                 title: '时令水果',
                   img: require('../assets/img/nav_img1.png'),
-                  path: '/二级页面'
+                  path: '/static-dir/seasonalfruit'
               },
               {
                   title: '每日精选',
                   img: require('../assets/img/nav_img12.png'),
-                  path: '/二级页面2'
+                  path: '/static-dir/daynew'
               },
               {
                   title: '在线超市',
                   img: require('../assets/img/nav_img13.png'),
-                  path: '/二级页面3'
+                  path: '/static-dir/onlinesupermarket'
               },
               {
                   title: 'VIP',
@@ -235,7 +199,7 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
               {
                   title: '跨境电商',
                   img: require('../assets/img/nav_img15.png'),
-                  path: '/二级页面3'
+                  path: '/static-dir/crassborder'
               },
               {
                   title: '热销榜',
@@ -245,12 +209,12 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
               {
                   title: '商城',
                   img: require('../assets/img/nav_img17.png'),
-                  path: '/二级页面3'
+                  path: '/static-dir/mall'
               },
               {
                   title: '分类',
                   img: require('../assets/img/nav_img18.png'),
-                  path: '/二级页面3'
+                  path: '/static-dir/sort'
               }
           ],
           minNavList: [
@@ -307,8 +271,7 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
 
 </script>
 <style lang='scss' scoped>
-  @import "../../public/static/750商城/css/app.css";
-  @import "../../public/static/750商城/css/style.css";
+
   h1 {
     background: red;
     width: 375px;
@@ -363,7 +326,8 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
   .nav_box7 {
     width:100%;
     overflow:scroll;
-    }
+  }
+
   .nav7_ul{
      width: 170%;
     .li{ float: left; margin: 0px 20px; text-align: center; }
@@ -372,6 +336,7 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
     p{ font-size: 12px; color: #a6a6a6; line-height: 20px; margin-top: 0px; padding: 2px 5px; }
     p.active{  background: #e6253b; color: #fff; border-radius: 50px; }
   }
+
   .nav_box8 .nav_li{ display: block;
     a{ display: block; }
     .li1{

@@ -171,8 +171,8 @@ import { Icon } from 'vant'
   }
   .dan_wrap{
     margin-top: 45px;
-    background: #f2f2f2 url("../assets/img/hottu2.png") no-repeat left top;
-    background-size: 100% 50%;
+    background: #f2f2f2 url("../assets/img/hottu2.png") no-repeat center top;
+    background-size: contain;
     .wp{
       width: 95%;
       margin: 0 auto;

@@ -16,14 +16,49 @@
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
 
-        <div class="navdan_box4"></div>
+        <div class="navdan_box4">
+          <div class="nav_ul">
+            <div class="li" @click="$router.push('/static/introduction')">
+              <div class="wrap fix">
+                <div class="nav_l l">
+                  <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
+                </div>
+                <div class="nav_r r">
+                  <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
+                  <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
+                  <div class="botom fix">
+                    <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
+                    <a href="" class="car r"> <van-icon name="cart-o" /> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="nav_botimg">
           <div class="img">  <img src="../assets/img/shopcartu2.png" alt=""> </div>
         </div>
 
-        <div class="navdan_box4"></div>
-
+        <div class="navdan_box4">
+          <div class="nav_ul">
+            <div class="li" @click="$router.push('/static/introduction')">
+              <div class="wrap fix">
+                <div class="nav_l l">
+                  <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
+                </div>
+                <div class="nav_r r">
+                  <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
+                  <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
+                  <div class="botom fix">
+                    <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
+                    <a href="" class="car r"> <van-icon name="cart-o" /> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -112,6 +147,64 @@ import { Swipe, SwipeItem, Icon } from 'vant'
   .hesde_l2{ position: relative; width: 62%; margin: 0 auto; text-align: center;
     .p { font-size: 16px;   color: #333; }
   }
-  .navdan_box4{ background: red; height: 100px; }
+  .navdan_box4{
+
+    .nav_ul{
+      padding-top: 30px;
+      .li{
+        background: #fff;
+        border-radius: 10px;
+        padding: 0px 10px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+      }
+      .nav_l{
+        width: 35%;
+      }
+      .nav_r{
+        width: 60%;
+        padding-top: 10px;
+        a{
+          display: block;
+        }
+        .title{
+          font-size: 14px;
+          white-space:nowrap;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          color: #333333;
+          line-height: 20px;
+        }
+        .titlemin{
+          font-size: 14px;
+          color: #808080;
+          line-height: 20px;
+        }
+        .botom{
+          padding-top: 50px;
+        }
+        .price{
+          color: #f00d3b;
+          font-size: 18px;
+          span{
+            color: #808080;
+            text-decoration: line-through;
+            font-size: 12px;
+            font-weight: normal;
+          }
+        }
+        .car{
+          width: 25px;
+          height: 25px;
+          text-align: center;
+          line-height: 30px;
+          border-radius: 50%;
+          color: #fff;
+          background: #f00d3b;
+          font-size: 16px;
+        }
+      }
+    }
+  }
 
 </style>

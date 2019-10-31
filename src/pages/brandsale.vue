@@ -97,11 +97,58 @@
       </div>
     </div>
 
+    <div class=" nav_box6 dan_wrap fix">
+      <div class="wp">
+
+        <div class="nav_box8 ">
+          <div class="nav_li fix wp">
+            <div v-for="(opt, index) in minNavList" :key="index" class="li1" :class="{ active:opt.isActive }">  <p>  {{ opt.title }} </p> </div>
+          </div>
+        </div>
+
+        <ul class="flex_wrap gwcLits ">
+          <li>
+            <a href="javascript:;">
+              <img src="../../public/static/750商城/images/timg3.png" alt="">
+              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p2"><span>特卖</span> <span>新品</span></p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img src="../../public/static/750商城/images/timg3.png" alt="">
+              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p2"><span>特卖</span> <span>新品</span></p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img src="../../public/static/750商城/images/timg3.png" alt="">
+              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p2"><span>特卖</span> <span>新品</span></p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img src="../../public/static/750商城/images/timg3.png" alt="">
+              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <p class="p2"><span>特卖</span> <span>新品</span></p>
+              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
   </van-container>
 </template>
 
 <script>
-import { Icon } from 'vant'
+
+    import { Icon } from 'vant'
   export default {
     components: {
         'van-icon': Icon
@@ -109,7 +156,22 @@ import { Icon } from 'vant'
     data() {
       return {
           status: 'loading',
-          value: ''
+          value: '',
+          minNavList: [
+              {
+                  title: '风衣外套',
+                  isActive: true
+              },
+              {
+                  title: '暖冬新品'
+              },
+              {
+                  title: '时尚上衣'
+              },
+              {
+                  title: '百搭下装'
+              }
+          ]
       }
     },
     computed: {
@@ -136,6 +198,9 @@ import { Icon } from 'vant'
 
 </script>
 <style lang='scss' scoped>
+  @import "../../public/static/750商城/css/app.css";
+  @import "../../public/static/750商城/css/style.css";
+
   h1 {
     background: red;
     width: 375px;
@@ -276,6 +341,19 @@ import { Icon } from 'vant'
 
   .danNav_box{
     padding-top: 55px;
+  }
+
+  .nav_box6{
+    background: #f2f2f2;
+  }
+  .nav_box8 .nav_li{ display: block;
+    a{ display: block; }
+    .li1{
+      width: 25%; float: left;
+    }
+    p{ width:80%; margin:0 auto; margin-bottom:10px; text-align: center;  font-size: 12px; line-height: 30px; padding: 0px; border-radius:50px;
+       color:#656565; font-size:10px; }
+    .li1.active p{  background: #ed0e3b; color: #fff;    }
   }
 
 </style>

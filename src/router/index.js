@@ -183,6 +183,48 @@ export const constantRoutes = [
     meta: {
       keepAlive: false
     }
+  },
+  {
+    path: '/static-dir/mall',
+    component: () => import('@/pages/static-dir/mall'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/static-dir/crassborder',
+    component: () => import('@/pages/static-dir/crassborder'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/static-dir/daynew',
+    component: () => import('@/pages/static-dir/daynew'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/static-dir/onlinesupermarket',
+    component: () => import('@/pages/static-dir/onlinesupermarket'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/static-dir/seasonalfruit',
+    component: () => import('@/pages/static-dir/seasonalfruit'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/static-dir/sort',
+    component: () => import('@/pages/static-dir/sort'),
+    meta: {
+      keepAlive: false
+    }
   }
 ]
 

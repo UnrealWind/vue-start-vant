@@ -7,7 +7,7 @@
 .fixedHead.act3{ background: rgba(12,115,96,0.9); box-shadow: 0 0 5px #666;z-index: 9}
 .fixedHead .img1{ position: absolute;left: 0.2rem;top:0.3rem; }
 .fixedHead .img2{ position: absolute;right: 0.2rem;top:0.3rem; }
-.fixedHead .fximg{ width: 0.32rem; height: 0.32rem; padding-left: 0.15rem }
+.fixedHead .fximg{ width: 0.32rem; height: 0.32rem; padding-left: 0.15rem; display: none;  }
 .fixedHead3{ background: #fff }
 /*搜索*/
 .searchInput{ background: #fff; border-radius: 0.3rem; height: 0.6rem; overflow: hidden; }
@@ -32,7 +32,7 @@
 /*购物车商品list*/
 .gwcLits{ justify-content: space-between;}
 .gwcLits li{ width: 49%; background: #fff; border-radius: 0.15rem; overflow: hidden; margin-top: 0.2rem;}
-.gwcLits li img{ width: 100%; height: 4rem }
+.gwcLits li img{ width: 100%;   }
 .gwcLits li a{ color: #333 }
 .gwcLits p{ padding:0 0.2rem }
 .gwcLits .p1{overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;  padding: 0 0.2rem;}
@@ -267,6 +267,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .OnlineBox .imgBox img{margin-top: 0.1rem; height: 3rem}
 .OnlineBox .commodityLits{ border-radius: 0.15rem;overflow: hidden;margin-top: 0.2rem; }
 .songzaocan{  background: #00a273; border-radius: 0.15rem; padding: 0.15rem 0; color: #ddffb1 }
+.songzaocan a{ color: #ddffb1; }
 .swiper_time1{ margin-top: 0; border-radius: 0.15rem; overflow: hidden;}
 .swiper_time1 .swiper_minNav{ margin-top: 0rem; }
 .gwcLits_zxcs{margin-top: 0.2rem;}
@@ -294,7 +295,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .pinpaitehui .swiper_time{ margin-top: 0; padding: 0 0.2rem}
 .pinpaitehui .swiper_minNav{ margin: 0;padding: 0; height: auto }
 .pinpaitehui .gwcLits li{margin: 0;}
-.pinpaitehui .gwcLits li img{ width: 100%; height: 2rem; }
+.pinpaitehui .gwcLits li img{ width: 100%;  }
 .pinpaitehui .swiper_minNav p{ color: #e01447 }
 .pinpaitehui .gwcLits p{ padding: 0 }
 .pinpaitehui .gwcLits .p2{ position: relative;padding-bottom: 0.1rem }
