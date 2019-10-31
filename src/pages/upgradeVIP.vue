@@ -6,7 +6,7 @@
     </div>
     <div class="name clearfix">
       <div class="logo fl">
-        <img src="../../src/assets/img/logo.jpg" alt>
+        <img src="../../src/assets/img/logo.jpg" alt />
       </div>
       <div class="fl text">
         <p>
@@ -19,7 +19,7 @@
     <!-- 会员卡部分 -->
     <div class="card clearfix">
       <div class="pic">
-        <img src="../../src/assets/img/图层 1.png" alt>
+        <img src="../../src/assets/img/图层 1.png" alt >
       </div>
       <ul>
         <li>
@@ -27,15 +27,15 @@
           <p>尊享礼包</p>
         </li>
         <li>
-          <img src="../../src/assets/img/图层 3.png" alt>
+          <img src="../../src/assets/img/图层 3.png" alt >
           <p>年省5000元</p>
         </li>
         <li>
-          <img src="../../src/assets/img/图层 4.png" alt>
+          <img src="../../src/assets/img/图层 4.png" alt >
           <p>最高返利40%</p>
         </li>
         <li>
-          <img src="../../src/assets/img/图层 5.png" alt>
+          <img src="../../src/assets/img/图层 5.png" alt >
           <p>3000+品牌</p>
         </li>
       </ul>
@@ -43,7 +43,7 @@
     <!-- 礼包部分 -->
     <div class="gift clearfix">
       <div class="title">
-        <img src="../../src/assets/img/钻石.jpg" alt>
+        <img src="../../src/assets/img/钻石.jpg" alt />
         <span>请选择任一礼包，购买注册</span>
         <i class="line-left"></i>
         <i class="line-right"></i>
@@ -52,7 +52,7 @@
       <div class="commodity">
         <ul>
           <li>
-            <img src="../../src/assets/img/图层 6.png" alt>
+            <img src="../../src/assets/img/图层 6.png" alt />
             <div class="label">美白淡斑 抚痕焕亮</div>
             <span class="tag">欧诗漫珍珠白·沁白亮采礼盒（新包装）</span>
             <span class="money">
@@ -61,7 +61,7 @@
             </span>
           </li>
           <li>
-            <img src="../../src/assets/img/图层 6.png" alt>
+            <img src="../../src/assets/img/图层 6.png" alt />
             <div class="label">美白淡斑 抚痕焕亮</div>
             <span class="tag">欧诗漫珍珠白·沁白亮采礼盒（新包装）</span>
             <span class="money">
@@ -70,7 +70,7 @@
             </span>
           </li>
           <li>
-            <img src="../../src/assets/img/图层 6.png" alt>
+            <img src="../../src/assets/img/图层 6.png" alt />
             <div class="label">美白淡斑 抚痕焕亮</div>
             <span class="tag">欧诗漫珍珠白·沁白亮采礼盒（新包装）</span>
             <span class="money">
@@ -79,7 +79,7 @@
             </span>
           </li>
           <li>
-            <img src="../../src/assets/img/图层 6.png" alt>
+            <img src="../../src/assets/img/图层 6.png" alt />
             <div class="label">美白淡斑 抚痕焕亮</div>
             <span class="tag">欧诗漫珍珠白·沁白亮采礼盒（新包装）</span>
             <span class="money">
@@ -99,7 +99,7 @@
       <ul>
         <li class="clearfix">
           <div class="pic">
-            <img src="../../src/assets/img/图层 7.png" alt>
+            <img src="../../src/assets/img/图层 7.png" alt />
           </div>
           <div class="text">
             <span>
@@ -112,7 +112,7 @@
         </li>
         <li class="clearfix">
           <div class="pic">
-            <img src="../../src/assets/img/图层 7.png" alt>
+            <img src="../../src/assets/img/图层 7.png" alt />
           </div>
           <div class="text">
             <span>
@@ -125,7 +125,7 @@
         </li>
         <li class="clearfix">
           <div class="pic">
-            <img src="../../src/assets/img/图层 7.png" alt>
+            <img src="../../src/assets/img/图层 7.png" alt />
           </div>
           <div class="text">
             <span>
@@ -138,7 +138,7 @@
         </li>
         <li class="clearfix">
           <div class="pic">
-            <img src="../../src/assets/img/图层 7.png" alt>
+            <img src="../../src/assets/img/图层 7.png" alt />
           </div>
           <div class="text">
             <span>
@@ -166,7 +166,7 @@
       <ul class="clearfix">
         <li>
           <div class="pic">
-            <img src="../../src/assets/img/图层 8.png" alt>
+            <img src="../../src/assets/img/图层 8.png" alt />
           </div>
           <span>
             分享赚 ￥
@@ -177,7 +177,7 @@
         </li>
         <li>
           <div class="pic">
-            <img src="../../src/assets/img/图层 8.png" alt>
+            <img src="../../src/assets/img/图层 8.png" alt />
           </div>
           <span>
             分享赚 ￥
@@ -188,7 +188,7 @@
         </li>
         <li>
           <div class="pic">
-            <img src="../../src/assets/img/图层 8.png" alt>
+            <img src="../../src/assets/img/图层 8.png" alt />
           </div>
           <span>
             分享赚 ￥
@@ -199,7 +199,7 @@
         </li>
         <li>
           <div class="pic">
-            <img src="../../src/assets/img/图层 8.png" alt>
+            <img src="../../src/assets/img/图层 8.png" alt />
           </div>
           <span>
             分享赚 ￥
@@ -215,14 +215,14 @@
       <h2>·一线大牌直供·</h2>
       <span>直接与品牌合作，从源头确保低价正品</span>
       <div class="pic">
-        <img src="../../src/assets/img/图层 9.png" alt>
+        <img src="../../src/assets/img/图层 9.png" alt />
       </div>
       <h2>云集速度 不断刷新</h2>
       <div class="list">
         <ul class="clearfix">
           <li>
             <div class="pic">
-              <img src="../../src/assets/img/图层 10.png" alt>
+              <img src="../../src/assets/img/图层 10.png" alt />
             </div>
             <div class="text">
               <span>
@@ -233,7 +233,7 @@
           </li>
           <li>
             <div class="pic">
-              <img src="../../src/assets/img/图层 10.png" alt>
+              <img src="../../src/assets/img/图层 10.png" alt />
             </div>
             <div class="text">
               <span>
@@ -244,7 +244,7 @@
           </li>
           <li>
             <div class="pic">
-              <img src="../../src/assets/img/图层 10.png" alt>
+              <img src="../../src/assets/img/图层 10.png" alt />
             </div>
             <div class="text">
               <span>
@@ -255,7 +255,7 @@
           </li>
           <li>
             <div class="pic">
-              <img src="../../src/assets/img/图层 10.png" alt>
+              <img src="../../src/assets/img/图层 10.png" alt />
             </div>
             <div class="text">
               <span>
@@ -270,12 +270,12 @@
   </van-VIP>
 </template>
 <script>
-import { Icon } from 'vant'
+import { Icon } from "vant";
 export default {
   components: {
-    'van-icon': Icon
+    "van-icon": Icon
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -326,6 +326,7 @@ export default {
   height: 9rem;
   .pic {
     background: -webkit-linear-gradient(left, #fba96c, #fe8271);
+    padding-top:0.4rem;
     img {
       width: 9.6rem;
       vertical-align: middle;
@@ -369,13 +370,12 @@ export default {
       top: 10px;
       left: -58px;
     }
-    .line-right{
-        position: absolute;
-        top: 10px;
-        right: -50px;
+    .line-right {
+      position: absolute;
+      top: 10px;
+      right: -50px;
     }
   }
-}
 .commodity {
   ul {
     padding: 0.6rem 0.2rem 0 0.2rem;
@@ -411,6 +411,7 @@ export default {
       }
       .tag {
         font-size: 0.28rem;
+        text-align: left;
       }
       .money {
         font-size: 0.42rem;
@@ -423,6 +424,7 @@ export default {
       }
     }
   }
+}
 }
 .tradePrice {
   padding: 0 0.9rem;
@@ -549,11 +551,11 @@ export default {
     margin: 0.58rem auto;
   }
   span {
-    color: #adadad;
+    color: #fff;
     font-size: 0.4rem;
   }
   .pic {
-      padding-top: 0.3rem;
+    padding-top: 0.3rem;
     img {
       width: 100%;
     }
