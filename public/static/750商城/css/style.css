@@ -1,0 +1,54 @@
+/*-webkit-overflow-scrolling:touch;*/
+* {margin: 0;padding: 0;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+			}
+
+li,p,h1,h2{ margin: 0;padding: 0; list-style: none;  }
+a{text-decoration:none;}
+html{font-size:100px; width:100%; height:100%;}
+body{ font-size:0.28rem;-webkit-overflow-scrolling : touch;  background-size: 100%;  font-family: "微软雅黑"; background: #f2f2f2;
+}
+input,samp,p{ font-family: "微软雅黑";}
+
+input:focus{
+    outline: medium;
+}
+.right{ float: right;}
+/*弹性布局*/
+.flex{ display:-webkit-flex;display: flex;align-items: center; }
+.flex_around{ display:-webkit-flex;display: flex;  justify-content: space-around;align-items: center;    }
+.flex_between{display:-webkit-flex;display: flex;  justify-content: space-between;}
+.flex_betweenc{display:-webkit-flex;display: flex;  justify-content: space-between;align-items: center;}
+.flex_center{display:-webkit-flex;display: flex;  justify-content: center;align-items: center; }
+.flex_wrap{ display:-webkit-flex;display: flex; flex-direction:wrap ; flex-wrap:wrap ;}
+.box_sizing{box-sizing:border-box;  -moz-box-sizing:border-box; /* Firefox */  -webkit-box-sizing:border-box; /* Safari */  }
+
+.textOver2{display: -webkit-box;overflow: hidden;-webkit-box-orient: vertical;-webkit-line-clamp: 2; }
+/*修改提示文字的颜色*/
+
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+color: #666; font-size: .3rem; 
+} 
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+color: #666; font-size:  .3rem; 
+}
+
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+color: #666; font-size:  .3rem; 
+} 
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+color: #666; font-size:  .3rem; 
+} 
+
+.brs1{border-radius: 0.1rem;}
+.mt3{margin-top:0.3rem ;}
+.mt7{margin-top:0.7rem ;}
+.pl{padding-left: 0.1rem;}
+.p2{ padding: 0 0.2rem }
+.mb3{ margin-bottom: 0.3rem }
+.swiper-container,.swiper-container1 {
+    width: 100%;
+    height: 100%;
+}
+
