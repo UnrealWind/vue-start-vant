@@ -126,6 +126,42 @@
       </div>
     </div>
 
+    <div>
+      <ul class="flex_wrap gwcLits gwcLits_SG">
+        <li>
+          <a href="javascript:;">
+            <img src="../../public/static/750商城/images/timg3.png" alt="">
+            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+            <p class="p2"><span>特卖</span> <span>新品</span></p>
+            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <img src="../../public/static/750商城/images/timg3.png" alt="">
+            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+            <p class="p2"><span>特卖</span> <span>新品</span></p>
+            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <img src="../../public/static/750商城/images/timg3.png" alt="">
+            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+            <p class="p2"><span>特卖</span> <span>新品</span></p>
+            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;">
+            <img src="../../public/static/750商城/images/timg3.png" alt="">
+            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+            <p class="p2"><span>特卖</span> <span>新品</span></p>
+            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </van-container>
 </template>
 
@@ -271,6 +307,8 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
 
 </script>
 <style lang='scss' scoped>
+  @import "../../public/static/750商城/css/app.css";
+  @import "../../public/static/750商城/css/style.css";
   h1 {
     background: red;
     width: 375px;

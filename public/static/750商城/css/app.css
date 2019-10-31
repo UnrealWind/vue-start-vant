@@ -42,7 +42,7 @@
 .gwcLits .p3 span{text-decoration: line-through;color: #666}
 .gwcLits .p3 img{ width:0.5rem; height: 0.5rem }
 /*小导航滑动*/
-.swiper_minNav{ height: 1.5rem; margin-top: 0.3rem; text-align: center;}	
+.swiper_minNav{ height: 1.5rem; margin-top: 0.3rem; text-align: center;}
 .swiper_minNav img.IMG1{ width: 0.55rem; height: 0.55rem }
 .swiper_minNav img.IMG2{ width: 0.4rem; height: 0.15rem; display: none; }
 .swiper_minNav img.IMG3{width: 0.55rem; height: 0.55rem; display: none; }
@@ -65,7 +65,7 @@
 .topHead .logoBox a{color: #fff; font-size: 0.28rem; border:2px solid #fff;border-radius: 0.3rem; padding:0 0.1rem; height: 0.35rem; line-height: 0.32rem}
 .topHead .box2{ background:#eceaed;  height: 2.8rem; background-size: 100%;}
 .title_xl{  height: 0.6rem;line-height: 0.6rem; position: absolute;left: 0;top:0.2rem;}
-.title_xl .p1{ color: #fff; margin-right: 0.1rem;	
+.title_xl .p1{ color: #fff; margin-right: 0.1rem;
     background:-webkit-linear-gradient(left,#f7362f,#fff);
 	background:-o-linear-gradient(right,#f7362f,#fff);
 	background:-moz-linear-gradient(right,#f7362f,#fff);
@@ -80,13 +80,13 @@
 /*每日好店标题*/
 .everyday_shop{ padding: 0.2rem; margin-top: 0.2rem; }
 .everyday_shop h1{ font-size: 0.35rem; color: #222}
-.everyday_shop span{ font-size: 0.26rem; color: #666;padding-left: 0.1rem;padding-top: 0.1rem} 
+.everyday_shop span{ font-size: 0.26rem; color: #666;padding-left: 0.1rem;padding-top: 0.1rem}
 
 /*进店*/
 .Storefront_cont{}
 .Storefront_cont img{ width: 1rem; height: 1rem;border:1px solid #fff8f8; padding: 0.1rem }
 .Storefront_cont .box1 span{ display: block; padding-left: 0.1rem;padding-bottom: 0.05rem; }
-.Storefront_cont .box1 .bj{ background: url(../images/title.png) no-repeat; background-size: auto 100%; height: 0.5rem; line-height: 0.5rem;  
+.Storefront_cont .box1 .bj{ background: url(../images/title.png) no-repeat; background-size: auto 100%; height: 0.5rem; line-height: 0.5rem;
 	width: 3rem; display: block; color: #fff}
 .Storefront_cont .box2 a{ border:1px solid #cabfc3; color: #ac4155; border-radius: 0.3rem; padding: 0.05rem  0.2rem }
 .Storefront{ background: #fff; padding:0.2rem }
@@ -123,19 +123,19 @@
 .topHead1 .box1{ background: none; height: 5.2rem}
 .topHead1 .searchInput{ background: #c171f8 }
 .topHead1 input{ color: #fff; background: #c171f8 }
-.topHead1 input::-webkit-input-placeholder { /* WebKit browsers */ 
-color: #fff; font-size: .3rem; 
-} 
-.topHead1 input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
-color: #fff; font-size:  .3rem; 
+.topHead1 input::-webkit-input-placeholder { /* WebKit browsers */
+color: #fff; font-size: .3rem;
+}
+.topHead1 input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color: #fff; font-size:  .3rem;
 }
 
-.topHead1 input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
-color: #fff; font-size:  .3rem; 
-} 
-.topHead1 input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
-color: #fff; font-size:  .3rem; 
-} 
+.topHead1 input::-moz-placeholder { /* Mozilla Firefox 19+ */
+color: #fff; font-size:  .3rem;
+}
+.topHead1 input:-ms-input-placeholder { /* Internet Explorer 10+ */
+color: #fff; font-size:  .3rem;
+}
 /*焦点图*/
 .swiper_tabBox{height: 3rem; background: #fff;border-radius: 0.2rem; position: relative; overflow: hidden;}
 .swiper_tabBox img{ width: 100%; height: 100% }
@@ -174,7 +174,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .bangdan2 .li2 a{ color: #ca9068;padding-right: 0.15rem}
 .bangdan2 img{ width: 60% }
 /*种草推荐*/
-.tuijianBox h1{ font-size: 0.32rem }		
+.tuijianBox h1{ font-size: 0.32rem }
 .tuijianBox .box2 a{ color: #666;border:0px; }
 .tuijianBox .img1{ width: 100%;margin-top: 0.2rem;border-radius: 0.15rem }
 .tuijianBox .title{ padding: 0.2rem 0;  font-size: 0.28rem; font-weight: 555}
@@ -220,7 +220,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .TryToEat{ background: #fff;  padding: 0.2rem; }
 .TryToEat .imgBox{ position: relative; width: 100%; height: 4rem;border-top-left-radius: 0.15rem;border-top-right-radius: 0.15rem; overflow: hidden; }
 .TryToEat .imgBox .img1{width: 100%; height: 100%;}
-.TryToEat .imgBox p.pop{ width: 1rem; height: 1rem; position: absolute;left: 0.2rem;top:0rem; background: url(images/bq.png); background-size: 100%; color: #fff; 
+.TryToEat .imgBox p.pop{ width: 1rem; height: 1rem; position: absolute;left: 0.2rem;top:0rem; background: url(../images/bq.png); background-size: 100%; color: #fff;
 	font-size: 0.3rem; padding:0rem 0.2rem;opacity: 0.8}
 .TryToEat .imgBox p.qiang{ width: 100%; height: 4rem; position: absolute;left: 0rem;top:0rem; background: rgba(0,0,0,0.5);  z-index: 9; font-size: 0.6rem; color: #f2f2f2}
 .TryToEat .textBox{ padding: 0.2rem }
@@ -277,7 +277,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 /*超值好物*/
 .title_super h1{ font-size: 0.34rem; color: #222 }
 .title_super p{ font-size: 0.28rem; color: #009979; padding-left: 0.1rem}
-.title_super p span{ display: block; width: 0.3rem; height: 0.3rem; margin-left: 0.05rem; text-align: center; background: #009979; color: #fff; border-radius: 50%; 
+.title_super p span{ display: block; width: 0.3rem; height: 0.3rem; margin-left: 0.05rem; text-align: center; background: #009979; color: #fff; border-radius: 50%;
 	font-size: 0.3rem; line-height: 0.25rem }
 	.jiujiu { border-bottom: 1px solid #ececec; padding-bottom: 0.3rem }
 .jiujiu li{ width: 32% }
