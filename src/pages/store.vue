@@ -109,34 +109,34 @@
           <ul class="flex_wrap gwcLits ">
             <li>
               <a @click="$router.push('/static/introduction')">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
-                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/waibao/images/gwc2.png" alt=""></div>
               </a>
             </li>
             <li>
               <a @click="$router.push('/static/introduction')">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
-                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/waibao/images/gwc2.png" alt=""></div>
               </a>
             </li>
             <li>
               <a @click="$router.push('/static/introduction')">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
-                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/waibao/images/gwc2.png" alt=""></div>
               </a>
             </li>
             <li>
               <a @click="$router.push('/static/introduction')">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
-                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/750商城/images/gwc2.png" alt=""></div>
+                <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../public/static/waibao/images/gwc2.png" alt=""></div>
               </a>
             </li>
           </ul>
@@ -218,8 +218,8 @@ import { Icon, Search } from 'vant'
 
 </script>
 <style lang='scss' scoped>
-  @import "../../public/static/750商城/css/app.css";
-  @import "../../public/static/750商城/css/style.css";
+  @import "../../public/static/waibao/css/app.css";
+  @import "../../public/static/waibao/css/style.css";
 
   .gwcLits{
     padding-bottom: 10px;

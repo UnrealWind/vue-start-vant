@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>消息列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+
+		<link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+
+		<link href="../css/personal.css" rel="stylesheet" type="text/css">
+		<link href="../css/colstyle.css" rel="stylesheet" type="text/css">
+				<script src="../AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+		<script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+
+		<style type="text/css">
+			.news{	
+				padding-right:10px;
+				margin-bottom: 5px;
+				margin-top:5px;
+			}
+			.news > div{
+				height:190px;
+			    /*border:1px solid gray;*/
+				margin:0 5px;
+				box-shadow:0px 0px 0px 0px,
+						   0px 0px 0px 0px ,
+						   0px 2px 3px -1px gray,
+						   2px 0px 3px -1px gray;
+				border-radius: 5px;
+			}
+			.news-title{
+				background-color: #eeeeee;
+				height:35px;
+				border-bottom:1px solid #999999;
+			}
+			.news-body{
+				background-color: white;
+				padding:8px 15px;
+				border-radius: 5px;
+				height: calc( 100% - 35px );
+			}
+			.news-body-p{
+				margin:4px 0;
+				display: block;
+			}
+
+			.am-nav-tabs li{
+				width:33.3%;
+			}
+			.am-active{
+				border-bottom-color: #F03726!important;
+			}
+			.am-active:after {
+			    border-bottom-color: #F03726!important;
+			}
+			.am-active a {
+			    color: #F03726!important;
+			}
+			[class*="am-u-md"],[class*="am-u-sm"] {
+			     padding-left: 0rem; 
+			     padding-right: 0rem; 
+			}
+			.name{
+				float:left;
+				line-height:23px!important; 
+				font-size:16px;
+				font-weight: bold;
+				letter-spacing:1px;
+				margin-left:10px;
+			}
+			.time{
+				float:right;
+				margin:0px 5px;
+				padding:0px 5px;
+				color:white;
+
+			}
+			.status{
+				float:right;
+				margin:0px 5px;
+				padding:0px 5px;
+				color:white;
+			}
+			.dataFlag{
+				float:right;
+				margin:0px 5px;
+				padding:0px 5px;
+				color:white;
+			}
+			.news span{			
+				line-height:20px; 
+				margin-top:5px;
+			}
+			.am-article-divider{
+				margin-top:2rem;
+			}
+			.am-tabs-bd .am-tab-panel{
+				padding:10px 0px 15px 0px;
+			}
+
+		</style>
+</head>
+<body>
+  <div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+  <ul class="am-tabs-nav am-cf">
+      <li class="am-active"><a href="[data-tab-panel-0]">全部消息</a></li>
+     
+      <li class=""><a href="[data-tab-panel-1]">未读消息</a></li>
+
+      <li class=""><a href="[data-tab-panel-2]">已读消息</a></li>
+  </ul>
+  <div class="am-tabs-bd">
+      <div data-tab-panel-0 class="am-tab-panel am-active">
+
+	       	<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news">
+	       		<div>
+	       			<div class="news-title">
+			       		<span class="name">下单</span>
+			       		<span class="dataFlag am-radius am-badge">删除</span>
+			       		<span class="status am-radius am-badge-warning">已读</span>
+			       		<span class="time am-radius am-badge-danger">2019-12-12 00:00:00</span>
+			       	</div>
+		       		<div class="news-body">
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>联系地址</span><span>:</span><span style="">河北省石家庄市长安区北二环东路68号捷凯双创孵化基地</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>		
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>	       		
+		       		</div>
+				</div>
+	       	</div>
+	       	<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news">
+	       		<div>
+	       			<div class="news-title">
+			       		<span class="name">订单确认</span>
+			       		<span class="dataFlag am-radius am-badge">删除</span>
+			       		<span class="status am-radius am-badge-warning">已读</span>
+			       		<span class="time am-radius am-badge-danger">2019-12-12 00:00:00</span>
+			       	</div>
+		       		<div class="news-body">
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>联系地址</span><span>:</span><span style="">河北省石家庄市长安区北二环东路68号捷凯双创孵化基地</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>		
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>	       		
+		       		</div>
+				</div>
+	       	</div>
+
+	       	<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news">
+	       		<div>
+	       			<div class="news-title">
+			       		<span class="name">待发货</span>
+			       		<span class="dataFlag am-radius am-badge">删除</span>
+			       		<span class="status am-radius am-badge-warning">已读</span>
+			       		<span class="time am-radius am-badge-danger">2019-12-12 00:00:00</span>
+			       	</div>
+		       		<div class="news-body">
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>联系地址</span><span>:</span><span style="">河北省石家庄市长安区北二环东路68号捷凯双创孵化基地</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>		
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>	       		
+		       		</div>
+				</div>
+	       	</div>
+
+	       	<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news">
+	       		<div>
+	       			<div class="news-title">
+			       		<span class="name">待收货</span>
+			       		<span class="dataFlag am-radius am-badge">删除</span>
+			       		<span class="status am-radius am-badge-warning">已读</span>
+			       		<span class="time am-radius am-badge-danger">2019-12-12 00:00:00</span>
+			       	</div>
+		       		<div class="news-body">
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>联系地址</span><span>:</span><span style="">河北省石家庄市长安区北二环东路68号捷凯双创孵化基地</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>		
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>	       		
+		       		</div>
+				</div>
+	       	</div>
+
+	       	<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news">
+	       		<div>
+	       			<div class="news-title">
+			       		<span class="name">待评价</span>
+			       		<span class="dataFlag am-radius am-badge">删除</span>
+			       		<span class="status am-radius am-badge-warning">已读</span>
+			       		<span class="time am-radius am-badge-danger">2019-12-12 00:00:00</span>
+			       	</div>
+		       		<div class="news-body">
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>联系地址</span><span>:</span><span style="">河北省石家庄市长安区北二环东路68号捷凯双创孵化基地</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>		
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>	       		
+		       		</div>
+				</div>
+	       	</div>
+
+	       	<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news">
+	       		<div>
+	       			<div class="news-title">
+			       		<span class="name">已完成</span>
+			       		<span class="dataFlag am-radius am-badge">删除</span>
+			       		<span class="status am-radius am-badge-warning">已读</span>
+			       		<span class="time am-radius am-badge-danger">2019-12-12 00:00:00</span>
+			       	</div>
+		       		<div class="news-body">
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>联系地址</span><span>:</span><span style="">河北省石家庄市长安区北二环东路68号捷凯双创孵化基地</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>		
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>	       		
+		       		</div>
+				</div>
+	       	</div>
+
+	       	<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news">
+	       		<div>
+	       			<div class="news-title">
+			       		<span class="name">下单</span>
+			       		<span class="dataFlag am-radius am-badge">删除</span>
+			       		<span class="status am-radius am-badge-warning">已读</span>
+			       		<span class="time am-radius am-badge-danger">2019-12-12 00:00:00</span>
+			       	</div>
+		       		<div class="news-body">
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>联系地址</span><span>:</span><span style="">河北省石家庄市长安区北二环东路68号捷凯双创孵化基地</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>		
+		       			<div class="news-body-p"><span>店铺</span><span>:</span><span>优户-kamen商店</span></div>	       		
+		       		</div>
+				</div>
+	       	</div>
+
+
+
+			<div class="am-u"></div>
+	      </div>
+      <div data-tab-panel-1 class="am-tab-panel ">
+
+		<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+		<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+		<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+
+  		<div class="am-u"></div>
+      </div>
+      <div data-tab-panel-2 class="am-tab-panel">
+
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+<div class=" am-u-lg-3 am-u-md-12 am-u-sm-12 news"></div>
+
+ 
+		
+		 <div class="am-u"></div>
+      </div>
+
+  </div>
+  </div>
+</body>
+</html>

@@ -31,7 +31,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -42,7 +42,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -53,7 +53,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -64,7 +64,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -75,7 +75,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -86,7 +86,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -97,7 +97,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -108,7 +108,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -119,7 +119,7 @@
           <li>
             <a @click="$router.push('/static/introduction')">
               <div class="p2">
-                <img src="../../public/static/750商城/images/timg3.png" alt="">
+                <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
               </div>
               <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -192,8 +192,8 @@ import { Swipe, SwipeItem, Icon } from 'vant'
 </script>
 <style lang='scss' scoped>
 
-  @import "../../public/static/750商城/css/app.css";
-  @import "../../public/static/750商城/css/style.css";
+  @import "../../public/static/waibao/css/app.css";
+  @import "../../public/static/waibao/css/style.css";
 
   .gwcLits{
     font-size: 14px;

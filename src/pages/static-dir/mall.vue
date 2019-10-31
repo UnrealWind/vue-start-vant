@@ -1,7 +1,7 @@
 <!-- home -->
 <template>
   <van-container :status="status" :iframe="true">
-    <iframe id="scroll" style="width:100%;height: 100%;" src="/static/750商城/商城.html"></iframe>
+    <iframe id="scroll" style="width:100%;height: 100%;" src="/static/waibao/mall.html"></iframe>
   </van-container>
 </template>
 

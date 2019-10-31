@@ -1,7 +1,7 @@
 <!-- home -->
 <template>
   <van-container :tabbar="true" :status="status" :active="1" :iframe="true">
-    <iframe id="scroll" style="width:100%;height: 100%;" src="/static/html/静态页面-商城模板/朋友圈/index.html"></iframe>
+    <iframe id="scroll" style="width:100%;height: 100%;" src="/static/html/malltemplate/friends/index.html"></iframe>
   </van-container>
 </template>
 

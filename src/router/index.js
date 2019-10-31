@@ -239,6 +239,13 @@ export const constantRoutes = [
     meta: {
       keepAlive: false
     }
+  },
+  {
+    path: '/static/news',
+    component: () => import('@/pages/static-dir/news'),
+    meta: {
+      keepAlive: false
+    }
   }
 ]
 

@@ -2,7 +2,7 @@
 <template>
   <van-container :status="status" :tabbar="true">
     <div slot="header" class="fix">
-      <div class="hesde_l l"><van-icon name="chat-o" /> </div>
+      <div class="hesde_l l" @click="$router.push('/static/news')"> <van-icon name="chat-o" /> </div>
       <div class="hesde_l2 l">
         <van-search v-model="value" placeholder="请输入搜索关键词" />
         <div class="p"> <van-icon name="scan" /> </div>
