@@ -225,6 +225,13 @@ export const constantRoutes = [
     meta: {
       keepAlive: false
     }
+  },
+  {
+    path: '/iframe',
+    component: () => import('@/pages/iframe'),
+    meta: {
+      keepAlive: false
+    }
   }
 ]
 

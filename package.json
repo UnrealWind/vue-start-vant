@@ -53,6 +53,19 @@
     "node": ">=8.9",
     "npm": ">= 3.0.0"
   },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+        "language": "html",
+        "autoFix": true
+    },
+    {
+        "language": "vue",
+        "autoFix": true
+    }
+],
+"eslint.autoFixOnSave": true,
   "browserslist": [
     "> 1%",
     "ie >= 8",

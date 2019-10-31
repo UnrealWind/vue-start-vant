@@ -1,5 +1,5 @@
 <template>
-  <van-VIP>
+  <div>
     <!-- 头部 -->
     <div slot="header" class="top">
       <span @click="$router.back()"> <van-icon name="arrow-left" /> </span>
@@ -268,7 +268,7 @@
         </ul>
       </div>
     </div>
-  </van-VIP>
+  </div>
 </template>
 <script>
 import { Icon } from 'vant'
@@ -280,6 +280,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  i {
+    font-style: normal;
+  }
 .top {
   position: relative;
   height: 1.3rem;
@@ -327,6 +330,7 @@ export default {
   height: 9rem;
   .pic {
     background: -webkit-linear-gradient(left, #fba96c, #fe8271);
+    padding-top:0.4rem;
     img {
       width: 9.6rem;
       vertical-align: middle;
@@ -370,13 +374,12 @@ export default {
       top: 10px;
       left: -58px;
     }
-    .line-right{
-        position: absolute;
-        top: 10px;
-        right: -50px;
+    .line-right {
+      position: absolute;
+      top: 10px;
+      right: -50px;
     }
   }
-}
 .commodity {
   ul {
     padding: 0.6rem 0.2rem 0 0.2rem;
@@ -412,6 +415,7 @@ export default {
       }
       .tag {
         font-size: 0.28rem;
+        text-align: left;
       }
       .money {
         font-size: 0.42rem;
@@ -424,6 +428,7 @@ export default {
       }
     }
   }
+}
 }
 .tradePrice {
   padding: 0 0.9rem;
@@ -550,11 +555,11 @@ export default {
     margin: 0.58rem auto;
   }
   span {
-    color: #adadad;
+    color: #fff;
     font-size: 0.4rem;
   }
   .pic {
-      padding-top: 0.3rem;
+    padding-top: 0.3rem;
     img {
       width: 100%;
     }
