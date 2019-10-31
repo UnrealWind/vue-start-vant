@@ -176,6 +176,13 @@ export const constantRoutes = [
     meta: {
       keepAlive: false
     }
+  },
+  {
+    path: '/upgradeVIP',
+    component: () => import('@/pages/upgradeVIP'),
+    meta: {
+      keepAlive: false
+    }
   }
 ]
 
