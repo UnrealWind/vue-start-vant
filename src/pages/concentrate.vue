@@ -19,7 +19,7 @@
           <a href="" class="img" @click="$router.push('/bookinginformation')"> <img src="../assets/img/jiangtu1.png" alt="">  </a>
         </div>
         <div class="nav3_l r">
-          <a href="" class="img" @click="$router.push('/试用中心')"> <img src="../assets/img/jiangtu12.png" alt="">  </a>
+          <a href="" class="img" @click="$router.push('/trialcenter')"> <img src="../assets/img/jiangtu12.png" alt="">  </a>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@
 
         <ul class="flex_wrap gwcLits ">
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -98,7 +98,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -106,7 +106,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -114,7 +114,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -213,6 +213,17 @@ import { Swipe, SwipeItem, Icon } from 'vant'
 <style lang='scss' scoped>
   @import "../../public/static/750商城/css/app.css";
   @import "../../public/static/750商城/css/style.css";
+
+  .gwcLits{
+    padding-bottom: 10px;
+    p{
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .p2 span{
+      font-size: 12px;
+    }
+  }
 
   .header {
     background: #fff;

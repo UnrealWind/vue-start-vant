@@ -232,7 +232,7 @@ import { Icon, Search } from 'vant'
   }
   .nav_box {
     padding-bottom: 10px;
-    padding-top: 80px;
+    padding-top: 70px;
     background:#f2f2f2;
     background-size: contain;
     position: relative;

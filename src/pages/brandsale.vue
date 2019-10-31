@@ -12,14 +12,11 @@
     <div class="nav_box danNav_box dan_wrap fix">
       <div class="wp">
         <div class="nav_concent">
-
-          <a href="" class="img" @click="$router.push('/static/introduction')"><img src="../assets/img/brandtu1.png" alt=""> </a>
-
+          <a href="" class="img" @click="$router.push('/store')"><img src="../assets/img/brandtu1.png" alt=""> </a>
           <div class="nav_img fix">
-            <a href="" class="img l" @click="$router.push('/static/introduction')"> <img src="../assets/img/brandtu12.png" alt="">  </a>
-            <a href="" class="img l" @click="$router.push('/static/introduction')"> <img src="../assets/img/brandtu13.png" alt="">  </a>
+            <a href="" class="img l" @click="$router.push('/store')"> <img src="../assets/img/brandtu12.png" alt="">  </a>
+            <a href="" class="img l" @click="$router.push('/store')"> <img src="../assets/img/brandtu13.png" alt="">  </a>
           </div>
-
           <div class="img"><img src="../assets/img/brandtu14.png" alt=""> </div>
         </div>
       </div>
@@ -27,7 +24,7 @@
 
     <div class="nav_box2 dan_wrap fix">
       <div class="wp">
-        <a href="" class="img" @click="$router.push('/static/introduction')"><img src="../assets/img/brandtu15.png" alt=""> </a>
+        <a href="" class="img" @click="$router.push('/store')"><img src="../assets/img/brandtu15.png" alt=""> </a>
       </div>
     </div>
 
@@ -108,7 +105,7 @@
 
         <ul class="flex_wrap gwcLits ">
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -116,7 +113,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -124,7 +121,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -132,7 +129,7 @@
             </a>
           </li>
           <li>
-            <a href="javascript:;">
+            <a @click="$router.push('/static/introduction')">
               <img src="../../public/static/750商城/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -200,6 +197,17 @@
 <style lang='scss' scoped>
   @import "../../public/static/750商城/css/app.css";
   @import "../../public/static/750商城/css/style.css";
+
+  .gwcLits{
+    padding-bottom: 10px;
+    p{
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .p2 span{
+      font-size: 12px;
+    }
+  }
 
   h1 {
     background: red;
