@@ -7,7 +7,7 @@
         <van-search v-model="value" placeholder="请输入搜索关键词" />
         <div class="p"> <van-icon name="scan" /> </div>
       </div>
-      <div class="hesde_l3 r"> <van-icon name="apps-o" />  </div>
+      <div class="hesde_l3 r" @click="$router.push('/static-dir/sort')"> <van-icon name="apps-o" />  </div>
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">

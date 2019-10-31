@@ -208,7 +208,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 
 /*时间滑动*/
 .swiper_time{ position: relative; background: #fff; margin-top: 1rem; }
-.swiper_time .month{ position: absolute;left: 0;top:0; height: 1.5rem; width: 1.5rem; box-shadow: 5px 0px 10px #f6f1f4; background: #fff; z-index: 9; text-align: center; }
+.swiper_time .month{ position: absolute;left: 0;top:0; height: 1.5rem; width: 1.5rem; box-shadow: 5px 0px 10px #f6f1f4; background: #fff; z-index: 3; text-align: center; }
 .swiper_time .month h1{ font-size: 0.35rem ; color: #333}
 .swiper_time .month p{ font-size: 0.28rem; color: #666 }
 .swiper_time .box-time h1{ font-size: 0.35rem ; color: #333; font-weight: 500}
@@ -222,7 +222,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .TryToEat .imgBox .img1{width: 100%; height: 100%;}
 .TryToEat .imgBox p.pop{ width: 1rem; height: 1rem; position: absolute;left: 0.2rem;top:0rem; background: url(../images/bq.png); background-size: 100%; color: #fff;
 	font-size: 0.3rem; padding:0rem 0.2rem;opacity: 0.8}
-.TryToEat .imgBox p.qiang{ width: 100%; height: 4rem; position: absolute;left: 0rem;top:0rem; background: rgba(0,0,0,0.5);  z-index: 9; font-size: 0.6rem; color: #f2f2f2}
+.TryToEat .imgBox p.qiang{ width: 100%; height: 4rem; position: absolute;left: 0rem;top:0rem; background: rgba(0,0,0,0.5);  z-index: 3; font-size: 0.6rem; color: #f2f2f2}
 .TryToEat .textBox{ padding: 0.2rem }
 .TryToEat h1{ font-size: 0.32rem; color: #222 }
 .TryToEat .p1{ font-size: 0.28rem; color: #666; padding: 0.1rem 0 }

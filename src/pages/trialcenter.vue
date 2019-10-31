@@ -9,13 +9,23 @@
       <div class="hesde_l3"> <van-icon name="share" />  </div>
       <div class="hesde_l4" @click="$router.push('/static/introduction')"> <van-icon name="cart-o" />  </div>
     </div>
-    <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item> <img src="../assets/img/hottu1.png" alt=""></van-swipe-item>
-    </van-swipe>
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
+        <div v-for="(vip,index) in vipDataMin" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/static/introduction')">
 
+          <commodity
+            :type="vip.type"
+            :image="vip.image"
+            :discribe="vip.discribe"
+            :title="vip.title"
+            :vip-price="vip.vipPrice"
+            :vip-price-discribe="vip.vipPriceDiscribe"
+            :btn-go="vip.btnGo"
+          >
+          </commodity>
+
+        </div>
       </div>
     </div>
 
@@ -23,17 +33,77 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon } from 'vant'
+import { Icon } from 'vant'
   export default {
     components: {
-        'van-swipe': Swipe,
-        'van-swipe-item': SwipeItem,
         'van-icon': Icon
     },
     data() {
       return {
           status: 'loading',
-          value: ''
+          value: '',
+          vipDataMin: [
+              {
+                  'type': 'list-vip',
+                  'discribe': '直降7元',
+                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
+                  'vipPriceDiscribe': {
+                      'type': '申请试用'
+                  },
+                  'vipPrice': {
+                      'current': '123',
+                      'pre': '134'
+                  },
+                  'btnGo': '/static/introduction',
+                  'image': require('assets/img/viptu12.png')
+              },
+              {
+                  'type': 'list-vip',
+                  'discribe': '直降7元',
+                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
+                  'vipPriceDiscribe': {
+                      'type': '抢购中',
+                      'num': '1234',
+                      'percent': '12'
+                  },
+                  'vipPrice': {
+                      'current': '123',
+                      'pre': '134'
+                  },
+                  'btnGo': '/static/introduction',
+                  'image': require('assets/img/viptu12.png')
+              },
+              {
+                  'type': 'list-vip',
+                  'discribe': '直降7元',
+                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
+                  'vipPriceDiscribe': {
+                      'type': '申请试用'
+                  },
+                  'vipPrice': {
+                      'current': '123',
+                      'pre': '134'
+                  },
+                  'btnGo': '/static/introduction',
+                  'image': require('assets/img/viptu12.png')
+              },
+              {
+                  'type': 'list-vip',
+                  'discribe': '直降7元',
+                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
+                  'vipPriceDiscribe': {
+                      'type': '抢购中',
+                      'num': '1234',
+                      'percent': '12'
+                  },
+                  'vipPrice': {
+                      'current': '123',
+                      'pre': '134'
+                  },
+                  'btnGo': '/static/introduction',
+                  'image': require('assets/img/viptu12.png')
+              }
+          ]
       }
     },
     computed: {
@@ -81,12 +151,6 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     visibility: hidden;
   }
   .dan_wrap{ background: #f7f7f7; .wp{ width: 95%; margin: 0 auto;  } }
-  .van-swipe {
-    img {
-      display: block;
-      width:100%;
-     }
-  }
 
   .header{
     .fix{
@@ -106,6 +170,14 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     .p { font-size: 16px;  color: #333;  }
   }
 
-  .nav_box4{ background: red; height: 100px; }
+  .nav_box4{
+    padding-top: 60px;
+    padding-bottom: 20px;
+    .navdan_box4{
+      margin-bottom: 10px;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+  }
 
 </style>

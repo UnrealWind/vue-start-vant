@@ -6,7 +6,7 @@
       <div class="hesde_l2 l">
         <van-search v-model="value" placeholder="请输入搜索关键词" />
       </div>
-      <div class="hesde_l3 r"> <van-icon name="share" />  </div>
+      <div class="hesde_l3 r" @click="$router.push('/storelist')"> <van-icon name="bars" /> </div>
     </div>
 
     <div class="nav_box dan_wrap fix">
@@ -108,7 +108,7 @@
         <div class="wp">
           <ul class="flex_wrap gwcLits ">
             <li>
-              <a href="javascript:;">
+              <a @click="$router.push('/static/introduction')">
                 <img src="../../public/static/750商城/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -116,7 +116,7 @@
               </a>
             </li>
             <li>
-              <a href="javascript:;">
+              <a @click="$router.push('/static/introduction')">
                 <img src="../../public/static/750商城/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -124,7 +124,7 @@
               </a>
             </li>
             <li>
-              <a href="javascript:;">
+              <a @click="$router.push('/static/introduction')">
                 <img src="../../public/static/750商城/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -132,7 +132,7 @@
               </a>
             </li>
             <li>
-              <a href="javascript:;">
+              <a @click="$router.push('/static/introduction')">
                 <img src="../../public/static/750商城/images/timg3.png" alt="">
                 <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
                 <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -221,6 +221,17 @@ import { Icon, Search } from 'vant'
   @import "../../public/static/750商城/css/app.css";
   @import "../../public/static/750商城/css/style.css";
 
+  .gwcLits{
+    padding-bottom: 10px;
+    p{
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .p2 span{
+      font-size: 12px;
+    }
+  }
+
   h1 {
     background: red;
     width: 375px;
@@ -266,8 +277,7 @@ import { Icon, Search } from 'vant'
     }
   }
   .hesde_l3{
-    display: none;
-    padding-top: 10px;
+    padding-top: 5px;
     padding-right: 10px;
     .van-icon{ font-size: 20px; }
   }
@@ -308,7 +318,7 @@ import { Icon, Search } from 'vant'
   }
   .nav_box {
     padding-bottom: 10px;
-    padding-top: 80px;
+    padding-top: 70px;
     background:#f2f2f2;
     background-size: contain;
     position: relative;
