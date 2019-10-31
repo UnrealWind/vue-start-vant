@@ -7,7 +7,7 @@
 .fixedHead.act3{ background: rgba(12,115,96,0.9); box-shadow: 0 0 5px #666;z-index: 9}
 .fixedHead .img1{ position: absolute;left: 0.2rem;top:0.3rem; }
 .fixedHead .img2{ position: absolute;right: 0.2rem;top:0.3rem; }
-.fixedHead .fximg{ width: 0.32rem; height: 0.32rem; padding-left: 0.15rem; display: none;  }
+.fixedHead .fximg{ width: 0.32rem; height: 0.32rem; padding-left: 0.15rem }
 .fixedHead3{ background: #fff }
 /*搜索*/
 .searchInput{ background: #fff; border-radius: 0.3rem; height: 0.6rem; overflow: hidden; }
@@ -32,7 +32,7 @@
 /*购物车商品list*/
 .gwcLits{ justify-content: space-between;}
 .gwcLits li{ width: 49%; background: #fff; border-radius: 0.15rem; overflow: hidden; margin-top: 0.2rem;}
-.gwcLits li img{ width: 100%;   }
+.gwcLits li img{ width: 100%; height: 4rem }
 .gwcLits li a{ color: #333 }
 .gwcLits p{ padding:0 0.2rem }
 .gwcLits .p1{overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;  padding: 0 0.2rem;}
@@ -220,7 +220,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .TryToEat{ background: #fff;  padding: 0.2rem; }
 .TryToEat .imgBox{ position: relative; width: 100%; height: 4rem;border-top-left-radius: 0.15rem;border-top-right-radius: 0.15rem; overflow: hidden; }
 .TryToEat .imgBox .img1{width: 100%; height: 100%;}
-.TryToEat .imgBox p.pop{ width: 1rem; height: 1rem; position: absolute;left: 0.2rem;top:0rem; background: url(../images/bq.png); background-size: 100%; color: #fff;
+.TryToEat .imgBox p.pop{ width: 1rem; height: 1rem; position: absolute;left: 0.2rem;top:0rem; background: url('../images/bq.png'); background-size: 100%; color: #fff;
 	font-size: 0.3rem; padding:0rem 0.2rem;opacity: 0.8}
 .TryToEat .imgBox p.qiang{ width: 100%; height: 4rem; position: absolute;left: 0rem;top:0rem; background: rgba(0,0,0,0.5);  z-index: 9; font-size: 0.6rem; color: #f2f2f2}
 .TryToEat .textBox{ padding: 0.2rem }
@@ -267,7 +267,6 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .OnlineBox .imgBox img{margin-top: 0.1rem; height: 3rem}
 .OnlineBox .commodityLits{ border-radius: 0.15rem;overflow: hidden;margin-top: 0.2rem; }
 .songzaocan{  background: #00a273; border-radius: 0.15rem; padding: 0.15rem 0; color: #ddffb1 }
-.songzaocan a{ color: #ddffb1; }
 .swiper_time1{ margin-top: 0; border-radius: 0.15rem; overflow: hidden;}
 .swiper_time1 .swiper_minNav{ margin-top: 0rem; }
 .gwcLits_zxcs{margin-top: 0.2rem;}
@@ -295,7 +294,7 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .pinpaitehui .swiper_time{ margin-top: 0; padding: 0 0.2rem}
 .pinpaitehui .swiper_minNav{ margin: 0;padding: 0; height: auto }
 .pinpaitehui .gwcLits li{margin: 0;}
-.pinpaitehui .gwcLits li img{ width: 100%;  }
+.pinpaitehui .gwcLits li img{ width: 100%; height: 2rem; }
 .pinpaitehui .swiper_minNav p{ color: #e01447 }
 .pinpaitehui .gwcLits p{ padding: 0 }
 .pinpaitehui .gwcLits .p2{ position: relative;padding-bottom: 0.1rem }
@@ -316,3 +315,20 @@ border-top-right-radius:0.4rem ;border-top-left-radius: 0.4rem ; }
 .gwcLits_nav{ padding-bottom: 0.3rem }
 .gwcLits_nav li{ width: 32.5% }
 .gwcLits_nav li img{height: 2rem}
+
+/*每日上新*/
+.mrsxBox{ margin-top: 1rem; }
+.mrsxBox .mrsx_head{ width: 100% }
+.title_mrsx{ height: 0.5rem; line-height: 0.5rem; border-radius: 0.3rem; border:1px solid #91654a; color: #91654a; text-align: center; font-size: .3rem; margin-top: 0.2rem; }
+.jxdpImgList{ justify-content: space-between;}
+.jxdpImgList li{ width: 49.5%; background: #fff; padding: 0.05rem;box-sizing:border-box;  -moz-box-sizing:border-box;  -webkit-box-sizing:border-box; text-align: center;
+ margin-top: 0.1rem;  padding-bottom: 0.2rem}
+.jxdpImgList li img{ height: 2.8rem; border-bottom-left-radius: 0.7rem; width: 100% }
+.jxdpImgList li h1{ color: #91654a; font-size: 0.3rem; padding: 0.1rem 0; }
+.jxdpImgList li p a{ color: #fff;font-size: 0.24rem ;background: #91654a; border-radius: 0.15rem; padding: 0.05rem 0.15rem;}
+.jxdpImgList1 li{ width: 33%; }
+.jxdpImgList1 li h1{ font-size: .28rem }
+.jxdpImgList1 li p a{ font-size: .22rem }
+.kxspImg img{ margin-top: 0.2rem; width: 100% }
+
+::-webkit-scrollbar {width: 0px;height: 15px;}

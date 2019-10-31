@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :tabbar="true" :status="status" :active="2" :iframe="true">
+  <van-container :tabbar="true" :status="status" :active="3" :iframe="true">
     <iframe id="scroll" style="width:100%;height: 100%;" src="/static/html/静态页面-商城模板/one/home/shopcart.html"></iframe>
   </van-container>
 </template>

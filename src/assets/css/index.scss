@@ -20,6 +20,11 @@ html {
 
 #app {
   height: 100%;
+  background: #eee;
+}
+.fix-iframe {
+  background: #fff;
+  box-shadow: 5px 5px 5px #ccc;
 }
 
 *,

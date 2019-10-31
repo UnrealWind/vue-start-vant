@@ -1,7 +1,7 @@
 /**
  * admin.css
  */
-
+::-webkit-scrollbar {width: 0px;height: 15px;}
 ul {
   margin-top: 0;
 }

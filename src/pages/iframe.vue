@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <iframe style="width:380px;height: 667px;" class="fix-iframe" src="/"></iframe>
+  <iframe style="width:375px;height: 667px;" class="fix-iframe" src="/"></iframe>
 </template>
 
 <script>
@@ -35,14 +35,14 @@
 
 </script>
 <style lang='scss' scoped>
-  #app {
-    text-align: center;
-  }
   iframe {
     border:0;
+    display: block;
   }
   .fix-iframe {
     margin:0 auto;
+    position: relative;
+    top:10%;
   }
 
 </style>

@@ -232,6 +232,13 @@ export const constantRoutes = [
     meta: {
       keepAlive: false
     }
+  },
+  {
+    path: '/static/zone',
+    component: () => import('@/pages/static-dir/zone'),
+    meta: {
+      keepAlive: false
+    }
   }
 ]
 

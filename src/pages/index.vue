@@ -329,7 +329,7 @@ import { Swipe, SwipeItem, Icon, Search } from 'vant'
   }
 
   .nav7_ul{
-     width: 170%;
+     width: 171%;
     .li{ float: left; margin: 0px 20px; text-align: center; }
     .title2{ font-size: 20px; font-weight: bold; margin-bottom: 5px; }
     .title2.active{  color: #e6253b; }
