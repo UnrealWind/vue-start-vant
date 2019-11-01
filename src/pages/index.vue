@@ -19,47 +19,47 @@
 
     <div class="nav_box dan_wrap">
       <div class="nav_li fix wp">
-        <div v-for="(opt, index) in navList" :key="index" class="li1"> <a href="" class="img" @click="$router.push(opt.path)"> <img :src="opt.img" alt=""> </a> <p><a href=""> {{ opt.title }} </a></p> </div>
+        <div v-for="(opt, index) in navList" :key="index" class="li1"> <a class="img" @click="$router.push(opt.path)"> <img :src="opt.img" alt=""> </a> <p><a> {{ opt.title }} </a></p> </div>
       </div>
     </div>
 
     <div class="nav_box2 dan_wrap">
       <div class="wp">
-        <a href="" class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/dingjinyushao.png" alt="">  </a>
+        <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/dingjinyushao.png" alt="">  </a>
       </div>
     </div>
 
     <div class="nav_box3 dan_wrap fix">
-      <div class="wp">
+      <!--<div class="wp">
         <div class="nav3_l l">
-          <a href="" class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav_box31.png" alt="">  </a>
+          <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav_box31.png" alt="">  </a>
         </div>
         <div class="nav3_l r">
-          <a href="" class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav_box32.png" alt="">  </a>
+          <a class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav_box32.png" alt="">  </a>
         </div>
-      </div>
+      </div>-->
     </div>
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
         <div class="nav3_l l">
-          <a href="" class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav41.png" alt="">  </a>
+          <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav41.png" alt="">  </a>
         </div>
         <div class="nav3_l r">
-          <a href="" class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav412.png" alt="">  </a>
+          <a class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav412.png" alt="">  </a>
         </div>
         <div class="nav3_l l">
-          <a href="" class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav413.png" alt="">  </a>
+          <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav413.png" alt="">  </a>
         </div>
         <div class="nav3_l r">
-          <a href="" class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav414.png" alt="">  </a>
+          <a class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav414.png" alt="">  </a>
         </div>
       </div>
     </div>
 
     <div class="nav_box5 dan_wrap">
       <div class="wp">
-        <a href="" class="img" @click="$router.push('/upgradeVIP')"> <img src="../assets/img/shengji1.png" alt=""> </a>
+        <a class="img" @click="$router.push('/upgradeVIP')"> <img src="../assets/img/shengji1.png" alt=""> </a>
       </div>
     </div>
 

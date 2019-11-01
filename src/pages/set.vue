@@ -22,7 +22,7 @@
       </div>
 
       <div class="set_cen">
-        <van-cell title="关于云集" icon="warning-o" is-link />
+        <van-cell title="关于电商" icon="warning-o" is-link />
       </div>
 
       <div class="set_cen">

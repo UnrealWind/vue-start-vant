@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div style="background: #fff">
     <!-- 头部 -->
     <div slot="header" class="top">
       <span @click="$router.back()"> <van-icon name="arrow-left" /> </span>
-      注册云集app
+      注册电商app
     </div>
     <div class="name clearfix">
       <div class="logo fl">
@@ -22,7 +22,7 @@
       <div class="pic">
         <img src="../../src/assets/img/图层 1.png" alt>
       </div>
-      <ul>
+      <ul class="">
         <li>
           <img src="../../src/assets/img/图层 2.png" alt>
           <p>尊享礼包</p>
@@ -46,8 +46,6 @@
       <div class="title">
         <img src="../../src/assets/img/钻石.jpg" alt>
         <span>请选择任一礼包，购买注册</span>
-        <i class="line-left"></i>
-        <i class="line-right"></i>
       </div>
       <!-- commodity 商品 -->
       <div class="commodity">
@@ -218,7 +216,7 @@
       <div class="pic">
         <img src="../../src/assets/img/图层 9.png" alt>
       </div>
-      <h2>云集速度 不断刷新</h2>
+      <h2>电商速度 不断刷新</h2>
       <div class="list">
         <ul class="clearfix">
           <li>
@@ -229,7 +227,7 @@
               <span>
                 <i>30秒</i>卖出32万枚鸡蛋
               </span>
-              <span>2017年3月5日，德青源安全鸡蛋首次上架云集，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
+              <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
             </div>
           </li>
           <li>
@@ -240,7 +238,7 @@
               <span>
                 <i>30秒</i>卖出32万枚鸡蛋
               </span>
-              <span>2017年3月5日，德青源安全鸡蛋首次上架云集，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
+              <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
             </div>
           </li>
           <li>
@@ -251,7 +249,7 @@
               <span>
                 <i>30秒</i>卖出32万枚鸡蛋
               </span>
-              <span>2017年3月5日，德青源安全鸡蛋首次上架云集，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
+              <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
             </div>
           </li>
           <li>
@@ -262,7 +260,7 @@
               <span>
                 <i>30秒</i>卖出32万枚鸡蛋
               </span>
-              <span>2017年3月5日，德青源安全鸡蛋首次上架云集，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
+              <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
             </div>
           </li>
         </ul>
@@ -340,13 +338,15 @@ export default {
   ul {
     li {
       float: left;
-      margin: 0.8rem 0.38rem;
+      padding: 0.8rem 0;
+      width: 25%;
+      text-align: center;
       img {
         width: 1.5rem;
       }
       p {
         text-align: center;
-        font-size: 0.34rem;
+        font-size: 3px;
       }
     }
   }
@@ -358,6 +358,8 @@ export default {
     img {
       height: 0.45rem;
       vertical-align: middle;
+      position: relative;
+      top:-3px;
     }
     span {
       font-size: 0.45rem;
@@ -371,12 +373,12 @@ export default {
     }
     .line-left {
       position: absolute;
-      top: 10px;
+      top: 22px;
       left: -58px;
     }
     .line-right {
       position: absolute;
-      top: 10px;
+      top: 22px;
       right: -50px;
     }
   }

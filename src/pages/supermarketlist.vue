@@ -4,7 +4,7 @@
     <div slot="header" class="fix">
       <div class="hesde_l " @click="$router.back()"> <van-icon name="arrow-left" /> </div>
       <div class="hesde_l2">
-        <div class="p"> 云集超市-奶制品 </div>
+        <div class="p"> 电商超市-奶制品 </div>
       </div>
       <div class="hesde_l3"> <van-icon name="certificate" />  </div>
     </div>
