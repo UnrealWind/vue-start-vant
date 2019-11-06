@@ -30,7 +30,7 @@
           <van-tabbar-item name="index" icon="home-o" @click="go('/')">首页</van-tabbar-item>
           <van-tabbar-item name="zone" icon="browsing-history-o" @click="go('/static/zone')">代言</van-tabbar-item>
           <van-tabbar-item name="concentrate" icon="star-o" @click="go('/concentrate')">精选</van-tabbar-item>
-          <van-tabbar-item name="cart" icon="cart-circle-o" @click="go('/static/cart')">购物车</van-tabbar-item>
+          <van-tabbar-item name="cart" icon="cart-circle-o" @click="go('/cart/shopcar')">购物车</van-tabbar-item>
           <van-tabbar-item name="mine" icon="friends-o" @click="go('/static/mine')">我的</van-tabbar-item>
         </van-tabbar>
       </slot>
@@ -97,6 +97,8 @@
         mounted() {
           this.target = this.active
           window.addEventListener('scroll', this.handleScroll, true)
+
+            console.log(navigator.userAgent)
         },
         methods: {
             go(page) {
@@ -151,6 +153,7 @@
     top:0;
     width:100%;
     z-index: 100;
+    /*padding-top:30px;*/
     van-icon {
       position: relative;
       top:3px;

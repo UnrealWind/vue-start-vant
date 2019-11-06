@@ -4,8 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 export const constantRoutes = [
   {
-    path: '/example',
-    component: () => import('@/pages/example'),
+    path: '/commodityLevelSec/seasonal',
+    component: () => import('@/pages/commodity-level-sec/seasonal'),
     meta: {
       keepAlive: false
     }
@@ -243,6 +243,62 @@ export const constantRoutes = [
   {
     path: '/static/news',
     component: () => import('@/pages/static-dir/news'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/address_list',
+    component: () => import('@/pages/cart/address_list'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/coupon',
+    component: () => import('@/pages/cart/coupon'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/order',
+    component: () => import('@/pages/cart/order'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/order_list',
+    component: () => import('@/pages/cart/order_list'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/confirm_order',
+    component: () => import('@/pages/cart/confirm_order'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/order_details',
+    component: () => import('@/pages/cart/order_details'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/stepspage',
+    component: () => import('@/pages/cart/stepspage'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/cart/shopcar',
+    component: () => import('@/pages/cart/shopcar'),
     meta: {
       keepAlive: false
     }
