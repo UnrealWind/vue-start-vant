@@ -6,67 +6,57 @@
     <div class="main">
       <div style="background:#ef0e38;height:40px"></div>
       <div class="commodity">
-
-        <div v-for="(shop, index) in NavList" :key="index" class="card_top">
-
+        <div v-for="(shop, index) in cartList" :key="index" class="card_top">
           <div class="comm-list">
-            <van-checkbox-group ref="checkboxGroup" v-model="result">
-
+            <div>
               <!-- 店铺标题-->
               <div class="comm-title">
-                <span @click="$router.push('/store')">  {{ shop.label }}  <van-icon name="arrow" class="con_titl_arr" />  </span>
-                <van-checkbox :name="shop.maxchename"></van-checkbox>
+                <span @click="$router.push('/store')">  {{ shop.shopName }}  <van-icon name="arrow" class="con_titl_arr" /></span>
+                <van-checkbox v-model="shop.checked" @click="checkShop(shop)"></van-checkbox>
                 <i @click="$router.push('/cart/coupon')">领券</i>
               </div>
-
               <!--卡片-->
-              <div v-for="(commodity, idx) in shop.commodity" :key="idx" class="list_wrap">
-                <van-checkbox :name="commodity.chename"></van-checkbox>
+              <div v-for="(goods, idx) in shop.goods" :key="idx" class="list_wrap">
+                <van-checkbox v-model="goods.checked"></van-checkbox>
                 <van-card
-                  :price="commodity.price"
-                  :desc="commodity.desc"
-                  :title="commodity.title"
-                  :thumb="commodity.img"
+                  :origin-price="goods.goodsMoney"
+                  :price="goods.activityMoney"
+                  :desc="goods.activityTitle"
+                  :title="goods.goodsName"
+                  :thumb="goods.img"
                 >
                   <!-- 按钮-->
                   <div slot="tags">
-                    <van-tag plain type="danger"> {{ commodity.danger }} </van-tag>
-                    <van-tag plain type="danger"> {{ commodity.dangermin }} </van-tag>
+                    <van-tag plain type="danger"> 特卖 </van-tag>
+                    <van-tag plain type="danger"> 新品 </van-tag>
                   </div>
                   <!--删除-->
                   <div slot="footer" class="comm-btn clearfix">
                     <van-icon name="delete" @click="delComm" />
                     <van-stepper
-                      :value="value"
+                      v-model="goods.num"
                     />
                   </div>
                 </van-card>
-
               </div>
-
-            </van-checkbox-group>
-
+            </div>
           </div>
-
         </div>
-
       </div>
     </div>
-
     <van-submit-bar
-      :price="5900"
+      :price="customTotalPrice*100"
       button-text="结算"
-      @submit="onSubmit"
+      @submit="postOrder"
     >
-      <van-checkbox v-model="checked">全选</van-checkbox>
-
-      <van-cell
+      <van-checkbox v-model="checkedAll" @click="checkAllShop">全选</van-checkbox>
+      <div
         is-link
         class="detail"
         @click="showPopup"
-      > 明细  <van-icon name="arrow-up" /> </van-cell>
+      > 明细  <van-icon name="arrow-up" /> </div>
       <van-popup
-        v-model="showmoder"
+        v-model="showDetails"
         closeable="true"
         close-icon="close"
         position="bottom"
@@ -76,61 +66,34 @@
           <div class="titlemin"> 勾选商品 </div>
           <div class="img_wrap">
             <div class="ul">
-              <div class="img">
-                <img src="../../assets/img/cart/card.png" alt="">
-                <span> x1 </span>
-              </div>
-              <div class="img">
-                <img src="../../assets/img/cart/card.png" alt="">
-                <span> x1 </span>
-              </div>
-              <div class="img">
-                <img src="../../assets/img/cart/card.png" alt="">
-                <span> x1 </span>
-              </div>
-              <div class="img">
-                <img src="../../assets/img/cart/card.png" alt="">
-                <span> x1 </span>
-              </div>
+              <span v-for="(shop, index) in cartList" :key="index">
+                <span v-for="(goods, idx) in shop.goods" :key="idx">
+                  <div v-if="goods.checked" class="img">
+                    <img :src="goods.img" alt="">
+                    <span> x{{ goods.num }} </span>
+                  </div>
+                </span>
+              </span>
             </div>
           </div>
-
           <div class="titlemin"> 金额明细 </div>
           <div class="title_span">
             (优惠券，云币，余额不包含在已优惠的金额中，需在订单页面使用)
           </div>
-
           <div class="title_priject">
-            商品金额 <i> -------------------------</i>   <span> ￥59.00 </span>
+            商品金额 <i> -------------------------</i>   <span> ￥{{ customPreTotalPrice }} </span>
           </div>
           <div class="title_priject">
-            活动优惠 <i> -------------------------</i>    <span>  -￥0 </span>
+            活动优惠 <i> -------------------------</i>    <span>  -￥{{ customAuTotalPrice }} </span>
           </div>
           <div class="title_priject">
-            <span> 合计 </span> <i> -------------------------</i>   <span> ￥59.00 </span>
+            <span> 合计 </span> <i> -------------------------</i>   <span>{{ customTotalPrice }}</span>
           </div>
-
-          <van-button type="primary" size="large" class="sha_bottom"> 立即结算 </van-button>
-
+          <van-button type="primary" size="large" class="sha_bottom" @click="postOrder"> 立即结算 </van-button>
         </div>
-
       </van-popup>
-
     </van-submit-bar>
-
-    <van-action-sheet v-model="showAction" title="标题" :actions="actions">
-    </van-action-sheet>
-    <van-popup
-      v-model="show"
-      :get-container="getContainer"
-      closeable="true"
-      close-icon="close"
-      round
-      position="bottom"
-      :style="{height:'30%'}"
-    />
   </van-container>
-
 </template>
 
 <script>
@@ -138,18 +101,14 @@
     Icon,
     Card,
     Tag,
-   Button,
-    // Sku,
+    Button,
     Stepper,
     NavBar,
-    // Tabbar,
-    // TabbarItem,
     Dialog,
     Checkbox,
-    CheckboxGroup,
     SubmitBar,
-    Actionsheet,
-    Popup
+    Popup,
+    Toast
   } from 'vant'
   export default {
     components: {
@@ -157,201 +116,142 @@
       'van-card': Card,
       'van-tag': Tag,
       'van-button': Button,
-     // 'van-sku': Sku,
       'van-stepper': Stepper,
       'van-nav-bar': NavBar,
-      // 'van-tabbar': Tabbar,
-      // 'van-tabbar-item': TabbarItem,
       'van-checkbox': Checkbox,
-      'van-checkbox-group': CheckboxGroup,
       'van-submit-bar': SubmitBar,
-      'van-action-sheet': Actionsheet,
       'van-popup': Popup
     },
-  // props: ['price'],
-  data() {
-    return {
-        status: 'loading',
-        show: false,
-        showmoder: false,
-        result: ['b'],
-        showAction: false,
-        actions: [
-            { name: '选项' },
-            { name: '选项' },
-            { name: '选项', subname: '描述信息' }
-        ],
-        NavList: [
-            {
-               label: '旗舰店a',
-                commodity: [
-                    {
-                        maxchename: 'a',
-                        chename: 'b',
-                        title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                        price: '59.00',
-                        desc: '颜色男款-白色尺码: (男170女165 )',
-                        img: require('../../assets/img/cart/card.png'),
-                        danger: '特卖',
-                        dangermin: '新品'
-                    },
-                    {
-                        maxchename: 'c',
-                        chename: 'd',
-                        title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                        price: '59.00',
-                        desc: '颜色男款-白色尺码: (男170女165 )',
-                        img: require('../../assets/img/cart/card.png'),
-                        danger: '特卖',
-                        dangermin: '新品'
-                    },
-                    {
-                        maxchename: 'o',
-                        chename: 'j',
-                        title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                        price: '59.00',
-                        desc: '颜色男款-白色尺码: (男170女165 )',
-                        img: require('../../assets/img/cart/card.png'),
-                        danger: '特卖',
-                        dangermin: '新品'
-                    }
-                ]
-            },
-            {
-                label: '旗舰店2',
-                commodity: [
-                    {
-                        maxchename: 'e',
-                        chename: 'f',
-                        title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                        price: '59.00',
-                        desc: '颜色男款-白色尺码: (男170女165 )',
-                        img: require('../../assets/img/cart/card.png'),
-                        danger: '特卖',
-                        dangermin: '新品'
-                    },
-                    {
-                        maxchename: 'h',
-                        chename: 'm',
-                        title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                        price: '59.00',
-                        desc: '颜色男款-白色尺码: (男170女165 )',
-                        img: require('../../assets/img/cart/card.png'),
-                        danger: '特卖',
-                        dangermin: '新品'
-                    }
-                ]
-            }
-
-        ],
-      sku: {
-        tree: [
-          {
-            skuKeyName: '颜色',
-            v: [
-              {
-                id: '3030',
-                name: '红色',
-                imgUrl: 'https://img.yzcdn.cn/1.jpg', // 规格类目图片，只有第一个规格类目可以定义图片
-                previewImgUrl: 'https://img.yzcdn.cn/1p.jpg' // 用于预览显示的规格类目图片
-              },
-              {
-                id: '3030',
-                name: '蓝色',
-                imgUrl: 'https://img.yzcdn.cn/1.jpg', // 规格类目图片，只有第一个规格类目可以定义图片
-                previewImgUrl: 'https://img.yzcdn.cn/1p.jpg' // 用于预览显示的规格类目图片
-              }
-            ],
-            k_s: 'sl' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-          }
-        ],
-        // 所有sku的组合列表
-        list: [
-          {
-            id: 222, // skuId 下单时后端需要
-            price: 100, // 单价（单位分）
-            s1: '1215', // 规格类目k_s为s1的对应规格值id
-            s2: '1193', // 规格类目k_s为s2的对应规格值id
-            s3: '0', // 最多包含3个规定值。为0表示不存在该规格
-            stock_num: 110 // 当前sku组合对应的库存
-          }
-        ],
-        price: '1.00', // 默认价格。单位元
-        stock_num: 227, // 商品总库存
-        collection_id: 2261, // 无规格商品skuId取collection_id。否则取所选sku组合对应的id
-        none_sku: false, // 是否无规格商品
-        hide_stock: true
-      },
-      goods: {
-        goods: '商品信息',
-        goodsId: 1
-      },
-      messageConfig: {},
-      quota: 10,
-      quotaUsed: 1,
-      value: 1,
-      active: 0,
-      checked: 1
-    }
-  },
-  computed: {},
-  mounted() {
-    this.init()
-  },
-  methods: {
-    async init() {
-      try {
-        // await this.getData()
-      } catch (e) {
-        this.status = 'error'
-        throw e
+    data() {
+      return {
+          userCode: '123',
+          status: 'loading',
+          showDiscount: false,
+          showDetails: false,
+          cartList: [],
+          value: 1,
+          active: 0,
+          checkedAll: false
       }
-      this.status = 'success'
     },
-    async getData() {
-      const res = await this.$http.get('/user/12345')
-      console.log(res)
+    computed: {
+        customTotalPrice() {
+            let price = 0
+            this.cartList.forEach((n, i) => {
+                n.goods.forEach((good, i) => {
+                    if (good.checked) price += good.activityMoney * good.num
+                })
+            })
+            return price
+        },
+        customPreTotalPrice() {
+            let price = 0
+            this.cartList.forEach((n, i) => {
+                n.goods.forEach((good, i) => {
+                    if (good.checked) price += good.goodsMoney * good.num
+                })
+            })
+            return price
+        },
+        customAuTotalPrice() {
+            return this.customPreTotalPrice - this.customTotalPrice
+        }
     },
-    onAddCartClicked() {
-      alert('点击购物车回调')
+    mounted() {
+      this.init()
     },
-    onBuyClicked() {
-      alert('点击购买回调')
-    },
-    // 删除按钮弹窗
-    delComm() {
-      Dialog.confirm({
-        message: '确定将该宝贝删除？'
-      })
-        .then(() => {
+    methods: {
+      async init() {
+        try {
+          await this.login()
+          await this.getData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
+        }
+        this.status = 'success'
+      },
+      async login() {
+          // fydebug 这里必须进行登录之后才能够查询到数据，先放在这里,也不知道一个post请求为啥参数不放在requestbody里
+          const res = await this.$http.post(`login?username=17342062325&password=123456&rememberMe=true`, {
+              username: '17342062325',
+              password: '123456',
+              rememberMe: true
+          })
+          console.log(res)
+      },
+      async getData() {
+          const res = await this.$http.post('order/shoppingCart/list', {
+              userCode: this.userCode
+          })
+          res.data.forEach((n, i) => {
+              n['checked'] = false
+              n.goods.forEach((good, i) => {
+                  // 现在没有商品图片，先临时拿一个代替
+                  good['checked'] = false
+                  if (!good.img) good['img'] = require('../../assets/img/cart/card.png')
+                  if (!good.activityMoney) {
+                      good.activityMoney = good.goodsMoney
+                      good.annulMoney = 0
+                  }
+              })
+          })
+          this.cartList = JSON.parse(JSON.stringify(res.data))
+      },
+      checkShop(shop) {
+          shop.checked = !shop.checked
+          shop.goods.forEach((n, i) => {
+              n.checked = shop.checked
+          })
+      },
+      checkAllShop() {
+          this.checkedAll = !this.checkedAll
+          this.cartList.forEach((n, i) => {
+              n.checked = this.checkedAll
+              n.goods.forEach((good, i) => {
+                  good.checked = this.checkedAll
+              })
+          })
+      },
+      async postOrder() {
+          const goodsVoList = {
+              'goodsVos': [],
+              'orderType': 2 // 1是直接下单，2是购物车下单
+          }
+          this.cartList.forEach((n, i) => {
+              n.goods.forEach((good, i) => {
+                  if (good.checked) {
+                      goodsVoList.goodsVos.push({
+                          'amount': good.num,
+                          'skuCode': good.skuCode
+                      })
+                  }
+              })
+          })
+          if (goodsVoList.goodsVos.length === 0) {
+              Toast.fail('请选择商品')
+              return
+          }
+          const res = await this.$http.post('product/goods/orderByCart', goodsVoList)
+          this.$store.commit('setTargetOrder', res.data)
+          this.$router.push('/cart/confirm_order')
+      },
+      // 删除按钮弹窗
+      delComm() {
+        Dialog.confirm({
+          message: '确定将该宝贝删除？'
+        }).then(() => {
           alert('确认')
         })
         .catch(() => {
           alert('取消')
         })
-    },
-    // 提交订单
-    onSubmit() {
-        this.$router.push('/cart/confirm_order')
-        // alert('提交订单')
-    },
-    // 优惠券弹窗
-    /* showTicket() {
-
-    },*/
-    // 明细
-    getContainer() {
-      return document.querySelector('.detail')
-    },
-    // 全选
-    checkAll() {
-        this.$refs.checkboxGroup.toggleAll(true)
-    },
-    // 明细
-    showPopup() {
-        this.showmoder = true
+      },
+      // 明细
+      showPopup() {
+          this.showDetails = true
+      }
     }
-  }
 }
 
 </script>
@@ -385,6 +285,7 @@ i {
     position: absolute;
     top: -5px;
     padding-bottom: 60px;
+    width: 100%;
     .comm-list {
       width: 95%;
       margin: 0 auto;

@@ -11,6 +11,34 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/commodityLevelSec/mall',
+    component: () => import('@/pages/commodity-level-sec/mall'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/commodityLevelSec/daynew',
+    component: () => import('@/pages/commodity-level-sec/daynew'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/commodityLevelSec/crossborder',
+    component: () => import('@/pages/commodity-level-sec/crossborder'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/commodityLevelSec/onlinesupermarker',
+    component: () => import('@/pages/commodity-level-sec/onlinesupermarker'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '/static/mine',
     component: () => import('@/pages/static-dir/mine'),
     meta: {

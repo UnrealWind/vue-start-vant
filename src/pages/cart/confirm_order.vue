@@ -7,44 +7,37 @@
         <div class="p"> 确认订单 </div>
       </div>
     </div>
-
     <div class="dan_wrap fix">
       <div class="wp">
-
         <div class="address" @click="$router.push('/cart/address_list')">
           <van-address-list
             v-model="chosenAddressId"
             :list="list"
           />
         </div>
-
-        <div v-for="(opt, index) in minNavList" :key="index" class="card_top">
+        <div v-for="(goods, index) in orderList" :key="index" class="card_top">
           <div class="wp">
             <div class="title fix"> <van-icon name="friends" /> 云妈妈公益 </div>
-            <van-card
-              :num="opt.num"
-              :price="opt.price"
-              :desc="opt.desc"
-              :title="opt.title"
-              :thumb="opt.img"
-            >
-              <div slot="tags" class="tags">
-                <van-tag plain type="danger" class="tagsvan"> {{ opt.danger }} </van-tag>
+            <span v-for="(good, idx) in goods.goods" :key="idx">
+              <van-card
+                :num="good.num"
+                :price="good.activityMoney"
+                :desc="good.activityTitle"
+                :title="good.goodsName"
+                :thumb="good.img"
+              >
+              </van-card>
+              <div class="font_top">
+                <span>
+                  订单备注
+                </span>
+                <input type="text" placeholder="不接受指定快递，特殊需求请联系买家">
               </div>
-            </van-card>
-
-            <div class="font_top">
-              <span>
-                订单备注
-              </span>
-              <input type="text" placeholder="不接受指定快递，特殊需求请联系买家">
-            </div>
-
-            <div class="font_botom fix">
-              <div class="p l"> 小计 </div>
-              <div class="p r"> ￥{{ opt.price * opt.num }}  </div>
-            </div>
-
+              <div class="font_botom fix">
+                <div class="p l"> 小计 </div>
+                <div class="p r"> ￥{{ good.activityMoney * good.num }}  </div>
+              </div>
+            </span>
           </div>
         </div>
 
@@ -55,7 +48,7 @@
         <div class="coupin fix">
           <van-cell-group>
             <div>
-              <van-cell title="商品金额" :value="'￥'+custom" />
+              <van-cell title="商品金额" :value="'￥'+customTotalPrice" />
             </div>
             <van-cell title="运费" value="+￥0.00" />
           </van-cell-group>
@@ -63,11 +56,10 @@
 
         <div class="or_sub">
           <van-submit-bar
-            :price="custom*100"
+            :price="customTotalPrice*100"
             button-text="提交订单"
             @click="showPopup"
           />
-
           <van-cell close-icon="close" class="cop_van_cell" @click="showPopup"></van-cell>
           <van-popup
             v-model="show"
@@ -75,70 +67,39 @@
             position="bottom"
             class="cou_bottom"
           >
-
-            <div class="title"> ￥{{ custom }}  </div>
+            <div class="title"> ￥{{ customTotalPrice }}  </div>
             <div class="title_time">
               请在 <span> 12.00 </span> 内完成支付
             </div>
-
             <van-radio-group v-model="radio">
               <van-cell-group>
                 <div class="img">
                   <img src="../../assets/img/cart/card.png" alt="">
-                  <van-cell title="支付宝支付" clickable @click="radio = '1'">
-                    <van-radio slot="right-icon" name="1" />
-                  </van-cell>
-                </div>
-
-                <div class="img">
-                  <img src="../../assets/img/cart/card.png" alt="">
-                  <van-cell title="微信支付" clickable @click="radio = '2'">
+                  <van-cell title="支付宝支付" clickable @click="radio = '2'">
                     <van-radio slot="right-icon" name="2" />
                   </van-cell>
                 </div>
-
                 <div class="img">
                   <img src="../../assets/img/cart/card.png" alt="">
-                  <van-cell title="云闪付" clickable @click="radio = '3'">
-                    <van-radio slot="right-icon" name="3" />
+                  <van-cell title="微信支付" clickable @click="radio = '1'">
+                    <van-radio slot="right-icon" name="1" />
                   </van-cell>
                 </div>
-
-                <div class="img">
-                  <img src="../../assets/img/cart/card.png" alt="">
-                  <van-cell title="京东支付" clickable @click="radio = '4'">
-                    <van-radio slot="right-icon" name="4" />
-                  </van-cell>
-                </div>
-
-                <div class="img">
-                  <img src="../../assets/img/cart/card.png" alt="">
-                  <van-cell title="花呗" clickable @click="radio = '5'">
-                    <van-radio slot="right-icon" name="5" />
-                  </van-cell>
-                </div>
-
               </van-cell-group>
               <van-submit-bar
                 button-text="立即支付"
                 class="cup_bottom"
               />
-
             </van-radio-group>
-
           </van-popup>
-
         </div>
-
       </div>
     </div>
-
   </van-container>
 </template>
 
 <script>
-    import { Icon, AddressList, Cell, SubmitBar, Card, Popup, RadioGroup, Radio } from 'vant'
-
+    import { Icon, AddressList, Cell, SubmitBar, Card, Popup, RadioGroup, Radio, CellGroup } from 'vant'
     export default {
         components: {
           'van-icon': Icon,
@@ -147,8 +108,9 @@
           'van-submit-bar': SubmitBar,
           'van-card': Card,
           'van-popup': Popup,
-            'van-radio-group': RadioGroup,
-            'van-radio': Radio
+          'van-radio-group': RadioGroup,
+          'van-radio': Radio,
+          'van-cell-group': CellGroup
         },
     data() {
       return {
@@ -164,33 +126,18 @@
                   address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
               }
           ],
-          minNavList: [
-              {
-                  num: '1',
-                  title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                  price: '59.00',
-                  desc: '颜色男款-白色尺码: (男170女165 )',
-                  img: require('../../assets/img/cart/card.png'),
-                  danger: '特卖'
-              },
-              {
-                  num: '2',
-                  title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                  price: '59.00',
-                  desc: '颜色男款-白色尺码: (男170女165 )',
-                  img: require('../../assets/img/cart/card.png'),
-                  danger: '新品'
-              }
-          ]
+          orderList: []
       }
     },
     computed: {
-        custom() {
+        customTotalPrice() {
             let price = 0
-            this.minNavList.forEach((n, i) => {
-                price += Number(n.price) * Number(n.num)
+            this.orderList.forEach((n, i) => {
+                n.goods.forEach((good, i) => {
+                   price += good.activityMoney * good.num
+                })
             })
-          return price
+            return price
         }
     },
     mounted() {
@@ -198,20 +145,18 @@
     },
     methods: {
         async init() {
+            this.orderList = this.$store.state.targetOrder
             try {
-                // await this.getData()
+                await this.getAddressList()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async getAddressList() {
+            const res = await this.$http.post('product/userAddress/list')
             console.log(res)
-        },
-        onSubmit() {
-            // Toast('save')
         },
         showPopup() {
             this.show = true

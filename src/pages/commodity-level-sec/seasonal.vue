@@ -3,7 +3,10 @@
   <van-container :tabbar="true" :status="status">
     <div slot="header" class="fix">
       <div class="fixedHead flex_center box_sizing fixedHead1">
-        <p class="flex_center img1" onClick="javascript:history.back(-1);"><img src="../../assets/css/static/images/zuo1.png" alt=""></p>
+        <p class="flex_center img1" onClick="javascript:history.back(-1);"><img
+          src="../../assets/css/static/images/zuo1.png"
+          alt=""
+        ></p>
         <p>时令水果</p>
         <p class="flex_center img2"><img src="../../assets/css/static/images/fx1.png" alt="" class="fximg"></p>
       </div>
@@ -274,7 +277,10 @@
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc2.png" alt=""></div>
+          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+            src="../../assets/css/static/images/gwc2.png"
+            alt=""
+          ></div>
         </a>
       </li>
       <li>
@@ -282,7 +288,10 @@
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc2.png" alt=""></div>
+          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+            src="../../assets/css/static/images/gwc2.png"
+            alt=""
+          ></div>
         </a>
       </li>
       <li>
@@ -290,7 +299,10 @@
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc2.png" alt=""></div>
+          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+            src="../../assets/css/static/images/gwc2.png"
+            alt=""
+          ></div>
         </a>
       </li>
       <li>
@@ -298,7 +310,10 @@
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc2.png" alt=""></div>
+          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+            src="../../assets/css/static/images/gwc2.png"
+            alt=""
+          ></div>
         </a>
       </li>
       <li>
@@ -306,7 +321,10 @@
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc2.png" alt=""></div>
+          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+            src="../../assets/css/static/images/gwc2.png"
+            alt=""
+          ></div>
         </a>
       </li>
       <li>
@@ -314,7 +332,10 @@
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc2.png" alt=""></div>
+          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+            src="../../assets/css/static/images/gwc2.png"
+            alt=""
+          ></div>
         </a>
       </li>
     </ul>
@@ -328,9 +349,7 @@
                 status: 'loading'
             }
         },
-        computed: {
-
-        },
+        computed: {},
         mounted() {
             this.init()
         },
@@ -348,12 +367,17 @@
                 const res = await this.$http.get('/user/12345')
                 console.log(res)
             }
-    }
+        }
     }
 
 </script>
 <style lang='scss' scoped>
+  .gwcLits li {
+    width: 32%;
+  }
+
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";
+
 </style>

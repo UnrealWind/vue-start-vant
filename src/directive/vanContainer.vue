@@ -109,6 +109,9 @@
                     document.body.scrollTop ||
                     document.querySelector('#scroll').scrollTop
                 scrollTop === 0 ? this.scroll = false : this.scroll = true
+            },
+            reload() {
+                this.$router.go(0)
             }
         }
     }
