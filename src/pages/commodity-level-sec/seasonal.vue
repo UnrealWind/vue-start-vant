@@ -28,31 +28,31 @@
       </div>
       <ul class="commodityLits flex_wrap commodityLits_nav">
         <li>
-          <a href="/fruitlist">
+          <a href="#/fruitlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
             <span>苹果</span>
           </a>
         </li>
         <li>
-          <a href="/fruitlist">
+          <a @click="$router.push('/fruitlist')">
             <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
             <span>苹果</span>
           </a>
         </li>
         <li>
-          <a href="/fruitlist">
+          <a @click="$router.push('/fruitlist')">
             <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
             <span>苹果</span>
           </a>
         </li>
         <li>
-          <a href="/fruitlist">
+          <a @click="$router.push('/fruitlist')">
             <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
             <span>苹果</span>
           </a>
         </li>
         <li class="more">
-          <a href="/fruitlist">
+          <a @click="$router.push('/fruitlist')">
             <p class="flex_center"><img src="../../assets/css/static/images/more.png" alt=""></p>
             <span>更多分类</span>
           </a>
@@ -139,14 +139,14 @@
     <!-- 半价试吃 -->
     <div class="TryToEat">
       <div class="imgBox">
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <img src="../../assets/css/static/images/timg.jpg" alt="" class="img1">
           <p class="pop box_sizing">半价试吃</p>
           <p class="qiang flex_center">抢光了</p>
         </a>
       </div>
       <div class="textBox">
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <h1>果君王 越南小青芒5斤装</h1>
           <p class="p1">青青君子金灿心</p>
           <div class="flex_betweenc">
@@ -168,7 +168,7 @@
       </div>
       <ul class="Treasure_list Treasure_top">
         <li class="li1">
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
               <p class="s1">源自宝鸡扶风</p>
               <p class="s0">___</p>
@@ -180,7 +180,7 @@
           </a>
         </li>
         <li class="li2">
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
               <p class="s1">源自宝鸡扶风</p>
               <p class="s0">___</p>
@@ -192,7 +192,7 @@
           </a>
         </li>
         <li class="li3">
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
               <p class="s1">源自宝鸡扶风</p>
               <p class="s0">___</p>
@@ -213,7 +213,7 @@
       </div>
       <ul class="Treasure_list Treasure_top Treasure_list2">
         <li class="li4">
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
               <p class="s1">源自云南丽江</p>
               <p class="s0">___</p>
@@ -225,7 +225,7 @@
           </a>
         </li>
         <li class="li5">
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
               <p class="s1">源自云南丽江</p>
               <p class="s0">___</p>
@@ -237,7 +237,7 @@
           </a>
         </li>
         <li class="li6">
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
               <p class="s1">源自云南丽江</p>
               <p class="s0">___</p>
@@ -273,7 +273,7 @@
     </div>
     <ul class="flex_wrap gwcLits gwcLits_SG">
       <li>
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -284,7 +284,7 @@
         </a>
       </li>
       <li>
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -295,7 +295,7 @@
         </a>
       </li>
       <li>
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -306,7 +306,7 @@
         </a>
       </li>
       <li>
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -317,7 +317,7 @@
         </a>
       </li>
       <li>
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -328,7 +328,7 @@
         </a>
       </li>
       <li>
-        <a href="../html/malltemplate/one/home/introduction.html">
+        <a @click="$router.push('/user/productdetails')">
           <img src="../../assets/css/static/images/timg3.png" alt="">
           <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -356,15 +356,25 @@
         methods: {
             async init() {
                 try {
-                    // await this.getData()
+                    // await this.login()
+                    // await this.getFruitData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
             },
-            async getData() {
-                const res = await this.$http.get('/user/12345')
+            async login() {
+                // fydebug 这里必须进行登录之后才能够查询到数据，先放在这里,也不知道一个post请求为啥参数不放在requestbody里
+                const res = await this.$http.post(`login?username=17342062325&password=123456&rememberMe=true`, {
+                    username: '17342062325',
+                    password: '123456',
+                    rememberMe: true
+                })
+                console.log(res)
+            },
+            async getFruitData() {
+                const res = await this.$http.post('product/content/list')
                 console.log(res)
             }
         }
@@ -372,8 +382,9 @@
 
 </script>
 <style lang='scss' scoped>
-  .gwcLits li {
-    width: 32%;
+  .fix {
+    background-color: #04c16f;
+    height: 37.5px;
   }
 
   @import "../../assets/css/static/css/app.css";

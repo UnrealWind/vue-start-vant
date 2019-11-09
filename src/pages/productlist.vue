@@ -12,7 +12,7 @@
     <div class="nav_box dan_wrap fix">
       <div class="wp">
         <div class="nav_ul">
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -28,7 +28,7 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -43,23 +43,7 @@
               </div>
             </div>
           </div>
-          <div class="li" @click="$router.push('/static/introduction')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -75,7 +59,7 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -91,7 +75,23 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
+            <div class="wrap fix">
+              <div class="nav_l l">
+                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
+              </div>
+              <div class="nav_r r">
+                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
+                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
+                <div class="botom fix">
+                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
+                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>

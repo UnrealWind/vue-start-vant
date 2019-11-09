@@ -10,7 +10,7 @@
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/static/introduction')"> <img src="../assets/img/perfume.png" alt=""></van-swipe-item>
+      <van-swipe-item @click="$router.push('/user/productdetails')"> <img src="../assets/img/perfume.png" alt=""></van-swipe-item>
     </van-swipe>
 
     <div class="nav_box dan_wrap">
@@ -95,7 +95,7 @@
 
     <div class="nav_box4 dan_wrap">
       <div class="wp">
-        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/static/introduction')">
+        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
           <commodity
             :type="vip.type"
             :image="vip.image"

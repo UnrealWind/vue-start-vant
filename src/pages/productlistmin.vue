@@ -13,7 +13,7 @@
       <div class="wp">
         <div class="nav_ul">
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -51,7 +51,7 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -70,7 +70,7 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -89,7 +89,7 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
@@ -108,7 +108,7 @@
             </div>
           </div>
 
-          <div class="li" @click="$router.push('/static/introduction')">
+          <div class="li" @click="$router.push('/user/productdetails')">
             <div class="wrap fix">
               <div class="nav_l l">
                 <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>

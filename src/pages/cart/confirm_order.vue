@@ -9,19 +9,20 @@
     </div>
     <div class="dan_wrap fix">
       <div class="wp">
-        <div class="address" @click="$router.push('/cart/address_list')">
+        <div class="address">
           <van-address-list
             v-model="chosenAddressId"
-            :list="list"
+            :list="addressList"
+            @edit="changeAddress"
           />
         </div>
         <div v-for="(goods, index) in orderList" :key="index" class="card_top">
           <div class="wp">
-            <div class="title fix"> <van-icon name="friends" /> 云妈妈公益 </div>
+            <div class="title fix"> <van-icon name="friends" /> {{ goods.shopName }} </div>
             <span v-for="(good, idx) in goods.goods" :key="idx">
               <van-card
                 :num="good.num"
-                :price="good.activityMoney"
+                :price="good.goodsMoney"
                 :desc="good.activityTitle"
                 :title="good.goodsName"
                 :thumb="good.img"
@@ -35,7 +36,7 @@
               </div>
               <div class="font_botom fix">
                 <div class="p l"> 小计 </div>
-                <div class="p r"> ￥{{ good.activityMoney * good.num }}  </div>
+                <div class="p r"> ￥{{ good.activityMoney }}  </div>
               </div>
             </span>
           </div>
@@ -71,17 +72,17 @@
             <div class="title_time">
               请在 <span> 12.00 </span> 内完成支付
             </div>
-            <van-radio-group v-model="radio">
+            <van-radio-group v-model="payType">
               <van-cell-group>
                 <div class="img">
                   <img src="../../assets/img/cart/card.png" alt="">
-                  <van-cell title="支付宝支付" clickable @click="radio = '2'">
+                  <van-cell title="支付宝支付" clickable @click="payType = '2'">
                     <van-radio slot="right-icon" name="2" />
                   </van-cell>
                 </div>
                 <div class="img">
                   <img src="../../assets/img/cart/card.png" alt="">
-                  <van-cell title="微信支付" clickable @click="radio = '1'">
+                  <van-cell title="微信支付" clickable @click="payType = '1'">
                     <van-radio slot="right-icon" name="1" />
                   </van-cell>
                 </div>
@@ -89,6 +90,7 @@
               <van-submit-bar
                 button-text="立即支付"
                 class="cup_bottom"
+                @submit="pay"
               />
             </van-radio-group>
           </van-popup>
@@ -115,17 +117,10 @@
     data() {
       return {
           status: 'loading',
-          radio: '1',
-          chosenAddressId: '1',
+          payType: '1',
+          chosenAddressId: 1,
           show: false,
-          list: [
-              {
-                  id: '1',
-                  name: '张三',
-                  tel: '13000000000',
-                  address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-              }
-          ],
+          addressList: [],
           orderList: []
       }
     },
@@ -134,7 +129,7 @@
             let price = 0
             this.orderList.forEach((n, i) => {
                 n.goods.forEach((good, i) => {
-                   price += good.activityMoney * good.num
+                   price += good.goodsMoney * good.num
                 })
             })
             return price
@@ -155,7 +150,36 @@
             this.status = 'success'
         },
         async getAddressList() {
-            const res = await this.$http.post('product/userAddress/list')
+            const res = await this.$http.post('product/userAddress/list', {
+                userCode: this.$store.state.userCode
+            })
+            res.data.forEach((n, i) => {
+                n.address = n.addressDetail
+                n.tel = n.receiverPhone
+                n.name = n.receiverName
+                n.id = i + 1
+            })
+            this.addressList = JSON.parse(JSON.stringify(res.data))
+            this.addressList.length = 3
+        },
+        changeAddress(item, index) {
+            this.$router.push('/cart/address_list')
+        },
+        async pay() {
+            const targetAddress = this.addressList[this.chosenAddressId - 1]
+            const data = {
+                'receiverId': targetAddress.id,
+                'receiverName': targetAddress.receiverName,
+                'receiverPhone': targetAddress.tel,
+                'receiverAddress': targetAddress.address,
+                'isInvoices': 0,
+                'payType': this.payType,
+                'orderType': this.orderList[0].orderType,
+                'trueMoney': this.customTotalPrice,
+                'goodsPoList': this.orderList
+            }
+            console.log(JSON.stringify(data))
+            const res = await this.$http.post('order/order/placeOrder', data)
             console.log(res)
         },
         showPopup() {

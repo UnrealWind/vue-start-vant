@@ -60,25 +60,35 @@ import { areaList } from '@/assets/json/areaList'
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
-        },
-        onSave() {
-            // Toast('save')
+        async onSave(val) {
+            // 适配器
+            val.isDefault ? val.isDefault = 1 : val.isDefault = 0
+            const data = {
+                userCode: this.$store.state.userCode,
+                receiverName: val.name,
+                receiverPhone: val.tel,
+                // areaIdPath:'',
+                areaId: val.areaCode,
+                addressDetail: val.addressDetail,
+                isDefault: val.isDefault,
+                addressType: 0
+            }
+            await this.$http.post('product/userAddress/add', data)
+            this.$router.back()
         },
         onDelete() {
             // Toast('delete')
         },
         onChangeDetail(val) {
-            if (val) {
+            /*  这里可以进行查询操作
+              if (val) {
                 this.searchResult = [{
                     name: '黄龙万科中心',
                     address: '杭州市西湖区'
                 }]
             } else {
                 this.searchResult = []
-            }
+            }*/
         }
     }
   }

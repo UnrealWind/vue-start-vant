@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="nav_box4 dan_wrap fix" @click="$router.push('/static/introduction')">
+    <div class="nav_box4 dan_wrap fix" @click="$router.push('/user/productdetails')">
       <div class="wp">
         <div v-for="(commodity,index) in concentrateData" :key="`${commodity.type}-${index}`" class="nav_li">
           <commodity
@@ -90,7 +90,7 @@
 
         <ul class="flex_wrap gwcLits ">
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -98,7 +98,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -106,7 +106,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -114,7 +114,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>

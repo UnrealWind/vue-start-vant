@@ -31,16 +31,16 @@
     <div class="nav_box nav_box3 dan_wrap fix">
       <div class="wp">
         <div class="nav_concent">
-          <a href="" class="img" @click="$router.push('/static/introduction')"><img src="../assets/img/brandtu16.png" alt=""> </a>
+          <a href="" class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu16.png" alt=""> </a>
           <div class="nav_ul fix">
-            <div class="li l" @click="$router.push('/static/introduction')">
+            <div class="li l" @click="$router.push('/user/productdetails')">
               <a href="" class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
               <p>
                 <a href=""> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
               </p>
               <div class="price"> ￥69 </div>
             </div>
-            <div class="li r" @click="$router.push('/static/introduction')">
+            <div class="li r" @click="$router.push('/user/productdetails')">
               <a href="" class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
               <p>
                 <a href=""> 加宽松紧腰舒适休闲裤 </a>
@@ -49,41 +49,41 @@
             </div>
           </div>
 
-          <a href="" class="img" @click="$router.push('/static/introduction')"><img src="../assets/img/brandtu19.png" alt=""> </a>
+          <a href="" class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu19.png" alt=""> </a>
 
         </div>
       </div>
     </div>
 
     <div class="nav_box4 dan_wrap fix">
-      <a href="" class="img" @click="$router.push('/static/introduction')"><img src="../assets/img/brandtu20.png" alt=""> </a>
+      <a href="" class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu20.png" alt=""> </a>
     </div>
 
     <div class="nav_box5 dan_wrap fix">
       <div class="wp">
         <div class="nav_ul fix">
-          <div class="li l" @click="$router.push('/static/introduction')">
+          <div class="li l" @click="$router.push('/user/productdetails')">
             <a href="" class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
             <p>
               <a href=""> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
             </p>
             <div class="price"> ￥69 </div>
           </div>
-          <div class="li r" @click="$router.push('/static/introduction')">
+          <div class="li r" @click="$router.push('/user/productdetails')">
             <a href="" class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
             <p>
               <a href=""> 加宽松紧腰舒适休闲裤 </a>
             </p>
             <div class="price"> ￥69 </div>
           </div>
-          <div class="li l" @click="$router.push('/static/introduction')">
+          <div class="li l" @click="$router.push('/user/productdetails')">
             <a href="" class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
             <p>
               <a href=""> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
             </p>
             <div class="price"> ￥69 </div>
           </div>
-          <div class="li r" @click="$router.push('/static/introduction')">
+          <div class="li r" @click="$router.push('/user/productdetails')">
             <a href="" class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
             <p>
               <a href=""> 加宽松紧腰舒适休闲裤 </a>
@@ -105,7 +105,7 @@
 
         <ul class="flex_wrap gwcLits ">
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -113,7 +113,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -121,7 +121,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -129,7 +129,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../public/static/waibao/images/timg3.png" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>

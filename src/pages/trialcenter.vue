@@ -7,12 +7,12 @@
         <div class="p"> 试用中心 </div>
       </div>
       <div class="hesde_l3"> <van-icon name="share" />  </div>
-      <div class="hesde_l4" @click="$router.push('/static/introduction')"> <van-icon name="cart-o" />  </div>
+      <div class="hesde_l4" @click="$router.push('/user/productdetails')"> <van-icon name="cart-o" />  </div>
     </div>
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipDataMin" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/static/introduction')">
+        <div v-for="(vip,index) in vipDataMin" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
 
           <commodity
             :type="vip.type"

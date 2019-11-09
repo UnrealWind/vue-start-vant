@@ -7,7 +7,7 @@
         </p>
         <p>跨境电商</p>
         <p class="flex_center img2">
-          <a style="position: relative;top:-10px;" href="../html/malltemplate/one/home/shopcart.html">
+          <a style="position: relative;top:-10px;" @click="$router.push('/shoppingcart')">
             <img src="../../assets/css/static/images/gwc1.png" alt="">
           </a>
           <img src="../../assets/css/static/images/fx1.png" alt="" class="fximg">
@@ -91,22 +91,22 @@
         <div class="swiper-container1">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <a href="../html/malltemplate/one/home/introduction.html">
+              <a @click="$router.push('/user/productdetails')">
                 <img src="../../assets/css/static/images/s1.jpg" alt="">
               </a>
             </div>
             <div class="swiper-slide">
-              <a href="../html/malltemplate/one/home/introduction.html">
+              <a @click="$router.push('/user/productdetails')">
                 <img src="../../assets/css/static/images/s1.jpg" alt="">
               </a>
             </div>
             <div class="swiper-slide">
-              <a href="../html/malltemplate/one/home/introduction.html">
+              <a @click="$router.push('/user/productdetails')">
                 <img src="../../assets/css/static/images/s1.jpg" alt="">
               </a>
             </div>
             <div class="swiper-slide">
-              <a href="../html/malltemplate/one/home/introduction.html">
+              <a @click="$router.push('/user/productdetails')">
                 <img src="../../assets/css/static/images/s1.jpg" alt="">
               </a>
             </div>
@@ -126,16 +126,16 @@
       <div class="Storefront publicBox mt3 Storefront1">
         <div class="flex_betweenc  Storefront_cont">
           <div class="box1 flex">
-            <a href="/productlistmin">
+            <a @click="$router.push('/productlistmin')">
               <img src="../../assets/css/static/images/t1.png" alt="">
               <p>每天09点更新</p>
             </a>
           </div>
-          <div class="box2 flex_center"><a href="/productlistmin"> 查看更多</a></div>
+          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')"> 查看更多</a></div>
         </div>
         <ul class="commodityLits flex_wrap">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/kj1 (1).png" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex_betweenc"><span>¥155</span> <samp>赚10</samp></p>
@@ -143,7 +143,7 @@
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/kj1 (1).png" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex_betweenc"><span>¥155</span> <samp>赚10</samp></p>
@@ -151,7 +151,7 @@
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/kj1 (1).png" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex_betweenc"><span>¥155</span> <samp>赚10</samp></p>
@@ -167,39 +167,39 @@
             <img src="../../assets/css/static/images/t2.png" alt="">
             <p>甄选热卖好物</p>
           </div>
-          <div class="box2 flex_center"><a href="/productlistmin">其他榜单</a></div>
+          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')">其他榜单</a></div>
         </div>
         <ul class="bangdanBox flex_betweenc mt3">
           <li class="li1">
-            <p class="imgBox flex_center"><a href="/productlistmin"> <img
+            <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"> <img
               src="../../assets/css/static/images/kj1 (3).png"
               alt=""
             > </a></p>
-            <p class="text"><a href="/productlistmin">人气面膜榜</a></p>
+            <p class="text"><a @click="$router.push('/productlistmin')">人气面膜榜</a></p>
           </li>
           <li class="li2">
-            <p class="imgBox flex_center"><a href="/productlistmin"><img
+            <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"><img
               src="../../assets/css/static/images/kj1 (4).png"
               alt=""
             ></a></p>
-            <p class="text"><a href="/productlistmin">护肤面膜榜</a></p>
+            <p class="text"><a @click="$router.push('/productlistmin')">护肤面膜榜</a></p>
           </li>
           <li class="li3">
-            <p class="imgBox flex_center"><a href="/productlistmin"><img
+            <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"><img
               src="../../assets/css/static/images/kj1 (2).png"
               alt=""
             ></a></p>
-            <p class="text"><a href="/productlistmin">婴儿奶粉榜</a></p>
+            <p class="text"><a @click="$router.push('/productlistmin')">婴儿奶粉榜</a></p>
           </li>
         </ul>
         <ul class="bangdan2 flex_betweenc">
           <li class="flex_betweenc li1">
             <p class="flex_center"><img src="../../assets/css/static/images/kj1 (5).png" alt=""></p>
-            <a href="../html/malltemplate/one/home/introduction.html">热卖口红榜></a>
+            <a @click="$router.push('/user/productdetails')">热卖口红榜></a>
           </li>
           <li class="flex_betweenc li2">
             <p class="flex_center"><img src="../../assets/css/static/images/kj1 (6).png" alt=""></p>
-            <a href="../html/malltemplate/one/home/introduction.html">营养保健榜></a>
+            <a @click="$router.push('/user/productdetails')">营养保健榜></a>
           </li>
         </ul>
       </div>
@@ -209,14 +209,14 @@
           <div class="box1 flex">
             <h1>种草推荐</h1>
           </div>
-          <div class="box2 flex_center"><a href="/shoppingcart">更多></a></div>
+          <div class="box2 flex_center"><a @click="$router.push('/shoppingcart')">更多></a></div>
         </div>
-        <a href="/shoppingcart"> <img src="../../assets/css/static/images/a8.jpg" alt="" class="img1"> </a>
+        <a @click="$router.push('/shoppingcart')"> <img src="../../assets/css/static/images/a8.jpg" alt="" class="img1"> </a>
         <div class="title flex">
-          <a href="/shoppingcart"><p>#护肤</p><span>welade金板凳花儿婴儿护肤品</span> </a>
+          <a @click="$router.push('/shoppingcart')"><p>#护肤</p><span>welade金板凳花儿婴儿护肤品</span> </a>
         </div>
         <div class="cont box_sizing">
-          <a href="/shoppingcart"><p class="textOver2">
+          <a @click="$router.push('/shoppingcart')"><p class="textOver2">
             兰蔻1935年诞生于法国,凭借着对香水的天才敏感嗅觉、执着不懈的冒险精神，以及他立志让法国品牌在当时已被美国品牌垄断的全球化妆品市场占有一席之地的抱负，
             兰蔻为世界化妆品历史写下美的一页。</p></a>
         </div>
@@ -231,7 +231,7 @@
             >
             <p>1652+人在参加</p>
           </div>
-          <a href="/shoppingcart"> 查看详情</a>
+          <a @click="$router.push('/shoppingcart')"> 查看详情</a>
         </div>
       </div>
       <!-- 逛全球 -->
@@ -246,31 +246,31 @@
         <ul class="commodityLits flex_wrap commodityLits_nav">
 
           <li>
-            <a href="/productlist">
+            <a @click="$router.push('/productlist')">
               <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
               <span>中国馆</span>
             </a>
           </li>
           <li>
-            <a href="/productlist">
+            <a @click="$router.push('/productlist')">
               <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
               <span>中国馆</span>
             </a>
           </li>
           <li>
-            <a href="/productlist">
+            <a @click="$router.push('/productlist')">
               <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
               <span>中国馆</span>
             </a>
           </li>
           <li>
-            <a href="/productlist">
+            <a @click="$router.push('/productlist')">
               <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
               <span>中国馆</span>
             </a>
           </li>
           <li>
-            <a href="/productlist">
+            <a @click="$router.push('/productlist')">
               <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
               <span>中国馆</span>
             </a>
@@ -280,63 +280,63 @@
       <!-- 品牌 -->
       <ul class="publicBox logo_ification flex_wrap mt3">
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
           </a>
         </li>
         <li>
-          <a href="/store">
+          <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
             <p class="p2"></p>
             <p class="p3">兰蔻</p>
@@ -347,7 +347,7 @@
       <div class="mt3"><h1 style="font-size: 0.3rem">今日推荐</h1></div>
       <ul class="flex_wrap gwcLits">
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -358,7 +358,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -369,7 +369,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -380,7 +380,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -391,7 +391,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -402,7 +402,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>

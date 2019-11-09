@@ -17,7 +17,7 @@
     "fastclick": "^1.0.6",
     "lib-flexible": "^0.3.2",
     "normalize.css": "7.0.0",
-    "vant": "^1.6.19",
+    "vant": "^2.2.11",
     "vue": "2.6.10",
     "vue-router": "3.0.6",
     "vuex": "3.1.0"
@@ -57,15 +57,15 @@
     "javascript",
     "javascriptreact",
     {
-        "language": "html",
-        "autoFix": true
+      "language": "html",
+      "autoFix": true
     },
     {
-        "language": "vue",
-        "autoFix": true
+      "language": "vue",
+      "autoFix": true
     }
-],
-"eslint.autoFixOnSave": true,
+  ],
+  "eslint.autoFixOnSave": true,
   "browserslist": [
     "> 1%",
     "ie >= 8",

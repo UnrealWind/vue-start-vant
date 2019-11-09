@@ -10,7 +10,7 @@
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/static/introduction')"> <img src="../assets/img/supermarketlist.png" alt=""></van-swipe-item>
+      <van-swipe-item @click="$router.push('/user/productdetails')"> <img src="../assets/img/supermarketlist.png" alt=""></van-swipe-item>
     </van-swipe>
 
     <div class="nav_box5 dan_wrap ">
@@ -29,7 +29,7 @@
 
         <ul class="flex_wrap gwcLits ">
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -40,7 +40,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -51,7 +51,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -62,7 +62,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -73,7 +73,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -84,7 +84,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -95,7 +95,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -106,7 +106,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>
@@ -117,7 +117,7 @@
             </a>
           </li>
           <li>
-            <a @click="$router.push('/static/introduction')">
+            <a @click="$router.push('/user/productdetails')">
               <div class="p2">
                 <img src="../../public/static/waibao/images/timg3.png" alt="">
                 <h4> 特卖</h4>

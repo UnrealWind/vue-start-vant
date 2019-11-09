@@ -7,15 +7,15 @@
         <div class="p"> 品质水果 - 苹果 </div>
       </div>
       <div class="hesde_l3"> <van-icon name="certificate" />  </div>
-      <div class="hesde_l4" @click="$router.push('/static/introduction')"> <van-icon name="cart-o" />  </div>
+      <div class="hesde_l4" @click="$router.push('/user/productdetails')"> <van-icon name="cart-o" />  </div>
     </div>
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/static/introduction')"> <img src="../assets/img/fruittu1.png" alt=""></van-swipe-item>
+      <van-swipe-item @click="$router.push('/user/productdetails')"> <img src="../assets/img/fruittu1.png" alt=""></van-swipe-item>
     </van-swipe>
 
     <div class="nav_box dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="nav_wrap" @click="$router.push('/static/introduction')">
+        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="nav_wrap" @click="$router.push('/user/productdetails')">
           <commodity
             :type="vip.type"
             :image="vip.image"

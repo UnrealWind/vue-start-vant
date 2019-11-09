@@ -7,7 +7,7 @@
         </p>
         <p> 每日上新 </p>
         <p class="flex_center img2">
-          <a style="position: relative;top:-10px;" href="../html/malltemplate/one/home/shopcart.html">
+          <a style="position: relative;top:-10px;" @click="$router.push('/shoppingcart')">
             <img src="../../assets/css/static/images/g.png" alt="">
           </a>
           <img src="../../assets/css/static/images/fx.png" alt="" class="fximg">
@@ -20,70 +20,70 @@
         <div class="title_mrsx">精选大牌</div>
         <ul class="jxdpImgList flex_wrap">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a22.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">PLPO品牌团></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">PLPO品牌团></a></p>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a22.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">PLPO品牌团></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">PLPO品牌团></a></p>
           </li>
         </ul>
         <ul class="jxdpImgList flex_wrap jxdpImgList1">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a23.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">LOVE苏的品牌></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">LOVE苏的品牌></a></p>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a23.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">LOVE苏的品牌></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">LOVE苏的品牌></a></p>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a23.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">LOVE苏的品牌></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">LOVE苏的品牌></a></p>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a23.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">LOVE苏的品牌></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">LOVE苏的品牌></a></p>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a23.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">LOVE苏的品牌></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">LOVE苏的品牌></a></p>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html"><img
+            <a @click="$router.push('/user/productdetails')"><img
               src="../../assets/css/static/images/a23.jpg"
               alt=""
             ></a>
             <h1>限量抢199减100</h1>
-            <p class="flex_center"><a href="../html/malltemplate/one/home/introduction.html">LOVE苏的品牌></a></p>
+            <p class="flex_center"><a @click="$router.push('/user/productdetails')">LOVE苏的品牌></a></p>
           </li>
         </ul>
         <div class="title_mrsx">精选商品</div>
@@ -110,7 +110,7 @@
         </div>
         <ul class="flex_wrap gwcLits">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/a24.jpg" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -122,7 +122,7 @@
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/a24.jpg" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -134,7 +134,7 @@
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/a24.jpg" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -146,7 +146,7 @@
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/a24.jpg" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -158,7 +158,7 @@
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/a24.jpg" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -170,7 +170,7 @@
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/a24.jpg" alt="">
               <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -223,6 +223,11 @@
 
 </script>
 <style lang='scss' scoped>
+  .title_mrsx{
+    height: 0.8rem;
+    line-height: 0.7rem;
+    font-size: .4rem;
+  }
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";

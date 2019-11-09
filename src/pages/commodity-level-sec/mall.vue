@@ -39,21 +39,21 @@
         <!-- 商品 -->
         <ul class="commodityLits mt7 flex_wrap">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
@@ -73,61 +73,61 @@
         <ul class="commodityLits flex_wrap commodityLits_nav">
 
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
           </li>
           <li>
-            <a href="/productlistmin">
+            <a href="#/productlistmin">
               <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
               <span>男装</span>
             </a>
@@ -172,21 +172,21 @@
       </div>
       <ul class="commodityLits flex_wrap">
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/b.jpg" alt="">
             <p class="title">GU极优女装珊瑚绒起居套装</p>
             <p class="money"><span>¥155</span> <samp>¥188</samp></p>
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/b.jpg" alt="">
             <p class="title">GU极优女装珊瑚绒起居套装</p>
             <p class="money"><span>¥155</span> <samp>¥188</samp></p>
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/b.jpg" alt="">
             <p class="title">GU极优女装珊瑚绒起居套装</p>
             <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
@@ -207,21 +207,21 @@
         </div>
         <ul class="commodityLits flex_wrap">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
@@ -239,21 +239,21 @@
         </div>
         <ul class="commodityLits flex_wrap">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
@@ -271,21 +271,21 @@
         </div>
         <ul class="commodityLits flex_wrap">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
@@ -303,21 +303,21 @@
         </div>
         <ul class="commodityLits flex_wrap">
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money"><span>¥155</span> <samp>¥188</samp></p>
             </a>
           </li>
           <li>
-            <a href="../html/malltemplate/one/home/introduction.html">
+            <a @click="$router.push('/user/productdetails')">
               <img src="../../assets/css/static/images/b.jpg" alt="">
               <p class="title">GU极优女装珊瑚绒起居套装</p>
               <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
@@ -391,7 +391,7 @@
       <!-- 购物车商品list -->
       <ul class="flex_wrap gwcLits">
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -402,7 +402,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -413,7 +413,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -424,7 +424,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -435,7 +435,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -446,7 +446,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a6.jpg" alt="">
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -470,7 +470,7 @@
         data() {
             return {
                 status: 'loading',
-                activeName: 0
+                active: 0
             }
         },
         computed: {},

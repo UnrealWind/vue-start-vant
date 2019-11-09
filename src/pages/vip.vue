@@ -21,7 +21,7 @@
 
     <div class=" dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/static/introduction')">
+        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
 
           <commodity
             :type="vip.type"
@@ -46,7 +46,7 @@
 
     <div class=" dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipDataMin" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/static/introduction')">
+        <div v-for="(vip,index) in vipDataMin" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
 
           <commodity
             :type="vip.type"

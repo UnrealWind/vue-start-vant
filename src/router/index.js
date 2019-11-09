@@ -330,6 +330,48 @@ export const constantRoutes = [
     meta: {
       keepAlive: false
     }
+  },
+  {
+    path: '/user/mine',
+    component: () => import('@/pages/user/mine'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/find',
+    component: () => import('@/pages/user/find'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/myshop',
+    component: () => import('@/pages/user/myshop'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/mysearch',
+    component: () => import('@/pages/user/mysearch'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/classification',
+    component: () => import('@/pages/user/classification'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/productdetails',
+    component: () => import('@/pages/user/productdetails'),
+    meta: {
+      keepAlive: false
+    }
   }
 ]
 

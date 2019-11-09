@@ -42,61 +42,61 @@
       </div>
       <ul class="commodityLits flex_wrap commodityLits_nav">
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
         </li>
         <li>
-          <a href="/supermarketlist">
+          <a href="#/supermarketlist">
             <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
             <span>奶品饮料</span>
           </a>
@@ -112,7 +112,7 @@
             <div class="swiper-container swiper-container2 swiper-container-horizontal">
               <div class="swiper-wrapper gwcLits">
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <p class="imgbj"><span>直降<br>¥9</span></p>
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>电商11.11</span></p>
@@ -121,7 +121,7 @@
                   </a>
                 </li>
                 <li class="swiper-slide swiper-slide-prev">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <p class="imgbj"><span>直降<br>¥9</span></p>
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>电商11.11</span></p>
@@ -130,7 +130,7 @@
                   </a>
                 </li>
                 <li class="swiper-slide swiper-slide-active">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <p class="imgbj"><span>直降<br>¥9</span></p>
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>电商11.11</span></p>
@@ -139,7 +139,7 @@
                   </a>
                 </li>
                 <li class="swiper-slide swiper-slide-next">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <p class="imgbj"><span>直降<br>¥9</span></p>
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>电商11.11</span></p>
@@ -148,7 +148,7 @@
                   </a>
                 </li>
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <p class="imgbj"><span>直降<br>¥9</span></p>
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>电商11.11</span></p>
@@ -157,7 +157,7 @@
                   </a>
                 </li>
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <p class="imgbj"><span>直降<br>¥9</span></p>
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>电商11.11</span></p>
@@ -245,7 +245,7 @@
       </div>
       <ul class="flex_wrap gwcLits gwcLits_zxcs">
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a16.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -253,7 +253,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a16.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -261,7 +261,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a16.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -326,28 +326,28 @@
             <div class="swiper-container swiper-container2 swiper-container-horizontal">
               <div class="swiper-wrapper gwcLits">
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>特卖</span></p>
                     <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
                   </a>
                 </li>
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>特卖</span></p>
                     <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
                   </a>
                 </li>
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>特卖</span></p>
                     <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
                   </a>
                 </li>
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>特卖</span></p>
                     <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
@@ -361,7 +361,7 @@
                   </a>
                 </li>
                 <li class="swiper-slide">
-                  <a href="../html/malltemplate/one/home/introduction.html">
+                  <a @click="$router.push('/user/productdetails')">
                     <img src="../../assets/css/static/images/a20.jpg" alt="">
                     <p class="p2"><span>特卖</span></p>
                     <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
@@ -385,7 +385,7 @@
       </div>
       <ul class="flex_wrap gwcLits gwcLits_nav">
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a21.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -393,7 +393,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a21.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -401,7 +401,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a21.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -409,7 +409,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a21.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -417,7 +417,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a21.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -425,7 +425,7 @@
           </a>
         </li>
         <li>
-          <a href="../html/malltemplate/one/home/introduction.html">
+          <a @click="$router.push('/user/productdetails')">
             <img src="../../assets/css/static/images/a21.jpg" alt="">
             <p class="p2"><span>特卖</span></p>
             <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
@@ -475,6 +475,11 @@
   .timeLists{
     width: 25%;
   }
+  .swiper-slide{
+    width: 32%;
+    margin-right: 10px;
+  }
+
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";

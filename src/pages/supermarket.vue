@@ -31,7 +31,7 @@
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div v-for="(rebate,index) in rebateData" :key="`${rebate.type}-${index}`" class="navdan_box4" @click="$router.push('/static/introduction')">
+        <div v-for="(rebate,index) in rebateData" :key="`${rebate.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
           <commodity
             :type="rebate.type"
             :image="rebate.image"

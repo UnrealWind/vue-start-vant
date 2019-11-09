@@ -2,7 +2,7 @@
 <template>
   <van-container :active="3" :status="status" :tabbar="true">
     <div slot="header" class="fix"></div>
-    <van-nav-bar title="购物车" right-text="编辑" color="#fff" />
+    <van-nav-bar title="购物车" color="#fff" />
     <div class="main">
       <div style="background:#ef0e38;height:40px"></div>
       <div class="commodity">
@@ -124,7 +124,6 @@
     },
     data() {
       return {
-          userCode: '123',
           status: 'loading',
           showDiscount: false,
           showDetails: false,
@@ -182,7 +181,7 @@
       },
       async getData() {
           const res = await this.$http.post('order/shoppingCart/list', {
-              userCode: this.userCode
+              userCode: this.$store.state.userCode
           })
           res.data.forEach((n, i) => {
               n['checked'] = false

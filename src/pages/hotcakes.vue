@@ -7,7 +7,7 @@
         <div class="p"> 热销榜单 </div>
       </div>
       <div class="hesde_l3"> <van-icon name="share" />  </div>
-      <div class="hesde_l4" @click="$router.push('/static/introduction')"> <van-icon name="cart-o" />  </div>
+      <div class="hesde_l4" @click="$router.push('/user/productdetails')"> <van-icon name="cart-o" />  </div>
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
@@ -25,7 +25,7 @@
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div v-for="(hot,index) in hotData" :key="`${hot.type}-${index}`" class="navdan_box4" @click="$router.push('/static/introduction')">
+        <div v-for="(hot,index) in hotData" :key="`${hot.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
           <commodity
             :type="hot.type"
             :image="hot.image"
