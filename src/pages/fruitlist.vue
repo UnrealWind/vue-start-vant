@@ -57,7 +57,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                       'current': '29.9',
                       'pre': '35'
                   },
-                  'btnGo': '/static/introduction',
+                  'btnGo': '/user/productdetails',
                   'image': require('assets/img/frutu1.png')
               },
               {
@@ -73,7 +73,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                       'current': '29.9',
                       'pre': '72'
                   },
-                  'btnGo': '/static/introduction',
+                  'btnGo': '/user/productdetails',
                   'image': require('assets/img/frutu12.png')
               }
           ]

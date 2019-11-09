@@ -11,16 +11,12 @@
     <div class="dan_wrap fix">
       <van-tabs v-model="active">
         <van-tab title="全部">
-
-          <div v-for="(shop, index) in NavList" :key="index" class="card_top">
+          <div v-for="(shop, index) in orderList" :key="index" class="card_top">
             <div class="wp">
-
               <!-- 店铺标题-->
               <div class="title fix"> <van-icon name="friends" />  {{ shop.label }} <a class="r">  {{ shop.state }} </a>  </div>
-
               <!--卡片-->
               <div v-for="(commodity, idx) in shop.commodity" :key="idx" class="list_wrap">
-
                 <van-card
                   :num="1"
                   :price="commodity.price"
@@ -31,30 +27,23 @@
                   <div slot="tags" class="tags">
                     <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
                   </div>
-
                   <div slot="footer">
                     <van-button size="mini" class="font_bottom active"> {{ commodity.pay }} </van-button>
                     <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')">  {{ commodity.statelogistics }}  </van-button>
                     <van-button size="mini" class="font_bottom">  {{ commodity.statedelete }}   </van-button>
                   </div>
-
                 </van-card>
-
                 <div class="font_top">
                   共 {{ commodity.num }} 件商品 应付款：<span>￥{{ commodity.price }}</span>  （含运费0.00）
                 </div>
               </div>
             </div>
-
           </div>
-
         </van-tab>
         <van-tab title="待付款">
-
           <div class="card_top">
             <div class="wp">
               <div class="title fix"> <van-icon name="friends" />云妈妈公益 <a class="r"> 待付款 </a>  </div>
-
               <van-card
                 num="1"
                 price="59.00"
@@ -65,26 +54,21 @@
                 <div slot="tags" class="tags">
                   <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
                 </div>
-
                 <div slot="footer">
                   <van-button size="mini" class="font_bottom active"> 付款 </van-button>
                 </div>
               </van-card>
-
               <div class="font_top">
                 共一件商品 应付款：<span>￥59.00</span>  （含运费0.00）
               </div>
-
             </div>
           </div>
 
         </van-tab>
         <van-tab title="待发货">
-
           <div class="card_top">
             <div class="wp">
               <div class="title fix"> <van-icon name="friends" />云妈妈公益 <a class="r"> 待发货 </a>  </div>
-
               <van-card
                 num="1"
                 price="59.00"
@@ -95,28 +79,22 @@
                 <div slot="tags" class="tags">
                   <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
                 </div>
-
                 <div slot="footer">
                   <van-button size="mini" class="font_bottom"> 查看物流 </van-button>
                   <van-button size="mini" class="font_bottom"> 删除订单 </van-button>
                 </div>
-
               </van-card>
-
               <div class="font_top">
                 共一件商品 应付款：<span>￥59.00</span>  （含运费0.00）
               </div>
-
             </div>
           </div>
 
         </van-tab>
         <van-tab title="待收货">
-
           <div class="card_top">
             <div class="wp">
               <div class="title fix"> <van-icon name="friends" />云妈妈公益 <a class="r"> 待收货 </a>  </div>
-
               <van-card
                 num="1"
                 price="59.00"
@@ -180,19 +158,21 @@
 </template>
 
 <script>
-    import { Icon, Tab, Tabs, Card } from 'vant'
+    import { Icon, Tab, Tabs, Card, Button, Tag } from 'vant'
   export default {
     components: {
         'van-icon': Icon,
         'van-tab': Tab,
         'van-tabs': Tabs,
-        'van-card': Card
+        'van-card': Card,
+        'van-button': Button,
+        'van-tag': Tag
     },
     data() {
       return {
           status: 'loading',
           active: 0,
-          NavList: [
+          orderList: [
               {
                   label: '旗舰店a',
                   state: '待付款',
@@ -261,15 +241,15 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getOrderList()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async getOrderList() {
+            const res = await this.$http.post('order/order/list', {})
             console.log(res)
         }
     }

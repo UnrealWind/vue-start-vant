@@ -135,7 +135,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                     'current': '123',
                     'pre': '134'
                 },
-                'btnGo': '/static/introduction',
+                'btnGo': '/user/productdetails',
                 'image': require('assets/img/viptu16.png')
             },
             {
@@ -151,7 +151,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                     'current': '123',
                     'pre': '134'
                 },
-                'btnGo': '/static/introduction',
+                'btnGo': '/user/productdetails',
                 'image': require('assets/img/viptu12.png')
             }
         ]

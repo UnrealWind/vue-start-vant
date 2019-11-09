@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :status="status" :tabbar="true">
+  <van-container :status="status" :active="'index'" :tabbar="true">
     <div slot="header" class="fix">
       <div class="hesde_l l" @click="$router.push('/static/news')">
         <van-icon name="chat-o" />
@@ -123,7 +123,7 @@
     </div>
 
     <div class="nav_box9 dan_wrap">
-      <div class="wp" @click="$router.push('/static/introduction')">
+      <div class="wp">
         <div
           v-for="(commodity,index) in indexData"
           :key="`${commodity.type}-${index}`"
@@ -173,7 +173,7 @@
                             'current': '123',
                             'pre': '134'
                         },
-                        'btnGo': '/static/introduction',
+                        'btnGo': '/user/productdetails',
                         'image': require('assets/img/indextu1.png')
                     },
                     {
@@ -189,7 +189,7 @@
                             'current': '123',
                             'pre': '134'
                         },
-                        'btnGo': '/static/introduction',
+                        'btnGo': '/user/productdetails',
                         'image': require('assets/img/indextu12.png')
                     }
                 ],
@@ -233,7 +233,7 @@
                     {
                         title: '分类',
                         img: require('../assets/img/nav_img18.png'),
-                        path: '/static-dir/sort'
+                        path: '/commodityLevelSec/classification'
                     }
                 ],
                 minNavList: [

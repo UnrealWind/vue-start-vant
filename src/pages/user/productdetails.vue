@@ -414,12 +414,17 @@
 
       </div>
     </div>
-
+    <van-goods-action>
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="$router.push('/shoppingcart')" />
+      <van-goods-action-icon icon="shop-o" text="进店" @click="$router.push('/store')" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="$router.push('/shoppingcart')" />
+      <van-goods-action-button type="danger" text="立即购买" @click="$router.push('/cart/confirm_order')" />
+    </van-goods-action>
   </van-container>
 </template>
 
 <script>
-  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup } from 'vant'
+  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup, GoodsAction, GoodsActionIcon, GoodsActionButton } from 'vant'
 
   export default {
     components: {
@@ -428,7 +433,10 @@
         'van-icon': Icon,
         'van-tab': Tab,
         'van-tabs': Tabs,
-        'van-popup': Popup
+        'van-popup': Popup,
+        'van-goods-action-icon': GoodsActionIcon,
+        'van-goods-action': GoodsAction,
+        'van-goods-action-button': GoodsActionButton
     },
     data() {
       return {

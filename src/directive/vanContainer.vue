@@ -60,8 +60,8 @@
                 default: 'loading' // error empty waiting
             },
             active: {
-                type: Number,
-                default: 0
+                type: String,
+                default: 'index'
             },
             tabbar: {
                 type: Boolean,

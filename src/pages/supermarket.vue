@@ -68,7 +68,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                       'current': '19.9',
                       'pre': '39.9'
                   },
-                  'btnGo': '/static/introduction',
+                  'btnGo': '/user/productdetails',
                   'image': require('assets/img/rebate.jpg'),
                   'imageRebateLine': require('assets/img/rebate1.jpg'),
                   'imageRebate': require('assets/img/rebate2.jpg')
@@ -80,7 +80,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                       'current': '19.9',
                       'pre': '39.9'
                   },
-                  'btnGo': '/static/introduction',
+                  'btnGo': '/user/productdetails',
                   'image': require('assets/img/rebate.jpg'),
                   'imageRebateLine': require('assets/img/rebate1.jpg'),
                   'imageRebate': require('assets/img/rebate2.jpg')

@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :active="2" :status="status" :tabbar="true">
+  <van-container :active="'concentrate'" :status="status" :tabbar="true">
     <div slot="header" class="fix">
       <div class="hesde_l2">
         <div class="p"> 精选 </div>
@@ -148,7 +148,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                   'title': '神户龙虾450g*4袋',
                   'concentratePriceDiscribe': '新品福利￥',
                   'concentratePrice': '1200',
-                  'btnGo': '/static/introduction',
+                  'btnGo': '/user/productdetails',
                   'image': require('assets/img/testtu1.png')
               },
               {
@@ -157,7 +157,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                   'title': '神户龙虾450g*4袋',
                   'concentratePriceDiscribe': '新品福利￥',
                   'concentratePrice': '1200',
-                  'btnGo': '/static/introduction',
+                  'btnGo': '/user/productdetails',
                   'image': require('assets/img/testtu12.png')
               }
           ],

@@ -276,15 +276,15 @@ export const constantRoutes = [
     }
   },
   {
-    path: '/user/classification',
-    component: () => import('@/pages/user/classification'),
+    path: '/user/productdetails',
+    component: () => import('@/pages/user/productdetails'),
     meta: {
       keepAlive: false
     }
   },
   {
-    path: '/user/productdetails',
-    component: () => import('@/pages/user/productdetails'),
+    path: '/commodityLevelSec/classification',
+    component: () => import('@/pages/commodity-level-sec/classification'),
     meta: {
       keepAlive: false
     }

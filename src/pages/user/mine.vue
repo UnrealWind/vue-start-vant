@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :status="status" :tabbar="true" :active="4">
+  <van-container :status="status" :tabbar="true" :active="'mine'">
     <div slot="header" class="fix">
       <div class="wp">
         <div class="header_r l">
@@ -117,7 +117,7 @@
       </div>
     </div>
 
-    <div class="choose">
+    <!--<div class="choose">
       <div class="title"> 为你精选 </div>
 
       <div class="nav_zaixan fix">
@@ -162,7 +162,7 @@
         </li>
       </ul>
 
-    </div>
+    </div>-->
 
   </van-container>
 </template>
@@ -387,6 +387,7 @@
 
   .tools {
     margin-top: 20px;
+    margin-bottom: 20px;
     .wp {
       padding-top: 10px;
       background: #fff;

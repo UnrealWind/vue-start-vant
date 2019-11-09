@@ -31,7 +31,7 @@
 .commodityLits_nav p img{ width: 60% }
 /*购物车商品list*/
 .gwcLits{ justify-content: space-between;}
-.gwcLits li{ width: 26%; background: #fff; border-radius: 0.15rem; overflow: hidden; margin-top: 0.2rem;}
+.gwcLits li{ width: 31%; background: #fff; border-radius: 0.15rem; overflow: hidden; margin-top: 0.2rem;}
 .gwcLits li img{ width: 100%; height: 3rem }
 .gwcLits li a{ color: #333 }
 .gwcLits p{ padding:0 0.2rem }
@@ -110,7 +110,7 @@
 .tuijian2 p.p2{ position: absolute; top:  0.9rem; color: #909090 }
 /*推荐导航*/
 .tuijianNav{ position: relative; padding-top: 0.1rem; }
-.tuijianNav .box{ width: 90%; height: 0.5rem; overflow: hidden; }
+.tuijianNav .box{ width: 90%; overflow: hidden; }
 .tuijianNav .box.act{ height: auto }
 .tuijianNav .more{ width: 10%;border-left:1px solid #666; position: absolute; right: 0; height: 0.5rem }
 .tuijianNav .more img{ width: 0.42rem; height: 0.42rem }
