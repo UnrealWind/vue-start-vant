@@ -13,7 +13,7 @@ const routerAuth = () => {
     } catch (e) {
       return
     }
-    if (store.state.token && store.state.userCode) {
+    if (store.state.token) {
       next()
     } else {
       next({ path: '/user/logon' })

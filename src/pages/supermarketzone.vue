@@ -12,176 +12,19 @@
 
     <div class="nav_wrapper">
 
-      <div class="nav_box dan_wrap fix">
+      <div v-for="(item,index) in zoneListData" :key="index" class="nav_box dan_wrap fix">
         <div class="wp">
-          <a href="" class="img" @click="$router.push('/user/productdetails')">  <img src="../assets/img/zonetu1.png" alt=""> </a>
+          <a href="" class="img" @click="$router.push('/user/productdetails')">  <img :src="item.img" alt=""> </a>
           <div class="nav_wrap">
             <div class="nva_ul fix">
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
+              <div v-for="(items,indexs) in item.goods" :key="indexs" class="li" @click="$router.push('/user/productdetails')">
+                <a href="" class="img">  <img :src="items.img" alt=""> </a>
+                <p><a href="">  ¥{{ items.current }} <span>  ¥{{ items.pre }} </span>  </a> </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="nav_box dan_wrap fix">
-        <div class="wp">
-          <a href="" class="img" @click="$router.push('/user/productdetails')">  <img src="../assets/img/zonetu1.png" alt=""> </a>
-          <div class="nav_wrap">
-            <div class="nva_ul fix">
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nav_box dan_wrap fix">
-        <div class="wp">
-          <a href="" class="img" @click="$router.push('/user/productdetails')">  <img src="../assets/img/zonetu1.png" alt=""> </a>
-          <div class="nav_wrap">
-            <div class="nva_ul fix">
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nav_box dan_wrap fix">
-        <div class="wp">
-          <a href="" class="img" @click="$router.push('/user/productdetails')">  <img src="../assets/img/zonetu1.png" alt=""> </a>
-          <div class="nav_wrap">
-            <div class="nva_ul fix">
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nav_box dan_wrap fix">
-        <div class="wp">
-          <a href="" class="img" @click="$router.push('/user/productdetails')">  <img src="../assets/img/zonetu1.png" alt=""> </a>
-          <div class="nav_wrap">
-            <div class="nva_ul fix">
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-              <div class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img src="../assets/img/zonetu12.png" alt=""> </a>
-                <p><a href="">  ¥29.9 <span>  ¥29.9 </span>  </a> </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
 
   </van-container>
@@ -195,7 +38,48 @@ import { Icon } from 'vant'
     },
     data() {
       return {
-          status: 'loading'
+          status: 'loading',
+          zoneListData: [
+              {
+                  img: require('../assets/img/zonetu1.png'),
+                  goods: [
+                      {
+                          img: require('../assets/img/zonetu12.png'),
+                          current: '29.7',
+                          pre: '42.5'
+                      },
+                      {
+                          img: require('../assets/img/zonetu12.png'),
+                          current: '29.7',
+                          pre: '42.5'
+                      }, {
+                          img: require('../assets/img/zonetu12.png'),
+                          current: '29.7',
+                          pre: '42.5'
+                      }
+                  ]
+              },
+              {
+                  img: require('../assets/img/zonetu1.png'),
+                  goods: [
+                      {
+                          img: require('../assets/img/zonetu12.png'),
+                          current: '29.7',
+                          pre: '42.5'
+                      },
+                      {
+                          img: require('../assets/img/zonetu12.png'),
+                          current: '29.7',
+                          pre: '42.5'
+                      },
+                      {
+                          img: require('../assets/img/zonetu12.png'),
+                          current: '29.7',
+                          pre: '42.5'
+                      }
+                  ]
+              }
+          ]
       }
     },
     computed: {

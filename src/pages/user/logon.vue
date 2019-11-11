@@ -18,12 +18,18 @@
         <div class="title"> 填写注册信息 </div>
 
         <van-cell-group>
-          <van-field v-model="value" label="用户名" placeholder="请输入用户名" />
+          <van-field v-model="user" label="用户名" placeholder="请输入用户名" />
 
           <van-field
             v-model="phone"
             label="手机号"
             placeholder="请输入手机号"
+          />
+          <van-field
+            v-model="password"
+            label="密码"
+            type="password"
+            placeholder="请输入密码"
           />
           <van-field
             v-model="sms"
@@ -32,12 +38,11 @@
             label="短信验证码"
             placeholder="请输入短信验证码"
           >
-            <van-button slot="button" size="small" type="primary">发送验证码</van-button>
+            <van-button slot="button" size="small" type="primary" @click="sendMsg">发送验证码</van-button>
           </van-field>
-
         </van-cell-group>
 
-        <div class="nextSte" @click="$router.push('/')">
+        <div class="nextSte" @click="logon">
           下一步
         </div>
 
@@ -60,9 +65,10 @@
     data() {
       return {
           status: 'loading',
-          value: '',
+          user: '',
           phone: '',
-          sms: ''
+          sms: '',
+          password: ''
       }
     },
     computed: {
@@ -73,16 +79,41 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.login()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async login() {
+            const res = await this.$http({
+                method: 'post',
+                url: `login?username=17342062325&password=123456&rememberMe=true`,
+                data: {
+                    username: '17342062325',
+                    password: '123456',
+                    rememberMe: true
+                }
+            })
             console.log(res)
+        },
+        async logon() {
+            const res = await this.$http.post('user/userRegistration/register', {
+                phoneNum: this.phone,
+                type: '0',
+                code: this.sms,
+                pid: '12',
+                password: this.password
+            })
+            console.log(res)
+            this.$router.push('/')
+        },
+        async sendMsg() {
+            await this.$http.post('user/userRegistration/sendSms', {
+                phoneNum: this.phone,
+                type: '0'
+            })
         }
     }
   }

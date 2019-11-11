@@ -1,17 +1,11 @@
 <template>
   <van-container :tabber="true" :status="status">
     <div slot="header" class="fix">
-      <div class="fixedHead flex_center box_sizing fixedHead1">
-        <p class="flex_center img1" onClick="javascript:history.back(-1);">
-          <img src="../../assets/css/static/images/zuo1.png" alt="">
-        </p>
-        <p>跨境电商</p>
-        <p class="flex_center img2">
-          <a style="position: relative;top:-10px;" @click="$router.push('/shoppingcart')">
-            <img src="../../assets/css/static/images/gwc1.png" alt="">
-          </a>
-          <img src="../../assets/css/static/images/fx1.png" alt="" class="fximg">
-        </p>
+      <div class="header_l " @click="$router.back()">
+        <van-icon name="arrow-left" />
+      </div>
+      <div class="header_l2">
+        <div class="p"> 跨境电商</div>
       </div>
     </div>
     <div class="topHead topHead1">
@@ -23,59 +17,9 @@
         <div class="swiper_minNav">
           <div class="swiper-container">
             <div class="swiper-wrapper">
-              <div class="swiper-slide act">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2 ">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>护肤产品</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
-              </div>
-              <div class="swiper-slide">
-                <img src="../../assets/css/static/images/zuan.png" class="IMG1">
-                <img src="../../assets/css/static/images/zuan1.png" class="IMG3">
-                <p>精选</p>
-                <img src="../../assets/css/static/images/wan.png" class="IMG2">
+              <div v-for="(item,index) in corssBorderNavData" :key="index" class="swiper-slide act">
+                <van-icon name="gem-o" />
+                <p>{{ item["nav-name"] }}</p>
               </div>
             </div>
           </div>
@@ -134,28 +78,12 @@
           <div class="box2 flex_center"><a @click="$router.push('/productlistmin')"> 查看更多</a></div>
         </div>
         <ul class="commodityLits flex_wrap">
-          <li>
+          <li v-for="(item,index) in corssBorderRobData" :key="index">
             <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/kj1 (1).png" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex_betweenc"><span>¥155</span> <samp>赚10</samp></p>
+              <img :src="item.img" alt="">
+              <p class="title">{{ item.title }}</p>
+              <p class="money flex_betweenc"><span>¥{{ item.current }}</span> <samp>赚{{ item.gain }}</samp></p>
               <span class="pop1">直降20元</span><span class="pop2">爆款</span>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/kj1 (1).png" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex_betweenc"><span>¥155</span> <samp>赚10</samp></p>
-              <span class="pop1">10支装</span>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/kj1 (1).png" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex_betweenc"><span>¥155</span> <samp>赚10</samp></p>
-              <span class="pop2">买1赠3</span>
             </a>
           </li>
         </ul>
@@ -170,36 +98,18 @@
           <div class="box2 flex_center"><a @click="$router.push('/productlistmin')">其他榜单</a></div>
         </div>
         <ul class="bangdanBox flex_betweenc mt3">
-          <li class="li1">
+          <li v-for="(item,index) in corssBorderHotListData" :key="index" class="li1">
             <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"> <img
-              src="../../assets/css/static/images/kj1 (3).png"
+              :src="item.img"
               alt=""
             > </a></p>
-            <p class="text"><a @click="$router.push('/productlistmin')">人气面膜榜</a></p>
-          </li>
-          <li class="li2">
-            <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"><img
-              src="../../assets/css/static/images/kj1 (4).png"
-              alt=""
-            ></a></p>
-            <p class="text"><a @click="$router.push('/productlistmin')">护肤面膜榜</a></p>
-          </li>
-          <li class="li3">
-            <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"><img
-              src="../../assets/css/static/images/kj1 (2).png"
-              alt=""
-            ></a></p>
-            <p class="text"><a @click="$router.push('/productlistmin')">婴儿奶粉榜</a></p>
+            <p class="text"><a @click="$router.push('/productlistmin')">{{ item.title }}</a></p>
           </li>
         </ul>
-        <ul class="bangdan2 flex_betweenc">
+        <ul v-for="(item,index) in corssBorderHotListData" :key="index" class="bangdan2 flex_betweenc">
           <li class="flex_betweenc li1">
-            <p class="flex_center"><img src="../../assets/css/static/images/kj1 (5).png" alt=""></p>
-            <a @click="$router.push('/user/productdetails')">热卖口红榜></a>
-          </li>
-          <li class="flex_betweenc li2">
-            <p class="flex_center"><img src="../../assets/css/static/images/kj1 (6).png" alt=""></p>
-            <a @click="$router.push('/user/productdetails')">营养保健榜></a>
+            <p class="flex_center"><img :src="item.img" alt=""></p>
+            <a @click="$router.push('/user/productdetails')">{{ item.title }}></a>
           </li>
         </ul>
       </div>
@@ -211,14 +121,14 @@
           </div>
           <div class="box2 flex_center"><a @click="$router.push('/shoppingcart')">更多></a></div>
         </div>
-        <a @click="$router.push('/shoppingcart')"> <img src="../../assets/css/static/images/a8.jpg" alt="" class="img1"> </a>
+        <a @click="$router.push('/shoppingcart')"> <img :src="corssBorderRecommendData.img" alt="" class="img1">
+        </a>
         <div class="title flex">
-          <a @click="$router.push('/shoppingcart')"><p>#护肤</p><span>welade金板凳花儿婴儿护肤品</span> </a>
+          <a @click="$router.push('/shoppingcart')"><p>#护肤</p><span>{{ corssBorderRecommendData.title }}</span> </a>
         </div>
         <div class="cont box_sizing">
           <a @click="$router.push('/shoppingcart')"><p class="textOver2">
-            兰蔻1935年诞生于法国,凭借着对香水的天才敏感嗅觉、执着不懈的冒险精神，以及他立志让法国品牌在当时已被美国品牌垄断的全球化妆品市场占有一席之地的抱负，
-            兰蔻为世界化妆品历史写下美的一页。</p></a>
+            {{ corssBorderRecommendData.intro }}。</p></a>
         </div>
         <div class="name_box flex_betweenc mt3">
           <div class="flex">
@@ -229,9 +139,9 @@
               src="../../assets/css/static/images/a9.jpg"
               alt=""
             >
-            <p>1652+人在参加</p>
+            <p>{{ corssBorderRecommendData.people }}+人在参加</p>
           </div>
-          <a @click="$router.push('/shoppingcart')"> 查看详情</a>
+          <a @click="corssBorderRecommendData.path"> 查看详情</a>
         </div>
       </div>
       <!-- 逛全球 -->
@@ -241,172 +151,36 @@
             <h1>逛全球</h1>
             <p>带你发现全球好物</p>
           </div>
-          <div class="box2 flex_center"><a href="/productlist">更多></a></div>
+          <div class="box2 flex_center"><a @click="$router.push('/productlist')">更多></a></div>
         </div>
         <ul class="commodityLits flex_wrap commodityLits_nav">
-
-          <li>
+          <li v-for="(item,index) in corssBorderStateData" :key="index">
             <a @click="$router.push('/productlist')">
-              <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
-              <span>中国馆</span>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/productlist')">
-              <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
-              <span>中国馆</span>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/productlist')">
-              <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
-              <span>中国馆</span>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/productlist')">
-              <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
-              <span>中国馆</span>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/productlist')">
-              <p class="flex_center"><img src="../../assets/css/static/images/guoqi.jpg" alt=""></p>
-              <span>中国馆</span>
+              <p class="flex_center"><img :src="item.img" alt=""></p>
+              <span>{{ item.name }}</span>
             </a>
           </li>
         </ul>
       </div>
       <!-- 品牌 -->
       <ul class="publicBox logo_ification flex_wrap mt3">
-        <li>
+        <li v-for="(item,index) in corssBorderBrandData" :key="index">
           <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
+            <p class="p1 flex_center"><img :src="item.img" alt=""></p>
             <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a11.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">兰蔻</p>
+            <p class="p3">{{ item.name }}</p>
           </a>
         </li>
       </ul>
       <!-- 今日推荐 -->
       <div class="mt3"><h1 style="font-size: 0.3rem">今日推荐</h1></div>
       <ul class="flex_wrap gwcLits">
-        <li>
+        <li v-for="(item,index) in corssBorderProductListData" :key="index">
           <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+            <img :src="item.img" alt="" class="commodityList">
+            <p class="p1">{{ item.title }}</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+            <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
               src="../../assets/css/static/images/gwc.png"
               alt=""
             ></div>
@@ -418,10 +192,67 @@
 </template>
 
 <script>
+    import { Icon } from 'vant'
+
     export default {
+        components: {
+            'van-icon': Icon
+        },
         data() {
             return {
-                status: 'loading'
+                status: 'loading',
+                corssBorderNavData: [
+                    {
+                        'img': '/',
+                        'nav-name': '精选'
+                    },
+                    {
+                        'img': '/',
+                        'nav-name': '护肤产品'
+                    }
+                ],
+                corssBorderRobData: [
+                    {
+                        img: require('../../assets/css/static/images/kj1 (1).png'),
+                        title: 'GU极优女装珊瑚',
+                        current: '155',
+                        gain: 10 // 赚  利润
+                    }
+                ],
+                corssBorderHotListData: [
+                    {
+                        img: require('../../assets/css/static/images/kj1 (5).png'),
+                        title: '人气面膜榜',
+                        path: '/productlistmin'
+                    }
+                ],
+                corssBorderProductListData: [
+                    {
+                        'img': require('../../assets/css/static/images/a24.jpg'),
+                        'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
+                        'current': 123, // 现价
+                        'pre': 134 // 原价
+                    }
+                ],
+                corssBorderBrandData: [
+                    {
+                        'img': require('../../assets/css/static/images/a11.jpg'),
+                        'name': '兰蔻'
+                    }
+                ],
+                corssBorderStateData: [
+                    {
+                        'img': require('../../assets/css/static/images/guoqi.jpg'),
+                        'name': '中国'
+                    }
+                ],
+                corssBorderRecommendData: {
+                    'img': require('../../assets/css/static/images/a8.jpg'),
+                    'title': 'welade金板凳花儿婴儿护肤品',
+                    'intro': '兰蔻1935年诞生于法国,凭借着凭借着凭借着凭借着对香水的天才敏感嗅觉、执着不懈的冒险精神',
+                    'path': '/shoppingcart',
+                    'people': '165222'
+                }
             }
         },
         computed: {},
@@ -447,10 +278,46 @@
 
 </script>
 <style lang='scss' scoped>
-
   .fix {
     background-color: #ac45f8;
     height: 37.5px;
+  }
+  .header_l {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .header_l2 {
+    position: relative;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+
+    .p {
+      height: 37.5px;
+      line-height: 37.5px;
+      font-size: 16px;
+      color: #fff;
+    }
+  }
+  .van-icon {
+    color: #fff;
+    font-size: 18px;
+  }
+
+  .gwcLits li {
+    width: 50%;
+  }
+
+  .gwcLits li .commodityList {
+    height: 5rem;
+  }
+
+  .imgBox img {
+    margin-left: 20px;
   }
 
   @import "../../assets/css/static/css/app.css";

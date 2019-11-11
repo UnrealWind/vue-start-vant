@@ -1,17 +1,9 @@
 <template>
   <van-container :tabber="true" :status="status">
     <div slot="header" class="fix">
-      <div class="fixedHead flex_center box_sizing fixedHead3">
-        <p class="flex_center img1" onClick="javascript:history.back(-1);">
-          <img src="../../assets/css/static/images/zuo.png" alt="">
-        </p>
-        <p>电商商城</p>
-        <p class="flex_center img2">
-          <a style="position: relative;top:-10px;" href="../html/malltemplate/one/home/shopcart.html">
-            <img src="../../assets/css/static/images/g.png" alt="">
-          </a>
-          <img src="../../assets/css/static/images/fx.png" alt="" class="fximg">
-        </p>
+      <div class="header_l " @click="$router.back()"> <van-icon name="arrow-left" /> </div>
+      <div class="header_l2">
+        <div class="p"> 商场 </div>
       </div>
     </div>
     <div class="topHead">
@@ -23,7 +15,7 @@
         <img src="../../assets/css/static/images/jx.jpg" alt="" class="jxhdImg">
         <div class="flex_betweenc logoBox">
           <p class="flex_center"><img src="../../assets/css/static/images/logo.jpg" alt=""> 可人儿品牌旗航店</p>
-          <a href="/store">进入店铺</a>
+          <a @click="$router.push('/stroe')">进入店铺</a>
         </div>
       </div>
       <div class="box2"></div>
@@ -31,35 +23,20 @@
     <!-- 内容 -->
     <div class="p2 contBody_top">
       <!-- 1 -->
-      <div class="publicBox box_sizing">
+      <div class="publicBox box_sizing" style="margin-bottom: 10px">
         <div class="title_xl flex">
           <p class="p1">限量199减100</p>
           <p>满99减20&nbsp;159减30&nbsp;259减50</p>
         </div>
         <!-- 商品 -->
         <ul class="commodityLits mt7 flex_wrap">
-          <li>
+          <li v-for="(item,index) in mallTopListData" :key="index">
             <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
+              <img :src="item.img" alt="">
+              <p class="title">{{ item.title }}</p>
+              <p class="money"><span>¥{{ item.current }}</span> <samp>¥{{ item.pre }}</samp></p>
             </a>
           </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-
         </ul>
       </div>
       <!-- 2 -->
@@ -72,64 +49,10 @@
         </div>
         <ul class="commodityLits flex_wrap commodityLits_nav">
 
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
-            </a>
-          </li>
-          <li>
-            <a href="#/productlistmin">
-              <p class="flex_center"><img src="../../assets/css/static/images/q1.png" alt=""></p>
-              <span>男装</span>
+          <li v-for="(item,index) in mallNavData" :key="index">
+            <a @click="$router.push('/productlistmin')">
+              <p class="flex_center"><img :src="item.img" alt=""></p>
+              <span>{{ item.name }}</span>
             </a>
           </li>
         </ul>
@@ -137,20 +60,20 @@
       <!-- 3 -->
       <div class="publicBox box_sizing mt3 flex SecuritiesBox">
         <div class="box">
-          <a href="/supermarket">
+          <a @click="$router.push('/supermarket')">
             <h1>每日必抢</h1>
           </a>
-          <a href="/supermarket" class="p1">爆款秒杀></a>
-          <p class="flex_center"><a href="/supermarket"> <img src="../../assets/css/static/images/a2.jpg" alt=""> </a>
+          <a class="p1" @click="$router.push('/supermarket')">爆款秒杀></a>
+          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img src="../../assets/css/static/images/a2.jpg" alt=""> </a>
           </p>
 
         </div>
         <div class="box">
-          <a href="/supermarket">
+          <a @click="$router.push('/supermarket')">
             <h1>领劵中心</h1>
           </a>
-          <a href="/supermarket" class="p1">大额优惠劵一站领齐></a>
-          <p class="flex_center"><a href="/supermarket"> <img src="../../assets/css/static/images/a3.jpg" alt=""> </a>
+          <a class="p1" @click="$router.push('/supermarket')">大额优惠劵一站领齐></a>
+          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img src="../../assets/css/static/images/a3.jpg" alt=""> </a>
           </p>
 
         </div>
@@ -162,165 +85,22 @@
       <h1>每日好店</h1><span>天天上新，好店推荐</span>
     </div>
 
-    <div class="Storefront">
-      <div class="flex_betweenc  Storefront_cont">
-        <div class="box1 flex">
-          <img src="../../assets/css/static/images/a4.jpg" alt="">
-          <p><span>梵西品牌团</span><span class="bj">限量领199减100劵</span></p>
-        </div>
-        <div class="box2 flex_center"><a href="/store">进店</a></div>
-      </div>
-      <ul class="commodityLits flex_wrap">
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/b.jpg" alt="">
-            <p class="title">GU极优女装珊瑚绒起居套装</p>
-            <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/b.jpg" alt="">
-            <p class="title">GU极优女装珊瑚绒起居套装</p>
-            <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/b.jpg" alt="">
-            <p class="title">GU极优女装珊瑚绒起居套装</p>
-            <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
-          </a>
-        </li>
-      </ul>
-    </div>
-
     <!-- 内容2 -->
-    <div class="p2 mt3 mb3">
+    <div v-for="(item,index) in mallShopsData" :key="index" class="p2 mt3 mb3">
       <div class="Storefront publicBox mt3">
         <div class="flex_betweenc  Storefront_cont">
           <div class="box1 flex">
-            <img src="../../assets/css/static/images/a4.jpg" alt="">
-            <p><span>梵西品牌团</span><span class="bj">限量领199减100劵</span></p>
+            <img :src="item.img" alt="">
+            <p><span>{{ item.title }}</span><span class="bj">{{ item.discounts }}</span></p>
           </div>
-          <div class="box2 flex_center"><a href="/store">进店</a></div>
+          <div class="box2 flex_center"><a @click="$router.push('/store')">进店</a></div>
         </div>
         <ul class="commodityLits flex_wrap">
-          <li>
+          <li v-for="(module,stepIndex) in item.goods" :key="stepIndex">
             <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="Storefront publicBox mt3">
-        <div class="flex_betweenc  Storefront_cont">
-          <div class="box1 flex">
-            <img src="../../assets/css/static/images/a4.jpg" alt="">
-            <p><span>梵西品牌团</span><span class="bj">限量领199减100劵</span></p>
-          </div>
-          <div class="box2 flex_center"><a href="/store">进店</a></div>
-        </div>
-        <ul class="commodityLits flex_wrap">
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="Storefront publicBox mt3">
-        <div class="flex_betweenc  Storefront_cont">
-          <div class="box1 flex">
-            <img src="../../assets/css/static/images/a4.jpg" alt="">
-            <p><span>梵西品牌团</span><span class="bj">限量领199减100劵</span></p>
-          </div>
-          <div class="box2 flex_center"><a href="/store">进店</a></div>
-        </div>
-        <ul class="commodityLits flex_wrap">
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="Storefront publicBox mt3">
-        <div class="flex_betweenc  Storefront_cont">
-          <div class="box1 flex">
-            <img src="../../assets/css/static/images/a4.jpg" alt="">
-            <p><span>梵西品牌团</span><span class="bj">限量领199减100劵</span></p>
-          </div>
-          <div class="box2 flex_center"><a href="/store">进店</a></div>
-        </div>
-        <ul class="commodityLits flex_wrap">
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money"><span>¥155</span> <samp>¥188</samp></p>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../../assets/css/static/images/b.jpg" alt="">
-              <p class="title">GU极优女装珊瑚绒起居套装</p>
-              <p class="money flex"><span>¥155</span> <samp>¥188</samp></p>
+              <img :src="module.img" alt="">
+              <p class="title">{{ module.title }}</p>
+              <p class="money"><span>¥{{ module.current }}</span> <samp>¥{{ module.pre }}</samp></p>
             </a>
           </li>
         </ul>
@@ -330,43 +110,15 @@
         <h1>更多好店</h1><span>天天上新，好店推荐</span>
       </div>
       <ul class="publicBox logo_ification flex_wrap">
-        <li>
-          <a href="/store">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a5.jpg" alt=""></p>
+        <li v-for="(items, indexs) in mallBrandData" :key="indexs">
+          <a @click="$router.push('/store')">
+            <p class="p1 flex_center"><img :src="items.img" alt=""></p>
             <p class="p2"></p>
-            <p class="p3">美特斯邦威</p>
-          </a>
-        </li>
-        <li>
-          <a href="/store">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a5.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">美特斯邦威</p>
-          </a>
-        </li>
-        <li>
-          <a href="/store">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a5.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">美特斯邦威</p>
-          </a>
-        </li>
-        <li>
-          <a href="/store">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a5.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">美特斯邦威</p>
-          </a>
-        </li>
-        <li>
-          <a href="/store">
-            <p class="p1 flex_center"><img src="../../assets/css/static/images/a5.jpg" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">美特斯邦威</p>
+            <p class="p3">{{ items.brand }}</p>
           </a>
         </li>
         <li class="more flex_center">
-          <a href="/store">
+          <a @click="$router.push('/store')">
             查看全部>
           </a>
         </li>
@@ -390,70 +142,18 @@
       </div>
       <!-- 购物车商品list -->
       <ul class="flex_wrap gwcLits">
-        <li>
+        <li v-for="(listItem, listIndex) in mallProductListData" :key="listIndex">
           <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+            <img :src="listItem.img" alt="" class="mallList">
+            <p class="p1">{{ listItem.title }}</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a6.jpg" alt="">
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
+            <div class="p3 flex_betweenc">
+              <p>¥{{ listItem.current }}
+                <span>
+                  ¥{{ listItem.pre }}
+                </span>
+              </p>
+              <img src="../../assets/css/static/images/gwc.png" alt=""></div>
           </a>
         </li>
       </ul>
@@ -462,15 +162,72 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import { Tab, Tabs } from 'vant'
-
-    Vue.use(Tab).use(Tabs)
+    import { Tab, Tabs, Icon } from 'vant'
     export default {
+        components: {
+            'van-icon': Icon,
+            'van-tab': Tab,
+            'van-tabs': Tabs
+        },
         data() {
             return {
                 status: 'loading',
-                active: 0
+                active: 0,
+                mallTopListData: [
+                    {
+                        'img': require('../../assets/css/static/images/b.jpg'),
+                        'title': 'GU极优女装珊瑚绒起居套装起居套装起居套装',
+                        'current': 155, // 现价
+                        'pre': 188 // 原价
+                    }
+                ],
+                mallShopsData: [
+                    {
+                        'img': require('../../assets/css/static/images/a4.jpg'),
+                        'title': '梵西品牌团',
+                        'discounts': '限量领199减100', // 优惠、
+                        'goods': [
+                            {
+                                'img': require('../../assets/css/static/images/b.jpg'),
+                                'title': '级优女装珊瑚',
+                                'current': 155, // 现价
+                                'pre': 188 // 原价
+                            },
+                            {
+                                'img': require('../../assets/css/static/images/b.jpg'),
+                                'title': '级优女装珊瑚',
+                                'current': 155, // 现价
+                                'pre': 188 // 原价
+                            },
+                            {
+                                'img': require('../../assets/css/static/images/b.jpg'),
+                                'title': '级优女装珊瑚',
+                                'current': 155, // 现价
+                                'pre': 188 // 原价
+                            }
+                        ]
+                    }
+                ],
+                mallNavData: [
+                    {
+                        'img': require('../../assets/css/static/images/q1.png'),
+                        'name': '男装'
+                    }
+                ],
+                mallBrandData: [
+                    {
+                        'img': require('../../assets/css/static/images/a5.jpg'),
+                        'brand': '美特斯邦威'
+                    }
+                ],
+                mallProductListData: [
+                    {
+                        img: require('../../assets/css/static/images/a6.jpg'),
+                        title: '日系小浪漫与温暖羊毛针织拼接网纱百褶裙',
+                        current: 85, // 现价
+                        pre: 134 // 原价
+                    }
+                ]
             }
         },
         computed: {},
@@ -496,6 +253,43 @@
 
 </script>
 <style lang='scss' scoped>
+  .fix {
+    background-color: #fff;
+    height: 37.5px;
+  }
+  .header_l {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .header_l2 {
+    position: relative;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+
+    .p {
+      height: 37.5px;
+      line-height: 37.5px;
+      font-size: 16px;
+      color: #000;
+    }
+  }
+  .gwcLits li {
+    width: 50%;
+  }
+
+  .gwcLits li .mallList {
+    height: 5rem;
+  }
+
+  .tuijianNav .box {
+    height: auto;
+  }
+
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";

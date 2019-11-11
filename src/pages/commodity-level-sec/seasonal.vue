@@ -2,13 +2,11 @@
 <template>
   <van-container :tabbar="true" :status="status">
     <div slot="header" class="fix">
-      <div class="fixedHead flex_center box_sizing fixedHead1">
-        <p class="flex_center img1" onClick="javascript:history.back(-1);"><img
-          src="../../assets/css/static/images/zuo1.png"
-          alt=""
-        ></p>
-        <p>时令水果</p>
-        <p class="flex_center img2"><img src="../../assets/css/static/images/fx1.png" alt="" class="fximg"></p>
+      <div class="header_l " @click="$router.back()">
+        <van-icon name="arrow-left" />
+      </div>
+      <div class="header_l2">
+        <div class="p"> 时令水果</div>
       </div>
     </div>
     <div class="topHead2">
@@ -27,28 +25,10 @@
         <p><img src="../../assets/css/static/images/z.png" alt="">售后无忧</p>
       </div>
       <ul class="commodityLits flex_wrap commodityLits_nav">
-        <li>
-          <a href="#/fruitlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
-            <span>苹果</span>
-          </a>
-        </li>
-        <li>
+        <li v-for="(item,index) in seasonalNavData" :key="index">
           <a @click="$router.push('/fruitlist')">
-            <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
-            <span>苹果</span>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/fruitlist')">
-            <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
-            <span>苹果</span>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/fruitlist')">
-            <p class="flex_center"><img src="../../assets/css/static/images/a13.jpg" alt=""></p>
-            <span>苹果</span>
+            <p class="flex_center"><img :src="item.img" alt=""></p>
+            <span>{{ item.title }}</span>
           </a>
         </li>
         <li class="more">
@@ -145,17 +125,17 @@
           <p class="qiang flex_center">抢光了</p>
         </a>
       </div>
-      <div class="textBox">
+      <div v-for="(item,index) in seasonalHalfPriceData" :key="index" class="textBox">
         <a @click="$router.push('/user/productdetails')">
-          <h1>果君王 越南小青芒5斤装</h1>
-          <p class="p1">青青君子金灿心</p>
+          <h1>{{ item.title }}装</h1>
+          <p class="p1">{{ item.intro }}</p>
           <div class="flex_betweenc">
             <p class="p22"><span>特卖</span> <span>新品</span></p>
             <p class="p3">抢光了</p>
           </div>
           <div class="flex_betweenc jaiqian">
-            <p class="p4">¥155 <span>¥199</span></p>
-            <p class="p5 flex_betweenc"><span>已售100%</span><span>库存0</span></p>
+            <p class="p4">¥ {{ item.current }} <span>¥ {{ item.originalPrice }}</span></p>
+            <p class="p5 flex_betweenc"><span>已售 {{ item.sell }}</span><span>库存 {{ item.inventory }} </span></p>
           </div>
         </a>
       </div>
@@ -167,40 +147,16 @@
         <p class="p2">每天三波福利 新鲜来袭</p>
       </div>
       <ul class="Treasure_list Treasure_top">
-        <li class="li1">
+        <li v-for="(item,index) in seasonalTopOneData" :key="index" class="li1">
           <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
-              <p class="s1">源自宝鸡扶风</p>
+              <p class="s1">{{ item.address }}</p>
               <p class="s0">___</p>
-              <p class="s2">青姑娘 扶风花牛苹果</p>
-              <p class="s3">可香可脆 高颜值的苹果</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">22.9</span>/元4.5-5斤装</p>
+              <p class="s2">{{ item.title }}</p>
+              <p class="s3">{{ item.intro }}</p>
+              <p class="s4"><span class="s41">惊爆价</span><span class="s42">{{ item.pre }}</span>/元{{ item.weight }}装</p>
             </div>
-            <img src="../../assets/css/static/images/timg2.jpg" alt="">
-          </a>
-        </li>
-        <li class="li2">
-          <a @click="$router.push('/user/productdetails')">
-            <div class="contBox box_sizing">
-              <p class="s1">源自宝鸡扶风</p>
-              <p class="s0">___</p>
-              <p class="s2">青姑娘 扶风花牛苹果</p>
-              <p class="s3">可香可脆 高颜值的苹果</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">22.9</span>/元4.5-5斤装</p>
-            </div>
-            <img src="../../assets/css/static/images/timg2.jpg" alt="">
-          </a>
-        </li>
-        <li class="li3">
-          <a @click="$router.push('/user/productdetails')">
-            <div class="contBox box_sizing">
-              <p class="s1">源自宝鸡扶风</p>
-              <p class="s0">___</p>
-              <p class="s2">青姑娘 扶风花牛苹果</p>
-              <p class="s3">可香可脆 高颜值的苹果</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">22.9</span>/元4.5-5斤装</p>
-            </div>
-            <img src="../../assets/css/static/images/timg2.jpg" alt="">
+            <img :src="item.img" alt="">
           </a>
         </li>
       </ul>
@@ -212,40 +168,17 @@
         <p class="p2">每天三波福利 新鲜来袭</p>
       </div>
       <ul class="Treasure_list Treasure_top Treasure_list2">
-        <li class="li4">
+        <li v-for="(item,index) in seasonalHotStyleData" :key="index" class="li4">
           <a @click="$router.push('/user/productdetails')">
             <div class="contBox box_sizing">
-              <p class="s1">源自云南丽江</p>
+              <p class="s1">{{ item.address }}</p>
               <p class="s0">___</p>
-              <p class="s2">青姑娘 扶风花牛苹果</p>
-              <p class="s3">可香可脆 鲜艳多人</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">22.9</span>/元4.5-5斤装</p>
+              <p class="s2">{{ item.title }}</p>
+              <p class="s3">{{ item.intro }}</p>
+              <p class="s4"><span class="s41">惊爆价</span><span class="s42">{{ item.pre }}</span>/元 {{ item.weight }}斤装
+              </p>
             </div>
-            <img src="../../assets/css/static/images/timg3.png" alt="">
-          </a>
-        </li>
-        <li class="li5">
-          <a @click="$router.push('/user/productdetails')">
-            <div class="contBox box_sizing">
-              <p class="s1">源自云南丽江</p>
-              <p class="s0">___</p>
-              <p class="s2">青姑娘 扶风花牛苹果</p>
-              <p class="s3">可香可脆 鲜艳多人</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">22.9</span>/元4.5-5斤装</p>
-            </div>
-            <img src="../../assets/css/static/images/timg3.png" alt="">
-          </a>
-        </li>
-        <li class="li6">
-          <a @click="$router.push('/user/productdetails')">
-            <div class="contBox box_sizing">
-              <p class="s1">源自云南丽江</p>
-              <p class="s0">___</p>
-              <p class="s2">青姑娘 扶风花牛苹果</p>
-              <p class="s3">可香可脆 鲜艳多人</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">22.9</span>/元4.5-5斤装</p>
-            </div>
-            <img src="../../assets/css/static/images/timg3.png" alt="">
+            <img :src="item.img" alt="">
           </a>
         </li>
       </ul>
@@ -272,67 +205,12 @@
       <div class="more flex_center"><img src="../../assets/css/static/images/xia.png" alt=""></div>
     </div>
     <ul class="flex_wrap gwcLits gwcLits_SG">
-      <li>
+      <li v-for="(item,index) in seasonalProductListData" :key="index">
         <a @click="$router.push('/user/productdetails')">
-          <img src="../../assets/css/static/images/timg3.png" alt="">
-          <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+          <img class="commodityLits" :src="item.img" alt="">
+          <p class="p1">{{ item.title }}</p>
           <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-            src="../../assets/css/static/images/gwc2.png"
-            alt=""
-          ></div>
-        </a>
-      </li>
-      <li>
-        <a @click="$router.push('/user/productdetails')">
-          <img src="../../assets/css/static/images/timg3.png" alt="">
-          <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-          <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-            src="../../assets/css/static/images/gwc2.png"
-            alt=""
-          ></div>
-        </a>
-      </li>
-      <li>
-        <a @click="$router.push('/user/productdetails')">
-          <img src="../../assets/css/static/images/timg3.png" alt="">
-          <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-          <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-            src="../../assets/css/static/images/gwc2.png"
-            alt=""
-          ></div>
-        </a>
-      </li>
-      <li>
-        <a @click="$router.push('/user/productdetails')">
-          <img src="../../assets/css/static/images/timg3.png" alt="">
-          <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-          <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-            src="../../assets/css/static/images/gwc2.png"
-            alt=""
-          ></div>
-        </a>
-      </li>
-      <li>
-        <a @click="$router.push('/user/productdetails')">
-          <img src="../../assets/css/static/images/timg3.png" alt="">
-          <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-          <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
-            src="../../assets/css/static/images/gwc2.png"
-            alt=""
-          ></div>
-        </a>
-      </li>
-      <li>
-        <a @click="$router.push('/user/productdetails')">
-          <img src="../../assets/css/static/images/timg3.png" alt="">
-          <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-          <p class="p2"><span>特卖</span> <span>新品</span></p>
-          <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img
+          <div class="p3 flex_betweenc"><p>¥ {{ item.current }}<span>¥{{ item.pre }}</span></p><img
             src="../../assets/css/static/images/gwc2.png"
             alt=""
           ></div>
@@ -343,10 +221,90 @@
 </template>
 
 <script>
+  import { Icon } from 'vant'
     export default {
+        components: {
+            'van-icon': Icon
+        },
         data() {
             return {
-                status: 'loading'
+                status: 'loading',
+                seasonalNavData: [
+                    {
+                        'title': '苹果',
+                        'img': require('../../assets/css/static/images/a13.jpg')
+                    },
+                    {
+                        'title': '梨',
+                        'img': require('../../assets/css/static/images/a13.jpg')
+                    },
+                    {
+                        'title': '葡萄',
+                        'img': require('../../assets/css/static/images/a13.jpg')
+                    },
+                    {
+                        'title': '香蕉',
+                        'img': require('../../assets/css/static/images/a13.jpg')
+                    }
+                ],
+                seasonalHalfPriceData: [
+                    {
+                        'title': '果君王 越南小青芒5斤装',
+                        'intro': '青青君子金灿心',
+                        'current': '50',
+                        'originalPrice': '100',
+                        'sell': '20', // 出售
+                        'inventory': '0' // 库存
+                    }
+                ],
+                seasonalTopOneData: [
+                    {
+                        'img': require('../../assets/css/static/images/timg2.jpg'),
+                        'address': '宝鸡扶风',
+                        'title': '青姑娘 扶风花牛苹果',
+                        'intro': '可香可脆 高颜值的苹果',
+                        'pre': 22.9,
+                        'weight': '4.5~5斤'
+                    },
+                    {
+                        'img': require('../../assets/css/static/images/timg2.jpg'),
+                        'address': '国际庄',
+                        'title': '花姑娘 扶风花牛苹果',
+                        'intro': 'sssss',
+                        'pre': 212.9,
+                        'weight': '1斤'
+                    }
+                ],
+                seasonalHotStyleData: [
+                    {
+                        'img': require('../../assets/css/static/images/timg2.jpg'),
+                        'address': '国际庄',
+                        'title': '这里是标题',
+                        'intro': '这里是简介',
+                        'pre': 10,
+                        'weight': '1斤'
+                    }
+                ],
+                seasonalProductListData: [
+                    {
+                        img: require('../../assets/css/static/images/timg3.png'),
+                        title: '水果水果水果水果水果水果',
+                        current: 123, // 现价
+                        pre: 134 // 原价
+                    },
+                    {
+                        img: require('../../assets/css/static/images/timg3.png'),
+                        title: '水果水果水果水果水果水果',
+                        current: 123, // 现价
+                        pre: 134 // 原价
+                    },
+                    {
+                        img: require('../../assets/css/static/images/timg3.png'),
+                        title: '水果水果水果水果水果水果',
+                        current: 123, // 现价
+                        pre: 134 // 原价
+                    }
+                ]
             }
         },
         computed: {},
@@ -386,7 +344,43 @@
     background-color: #04c16f;
     height: 37.5px;
   }
+  .header_l {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+    color: #fff;
+  }
 
+  .header_l2 {
+    position: relative;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+
+    .p {
+      height: 37.5px;
+      line-height: 37.5px;
+      font-size: 16px;
+      color: #fff;
+    }
+  }
+
+  .swiper-wrapper .swiper-slide {
+    width: 25%;
+  }
+
+  .Treasure_list2 li img {
+    position: static;
+    width: 100%;
+    height: 100%;
+  }
+  .gwcLits li {
+    width: 50%;
+  }
+  .gwcLits li .commodityLits {
+    height: 5rem;
+  }
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";

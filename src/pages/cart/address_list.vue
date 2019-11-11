@@ -64,7 +64,6 @@ import { areaList } from '@/assets/json/areaList'
             // 适配器
             val.isDefault ? val.isDefault = 1 : val.isDefault = 0
             const data = {
-                userCode: this.$store.state.userCode,
                 receiverName: val.name,
                 receiverPhone: val.tel,
                 // areaIdPath:'',

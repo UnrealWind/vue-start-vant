@@ -1,19 +1,13 @@
 <template>
   <van-container :tabber="true" :status="status">
     <div slot="header" class="fix">
-      <div class="fixedHead flex_center box_sizing fixedHead1">
-        <p class="flex_center img1" onClick="javascript:history.back(-1);"><img src="../../assets/css/static/images/zuo1.png" alt=""></p>
-        <p>在线超市</p>
-        <p class="flex_center img2">
-          <a style="position: relative;top:-10px;" href="../html/malltemplate/one/home/shopcart.html"><img
-            src="images/gwc1.png"
-            alt=""
-          ></a>
-          <img src="../../assets/css/static/images/fx1.png" alt="" class="fximg">
-        </p>
+      <div class="header_l " @click="$router.back()">
+        <van-icon name="arrow-left" />
+      </div>
+      <div class="header_l2">
+        <div class="p"> 在线超市</div>
       </div>
     </div>
-
     <div class="topHead2 topHead3 ">
       <div class="box2"></div>
     </div>
@@ -36,69 +30,15 @@
         <img src="../../assets/css/static/images/a14.jpg" alt="">
       </div>
       <div class="flex_center songzaocan">
-        <a href="/supermarket">
+        <a @click="$ruter.push('/supermarket')">
           &gt;&gt;&gt; 电商超市天天送早餐拉！&lt;&lt;&lt;
         </a>
       </div>
       <ul class="commodityLits flex_wrap commodityLits_nav">
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
-          </a>
-        </li>
-        <li>
-          <a href="#/supermarketlist">
-            <p class="flex_center"><img src="../../assets/css/static/images/a15.jpg" alt=""></p>
-            <span>奶品饮料</span>
+        <li v-for="(item,index) in supermarketlistData" :key="index">
+          <a @click="$ruter.push('/supermarketlist')">
+            <p class="flex_center"><img :src="item.img" alt=""></p>
+            <span>{{ item.title }}</span>
           </a>
         </li>
       </ul>
@@ -111,58 +51,13 @@
           <div class="swiper_minNav">
             <div class="swiper-container swiper-container2 swiper-container-horizontal">
               <div class="swiper-wrapper gwcLits">
-                <li class="swiper-slide">
+                <li v-for="(item,index) in supermarketGoodStuffData" :key="index" class="swiper-slide">
                   <a @click="$router.push('/user/productdetails')">
                     <p class="imgbj"><span>直降<br>¥9</span></p>
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
+                    <img :src="item.img" alt="">
                     <p class="p2"><span>电商11.11</span></p>
-                    <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide swiper-slide-prev">
-                  <a @click="$router.push('/user/productdetails')">
-                    <p class="imgbj"><span>直降<br>¥9</span></p>
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>电商11.11</span></p>
-                    <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide swiper-slide-active">
-                  <a @click="$router.push('/user/productdetails')">
-                    <p class="imgbj"><span>直降<br>¥9</span></p>
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>电商11.11</span></p>
-                    <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide swiper-slide-next">
-                  <a @click="$router.push('/user/productdetails')">
-                    <p class="imgbj"><span>直降<br>¥9</span></p>
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>电商11.11</span></p>
-                    <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide">
-                  <a @click="$router.push('/user/productdetails')">
-                    <p class="imgbj"><span>直降<br>¥9</span></p>
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>电商11.11</span></p>
-                    <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide">
-                  <a @click="$router.push('/user/productdetails')">
-                    <p class="imgbj"><span>直降<br>¥9</span></p>
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>电商11.11</span></p>
-                    <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
+                    <p class="p1">{{ item.title }}</p>
+                    <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p></div>
                   </a>
                 </li>
               </div>
@@ -244,28 +139,12 @@
         </div>
       </div>
       <ul class="flex_wrap gwcLits gwcLits_zxcs">
-        <li>
+        <li v-for="(item,index) in supermarketGoodStuffData" :key="index">
           <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a16.jpg" alt="">
+            <img :src="item.img" alt="">
             <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a16.jpg" alt="">
-            <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a16.jpg" alt="">
-            <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
+            <p class="p1">{{ item.title }}</p>
+            <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p></div>
           </a>
         </li>
       </ul>
@@ -277,38 +156,46 @@
       <div class="SuperValue publicBox">
         <div class="box">
           <div class="title_super flex">
-            <a href="/supermarket">
+            <a @click="$router.push('/supermarket')">
               <h1>拼团</h1>
               <p class="flex">2人团9.9包邮<span>></span></p>
             </a>
           </div>
           <ul class="flex_betweenc jiujiu">
-            <li><a href="/supermarket"> <img src="../../assets/css/static/images/a17.jpg" alt="">
+            <li><a @click="$router.push('/supermarket')"> <img src="../../assets/css/static/images/a17.jpg" alt="">
               <p>¥9.9</p></a></li>
-            <li><a href="/supermarket"> <img src="../../assets/css/static/images/a17.jpg" alt="">
+            <li><a @click="$router.push('/supermarket')"> <img src="../../assets/css/static/images/a17.jpg" alt="">
               <p>¥9.9</p></a></li>
-            <li><a href="/supermarket"> <img src="../../assets/css/static/images/a17.jpg" alt="">
+            <li><a @click="$router.push('/supermarket')"> <img src="../../assets/css/static/images/a17.jpg" alt="">
               <p>¥9.9</p></a></li>
           </ul>
         </div>
         <div class="boximg flex">
           <div class="boxa">
             <div class="title_super flex">
-              <a href="/supermarketzone">
+              <a @click="$router.push('/supermarketzone')">
                 <h1>任选</h1>
                 <p class="flex">低至99选10<span>></span></p>
               </a>
             </div>
-            <div class="imim flex_center"><a href="/supermarketzone"><img src="../../assets/css/static/images/a18.jpg" alt=""> </a></div>
+            <div class="imim flex_center">
+              <a @click="$router.push('/supermarketzone')">
+                <img src="../../assets/css/static/images/a18.jpg" alt="">
+              </a>
+            </div>
           </div>
           <div class="boxa">
             <div class="title_super flex">
-              <a href="/supermarket">
+              <a @click="$router.push('/supermarket')">
                 <h1>量贩</h1>
                 <p class="flex">2人团9.9包邮<span>></span></p>
               </a>
             </div>
-            <div class="imim flex_center"><a href="/supermarket"> <img src="../../assets/css/static/images/a18.jpg" alt=""> </a></div>
+            <div class="imim flex_center">
+              <a @click="$router.push('/supermarket')">
+                <img src="../../assets/css/static/images/a18.jpg" alt="">
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -318,53 +205,18 @@
         <h1>品牌特惠</h1> <span>超值每日分享</span>
       </div>
       <div class="pinpaitehui">
-        <a href="/supermarket">
+        <a @click="$router.push('/supermarket')">
           <img src="../../assets/css/static/images/a19.jpg" alt="" class="head">
         </a>
         <div class="swiper_time">
           <div class="swiper_minNav">
             <div class="swiper-container swiper-container2 swiper-container-horizontal">
               <div class="swiper-wrapper gwcLits">
-                <li class="swiper-slide">
+                <li v-for="(item,index) in supermarketGoodStuffData" :key="index" class="swiper-slide">
                   <a @click="$router.push('/user/productdetails')">
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
+                    <img :src="item.img" alt="">
                     <p class="p2"><span>特卖</span></p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide">
-                  <a @click="$router.push('/user/productdetails')">
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>特卖</span></p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide">
-                  <a @click="$router.push('/user/productdetails')">
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>特卖</span></p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide">
-                  <a @click="$router.push('/user/productdetails')">
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>特卖</span></p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide">
-                  <a href="javascript:;">
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>特卖</span></p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
-                  </a>
-                </li>
-                <li class="swiper-slide">
-                  <a @click="$router.push('/user/productdetails')">
-                    <img src="../../assets/css/static/images/a20.jpg" alt="">
-                    <p class="p2"><span>特卖</span></p>
-                    <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
+                    <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p></div>
                   </a>
                 </li>
               </div>
@@ -384,52 +236,15 @@
         <p>精选推荐</p>
       </div>
       <ul class="flex_wrap gwcLits gwcLits_nav">
-        <li>
+        <li v-for="(item,index) in supermarketGoodStuffData" :key="index">
           <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a21.jpg" alt="">
+            <img :src="item.img" alt="">
             <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a21.jpg" alt="">
-            <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a21.jpg" alt="">
-            <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a21.jpg" alt="">
-            <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a21.jpg" alt="">
-            <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc.png" alt=""></div>
-          </a>
-        </li>
-        <li>
-          <a @click="$router.push('/user/productdetails')">
-            <img src="../../assets/css/static/images/a21.jpg" alt="">
-            <p class="p2"><span>特卖</span></p>
-            <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-            <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../../assets/css/static/images/gwc.png" alt=""></div>
+            <p class="p1">{{ item.title }}</p>
+            <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
+              src="../../assets/css/static/images/gwc.png"
+              alt=""
+            ></div>
           </a>
         </li>
       </ul>
@@ -439,10 +254,52 @@
 </template>
 
 <script>
+    import { Icon } from 'vant'
     export default {
+        components: {
+            'van-icon': Icon
+        },
         data() {
             return {
-                status: 'loading'
+                status: 'loading',
+                supermarketlistData: [
+                    {
+                        'img': require('../../assets/css/static/images/a15.jpg'),
+                        'title': '奶品饮料'
+                    },
+                    {
+                        'img': require('../../assets/css/static/images/a15.jpg'),
+                        'title': '生鲜肉类'
+                    },
+                    {
+                        'img': require('../../assets/css/static/images/a15.jpg'),
+                        'title': '新鲜果蔬'
+                    },
+                    {
+                        'img': require('../../assets/css/static/images/a15.jpg'),
+                        'title': '休闲零食'
+                    }
+                ],
+                supermarketGoodStuffData: [
+                    {
+                        'img': require('../../assets/css/static/images/a20.jpg'),
+                        'title': '口红口红口红',
+                        'current': 85, // 现价
+                        'pre': 134 // 原价
+                    },
+                    {
+                        'img': require('../../assets/css/static/images/a20.jpg'),
+                        'title': '口红口红口红',
+                        'current': 85, // 现价
+                        'pre': 134 // 原价
+                    },
+                    {
+                        'img': require('../../assets/css/static/images/a20.jpg'),
+                        'title': '口红口红口红',
+                        'current': 85, // 现价
+                        'pre': 134 // 原价
+                    }
+                ]
             }
         },
         computed: {},
@@ -468,16 +325,44 @@
 
 </script>
 <style lang='scss' scoped>
-  .fix{
+  .fix {
     background-color: #0a6b5a;
     height: 37.5px;
   }
-  .timeLists{
+
+  .header_l {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .header_l2 {
+    position: relative;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+
+    .p {
+      height: 37.5px;
+      line-height: 37.5px;
+      font-size: 16px;
+      color: #fff;
+    }
+  }
+
+  .timeLists {
     width: 25%;
   }
-  .swiper-slide{
+
+  .swiper-slide {
     width: 32%;
     margin-right: 10px;
+  }
+
+  .gwcLits_zxcs li img {
+    margin-bottom: 5px;
   }
 
   @import "../../assets/css/static/css/app.css";

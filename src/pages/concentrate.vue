@@ -89,36 +89,12 @@
       <div class="wp">
 
         <ul class="flex_wrap gwcLits ">
-          <li>
+          <li v-for="(item,index) in choicenessData" :key="index">
             <a @click="$router.push('/user/productdetails')">
-              <img src="../assets/css/static/images/timg3.png" alt="">
-              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
+              <img class="pic" alt="" :src="item.img">
+              <p class="p1">{{ item.title }}</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../assets/css/static/images/gwc2.png" alt=""></div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../assets/css/static/images/timg3.png" alt="">
-              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p2"><span>特卖</span> <span>新品</span></p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../assets/css/static/images/gwc2.png" alt=""></div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../assets/css/static/images/timg3.png" alt="">
-              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p2"><span>特卖</span> <span>新品</span></p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../assets/css/static/images/gwc2.png" alt=""></div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <img src="../assets/css/static/images/timg3.png" alt="">
-              <p class="p1">Touch Miss日系小浪漫与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p2"><span>特卖</span> <span>新品</span></p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p><img src="../assets/css/static/images/gwc2.png" alt=""></div>
+              <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img src="../assets/css/static/images/gwc2.png" alt=""></div>
             </a>
           </li>
         </ul>
@@ -183,6 +159,20 @@ import { Swipe, SwipeItem, Icon } from 'vant'
               },
               {
                   title: '母婴玩具'
+              }
+          ],
+          choicenessData: [
+              {
+                  'img': require('../assets/css/static/images/a23.jpg'),
+                  'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
+                  'current': 123, // 现价
+                  'pre': 134 // 原价
+              },
+              {
+                  'img': require('../assets/css/static/images/a23.jpg'),
+                  'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
+                  'current': 123, // 现价
+                  'pre': 134 // 原价
               }
           ]
       }
@@ -318,5 +308,10 @@ import { Swipe, SwipeItem, Icon } from 'vant'
       margin-bottom: 10px;
     }
   }
-
+.gwcLits li {
+  width: 50%;
+  .pic {
+    height: 5rem;
+  }
+}
 </style>

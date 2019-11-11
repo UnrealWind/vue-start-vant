@@ -6,7 +6,7 @@ const init = {
   install: (Vue) => {
     const service = axios.create({
       baseURL: process.env.VUE_APP_BASE_URL, // url = base url + request url
-      withCredentials: true, // send cookies when cross-domain requests
+      // withCredentials: true, // send cookies when cross-domain requests
       timeout: 5000 // request timeout
     })
   // request拦截器 request interceptor
@@ -19,8 +19,8 @@ const init = {
             forbidClick: true
           })*/
         }
-        if (store.getters.token) {
-          config.headers['x-auth-token'] = ''
+        if (store.state.token) {
+          config.headers['x-auth-token'] = store.state.token
         }
         return config
       },
@@ -34,6 +34,7 @@ const init = {
     service.interceptors.response.use(
       response => {
         Toast.clear()
+        store.commit('setToken', response.headers['x-auth-token'])
         const res = response.data
         if (res.status && res.status !== 200) {
           // 登录超时,重新登录

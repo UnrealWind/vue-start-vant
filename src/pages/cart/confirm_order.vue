@@ -150,9 +150,7 @@
             this.status = 'success'
         },
         async getAddressList() {
-            const res = await this.$http.post('product/userAddress/list', {
-                userCode: this.$store.state.userCode
-            })
+            const res = await this.$http.post('product/userAddress/list', {})
             res.data.forEach((n, i) => {
                 n.address = n.addressDetail
                 n.tel = n.receiverPhone

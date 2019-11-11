@@ -162,7 +162,6 @@
     methods: {
       async init() {
         try {
-          await this.login()
           await this.getData()
         } catch (e) {
           this.status = 'error'
@@ -170,28 +169,8 @@
         }
         this.status = 'success'
       },
-      async login() {
-          // fydebug 这里必须进行登录之后才能够查询到数据，先放在这里,也不知道一个post请求为啥参数不放在requestbody里
-          /* const res = await this.$http.post(`login?username=17342062325&password=123456&rememberMe=true`, {
-              username: '17342062325',
-              password: '123456',
-              rememberMe: true
-          })*/
-          const res = await this.$http({
-              method: 'post',
-              url: `login?username=17342062325&password=123456&rememberMe=true`,
-              data: {
-                  username: '17342062325',
-                  password: '123456',
-                  rememberMe: true
-              }
-          })
-          console.log(res)
-      },
       async getData() {
-          const res = await this.$http.post('order/shoppingCart/list', {
-              userCode: this.$store.state.userCode
-          })
+          const res = await this.$http.post('order/shoppingCart/list', {})
           res.data.forEach((n, i) => {
               n['checked'] = false
               n.goods.forEach((good, i) => {
