@@ -1,6 +1,10 @@
 const config = {
   plugins: [
-    'index'
+    'index',
+    'routerAuth'
+  ],
+  excPath: [
+    '/user/logon'
   ]
 }
 export default config

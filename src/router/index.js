@@ -302,6 +302,10 @@ export const constantRoutes = [
     meta: {
       keepAlive: false
     }
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ]
 
