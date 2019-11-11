@@ -5,7 +5,8 @@ const store = new Vuex.Store({
   state: {
     test: '123',
     targetOrder: [],
-    userCode: 'u002'
+    userCode: 'u002',
+    token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NzMyNTQ5MjgsImlhdCI6MTU3MzI1MTMyOCwidXNlcm5hbWUiOiIxNzM0MjA2MjMyNSJ9.L_SIcZiuGUir530WyRfQAW4mklwft0bgKMij5smABJA'
   },
   getters: {
     getState: state => {

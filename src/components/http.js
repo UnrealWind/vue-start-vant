@@ -7,8 +7,7 @@ const init = {
     const service = axios.create({
       baseURL: process.env.VUE_APP_BASE_URL, // url = base url + request url
       withCredentials: true, // send cookies when cross-domain requests
-      timeout: 5000, // request timeout
-      headers: { 'xhrFields': { withCredentials: true }}
+      timeout: 5000 // request timeout
     })
   // request拦截器 request interceptor
     service.interceptors.request.use(
@@ -16,12 +15,12 @@ const init = {
         // 不传递默认开启loading
         if (!config.hideloading) {
           // loading
-          Toast.loading({
+          /* Toast.loading({
             forbidClick: true
-          })
+          })*/
         }
         if (store.getters.token) {
-          config.headers['X-Token'] = ''
+          config.headers['x-auth-token'] = ''
         }
         return config
       },

@@ -363,7 +363,7 @@ import { Icon, Search } from 'vant'
 
   .nav_coupons{ margin-top: 10px;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: scroll;
     .nav_ul{ width: 1000%;
       .li{
         display: inline-block;

@@ -117,8 +117,8 @@
 
     <div class="nav_box8 dan_wrap">
       <div class="nav_li fix wp">
-        <div v-for="(opt, index) in minNavList" :key="index" class="li1" :class="{ active:opt.isActive }"><p> {{
-          opt.title }} </p></div>
+        <div v-for="(opt, index) in minNavList" :key="index" class="li1" :class="{ active:opt.isActive }"><p>
+          {{ opt.title }} </p></div>
       </div>
     </div>
 
@@ -272,20 +272,12 @@
         methods: {
             async init() {
                 try {
-                    // await this.login()
-                    // await this.getIndexData()
+                  //  await this.getIndexData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
-            },
-            async login() {
-                await this.$http.post(`login?username=17342062325&password=123456&rememberMe=true`, {
-                    username: '17342062325',
-                    password: '123456',
-                    rememberMe: true
-                })
             },
             async getIndexData() {
                 const res = await this.$http.post('product/content/list')

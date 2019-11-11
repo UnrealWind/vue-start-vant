@@ -24,7 +24,7 @@
       </slot>
     </main>
     <div v-if="status === 'loading'" class="cover-translucent"></div>
-    <footer v-if="tabbar" class="footer">
+    <footer v-if="tabbar && status === 'success'" class="footer">
       <slot name="footer">
         <van-tabbar v-model="target">
           <van-tabbar-item name="index" icon="home-o" @click="go('/')">首页</van-tabbar-item>
