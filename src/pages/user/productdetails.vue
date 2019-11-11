@@ -347,7 +347,7 @@
             </div>
 
             <div class="sale-specification">
-              <van-cell is-link class="span" @click="showPopup">查看完整规格</van-cell>
+              <div is-link class="span" @click="showPopup">查看完整规格</div>
 
               <van-popup v-model="show" class="span-img">
                 <img src="../../assets/img/brandtu20.png" alt="">

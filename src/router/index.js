@@ -283,6 +283,20 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/user/logon',
+    component: () => import('@/pages/user/logon'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/vipLogon',
+    component: () => import('@/pages/user/vipLogon'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '/commodityLevelSec/classification',
     component: () => import('@/pages/commodity-level-sec/classification'),
     meta: {

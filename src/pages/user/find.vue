@@ -71,7 +71,7 @@
 
             <div class="mess_title">  <strong> 小丫： </strong> 哎呦！不错呦  </div>
             <div class="mess_title">  <strong> 小黄： </strong> 我稀罕的狠呀！  </div>
-            <div class="mess_title">  <van-cell is-link @click="showPopup">  <strong> 查看全部<i>4</i>条回复 </strong>   </van-cell>  </div>
+            <div class="mess_title">  <div is-link @click="showPopup">  <strong> 查看全部<i>4</i>条回复 </strong>   </div>  </div>
             <van-popup
               v-model="show"
               closeable
@@ -222,7 +222,7 @@
 
             <div class="mess_title">  <strong> 小丫： </strong> 哎呦！不错呦  </div>
             <div class="mess_title">  <strong> 小黄： </strong> 我稀罕的狠呀！  </div>
-            <div class="mess_title">  <van-cell is-link @click="showPopup">  <strong> 查看全部<i>4</i>条回复 </strong>   </van-cell>  </div>
+            <div class="mess_title">  <div is-link @click="showPopup">  <strong> 查看全部<i>4</i>条回复 </strong>   </div>  </div>
             <van-popup
               v-model="show"
               closeable

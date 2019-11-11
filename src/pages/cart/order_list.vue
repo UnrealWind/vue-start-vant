@@ -28,9 +28,9 @@
                     <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
                   </div>
                   <div slot="footer">
-                    <van-button size="mini" class="font_bottom active"> {{ commodity.pay }} </van-button>
-                    <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')">  {{ commodity.statelogistics }}  </van-button>
-                    <van-button size="mini" class="font_bottom">  {{ commodity.statedelete }}   </van-button>
+                    <van-button v-if="commodity.pay" size="mini" class="font_bottom active"> {{ commodity.pay }} </van-button>
+                    <van-button v-if="commodity.statelogistics" size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')">  {{ commodity.statelogistics }}  </van-button>
+                    <van-button v-if="commodity.statedelete" size="mini" class="font_bottom">  {{ commodity.statedelete }}   </van-button>
                   </div>
                 </van-card>
                 <div class="font_top">
@@ -185,7 +185,9 @@
                           img: require('../../assets/img/cart/card.png'),
                           danger: '特卖',
                           dangermin: '新品',
-                          pay: '付款'
+                          pay: '付款',
+                          statelogistics: '查看物流',
+                          statedelete: '确认收货'
                       },
                       {
                           num: '1',
@@ -195,7 +197,9 @@
                           img: require('../../assets/img/cart/card.png'),
                           danger: '特卖',
                           dangermin: '新品',
-                          pay: '付款'
+                          pay: '付款',
+                          statelogistics: '查看物流',
+                          statedelete: '确认收货'
                       }
                   ]
               },
@@ -360,7 +364,6 @@
     .font_bottom{
       border: 1px solid #cbcbcb;
       padding: 0px 10px;
-      line-height: 26px;
       font-size: 12px;
       box-sizing: border-box;
       display: inline-block;

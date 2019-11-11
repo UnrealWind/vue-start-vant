@@ -50,7 +50,7 @@
       <!-- commodity 商品 -->
       <div class="commodity">
         <ul>
-          <li>
+          <li @click="$router.push('/user/vipLogon')">
             <img src="../../src/assets/img/图层 6.png" alt>
             <div class="label">美白淡斑 抚痕焕亮</div>
             <span class="tag">欧诗漫珍珠白·沁白亮采礼盒（新包装）</span>
