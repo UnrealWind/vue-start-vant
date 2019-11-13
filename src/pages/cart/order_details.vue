@@ -19,51 +19,42 @@
             </div>
 
             <div class="van-radio__label">
-              <div data-v-37142282="" class="van-address-item__name">已签收，</div>
-              <div data-v-37142282="" class="van-address-item__address">2019-09-20 12:17:52</div>
+              <div data-v-37142282="" class="van-address-item__name">{{ shop.orderContent }}</div>
+              <div v-if="shop.deliverTime" data-v-37142282="" class="van-address-item__address">{{ shop.deliverTime }}</div>
+              <div v-if="!shop.deliverTime" data-v-37142282="" class="van-address-item__address">{{ shop.createTime }}</div>
             </div>
-
-            <div class="car_right">
-              <van-icon name="arrow" />
-            </div>
-
           </div>
         </div>
       </div>
 
       <div class="address">
         <div class="wp">
-
           <van-address-list
             v-model="chosenAddressId"
-            :list="list"
+            :list="addressList"
           />
-
         </div>
       </div>
 
-      <div v-for="(opt, index) in minNavList" :key="index" class="card_top">
+      <div class="card_top">
         <div class="wp">
-          <div class="title fix"> <van-icon name="friends" /> 云妈妈公益 </div>
-          <van-card
-            :num="opt.num"
-            :price="opt.price"
-            :desc="opt.desc"
-            :title="opt.title"
-            :thumb="opt.img"
-          >
-            <div slot="tags" class="tags">
-              <van-tag plain type="danger" class="tagsvan"> {{ opt.danger }} </van-tag>
-            </div>
-
-            <div slot="footer">
-              <van-button size="mini" class="font_bottom"> 申请售后 </van-button>
-            </div>
-
-          </van-card>
-
+          <!-- 店铺标题-->
+          <div class="title fix"> <van-icon name="friends" />  {{ shop.shopName }} <a class="r">  {{ shop.orderContent }} </a>  </div>
+          <!--卡片-->
+          <div v-for="(commodity, idx) in shop.goods" :key="idx" class="list_wrap">
+            <van-card
+              :num="commodity.amount"
+              :price="shop.goodsMoney"
+              :desc="commodity.goodsDesc"
+              :title="commodity.goodsName"
+              :thumb="commodity.mainImg"
+            >
+              <!--<div slot="tags" class="tags">
+                <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
+              </div>-->
+            </van-card>
+          </div>
           <div class="font_top">
-
             <div class="font_title">
               <van-cell value="查看详情" is-link>
                 <template slot="title">
@@ -86,16 +77,23 @@
               <van-cell value="查看详情" is-link>
                 <template slot="title">
                   <span class="custom-title"> 保险服务 </span>
-                  <van-tag type="danger"> 专享定制化购物保障 </van-tag>
+                  <van-tag type="danger"> 定制化购物保障 </van-tag>
                 </template>
               </van-cell>
             </div>
 
             <div class="font_title font_title_min">
-              <van-cell value="￥59.00">
+              <van-cell :value="`￥${shop.realTotalMoney}`">
                 <template slot="title">
-                  <span class="custom-title">  </span>
-                  <van-tag type="danger"> 商品总价 </van-tag>
+                  <span class="custom-title"> 商品总价 </span>
+                </template>
+              </van-cell>
+            </div>
+
+            <div class="font_title font_title_min">
+              <van-cell :value="`￥${shop.deliverMoney}`">
+                <template slot="title">
+                  <span class="custom-title"> 运费（快递） </span>
                 </template>
               </van-cell>
             </div>
@@ -103,32 +101,21 @@
             <div class="font_title font_title_min">
               <van-cell value="￥0.00">
                 <template slot="title">
-                  <span class="custom-title">  </span>
-                  <van-tag type="danger"> 运费（快递） </van-tag>
+                  <span class="custom-title"> 保险费（卖家赠送） </span>
                 </template>
               </van-cell>
             </div>
 
             <div class="font_title font_title_min">
-              <van-cell value="￥0.00">
+              <van-cell :value="`-￥${shop.annulMoney}`">
                 <template slot="title">
-                  <span class="custom-title">  </span>
-                  <van-tag type="danger"> 保险费（卖家赠送） </van-tag>
+                  <span class="custom-title"> 店铺优惠 </span>
                 </template>
               </van-cell>
             </div>
 
             <div class="font_title font_title_min">
-              <van-cell value="-￥0.00">
-                <template slot="title">
-                  <span class="custom-title">  </span>
-                  <van-tag type="danger"> 店铺优惠 </van-tag>
-                </template>
-              </van-cell>
-            </div>
-
-            <div class="font_title font_title_min">
-              <van-cell value="￥59.00">
+              <van-cell :value="`￥${shop.realTotalMoney}`">
                 <template slot="title">
                   <span class="custom-title"> 定价总单 </span>
                 </template>
@@ -147,57 +134,52 @@
 
               <div class="font_title fix">
                 <div class="l"> 实付款 </div>
-                <div class="r fon_red"> ￥59.00 </div>
+                <div class="r fon_red"> ￥{{ shop.realTotalMoney }} </div>
               </div>
-
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
 
     <div class="order_message">
       <div class="wp">
-
         <div class="title"> <van-icon name="fail" /> 订单信息 </div>
-
-        <div class="mess_wrap fix">
+        <!--<div class="mess_wrap fix">
           <div class="ms_title l"> 花呗账单:  </div>
           <div class="ms_title_cen l"> 去支付宝中查看  </div>
           <div class="ms_title_right r"> <van-icon name="arrow" />  </div>
-        </div>
+        </div>-->
 
         <div class="mess_wrap fix">
           <div class="ms_title l"> 订单编号: </div>
-          <div class="ms_title_cen l"> 559340205804810301  </div>
+          <div class="ms_title_cen l"> {{ shop.orderCode }}  </div>
           <div class="ms_title_right r"> <span> 复制 </span> </div>
         </div>
 
-        <div class="mess_wrap fix">
+        <!--<div class="mess_wrap fix">
           <div class="ms_title l">  支付宝交易号:  </div>
           <div class="ms_title_cen l">  201909182200115100055327438  </div>
-        </div>
+        </div>-->
 
-        <div class="mess_wrap fix">
+        <div v-if="shop.createTime" class="mess_wrap fix">
           <div class="ms_title l"> 创建时间 </div>
-          <div class="ms_title_cen l">   2019-09-18 21:09:30 </div>
+          <div class="ms_title_cen l"> {{ shop.createTime }} </div>
         </div>
 
-        <div class="mess_wrap fix">
+        <div v-if="shop.payTime" class="mess_wrap fix">
           <div class="ms_title l">  付款时间: </div>
-          <div class="ms_title_cen l"> 2019-09-18 21:09:35 </div>
+          <div class="ms_title_cen l"> {{ shop.payTime }} </div>
         </div>
 
-        <div class="mess_wrap fix">
+        <div v-if="shop.deliverTime" class="mess_wrap fix">
           <div class="ms_title l">  发货时间: </div>
-          <div class="ms_title_cen l"> 2019-09-18 21:35:56 </div>
+          <div class="ms_title_cen l"> {{ shop.deliverTime }} </div>
         </div>
 
-        <div class="mess_wrap fix">
+        <div v-if="shop.finishTime" class="mess_wrap fix">
           <div class="ms_title l"> 成交时间: </div>
-          <div class="ms_title_cen l">  2019-09-25 13:28:51 </div>
+          <div class="ms_title_cen l">  {{ shop.finishTime }} </div>
         </div>
 
         <div class="mess_font fix">
@@ -220,7 +202,7 @@
             <a href="" class="img"> <img src="../../assets/img/cart/strornav.png" alt=""> </a>
           </div>
           <div class="nav_c l">
-            <a href="" class="title"> 悦谷世嘉旗舰店 </a>
+            <a href="" class="title"> {{ shop.shopName }} </a>
             <a href="" class="titlemin"> <span>1万</span>人已关注 </a>
           </div>
         </div>
@@ -240,34 +222,26 @@
 </template>
 
 <script>
- import { Icon, AddressList, Card, Cell } from 'vant'
+ import { Icon, AddressList, Card, Cell, Tag } from 'vant'
   export default {
     components: {
         'van-icon': Icon,
         'van-address-list': AddressList,
         'van-card': Card,
-        'van-cell': Cell
+        'van-cell': Cell,
+        'van-tag': Tag
     },
     data() {
       return {
           status: 'loading',
-          chosenAddressId: '2',
-          list: [
+          chosenAddressId: '1',
+          shop: {},
+          addressList: [
               {
-                  id: '2',
+                  id: '1',
                   name: '张三',
                   tel: '13000000000',
                   address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-              }
-          ],
-          minNavList: [
-              {
-                  num: '1',
-                  title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                  price: '59.00',
-                  desc: '颜色男款-白色尺码: (男170女165 )',
-                  img: require('../../assets/img/cart/card.png'),
-                  danger: '特卖'
               }
           ]
       }
@@ -279,6 +253,10 @@
     },
     methods: {
         async init() {
+            this.shop = this.$route.query
+            this.addressList[0].name = this.shop.receiverName
+            this.addressList[0].receiverPhone = this.shop.receiverPhone
+            this.addressList[0].address = this.shop.receiverAddress
             try {
                 // await this.getData()
             } catch (e) {
@@ -296,6 +274,9 @@
 
 </script>
 <style lang='scss' scoped>
+  .align-right {
+    text-align: right;
+  }
   h1 {
     background: red;
     width: 375px;

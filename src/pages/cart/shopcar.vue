@@ -23,12 +23,11 @@
                   :price="goods.activityMoney"
                   :desc="goods.activityTitle"
                   :title="goods.goodsName"
-                  :thumb="goods.img"
+                  :thumb="goods.mainImg"
                 >
                   <!-- 按钮-->
-                  <div slot="tags">
-                    <van-tag plain type="danger"> 特卖 </van-tag>
-                    <van-tag plain type="danger"> 新品 </van-tag>
+                  <div v-if="goods.skuAttribute" slot="tags">
+                    <van-tag plain type="danger">{{ goods.skuAttribute }}</van-tag>
                   </div>
                   <!--删除-->
                   <div slot="footer" class="comm-btn clearfix">
@@ -57,7 +56,7 @@
       > 明细  <van-icon name="arrow-up" /> </div>
       <van-popup
         v-model="showDetails"
-        closeable="true"
+        closeable
         close-icon="close"
         position="bottom"
       >
@@ -174,9 +173,7 @@
           res.data.forEach((n, i) => {
               n['checked'] = false
               n.goods.forEach((good, i) => {
-                  // 现在没有商品图片，先临时拿一个代替
                   good['checked'] = false
-                  if (!good.img) good['img'] = require('../../assets/img/cart/card.png')
                   if (!good.activityMoney) {
                       good.activityMoney = good.goodsMoney
                       good.annulMoney = 0
@@ -360,8 +357,8 @@ i {
 
   .detail{
     position: absolute;
-    bottom: 35%;
-    left: 33%;
+    bottom: 33%;
+    left: 20%;
     color: #f44;
   }
 

@@ -16,6 +16,7 @@
             @edit="changeAddress"
           />
         </div>
+        <p class="addAddress" @click="$router.push('/cart/address_list')"><van-icon name="add-o" /> 新增收货地址</p>
         <div v-for="(goods, index) in orderList" :key="index" class="card_top">
           <div class="wp">
             <div class="title fix"> <van-icon name="friends" /> {{ goods.shopName }} </div>
@@ -25,7 +26,7 @@
                 :price="good.goodsMoney"
                 :desc="good.activityTitle"
                 :title="good.goodsName"
-                :thumb="good.img"
+                :thumb="good.mainImg"
               >
               </van-card>
               <div class="font_top">
@@ -161,7 +162,10 @@
             this.addressList.length = 3
         },
         changeAddress(item, index) {
-            this.$router.push('/cart/address_list')
+            this.$router.push({
+                path: '/cart/address_list',
+                query: item
+            })
         },
         async pay() {
             const targetAddress = this.addressList[this.chosenAddressId - 1]
@@ -176,7 +180,6 @@
                 'trueMoney': this.customTotalPrice,
                 'goodsPoList': this.orderList
             }
-            console.log(JSON.stringify(data))
             const res = await this.$http.post('order/order/placeOrder', data)
             console.log(res)
         },
@@ -451,6 +454,17 @@
     span{
       color: #a14760;
     }
+  }
+  .addAddress {
+    padding:5px 0;
+    margin:5px 0 0 0;
+    .van-icon {
+      position: relative;
+      top:2px;
+    }
+    color:red;
+    text-align: center;
+    font-size:16px;
   }
 
 </style>

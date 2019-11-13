@@ -4,7 +4,7 @@
     <div slot="header" class="fix">
       <div class="hesde_l" @click="$router.back()"> <van-icon name="arrow-left" /> </div>
       <div class="hesde_l2">
-        <div class="p"> 新增地址 </div>
+        <div class="p"> {{ title }} </div>
       </div>
     </div>
 
@@ -18,6 +18,7 @@
           show-search-result
           :search-result="searchResult"
           :area-columns-placeholder="areaColumns"
+          :address-info="addressInfo"
           @save="onSave"
           @delete="onDelete"
           @change-detail="onChangeDetail"
@@ -41,7 +42,15 @@ import { areaList } from '@/assets/json/areaList'
           areaList: [],
           status: 'loading',
           searchResult: [],
-          areaColumns: ['请选择', '请选择', '请选择']
+          areaColumns: ['请选择', '请选择', '请选择'],
+          title: '新增地址',
+          addressInfo: {
+              name: '',
+              tel: '',
+              areaCode: '',
+              isDefault: false,
+              addressDetail: ''
+          }
       }
     },
     computed: {
@@ -51,6 +60,14 @@ import { areaList } from '@/assets/json/areaList'
     },
     methods: {
         async init() {
+            if (this.$route.query.address) {
+                this.title = '修改地址'
+                this.addressInfo.name = this.$route.query.receiverName
+                this.addressInfo.tel = this.$route.query.receiverPhone
+                this.addressInfo.areaCode = this.$route.query.areaId
+                this.addressInfo.addressDetail = this.$route.query.addressDetail
+                this.addressInfo.isDefault = this.$route.query.isDefault
+            }
             this.areaList = areaList
             try {
                 // await this.getData()
@@ -61,6 +78,7 @@ import { areaList } from '@/assets/json/areaList'
             this.status = 'success'
         },
         async onSave(val) {
+            let url = ''
             // 适配器
             val.isDefault ? val.isDefault = 1 : val.isDefault = 0
             const data = {
@@ -72,7 +90,8 @@ import { areaList } from '@/assets/json/areaList'
                 isDefault: val.isDefault,
                 addressType: 0
             }
-            await this.$http.post('product/userAddress/add', data)
+            this.$route.query.address ? (url = 'product/userAddress/edit', data['id'] = this.$route.query.id) : url = 'product/userAddress/add'
+            await this.$http.post(url, data)
             this.$router.back()
         },
         onDelete() {

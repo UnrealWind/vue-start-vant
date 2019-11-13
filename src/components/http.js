@@ -34,7 +34,7 @@ const init = {
     service.interceptors.response.use(
       response => {
         Toast.clear()
-        store.commit('setToken', response.headers['x-auth-token'])
+        if (response.headers['x-auth-token']) store.commit('setToken', response.headers['x-auth-token'])
         const res = response.data
         if (res.status && res.status !== 200) {
           // 登录超时,重新登录

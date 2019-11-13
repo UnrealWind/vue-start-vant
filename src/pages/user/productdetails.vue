@@ -14,17 +14,14 @@
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/supermarketzone')"> <img src="../../assets/img/lunbo1.png" alt=""></van-swipe-item>
-      <van-swipe-item @click="$router.push('/supermarketzone')"> <img src="../../assets/img/lunbo1.png" alt=""></van-swipe-item>
-      <van-swipe-item @click="$router.push('/supermarketzone')"> <img src="../../assets/img/lunbo1.png" alt=""></van-swipe-item>
-      <van-swipe-item @click="$router.push('/supermarketzone')"> <img src="../../assets/img/lunbo1.png" alt=""></van-swipe-item>
+      <van-swipe-item> <img src="../../assets/img/lunbo1.png" alt=""></van-swipe-item>
     </van-swipe>
 
     <div class="sale">
       <div class="wp fix">
 
         <div class="sale_l l">
-          <div class="price"> ￥199~299 <h4> 1209~1379 </h4>  </div>
+          <div class="price"> ￥199~299  </div>
           <div class="end">
             <span> 距结束 </span> 4天 07:00：00
           </div>
@@ -46,25 +43,25 @@
       <div class="wp">
 
         <div class="title fix">
-          <span class="l">  凯司令秋梨膏2瓶凯司令秋梨膏2瓶凯司令秋梨膏2瓶凯司令秋梨膏2瓶凯司令秋梨膏 </span>
+          <span class="l">  {{ good.goodsName }} </span>
           <span class="r">  <van-icon name="like-o" /> 收藏 </span>
         </div>
 
-        <div class="min-title"> 凯司令秋梨膏2瓶 </div>
+        <div class="min-title"> {{ good.goodsDesc }} </div>
 
-        <div class="title_ul">
+        <!-- <div class="title_ul">
           <div class="li"> 好评率95% </div>
           <div class="li"> 一件也包邮 </div>
           <div class="li"> 月销1996件 </div>
-        </div>
+        </div>-->
 
-        <div class="sale-list fix" @click="$router.push('/productlistmin')">
+        <!--<div class="sale-list fix" @click="$router.push('/productlistmin')">
           <div class="l">
             <em> 榜单 </em>
             <span> 凯司令秋梨膏2瓶 </span>
           </div>
           <span class="r"> 查看 <van-icon name="arrow" /> </span>
-        </div>
+        </div>-->
 
       </div>
     </div>
@@ -88,7 +85,7 @@
     <div class="sale-specs">
       <div class="wp fix">
 
-        <div class="li fix">
+        <div class="li fix" @click="buy">
           <div class="l fix">
             <i> 规格 </i>
             <span> 请选择规格 </span>
@@ -99,7 +96,7 @@
           </div>
         </div>
 
-        <div class="li fix">
+        <!--<div class="li fix">
           <div class="l fix">
             <i>  送至 </i>
             <span> 姓名  具体地址 </span>
@@ -108,9 +105,9 @@
           <div class="r">
             <van-icon name="ellipsis" />
           </div>
-        </div>
+        </div>-->
 
-        <div class="li fix">
+        <!--<div class="li fix">
           <div class="l fix">
             <i>  服务 </i>
             <span>  正品保证 | 店铺发货 | 支持7天无理由退货 | 邮费政策 | 增退货运费 </span>
@@ -130,7 +127,7 @@
           <div class="r">
             <van-icon name="ellipsis" />
           </div>
-        </div>
+        </div>-->
 
       </div>
     </div>
@@ -415,14 +412,26 @@
     <van-goods-action>
       <van-goods-action-icon icon="cart-o" text="购物车" @click="$router.push('/shoppingcart')" />
       <van-goods-action-icon icon="shop-o" text="进店" @click="$router.push('/store')" />
-      <van-goods-action-button type="warning" text="加入购物车" @click="$router.push('/shoppingcart')" />
-      <van-goods-action-button type="danger" text="立即购买" @click="$router.push('/cart/confirm_order')" />
+      <van-goods-action-button type="warning" text="购买" @click="buy" />
+      <van-goods-action-button type="danger" text="分享" @click="share" />
     </van-goods-action>
+    <van-overlay :show="show" @click="show = false" />
+    <van-sku
+      v-model="show"
+      :sku="sku"
+      :goods="goods"
+      :goods-id="goodsId"
+      :hide-stock="sku.hide_stock"
+      reset-stepper-on-hide
+      @buy-clicked="pay"
+      @add-cart="addinCart"
+    />
+
   </van-container>
 </template>
 
 <script>
-  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup, GoodsAction, GoodsActionIcon, GoodsActionButton } from 'vant'
+  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku, Overlay } from 'vant'
 
   export default {
     components: {
@@ -434,13 +443,94 @@
         'van-popup': Popup,
         'van-goods-action-icon': GoodsActionIcon,
         'van-goods-action': GoodsAction,
-        'van-goods-action-button': GoodsActionButton
+        'van-goods-action-button': GoodsActionButton,
+        'van-sku': Sku,
+        'van-overlay': Overlay
     },
     data() {
       return {
           status: 'loading',
           active: 0,
-          show: false
+          show: false,
+          goodsId: '',
+          good: {},
+          sku: {
+            // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
+            // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
+              tree: [
+                  {
+                      k: '颜色', // skuKeyName：规格类目名称
+                      v: [
+                          {
+                              id: '1', // skuValueId：规格值 id
+                              name: '红色', // skuValueName：规格值名称
+                              imgUrl: 'https://img.yzcdn.cn/2.jpg', // 规格类目图片，只有第一个规格类目可以定义图片
+                              previewImgUrl: 'https://img.yzcdn.cn/1p.jpg' // 用于预览显示的规格类目图片
+                          },
+                          {
+                              id: '2',
+                              name: '蓝色',
+                              imgUrl: 'https://img.yzcdn.cn/2.jpg',
+                              previewImgUrl: 'https://img.yzcdn.cn/2p.jpg'
+                          }
+                      ],
+                      k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+                  }
+              ],
+              // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
+              list: [
+                  {
+                      id: 1, // skuId，下单时后端需要
+                      price: 100, // 价格（单位分）
+                      s1: '1', // 规格类目 k_s 为 s1 的对应规格值 id
+                      s2: '0', // 规格类目 k_s 为 s2 的对应规格值 id
+                      s3: '0', // 最多包含3个规格值，为0表示不存在该规格
+                      stock_num: 110 // 当前 sku 组合对应的库存
+                  },
+                  {
+                      id: 2, // skuId，下单时后端需要
+                      price: 100, // 价格（单位分）
+                      s1: '2', // 规格类目 k_s 为 s1 的对应规格值 id
+                      s2: '0', // 规格类目 k_s 为 s2 的对应规格值 id
+                      s3: '0', // 最多包含3个规格值，为0表示不存在该规格
+                      stock_num: 110 // 当前 sku 组合对应的库存
+                  }
+              ],
+              price: '0', // 默认价格（单位元）
+              stock_num: 330, // 商品总库存
+              collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
+              none_sku: false, // 是否无规格商品
+              messages: [
+                  {
+                      // 商品留言
+                      datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
+                      multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
+                      name: '留言', // 留言名称
+                      type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
+                      required: '1', // 是否必填 '1' 表示必填
+                      placeholder: '' // 可选值，占位文本
+                  }
+            ],
+            hide_stock: false // 是否隐藏剩余库存
+        },
+        goods: {
+            // 商品标题
+            title: '测试商品',
+            // 默认商品 sku 缩略图
+            picture: 'https://img.yzcdn.cn/1.jpg'
+        },
+        customStepperConfig: {
+            // 自定义限购文案
+            quotaText: '每次限购xxx件',
+            // 自定义步进器超过限制时的回调
+            handleOverLimit: (data) => {},
+            // 步进器变化的回调
+            handleStepperChange: currentValue => {},
+            // 库存
+            stockNum: 1999,
+            // 格式化库存
+            stockFormatter: stockNum => {}
+        }
       }
     },
     computed: {
@@ -451,7 +541,7 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getData()
             } catch (e) {
                 this.status = 'error'
                 throw e
@@ -459,11 +549,26 @@
             this.status = 'success'
         },
         async getData() {
-            const res = await this.$http.get('/user/12345')
+            const res = await this.$http.post('product/goods/orderDetail', {
+                id: 138
+            })
             console.log(res)
+            this.good = res.data
         },
         showPopup() {
             this.show = true
+        },
+        buy() {
+            this.show = true
+        },
+        share() {
+            this.show = true
+        },
+        addinCart() {
+
+        },
+        pay(data) {
+            console.log(data)
         }
     }
   }
@@ -537,7 +642,7 @@
 
   .sale{
     position: relative;
-    z-index: 9;
+    z-index: 0;
     padding-top: 10px;
     padding-bottom: 10px;
     background: #fb1925;

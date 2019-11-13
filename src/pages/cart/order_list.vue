@@ -11,154 +11,111 @@
     <div class="dan_wrap fix">
       <van-tabs v-model="active">
         <van-tab title="全部">
-          <div v-for="(shop, index) in orderList" :key="index" class="card_top">
-            <div class="wp">
-              <!-- 店铺标题-->
-              <div class="title fix"> <van-icon name="friends" />  {{ shop.label }} <a class="r">  {{ shop.state }} </a>  </div>
-              <!--卡片-->
-              <div v-for="(commodity, idx) in shop.commodity" :key="idx" class="list_wrap">
-                <van-card
-                  :num="1"
-                  :price="commodity.price"
-                  :desc="commodity.desc"
-                  :title="commodity.title"
-                  :thumb="commodity.img"
-                >
-                  <div slot="tags" class="tags">
-                    <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
+          <div v-for="(shop, index) in orderList" :key="index">
+            <div class="card_top">
+              <div class="wp">
+                <!-- 店铺标题-->
+                <div class="title fix"> <van-icon name="friends" />  {{ shop.shopName }} <a class="r">  {{ shop.orderContent }} </a>  </div>
+                <!--卡片-->
+                <div v-for="(commodity, idx) in shop.goods" :key="idx" class="list_wrap">
+                  <van-card
+                    :num="commodity.amount"
+                    :price="shop.goodsMoney"
+                    :desc="commodity.goodsDesc"
+                    :title="commodity.goodsName"
+                    :thumb="commodity.mainImg"
+                  >
+                    <!--<div slot="tags" class="tags">
+                      <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
+                    </div>-->
+                    <div slot="footer">
+                      <van-button v-if="shop.nodeCode === 0" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付  </van-button>
+                      <van-button size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>
+                      <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>
+                      <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
+                      <van-button v-if="shop.nodeCode === 2" size="mini" class="font_bottom"> 确认收货 </van-button>
+                    </div>
+                  </van-card>
+                  <div class="font_top">
+                    共 {{ commodity.amount }} 件商品 应付款：<span>￥{{ shop.realTotalMoney }}</span>  （含运费 {{ shop.deliverMoney }}元）
                   </div>
-                  <div slot="footer">
-                    <van-button v-if="commodity.pay" size="mini" class="font_bottom active"> {{ commodity.pay }} </van-button>
-                    <van-button v-if="commodity.statelogistics" size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')">  {{ commodity.statelogistics }}  </van-button>
-                    <van-button v-if="commodity.statedelete" size="mini" class="font_bottom">  {{ commodity.statedelete }}   </van-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </van-tab>
+        <van-tab v-for="(tab, tabIdx) in tabArr" :key="tabIdx" :title="tab.label">
+          <div v-for="(shop, index) in orderList" :key="index">
+            <div v-if="shop.nodeCode === tab.node_code" class="card_top">
+              <div class="wp">
+                <!-- 店铺标题-->
+                <div class="title fix"> <van-icon name="friends" />  {{ shop.shopName }} <a class="r">  {{ shop.orderContent }} </a>  </div>
+                <!--卡片-->
+                <div v-for="(commodity, idx) in shop.goods" :key="idx" class="list_wrap">
+                  <van-card
+                    :num="commodity.amount"
+                    :price="shop.goodsMoney"
+                    :desc="commodity.goodsDesc"
+                    :title="commodity.goodsName"
+                    :thumb="commodity.mainImg"
+                  >
+                    <!--<div slot="tags" class="tags">
+                      <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
+                    </div>-->
+                    <div slot="footer">
+                      <van-button v-if="shop.nodeCode === 0" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>
+                      <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>
+                      <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
+                      <van-button v-if="shop.nodeCode === 2" size="mini" class="font_bottom"> 确认收货 </van-button>
+                    </div>
+                  </van-card>
+                  <div class="font_top">
+                    共 {{ commodity.amount }} 件商品 应付款：<span>￥{{ shop.realTotalMoney }}</span>  （含运费 {{ shop.deliverMoney }}元）
                   </div>
-                </van-card>
-                <div class="font_top">
-                  共 {{ commodity.num }} 件商品 应付款：<span>￥{{ commodity.price }}</span>  （含运费0.00）
                 </div>
               </div>
             </div>
           </div>
-        </van-tab>
-        <van-tab title="待付款">
-          <div class="card_top">
-            <div class="wp">
-              <div class="title fix"> <van-icon name="friends" />云妈妈公益 <a class="r"> 待付款 </a>  </div>
-              <van-card
-                num="1"
-                price="59.00"
-                desc="颜色男款-白色尺码: (男170女165 )"
-                title="南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花.."
-                thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
-              >
-                <div slot="tags" class="tags">
-                  <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
-                </div>
-                <div slot="footer">
-                  <van-button size="mini" class="font_bottom active"> 付款 </van-button>
-                </div>
-              </van-card>
-              <div class="font_top">
-                共一件商品 应付款：<span>￥59.00</span>  （含运费0.00）
-              </div>
-            </div>
-          </div>
-
-        </van-tab>
-        <van-tab title="待发货">
-          <div class="card_top">
-            <div class="wp">
-              <div class="title fix"> <van-icon name="friends" />云妈妈公益 <a class="r"> 待发货 </a>  </div>
-              <van-card
-                num="1"
-                price="59.00"
-                desc="颜色男款-白色尺码: (男170女165 )"
-                title="南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花.."
-                thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
-              >
-                <div slot="tags" class="tags">
-                  <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
-                </div>
-                <div slot="footer">
-                  <van-button size="mini" class="font_bottom"> 查看物流 </van-button>
-                  <van-button size="mini" class="font_bottom"> 删除订单 </van-button>
-                </div>
-              </van-card>
-              <div class="font_top">
-                共一件商品 应付款：<span>￥59.00</span>  （含运费0.00）
-              </div>
-            </div>
-          </div>
-
-        </van-tab>
-        <van-tab title="待收货">
-          <div class="card_top">
-            <div class="wp">
-              <div class="title fix"> <van-icon name="friends" />云妈妈公益 <a class="r"> 待收货 </a>  </div>
-              <van-card
-                num="1"
-                price="59.00"
-                desc="颜色男款-白色尺码: (男170女165 )"
-                title="南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花.."
-                thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
-              >
-                <div slot="tags" class="tags">
-                  <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
-                </div>
-
-                <div slot="footer">
-                  <van-button size="mini" class="font_bottom"> 查看物流 </van-button>
-                  <van-button size="mini" class="font_bottom"> 确认收货 </van-button>
-                </div>
-              </van-card>
-
-              <div class="font_top">
-                共一件商品 应付款：<span>￥59.00</span>  （含运费0.00）
-              </div>
-
-            </div>
-          </div>
-
-        </van-tab>
-        <van-tab title="待评价">
-
-          <div class="card_top">
-            <div class="wp">
-              <div class="title fix"> <van-icon name="friends" />云妈妈公益 <a class="r"> 待评价 </a>  </div>
-
-              <van-card
-                num="1"
-                price="59.00"
-                desc="颜色男款-白色尺码: (男170女165 )"
-                title="南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花.."
-                thumb="https://img.yzcdn.cn/vant/t-thirt.jpg"
-              >
-                <div slot="tags" class="tags">
-                  <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
-                </div>
-
-                <div slot="footer">
-                  <van-button size="mini" class="font_bottom"> 评价 </van-button>
-                  <van-button size="mini" class="font_bottom"> 删除订单 </van-button>
-                </div>
-              </van-card>
-
-              <div class="font_top">
-                共一件商品 应付款：<span>￥59.00</span>  （含运费0.00）
-              </div>
-
-            </div>
-          </div>
-
         </van-tab>
       </van-tabs>
     </div>
-
+    <div class="or_sub">
+      <van-cell close-icon="close" class="cop_van_cell" @click="showPopup"></van-cell>
+      <van-popup
+        v-model="show"
+        closeable
+        position="bottom"
+        class="cou_bottom"
+      >
+        <div class="title"> ￥{{ targetOrder.totalMoney }}  </div>
+        <van-radio-group v-model="payType">
+          <van-cell-group>
+            <div class="img">
+              <img src="../../assets/img/cart/card.png" alt="">
+              <van-cell title="支付宝支付" clickable @click="payType = '2'">
+                <van-radio slot="right-icon" name="2" />
+              </van-cell>
+            </div>
+            <div class="img">
+              <img src="../../assets/img/cart/card.png" alt="">
+              <van-cell title="微信支付" clickable @click="payType = '1'">
+                <van-radio slot="right-icon" name="1" />
+              </van-cell>
+            </div>
+          </van-cell-group>
+          <van-submit-bar
+            button-text="立即支付"
+            class="cup_bottom"
+            @submit="pay"
+          />
+        </van-radio-group>
+      </van-popup>
+    </div>
   </van-container>
 </template>
 
 <script>
-    import { Icon, Tab, Tabs, Card, Button, Tag } from 'vant'
+   import { Icon, Tab, Tabs, Card, Button, SubmitBar, Cell, Popup, RadioGroup, Radio, CellGroup } from 'vant'
   export default {
     components: {
         'van-icon': Icon,
@@ -166,78 +123,47 @@
         'van-tabs': Tabs,
         'van-card': Card,
         'van-button': Button,
-        'van-tag': Tag
+        'van-submit-bar': SubmitBar,
+        'van-cell': Cell,
+        'van-popup': Popup,
+        'van-radio-group': RadioGroup,
+        'van-radio': Radio,
+        'van-cell-group': CellGroup
     },
     data() {
       return {
           status: 'loading',
           active: 0,
-          orderList: [
+          orderList: [],
+          show: false,
+          payType: '1',
+          targetOrder: {},
+          tabArr: [
               {
-                  label: '旗舰店a',
-                  state: '待付款',
-                  commodity: [
-                      {
-                          num: '1',
-                          title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                          price: '59.00',
-                          desc: '颜色男款-白色尺码: (男170女165 )',
-                          img: require('../../assets/img/cart/card.png'),
-                          danger: '特卖',
-                          dangermin: '新品',
-                          pay: '付款',
-                          statelogistics: '查看物流',
-                          statedelete: '确认收货'
-                      },
-                      {
-                          num: '1',
-                          title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                          price: '59.00',
-                          desc: '颜色男款-白色尺码: (男170女165 )',
-                          img: require('../../assets/img/cart/card.png'),
-                          danger: '特卖',
-                          dangermin: '新品',
-                          pay: '付款',
-                          statelogistics: '查看物流',
-                          statedelete: '确认收货'
-                      }
-                  ]
+                  label: '待付款',
+                  node_code: '0'
               },
               {
-                  label: '旗舰店b',
-                  state: '待收货',
-                  commodity: [
-                      {
-                          num: '1',
-                          state: '代付款',
-                          title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                          price: '59.00',
-                          desc: '颜色男款-白色尺码: (男170女165 )',
-                          img: require('../../assets/img/cart/card.png'),
-                          danger: '特卖',
-                          dangermin: '新品',
-                          statelogistics: '查看物流',
-                          statedelete: '确认收货'
-                      },
-                      {
-                          num: '1',
-                          state: '代付款',
-                          title: '南极人中老年保暖内衣男女士加大码加绒加厚舒服绒提花..',
-                          price: '59.00',
-                          desc: '颜色男款-白色尺码: (男170女165 )',
-                          img: require('../../assets/img/cart/card.png'),
-                          danger: '特卖',
-                          dangermin: '新品',
-                          statelogistics: '查看物流',
-                          statedelete: '确认收货'
-                      }
-                  ]
+                  label: '待发货',
+                  node_code: '1'
+              },
+              {
+                  label: '待收货',
+                  node_code: '2'
+              },
+              {
+                  label: '待评价',
+                  node_code: '3'
+              },
+              {
+                  label: '已完成',
+                  node_code: '4'
               }
-
           ]
       }
     },
     computed: {
+
     },
     mounted() {
         this.init()
@@ -253,8 +179,35 @@
             this.status = 'success'
         },
         async getOrderList() {
-            const res = await this.$http.post('order/order/list', {})
+            const res = await this.$http.post('order/order/list', {
+                node_code: 0
+            })
+            this.orderList = res.data
+        },
+        viewOrder(shop) {
+            this.$router.push({
+                path: '/cart/order_details',
+                query: shop
+            })
+        },
+        async pay() {
+            const data = {
+                'receiverId': this.targetOrder.receiverId,
+                'receiverName': this.targetOrder.receiverName,
+                'receiverPhone': this.targetOrder.receiverPhone,
+                'receiverAddress': this.targetOrder.receiverAddress,
+                'isInvoices': 0,
+                'payType': this.payType,
+                'orderType': this.targetOrder.orderType,
+                'trueMoney': this.targetOrder.totalMoney,
+                'goodsPoList': this.targetOrder.goods
+            }
+            const res = await this.$http.post('order/order/placeOrder', data)
             console.log(res)
+        },
+        showPopup(shop) {
+            this.targetOrder = shop
+            this.show = true
         }
     }
   }
@@ -397,4 +350,214 @@
     position: relative;
   }
 
+  .or_sub{
+    position: relative;
+    z-index: 999;
+    .cop_van_cell{
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+      width: 100%;
+      z-index: 102;
+      line-height: 55px;
+      height: 55px;
+      background: transparent;
+    }
+  }
+  .van-submit-bar__bar{
+    height: 50px;
+  }
+  .van-button--large{
+    line-height: 50px;
+    height: 50px;
+    font-size: 14px;
+  }
+  .van-submit-bar__price{
+    font-size: 12px;
+  }
+  .van-address-list__add{
+    display: none;
+  }
+
+  .card_top{
+    margin-top: 15px;
+    padding-bottom: 0px;
+    position: relative;
+    border-radius: 5px;
+    .wp{
+      background: #fff;
+      border-radius: 10px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .van-card{
+      background: #fff;
+    }
+    .title{
+      width: 95%;
+      margin: 0 auto;
+      padding-top: 10px;
+      line-height: 30px;
+      a{
+        color: #d8120e;
+      }
+    }
+    .van-icon{
+      font-size: 20px;
+      position: relative;
+      top: 0px;
+      margin-right: 5px;
+      background: #f68829;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    .tagsvan{
+      display: inline-block;
+      padding: 0px 10px;
+      border-radius: 5px;
+      line-height: 20px;
+      background: #fde9e8 ;
+      color: #d23359;
+      font-size: 12px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+    .van-card__title{
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .font_bottom{
+      border: 1px solid #cbcbcb;
+      padding: 0px 10px;
+      line-height: 26px;
+      font-size: 12px;
+      box-sizing: border-box;
+      display: inline-block;
+      border-radius: 50px;
+    }
+    .van-card__footer{
+      padding-top: 40px;
+    }
+    .font_top{
+      width: 95%;
+      margin: 0 auto;
+      color: #818181;
+      padding-top: 10px;
+      span{
+        color: #333;
+        font-size: 12px;
+      }
+      input{
+        border: 0px;
+        width: 80%;
+        padding-left: 10px;
+      }
+    }
+
+    .font_botom{
+      margin-top: 10px;
+      background: #fbfbfb;
+      padding: 10px 5%;
+
+      .r{
+        color: #b73b53;
+      }
+    }
+  }
+
+  .font_popup{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 102;
+    position: fixed;
+    height: 50px;
+  }
+
+  .van-cell{
+    font-size: 12px;
+  }
+
+  .cou_bottom{
+    text-align: center;
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+
+    .title{
+      font-weight: bold;
+    }
+  }
+
+  .cou_bottom{
+
+    .van-radio-group{
+      position: relative;
+      .van-cell__title{
+        text-align: left;
+      }
+      .van-cell{
+        padding-left: 0px;
+      }
+      .img{
+        position: relative;
+        padding-left: 40px;
+        img{
+          position: absolute;
+          left: 10px;
+          top: 10px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+  }
+  .van-radio-group{
+    .cup_bottom{
+      display: block;
+      width: 100%;
+      border-radius: 50px;
+    }
+    .van-submit-bar{
+      position: relative;
+      margin-top: 10px;
+    }
+    .van-submit-bar .van-button{
+      width: 100%;
+      border-radius: 50px;
+      height: 35px;
+      line-height: 30px;
+      font-size: 14px;
+    }
+  }
+
+  .title_time{
+    display: inline-block;
+    background: #f7f7f7;
+    padding: 5px 10px;
+    border-radius: 50px;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #757575;
+    span{
+      color: #a14760;
+    }
+  }
+  .addAddress {
+    padding:5px 0;
+    margin:5px 0 0 0;
+    .van-icon {
+      position: relative;
+      top:2px;
+    }
+    color:red;
+    text-align: center;
+    font-size:16px;
+  }
 </style>
