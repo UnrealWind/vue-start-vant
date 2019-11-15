@@ -1,5 +1,4 @@
 import router from '../router/index'
-import store from '../store/index'
 import config from '../config/config'
 const routerAuth = () => {
   router.beforeEach(async(to, from, next) => {
@@ -13,7 +12,7 @@ const routerAuth = () => {
     } catch (e) {
       return
     }
-    if (store.state.token) {
+    if (sessionStorage.getItem('token')) {
       next()
     } else {
       next({ path: '/user/logon' })

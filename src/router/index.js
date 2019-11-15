@@ -290,6 +290,27 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/user/changeInfo',
+    component: () => import('@/pages/user/changeInfo'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/addFind',
+    component: () => import('@/pages/user/addFind'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/accountLogin',
+    component: () => import('@/pages/user/accountlogin'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '/user/vipLogon',
     component: () => import('@/pages/user/vipLogon'),
     meta: {

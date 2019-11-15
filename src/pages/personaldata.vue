@@ -11,24 +11,20 @@
     <div class="dan_wrap">
 
       <div class="set_cen set_cenpad set_img">
-        <img src="../assets/img/getAvatar.do.jpg" alt="">
+        <img :src="userInfo.userHeadimg" alt="">
         <van-cell title="个人头像" is-link />
       </div>
 
       <div class="set_cen">
-        <van-cell title="昵称" is-link value="修改个人昵称" />
-      </div>
-
-      <div class="set_cen">
-        <van-cell title="生日" is-link value="未填写" />
+        <van-cell title="昵称" is-link :value="userInfo.nickName" @click="changeInfo({key:'nickName',value:userInfo.nickName,code:userInfo.code})" />
       </div>
 
       <div class="set_cen">
         <van-field
+          :value="userInfo.userSex"
           readonly
           clickable
           label="性别"
-          :value="value"
           right-icon="arrow"
           placeholder="未填写"
           input-align="right"
@@ -47,10 +43,10 @@
       </div>
 
       <div class="set_cen">
-        <van-cell title="地区" is-link value="未填写" />
+        <van-cell title="用户等级" :value="userInfo.userTypeName" />
       </div>
 
-      <div class="set_cen set_cenpad" @click="$router.push('/static/address')">
+      <div class="set_cen set_cenpad" @click="$router.push('/cart/order')">
         <van-cell title="收货地址" is-link value="新建/修改" />
       </div>
 
@@ -78,7 +74,8 @@ import { Icon, Cell, Picker, Popup, Field } from 'vant'
           status: 'loading',
           value: '',
           showPicker: false,
-          columns: ['男', '女']
+          columns: ['男', '女'],
+          userInfo: {}
       }
     },
     computed: {
@@ -89,20 +86,51 @@ import { Icon, Cell, Picker, Popup, Field } from 'vant'
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getUser()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getUser() {
+            const res = await this.$http.post('/manager/user/queryUser')
+            switch (res.data.userSex) {
+                case 0:
+                    res.data.userSex = '男'
+                    break
+                case 1:
+                    res.data.userSex = '女'
+                    break
+                case 2:
+                    res.data.userSex = '未知'
+                    break
+            }
+            if (!res.data.userHeadimg) res.data.userHeadimg = require('../assets/img/getAvatar.do.jpg')
+            this.userInfo = res.data
         },
-        onConfirm(value) {
-            this.value = value
+        async onConfirm(value) {
+            this.userInfo.userSex = value
             this.showPicker = false
+            let userSex = '2'
+            switch (value) {
+                case '男':
+                    userSex = '0'
+                    break
+                case '女':
+                    userSex = '1'
+                    break
+            }
+            await this.$http.post('/manager/user/edit', {
+                code: this.userInfo.code,
+                userSex: userSex
+            })
+        },
+        changeInfo(opt) {
+            this.$router.push({
+                path: '/user/changeInfo',
+                query: opt
+            })
         }
     }
   }

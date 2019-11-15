@@ -14,20 +14,24 @@
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item> <img src="../../assets/img/lunbo1.png" alt=""></van-swipe-item>
+      <span v-for="(opt,index) in good.goodsStatics" :key="index">
+        <van-swipe-item v-if="opt.spuStaticType === 3">
+          <img :src="opt.url" alt="">
+        </van-swipe-item>
+      </span>
     </van-swipe>
 
     <div class="sale">
       <div class="wp fix">
 
         <div class="sale_l l">
-          <div class="price"> ￥199~299  </div>
-          <div class="end">
+          <div class="price"> ￥{{ priceArea }}  </div>
+          <div v-if="false" class="end">
             <span> 距结束 </span> 4天 07:00：00
           </div>
         </div>
 
-        <div class="sale_r r">
+        <div v-if="false" class="sale_r r">
           <div class="price"> <em> 限时特卖 </em> </div>
           <div class="end">
             <span class="capsule"> </span>
@@ -35,7 +39,20 @@
             <span class="capsuleBg"> </span>
           </div>
         </div>
-
+        <ul class="isList">
+          <li v-if="good.isHot === 1">
+            <span class="">热销</span>
+          </li>
+          <li v-if="good.isNew === 0">
+            <span class="">新品</span>
+          </li>
+          <li v-if="good.isBest === 1">
+            <span class="">精品</span>
+          </li>
+          <li v-if="good.isRecom === 1">
+            <span class="">推荐</span>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -132,12 +149,12 @@
       </div>
     </div>
 
-    <div class="sale-evaluate">
+    <div v-if="false" class="sale-evaluate">
       <div class="wp fix">
 
         <div class="evaluate fix">
           <div class="l">
-            商品评价 <span> （124） </span>
+            商品评价 <span> （{{ good.appraiseNum }}） </span>
           </div>
           <div class="r">
             <span> 好评率94% <van-icon name="arrow" /> </span>
@@ -175,7 +192,7 @@
       </div>
     </div>
 
-    <div class="sale-store">
+    <div v-if="false" class="sale-store">
       <div class="wp">
 
         <div class="logo fix">
@@ -238,7 +255,7 @@
       </div>
     </div>
 
-    <div class="sale-store">
+    <div v-if="false" class="sale-store">
       <div class="wp">
 
         <div class="logo fix">
@@ -305,7 +322,7 @@
         <van-tabs v-model="active">
           <van-tab title="商品介绍 ">
 
-            <div class="sale_order">
+            <div v-if="false" class="sale_order">
 
               <div class="title">尊敬的用户您好，因为云集双十一-大促火热开展中，导致订单发货会有延迟，感谢您的支持与理解，常规订单发货时效如下 </div>
 
@@ -332,14 +349,12 @@
 
             <div class="sale-material">
               <div class="ul fix">
-                <div class="li l"> 材质 </div>
-                <div class="li r"> 牛皮 </div>
-                <div class="li l"> 外形 </div>
-                <div class="li r"> 横款方形 </div>
-                <div class="li l"> 图案 </div>
-                <div class="li r"> 纯色 </div>
-                <div class="li l"> 闭合方式 </div>
-                <div class="li r"> 包盖式 </div>
+                <div v-for="(opt,index) in good.baseAttributes" :key="index">
+                  <div v-if="opt.isSku === 0">
+                    <div class="li l"> {{ opt.attributeName }} </div>
+                    <div class="li r"> {{ opt.attributeValue }} </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -352,7 +367,11 @@
             </div>
 
             <div class="sale-specimg">
-              <img src="../../assets/img/brandtu15.png" alt="">
+              <span v-for="(opt,index) in good.goodsStatics" :key="index">
+                <div v-if="opt.spuStaticType === 3">
+                  <img :src="opt.url" alt="">
+                </div>
+              </span>
             </div>
 
           </van-tab>
@@ -370,7 +389,7 @@
               <div class="pues_text">
                 <p> 1、关于发货:国内商品:订单支付后24H内发货完成。</p>
                 <p> 跨境商品:当天14点前支付的订单，当天24点前发货(特殊涉及海关清关，个人信息，节假日等情况会有所延迟，敬请谅解! )。上述情况不包括店主礼包、预售商品和大促活动商品。</p>
-                <p>  2、关于快递:云集仓储与多家快递公司合作，保证国内大多数地区均有快递可以送达，暂不支持指定快递。</p>
+                <p> 2、关于快递:云集仓储与多家快递公司合作，保证国内大多数地区均有快递可以送达，暂不支持指定快递。</p>
                 <p> 3、关于签收:收到商品后，需要您当场验货确认无误后再签收，如果是包装完好且本人签收后再反馈少发，错发等类似问题，请自理。若非当面签收后发现异常情第一时间联系快递核实。 由于客户自身原因拒收或退货(如不想要了，买多了等)，订单收取的运费，退款不予退还，请客户慎重操作。 </p>
               </div>
 
@@ -454,64 +473,16 @@
           show: false,
           goodsId: '',
           good: {},
+          priceArea: '',
           sku: {
             // 所有sku规格类目与其值的从属关系，比如商品有颜色和尺码两大类规格，颜色下面又有红色和蓝色两个规格值。
             // 可以理解为一个商品可以有多个规格类目，一个规格类目下可以有多个规格值。
-              tree: [
-                  {
-                      k: '颜色', // skuKeyName：规格类目名称
-                      v: [
-                          {
-                              id: '1', // skuValueId：规格值 id
-                              name: '红色', // skuValueName：规格值名称
-                              imgUrl: 'https://img.yzcdn.cn/2.jpg', // 规格类目图片，只有第一个规格类目可以定义图片
-                              previewImgUrl: 'https://img.yzcdn.cn/1p.jpg' // 用于预览显示的规格类目图片
-                          },
-                          {
-                              id: '2',
-                              name: '蓝色',
-                              imgUrl: 'https://img.yzcdn.cn/2.jpg',
-                              previewImgUrl: 'https://img.yzcdn.cn/2p.jpg'
-                          }
-                      ],
-                      k_s: 's1' // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-                  }
-              ],
+              tree: [],
               // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
-              list: [
-                  {
-                      id: 1, // skuId，下单时后端需要
-                      price: 100, // 价格（单位分）
-                      s1: '1', // 规格类目 k_s 为 s1 的对应规格值 id
-                      s2: '0', // 规格类目 k_s 为 s2 的对应规格值 id
-                      s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                      stock_num: 110 // 当前 sku 组合对应的库存
-                  },
-                  {
-                      id: 2, // skuId，下单时后端需要
-                      price: 100, // 价格（单位分）
-                      s1: '2', // 规格类目 k_s 为 s1 的对应规格值 id
-                      s2: '0', // 规格类目 k_s 为 s2 的对应规格值 id
-                      s3: '0', // 最多包含3个规格值，为0表示不存在该规格
-                      stock_num: 110 // 当前 sku 组合对应的库存
-                  }
-              ],
+              list: [],
               price: '0', // 默认价格（单位元）
-              stock_num: 330, // 商品总库存
-              collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
-              none_sku: false, // 是否无规格商品
-              messages: [
-                  {
-                      // 商品留言
-                      datetime: '0', // 留言类型为 time 时，是否含日期。'1' 表示包含
-                      multiple: '0', // 留言类型为 text 时，是否多行文本。'1' 表示多行
-                      name: '留言', // 留言名称
-                      type: 'text', // 留言类型，可选: id_no（身份证）, text, tel, date, time, email
-                      required: '1', // 是否必填 '1' 表示必填
-                      placeholder: '' // 可选值，占位文本
-                  }
-            ],
-            hide_stock: false // 是否隐藏剩余库存
+              stock_num: 0, // 商品总库存
+              hide_stock: false // 是否隐藏剩余库存
         },
         goods: {
             // 商品标题
@@ -521,7 +492,7 @@
         },
         customStepperConfig: {
             // 自定义限购文案
-            quotaText: '每次限购xxx件',
+            quotaText: '',
             // 自定义步进器超过限制时的回调
             handleOverLimit: (data) => {},
             // 步进器变化的回调
@@ -552,8 +523,82 @@
             const res = await this.$http.post('product/goods/orderDetail', {
                 id: 138
             })
-            console.log(res)
             this.good = res.data
+
+            // 超级适配器，目测大几十行
+            this.goods.title = this.good.goodsName
+            this.goods.picture = this.good.goodsSkuList[0].img
+            this.good.goodsSkuList.length > 1
+                ? this.priceArea = this.good.goodsSkuList.sort((a, b) => { return a.unitPrice - b.unitPrice })[0].unitPrice + ' ~ ' + this.good.goodsSkuList.sort((a, b) => { return a.unitPrice - b.unitPrice })[this.good.goodsSkuList.length - 1].unitPrice
+            : this.priceArea = this.good.goodsSkuList[0].unitPrice
+
+            // 适配sku.list
+            const skuList = []
+            this.good.goodsSkuList.forEach((n, i) => {
+                const data = {
+                    id: n.skuCode, // skuId，下单时后端需要
+                    price: n.unitPrice * 100, // 价格（单位分）
+                    s1: '0', // 规格类目 k_s 为 s1 的对应规格值 id
+                    s2: '0', // 规格类目 k_s 为 s2 的对应规格值 id
+                    s3: '0', // 最多包含3个规格值，为0表示不存在该规格
+                    stock_num: n.stock // 当前 sku 组合对应的库存
+                }
+                skuList.push(data)
+                this.sku.stock_num += n.stock
+            })
+            this.sku.list = skuList
+
+            // 适配sku.tree
+            const skuTree = []
+            this.good.baseAttributes.forEach((n, i) => {
+               if (n.isSku === 1) {
+                   let has = false
+                   skuTree.forEach((ni, ii) => {
+                       if (ni['k'] === n.attributeName) {
+                           let hasItme = false
+                           ni.v.forEach((nx, ix) => {
+                               if (nx.name === n.attributeValue) {
+                                   hasItme = true
+                                   nx.skuCode += '-' + n.skuCode
+                               }
+                           })
+                           if (!hasItme) {
+                               ni['v'].push({
+                                   id: n.attributeValueCode, // skuValueId：规格值 id
+                                   name: n.attributeValue, // skuValueName：规格值名称
+                                   skuCode: n.skuCode
+                               })
+                           }
+                           has = true
+                       }
+                   })
+                   if (!has) {
+                       skuTree.push({
+                           k: n.attributeName, // skuKeyName：规格类目名称
+                           v: [
+                               {
+                                   id: n.attributeValueCode, // skuValueId：规格值 id
+                                   name: n.attributeValue, // skuValueName：规格值名称
+                                   skuCode: n.skuCode
+                               }
+                           ],
+                           k_s: 's' + (skuTree.length + 1)// skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+                       })
+                   }
+               }
+            })
+            this.sku.tree = skuTree
+
+            // 匹配s1,s2,s3数据
+            this.sku.list.forEach((n, i) => {
+                this.sku.tree.forEach((ni, ii) => {
+                    ni.v.forEach((nx, ix) => {
+                        if (nx.skuCode.indexOf(n.id) > -1) {
+                            n[ni.k_s] = nx.id
+                        }
+                    })
+                })
+            })
         },
         showPopup() {
             this.show = true
@@ -564,11 +609,26 @@
         share() {
             this.show = true
         },
-        addinCart() {
-
+        async addinCart(data) {
+            const res = await this.$http.post('order/shoppingCart/add', {
+                skuCode: data.selectedSkuComb.id,
+                num: data.selectedNum,
+                isShare: 0
+            })
+            console.log(res)
         },
-        pay(data) {
-            console.log(data)
+        async pay(data) {
+            const goodsVoList = {
+                'goodsVos': [],
+                'orderType': 1 // 1是直接下单，2是购物车下单
+            }
+            goodsVoList.goodsVos.push({
+                'amount': data.selectedNum,
+                'skuCode': data.selectedSkuComb.id
+            })
+            const res = await this.$http.post('product/goods/orderByCart', goodsVoList)
+            this.$store.commit('setTargetOrder', res.data)
+            this.$router.push('/cart/confirm_order')
         }
     }
   }
@@ -1060,7 +1120,7 @@
   }
 
   .van-tabs{
-    padding-top: 60px;
+    padding-top: 20px;
   }
 
   .sale_order{
@@ -1177,6 +1237,21 @@
       p{
         margin: 0 auto;
       }
+    }
+  }
+  .isList {
+    text-align: right;
+    li {
+      display: inline-block;
+    }
+    span {
+      height: 20px;
+      line-height: 20px;
+      display: inline-block;
+      border-radius: 10px;
+      padding: 0 10px;
+      border:1px solid #fff;
+      color:#fff;
     }
   }
 

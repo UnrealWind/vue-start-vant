@@ -13,12 +13,12 @@
       <div class="set_cen">
         <van-cell title="个人资料" icon="manager-o" is-link @click="$router.push('personaldata')" />
         <van-cell title="账户与安全" icon="completed" is-link />
-        <van-cell title="更换邀请店铺" icon="shop-o" is-link value="云妈妈公益" />
+        <van-cell title="更换邀请店铺" icon="shop-o" is-link value="xxx店铺" />
       </div>
 
       <div class="set_cen">
         <van-cell title="消息及模式设置" icon="volume-o" is-link />
-        <van-cell title="清除缓存" icon="fire-o" is-link value="56.19MB" />
+        <van-cell title="清除缓存" icon="fire-o" is-link value="0.00MB" />
       </div>
 
       <div class="set_cen">
@@ -30,11 +30,11 @@
       </div>
 
       <div class="set_cen">
-        <van-cell title="当前版本" icon="medel-o" value="3.68.10190（0.43.2）" />
+        <van-cell title="当前版本" icon="medel-o" value="0.0.00（0.0.00）" />
       </div>
 
       <div class="set_cen">
-        <div class="go" @click="$router.back()"> 退出登录 </div>
+        <div class="go" @click="logout"> 退出登录 </div>
       </div>
 
     </div>
@@ -72,6 +72,11 @@ import { Icon, Cell } from 'vant'
         async getData() {
             const res = await this.$http.get('/user/12345')
             console.log(res)
+        },
+        async logout() {
+            await this.$http.post('/manager/user/loginOut')
+            sessionStorage.removeItem('token')
+            this.$router.push('/')
         }
     }
   }

@@ -10,18 +10,14 @@
 
     <div class="dan_wrap fix">
       <div class="wp">
-
-        <van-address-list
-          v-model="chosenAddressId"
-          :list="list"
-          :disabled-list="disabledList"
-          disabled-text="以下地址超出配送范围"
-        />
-
-        <div class="add" @click="$router.push('/cart/address_list')">
-          <van-address-list />
+        <div class="address">
+          <van-address-list
+            v-model="chosenAddressId"
+            :list="addressList"
+            @edit="changeAddress"
+            @add="$router.push('/cart/address_list')"
+          />
         </div>
-
       </div>
     </div>
 
@@ -39,28 +35,8 @@
       return {
           status: 'loading',
           chosenAddressId: '1',
-          list: [
-              {
-                  id: '1',
-                  name: '张三',
-                  tel: '13000000000',
-                  address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室'
-              },
-              {
-                  id: '2',
-                  name: '李四',
-                  tel: '1310000000',
-                  address: '浙江省杭州市拱墅区莫干山路 50 号'
-              }
-          ],
-          disabledList: [
-              {
-                  id: '3',
-                  name: '王五',
-                  tel: '1320000000',
-                  address: '浙江省杭州市滨江区江南大道 15 号'
-              }
-          ]
+          show: false,
+          addressList: []
       }
     },
     computed: {
@@ -71,16 +47,28 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getAddressList()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getAddressList() {
+            const res = await this.$http.post('product/userAddress/list', {})
+            res.data.forEach((n, i) => {
+                n.address = n.addressDetail
+                n.tel = n.receiverPhone
+                n.name = n.receiverName
+                n.id = i + 1
+            })
+            this.addressList = JSON.parse(JSON.stringify(res.data))
+        },
+        changeAddress(item, index) {
+            this.$router.push({
+                path: '/cart/address_list',
+                query: item
+            })
         }
     }
   }

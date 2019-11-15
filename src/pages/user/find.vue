@@ -6,15 +6,16 @@
         <div class="header_l l" @click="$router.push('/user/myshop')">
           <van-icon name="user-o" />
         </div>
-        <div class="header_l r" @click="$router.push('/user/mysearch')">
-          <van-icon name="search" />
+        <div class="header_l r">
+          <van-icon name="search" @click="$router.push('/user/mysearch')" />
+          <van-icon name="add-o" @click="addFind" />
         </div>
       </div>
     </div>
 
     <div class="content dan_wrap">
 
-      <div class="store">
+      <div v-for="(opt,index) in findList" :key="index" class="store">
         <div class="wp">
           <div class="img" @click="$router.push('/user/myshop')"><img src="../../assets/img/logo.jpg" alt=""> </div>
 
@@ -27,7 +28,7 @@
           </div>
 
           <div class="con-Title-min">
-            拖鞋舒适好穿！性比价高
+            {{ opt.text }}
           </div>
 
           <div class="con-img">
@@ -41,8 +42,8 @@
                 <img src="../../assets/img/user/tuoxielogo.png" alt="">
               </div>
               <div class="comm-title r">
-                <div class="titlemin"> Home Store 日式清雅浴室 </div>
-                <div class="money"> ￥39.0 </div>
+                <div class="titlemin"> 商品信息 </div>
+                <div class="money"> ￥998.88 </div>
               </div>
             </div>
 
@@ -53,21 +54,16 @@
           </div>
 
           <div class="comm-share fix">
-
             <div class="share_l l">
               <span>13</span> 人已分享
             </div>
-
             <div class="share_r r">
               <span> <van-icon name="chat-o" /> </span>
               <span> <van-icon name="upgrade" /> </span>
               <span> <van-icon name="like-o" /> </span>
-
             </div>
-
           </div>
-
-          <div class="comm-message">
+          <!--<div class="comm-message">
 
             <div class="mess_title">  <strong> 小丫： </strong> 哎呦！不错呦  </div>
             <div class="mess_title">  <strong> 小黄： </strong> 我稀罕的狠呀！  </div>
@@ -155,185 +151,29 @@
                     </div>
                   </div>
                 </div>
-
               </div>
-
             </van-popup>
-
-          </div>
-
+          </div>-->
         </div>
       </div>
-
-      <div class="store">
-        <div class="wp">
-          <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-
-          <div class="con-Title fix">
-            <div class="l"> 四叶草2号店 </div>
-            <div class="r">
-              <span> 加关注 </span>
-              <van-icon name="cross" />
-            </div>
-          </div>
-
-          <div class="con-Title-min">
-            拖鞋舒适好穿！性比价高
-          </div>
-
-          <div class="con-img">
-            <img src="../../assets/img/user/tuoxie.png" alt="">
-          </div>
-
-          <div class="con-commodity fix">
-
-            <div class="comm_l l fix">
-              <div class="comm_img l">
-                <img src="../../assets/img/user/tuoxielogo.png" alt="">
-              </div>
-              <div class="comm-title r">
-                <div class="titlemin"> Home Store 日式清雅浴室 </div>
-                <div class="money"> ￥39.0 </div>
-              </div>
-            </div>
-
-            <div class="comm_r r">
-              查看详情
-            </div>
-
-          </div>
-
-          <div class="comm-share fix">
-
-            <div class="share_l l">
-              <span>13</span> 人已分享
-            </div>
-
-            <div class="share_r r">
-              <span> <van-icon name="chat-o" /> </span>
-              <span> <van-icon name="upgrade" /> </span>
-              <span> <van-icon name="like-o" /> </span>
-
-            </div>
-
-          </div>
-
-          <div class="comm-message">
-
-            <div class="mess_title">  <strong> 小丫： </strong> 哎呦！不错呦  </div>
-            <div class="mess_title">  <strong> 小黄： </strong> 我稀罕的狠呀！  </div>
-            <div class="mess_title">  <div is-link @click="showPopup">  <strong> 查看全部<i>4</i>条回复 </strong>   </div>  </div>
-            <van-popup
-              v-model="show"
-              closeable
-              round
-              position="bottom"
-              style="height: 50%"
-            >
-
-              <div class="mess-comment fix">
-
-                <div class="title"> 评论 <span>4 条 </span>  </div>
-
-                <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-                  <div class="mess-Title fix">
-                    <div class="l">
-                      <div class="title_min">
-                        <strong> 小丫： </strong> <div class="time"> 10-28 </div>
-                      </div>
-                      <div class="title_cont">
-                        哎呦！不错呦
-                      </div>
-                    </div>
-                    <div class="r">
-                      <span> 赞 </span>
-                      <van-icon name="like" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-                  <div class="mess-Title fix">
-                    <div class="l">
-                      <div class="title_min">
-                        <strong> 小黄： </strong> <div class="time"> 10-28 </div>
-                      </div>
-                      <div class="title_cont">
-                        我稀罕的狠呀！
-                      </div>
-                    </div>
-                    <div class="r">
-                      <span> 赞 </span>
-                      <van-icon name="like" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-                  <div class="mess-Title fix">
-                    <div class="l">
-                      <div class="title_min">
-                        <strong> 小丫： </strong> <div class="time"> 10-28 </div>
-                      </div>
-                      <div class="title_cont">
-                        哎呦！不错呦
-                      </div>
-                    </div>
-                    <div class="r">
-                      <span> 赞 </span>
-                      <van-icon name="like" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-                  <div class="mess-Title fix">
-                    <div class="l">
-                      <div class="title_min">
-                        <strong> 小黄： </strong> <div class="time"> 10-28 </div>
-                      </div>
-                      <div class="title_cont">
-                        我稀罕的狠呀！
-                      </div>
-                    </div>
-                    <div class="r">
-                      <span> 赞 </span>
-                      <van-icon name="like" />
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-            </van-popup>
-
-          </div>
-
-        </div>
-      </div>
-
     </div>
 
   </van-container>
 </template>
 
 <script>
-  import { Icon, Popup } from 'vant'
+  import { Icon } from 'vant'
 
   export default {
     components: {
-        'van-icon': Icon,
-        'van-popup': Popup
+        'van-icon': Icon
     },
     data() {
       return {
           status: 'loading',
           value: '',
-          show: false
+          show: false,
+          findList: []
       }
     },
     computed: {
@@ -344,16 +184,29 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                // await this.postFindData()
+                await this.getFindData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async getFindData() {
+            const res = await this.$http.post('product/discover/list', {
+                pageNum: 0,
+                pageSize: 10
+            })
+            this.findList = res.rows
+        },
+        async postFindData() {
+            const res = await this.$http.post('product/discover/add', {
+                text: 'tetetete'
+            })
             console.log(res)
+        },
+        addFind() {
+            this.$router.push('/user/addFind')
         },
         showPopup() {
             this.show = true

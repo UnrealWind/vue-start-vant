@@ -19,8 +19,8 @@ const init = {
             forbidClick: true
           })*/
         }
-        if (store.state.token) {
-          config.headers['x-auth-token'] = store.state.token
+        if (sessionStorage.getItem('token')) {
+          config.headers['x-auth-token'] = sessionStorage.getItem('token')
         }
         return config
       },
@@ -34,7 +34,13 @@ const init = {
     service.interceptors.response.use(
       response => {
         Toast.clear()
-        if (response.headers['x-auth-token']) store.commit('setToken', response.headers['x-auth-token'])
+
+        // fydebug 这边发现进入error状态时页面会重新刷新，这里目前是采用页面刷新的方法进行刷新的，所以store会丢失，暂时使用sessionstorage进行处理，待优化
+        // 优化方向为优化error刷新逻辑
+        if (response.headers['x-auth-token']) {
+          sessionStorage.setItem('token', response.headers['x-auth-token'])
+        }
+
         const res = response.data
         if (res.status && res.status !== 200) {
           // 登录超时,重新登录

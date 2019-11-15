@@ -12,17 +12,17 @@
     <div class="dan_wrap">
       <div class="wp">
 
-        <div class="title"> 账号登录 </div>
+        <div class="title"> 账号登录</div>
 
         <div class="account">
-          <div class="acc-Title">  账号 </div>
+          <div class="acc-Title"> 账号</div>
           <van-cell-group>
             <van-field v-model="valuemin" placeholder="请输入用户名" />
           </van-cell-group>
         </div>
 
         <div class="account">
-          <div class="acc-Title"> 密码 </div>
+          <div class="acc-Title"> 密码</div>
 
           <van-cell-group>
             <van-field
@@ -34,9 +34,7 @@
 
         </div>
 
-        <div class="register" @click="$router.push('/')">
-          登录
-        </div>
+        <van-button plain type="info" @click="login ">登陆</van-button>
 
       </div>
     </div>
@@ -45,43 +43,64 @@
 </template>
 
 <script>
-  import { Icon, Field, CellGroup } from 'vant'
+    import Vue from 'vue'
+    import { CellGroup, Field, Icon, Toast, Button } from 'vant'
 
-  export default {
-    components: {
-        'van-icon': Icon,
-        'van-field': Field,
-        'van-cell-group': CellGroup
-    },
-    data() {
-      return {
-          status: 'loading',
-          value: '',
-          valuemin: '',
-          showKeyboard: true
-      }
-    },
-    computed: {
-    },
-    mounted() {
-        this.init()
-    },
-    methods: {
-        async init() {
-            try {
-                // await this.getData()
-            } catch (e) {
-                this.status = 'error'
-                throw e
-            }
-            this.status = 'success'
+    Vue.use(Toast)
+
+    export default {
+        components: {
+            'van-icon': Icon,
+            'van-field': Field,
+            'van-cell-group': CellGroup,
+            'van-button': Button
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        data() {
+            return {
+                status: 'loading',
+                value: '',
+                valuemin: '17342062325',
+                showKeyboard: true,
+                password: '123456'
+            }
+        },
+        computed: {},
+        mounted() {
+            this.init()
+        },
+        methods: {
+            async init() {
+                try {
+                    // await this.getData()
+                } catch (e) {
+                    this.status = 'error'
+                    throw e
+                }
+                this.status = 'success'
+            },
+            async getData() {
+                const res = await this.$http.get('/user/12345')
+                console.log(res)
+            },
+            async login() {
+                const res = await this.$http({
+                    method: 'post',
+                    url: `login`,
+                    data: {
+                        username: this.valuemin,
+                        password: this.password,
+                        rememberMe: true
+                    }
+                })
+                if (this.valuemin === '' || this.password === '') {
+                    Toast('用户名或密码不能为空，请重新登陆')
+                    return false
+                }
+                console.log(res)
+                this.$router.push('/')
+            }
         }
     }
-  }
 
 </script>
 <style lang='scss' scoped>
@@ -90,11 +109,19 @@
     background: red;
     width: 375px;
   }
+
   .fix {
     *zoom: 1;
   }
-  .l{ float: left; }
-  .r{ float: right; }
+
+  .l {
+    float: left;
+  }
+
+  .r {
+    float: right;
+  }
+
   .fix:after,
   .fix:before {
     display: block;
@@ -104,21 +131,23 @@
     overflow: hidden;
     visibility: hidden;
   }
-  .main{
+
+  .main {
     background: #ffffff;
   }
-  .wp{
+
+  .wp {
     width: 95%;
     margin: 0 auto;
   }
 
-  .dan_wrap{
+  .dan_wrap {
     padding-top: 30%;
     height: 100%;
     background: #ffffff;
     border-top: 1px solid #dddddd;
 
-    .title{
+    .title {
       font-size: 20px;
       padding-top: 30px;
       line-height: 30px;
@@ -127,19 +156,21 @@
     }
   }
 
-  .header{
-    .fix{
+  .header {
+    .fix {
       position: relative;
       background: #ffffff;
     }
-    .header_l{
+
+    .header_l {
       position: absolute;
       left: 0px;
       top: 0px;
       color: #212121;
       font-size: 20px;
     }
-    .header_title{
+
+    .header_title {
       text-align: center;
       margin-right: 10px;
       color: #212121;
@@ -147,8 +178,8 @@
 
   }
 
-  .account{
-    .acc-Title{
+  .account {
+    .acc-Title {
       margin-top: 20px;
       color: #ccc;
       font-size: 16px;
@@ -156,17 +187,21 @@
     }
 
   }
-
-  .register{
+  .van-button{
     margin-top: 10%;
     width: 100%;
-    border-radius: 5px;
-    color: #fff;
-    background: #ccc;
-    font-size: 16px;
-    text-align: center;
-    line-height: 30px;
-    padding: 6px 0px;
   }
 
-  </style>
+  /*.register {*/
+  /*  margin-top: 10%;*/
+  /*  width: 100%;*/
+  /*  border-radius: 5px;*/
+  /*  color: #fff;*/
+  /*  background: #1989fa;*/
+  /*  font-size: 16px;*/
+  /*  text-align: center;*/
+  /*  line-height: 30px;*/
+  /*  padding: 6px 0px;*/
+  /*}*/
+
+</style>

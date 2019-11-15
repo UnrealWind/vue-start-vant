@@ -4,7 +4,8 @@ const config = {
     'routerAuth'
   ],
   excPath: [
-    '/user/logon'
+    '/user/logon',
+    '/user/accountLogin'
   ]
 }
 export default config

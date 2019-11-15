@@ -30,7 +30,7 @@
         </van-popup>
 
         <!--  确认-->
-        <div class="coupon_bottom" @click="$router.back()">
+        <div class="coupon_bottom" @click="back">
           确认
         </div>
 
@@ -42,17 +42,6 @@
 
 <script>
   import { Icon, CouponCell, CouponList, Popup } from 'vant'
-  const coupon = {
-      available: 1,
-      condition: '无使用门槛\n最多优惠12元',
-      reason: '',
-      value: 150,
-      name: '优惠券名称',
-      startAt: 1489104000,
-      endAt: 1514592000,
-      valueDesc: '1.5',
-      unitDesc: '元'
-  }
   export default {
     components: {
         'van-icon': Icon,
@@ -64,9 +53,9 @@
       return {
           status: 'loading',
           chosenCoupon: -1,
-          coupons: [coupon],
-          disabledCoupons: [coupon],
-          showList: false
+          coupons: [],
+          disabledCoupons: [],
+          showList: true
       }
     },
     computed: {
@@ -77,23 +66,41 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getCoupon()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getCoupon() {
+            const res = await this.$http.post('/product/userCoupon/selectUserCouponRel')
+            res.data.forEach((n, i) => {
+                this.coupons.push({
+                    condition: `无使用门槛\n优惠${JSON.parse(n.ticketContent).drop}元`,
+                    name: n.ticketName,
+                    reason: '',
+                    value: JSON.parse(n.ticketContent).drop * 100,
+                    startAt: new Date(n.ticketBegintime).getTime() / 1000,
+                    endAt: new Date(n.ticketEndtime).getTime() / 1000,
+                    valueDesc: JSON.parse(n.ticketContent).drop,
+                    unitDesc: '元'
+                })
+            })
         },
         onChange(index) {
             this.showList = false
             this.chosenCoupon = index
         },
         onExchange(code) {
-            this.coupons.push(coupon)
+            this.coupons.push(this.coupon)
+        },
+        back() {
+            this.$store.commit('setCoupon', {
+                used: false,
+                coupon: this.coupons[this.chosenCoupon]
+            })
+            this.$router.back()
         }
     }
   }

@@ -36,4 +36,12 @@ const hidePhone = (phone) => {
   return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
 }
 
-export { formatDate, hidePhone }
+const judNull = (opt) => {
+  if (!opt) {
+    return '0'
+  } else {
+    return opt
+  }
+}
+
+export { formatDate, hidePhone, judNull }

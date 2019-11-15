@@ -21,16 +21,16 @@
     <div class="header_top  dan_wrap fix">
       <div class="wp">
 
-        <div class="logo"><img src="../../assets/img/logo.jpg" alt=""> </div>
-        <div class="title"> 点击设置你的会员名称 </div>
+        <div class="logo"><img src="../../assets/img/getAvatar.do.jpg" alt=""> </div>
+        <div class="title"> {{ userInfo.nickName }} </div>
         <div class="header_ul fix">
           <div class="li l">
             <div class="mony"> 云币 </div>
-            <span> 0 </span>
+            <span> {{ userInfo.money |judNull }} </span>
           </div>
           <div class="li r" @click="$router.push('/cart/coupon')">
             <div class="mony"> 优惠券(张) </div>
-            <span> 2 </span>
+            <span> {{ coupon.length }} </span>
           </div>
         </div>
 
@@ -176,7 +176,9 @@
     },
     data() {
       return {
-          status: 'loading'
+          status: 'loading',
+          userInfo: {},
+          coupon: {}
       }
     },
     computed: {
@@ -187,16 +189,22 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getUser()
+                await this.getCoupon()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async getCoupon() {
+            const res = await this.$http.post('/product/userCoupon/selectUserCouponRel')
+            this.coupon = res.data
             console.log(res)
+        },
+        async getUser() {
+            const res = await this.$http.post('/manager/user/queryUser')
+            this.userInfo = res.data
         }
     }
   }
