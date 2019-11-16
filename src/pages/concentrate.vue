@@ -198,8 +198,8 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
             this.bannerData = arr
         },
         async getConcentRateData() {
-            const res = await this.$http.post(`product/content/list?level=1&showFlag=1`)
-            const eee = await this.$http.post(`product/content/selectById?showFlag=1&id=21`)
+            /* const res = await this.$http.post(`product/content/list?level=1&showFlag=1`)
+            const eee = await this.$http.post(`product/content/selectById?showFlag=1&id=21`)*/
             // for (const i in res.data.dictMap) {
             //     arr.push({
             //         label: res.data.dictMap[i],

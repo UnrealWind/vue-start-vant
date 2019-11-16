@@ -324,6 +324,13 @@ export const constantRoutes = [
       keepAlive: false
     }
   },
+ /* {
+    path: '/testChat',
+    component: () => import('@/pages/user/testChat'),
+    meta: {
+      keepAlive: false
+    }
+  },*/
   {
     path: '*',
     redirect: '/'

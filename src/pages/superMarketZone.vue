@@ -98,7 +98,7 @@ import { Icon } from 'vant'
             this.status = 'success'
         },
         async getZoneData() {
-            const res = await this.$http.post(`product/content/list?parentId=${this.$route.query.id}`)
+            await this.$http.post(`product/content/list?parentId=${this.$route.query.id}`)
         }
     }
   }
