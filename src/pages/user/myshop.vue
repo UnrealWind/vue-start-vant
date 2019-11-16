@@ -14,7 +14,7 @@
           </div>
           <div class="header_r r">
             <van-icon name="share" />
-            <van-cell class="headerPopup" @click="showPopup">aaa</van-cell>
+            <span class="headerPopup" @click="showPopup">aaa</span>
             <van-popup
               v-model="show"
               round
@@ -109,7 +109,7 @@
             </div>
           </div>
 
-          <div class="my-Shop-Conent">
+          <div v-for="(opt,index) in findList" :key="index" class="my-Shop-Conent">
 
             <div class="header_top fix">
               <div class="head_l l">
@@ -126,24 +126,16 @@
             </div>
 
             <div class="words">
-              味道已经跟大家尝了巴虾肉很饱满喜欢吃变态辣的朋友选麻辣味,不太喜欢吃辣的朋友选十三香
+              {{ opt.text }}
             </div>
 
-            <div class="shop_ul fix">
+            <div v-for="(img,idx) in opt.imgUrl" :key="idx" class="shop_ul fix">
               <div class="li mln">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
-              </div>
-              <div class="li">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
-              </div><div class="li">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
-              </div>
-              <div class="li mln">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
+                <div class="img"><img :src="img.url" alt=""> </div>
               </div>
             </div>
 
-            <div class="comm-share fix">
+            <!--<div class="comm-share fix">
               <div class="share_l l">
                 <span>13</span>人已发圈
               </div>
@@ -152,55 +144,8 @@
                 <span class="on"> 下载朋友圈 </span>
                 <span class="action"> 一键发圈 </span>
               </div>
-            </div>
+            </div>-->
           </div>
-
-          <div class="my-Shop-Conent">
-
-            <div class="header_top fix">
-              <div class="head_l l">
-                <img src="../../assets/img/user/myshoplogo.png" alt="">
-              </div>
-
-              <div class="head_c l">
-                <div class="title"> 丹丹川味厨房 </div>
-                <div class="title_min">
-                  10-12
-                </div>
-              </div>
-
-            </div>
-
-            <div class="words">
-              味道已经跟大家尝了巴虾肉很饱满喜欢吃变态辣的朋友选麻辣味,不太喜欢吃辣的朋友选十三香
-            </div>
-
-            <div class="shop_ul fix">
-              <div class="li mln">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
-              </div>
-              <div class="li">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
-              </div><div class="li">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
-              </div>
-              <div class="li mln">
-                <div class="img"><img src="../../assets/img/user/wordtu.png" alt=""> </div>
-              </div>
-            </div>
-
-            <div class="comm-share fix">
-              <div class="share_l l">
-                <span>13</span>人已发圈
-              </div>
-              <div class="share_r r">
-                <span class="oo"> <van-icon name="ellipsis" /> </span>
-                <span class="on"> 下载朋友圈 </span>
-                <span class="action"> 一键发圈 </span>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -221,7 +166,8 @@
     data() {
       return {
           status: 'loading',
-          show: false
+          show: false,
+          findList: ''
       }
     },
     computed: {
@@ -232,16 +178,24 @@
     methods: {
         async init() {
             try {
-                // await this.getData()
+                // await this.postFindData()
+                await this.getFindData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getFindData() {
+            const res = await this.$http.post('product/discover/list', {
+                pageNum: 0,
+                pageSize: 10,
+                userCode: this.$store.state.userCode
+            })
+            if (res.rows.imgUrl) {
+                res.rows.imgUrl = JSON.parse(res.rows.imgUrl)
+            }
+            this.findList = res.rows
         },
         showPopup() {
             this.show = true

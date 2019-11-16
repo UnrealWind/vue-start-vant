@@ -266,7 +266,17 @@
         },
         methods: {
             btnCallBack() {
-                this.$router.push(this.btnGo)
+                const id = this.getQueryString(this.btnGo, id)
+                id ? this.$router.push({
+                    path: this.btnGo,
+                    query: id
+                  }) : this.$router.push(this.btnGo)
+            },
+            getQueryString(url, name) {
+                const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+                if (!url.split('?')[1]) return null
+                const r = url.split('?')[1].match(reg)
+                if (r != null) return decodeURI(r[2]); return null
             }
         }
     }

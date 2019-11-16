@@ -97,6 +97,7 @@
                     return false
                 }
                 console.log(res)
+                this.$store.commit('setUserCode', res.data.userCode)
                 this.$router.push('/')
             }
         }
