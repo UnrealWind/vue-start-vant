@@ -17,7 +17,16 @@
         <van-field v-model="msg" placeholder="请输入文本描述信息" />
       </van-cell-group>
       <div class="uploadBox">
-        <van-uploader :before-read="beforeRead" :after-read="upload" result-type="text" />
+        <van-image
+          v-for="(opt,index) in fileList"
+          :key="index"
+          width="78"
+          height="78"
+          :src="opt.url"
+        />
+        <div>
+          <van-uploader :before-read="beforeRead" :after-read="upload" result-type="text" multiple />
+        </div>
       </div>
     </div>
   </van-container>
@@ -25,7 +34,7 @@
 
 <script>
     import Vue from 'vue'
-    import { /* Button,*/ CellGroup, Field, Icon, Toast, Uploader } from 'vant'
+    import { /* Button,*/ CellGroup, Field, Icon, Toast, Uploader, Image } from 'vant'
 
     Vue.use(Toast)
     export default {
@@ -33,13 +42,15 @@
             'van-icon': Icon,
             'van-field': Field,
             'van-cell-group': CellGroup,
-            'van-uploader': Uploader
+            'van-uploader': Uploader,
+            'van-image': Image
             /* 'van-button': Button*/
         },
         data() {
             return {
                 status: 'loading',
-                msg: ''
+                msg: '',
+                fileList: []
             }
         },
         computed: {},
@@ -57,30 +68,57 @@
                 this.status = 'success'
             },
             async postFindData() {
+                if (!this.msg) {
+                    Toast.fail('请输入描述信息！')
+                    return
+                }
                 const res = await this.$http.post('product/discover/add', {
-                    text: 'tetetete'
+                    text: this.msg,
+                    imgUrl: JSON.stringify(this.fileList)
                 })
+                Toast.success('保存成功')
+                this.$router.back()
                 console.log(res)
             },
             beforeRead(file) {
-                if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-                    Toast('请上传 jpg，png 格式图片')
-                    return false
+                const judImg = (file) => {
+                    if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                        Toast('请上传 jpg，png 格式图片')
+                        return false
+                    }
+                }
+                if (file instanceof Array) {
+                    file.forEach((n, i) => {
+                        judImg(n)
+                    })
+                } else {
+                    judImg(file)
                 }
                 return true
             },
-            upload(file) {
-                const formdata = new FormData()
-                formdata.append('file', file)
-                debugger
-                const res = this.$http({
-                    method: 'post',
-                    url: 'common/upload',
-                    data: formdata
-                   // dataType: 'json'
-                })
-                console.log(res)
+            async upload(file) {
+                const uploadImg = async(file) => {
+                    const formdata = new FormData()
+                    formdata.append('file', file.file)
+                    const res = await this.$http({
+                        method: 'post',
+                        url: 'common/upload',
+                        data: formdata
+                        // dataType: 'json'
+                    })
+                    if (res.code === 0) {
+                        this.fileList.push({ url: res.url })
+                    }
+                }
+                if (file instanceof Array) {
+                    file.forEach((n, i) => {
+                        uploadImg(n)
+                    })
+                } else {
+                    uploadImg(file)
+                }
             }
+
         }
     }
 
@@ -198,4 +236,9 @@
     right:3px;
   }
 
+  .uploadBox {
+    .van-image {
+      margin:0px 10px 10px 0;
+    }
+  }
 </style>

@@ -31,11 +31,11 @@
             {{ opt.text }}
           </div>
 
-          <div class="con-img">
-            <img src="../../assets/img/user/tuoxie.png" alt="">
+          <div v-if="opt.imgUrl" class="con-img">
+            <img :src="opt.imgUrl[0]" alt="">
           </div>
 
-          <div class="con-commodity fix" @click="$router.push('/user/productdetails')">
+          <div v-if="false" class="con-commodity fix" @click="$router.push('/user/productdetails')">
 
             <div class="comm_l l fix">
               <div class="comm_img l">
@@ -197,6 +197,9 @@
                 pageNum: 0,
                 pageSize: 10
             })
+            if (res.rows.imgUrl) {
+                res.rows.imgUrl = JSON.parse(res.rows.imgUrl)
+            }
             this.findList = res.rows
         },
         async postFindData() {

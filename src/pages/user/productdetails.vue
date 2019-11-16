@@ -450,7 +450,7 @@
 </template>
 
 <script>
-  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku, Overlay } from 'vant'
+  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku, Overlay, Toast } from 'vant'
 
   export default {
     components: {
@@ -616,6 +616,8 @@
                 isShare: 0
             })
             console.log(res)
+            Toast.success('加入购物车成功')
+            this.show = false
         },
         async pay(data) {
             const goodsVoList = {

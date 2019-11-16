@@ -31,7 +31,7 @@
                   </div>
                   <!--删除-->
                   <div slot="footer" class="comm-btn clearfix">
-                    <van-icon name="delete" @click="delComm" />
+                    <van-icon name="delete" @click="delComm(goods)" />
                     <van-stepper
                       v-model="goods.num"
                     />
@@ -221,14 +221,16 @@
           this.$router.push('/cart/confirm_order')
       },
       // 删除按钮弹窗
-      delComm() {
+      delComm(goods) {
         Dialog.confirm({
           message: '确定将该宝贝删除？'
-        }).then(() => {
-          alert('确认')
+        }).then(async() => {
+            await this.$http.post(`order/shoppingCart/remove?ids=${goods.shoppingCartId}`, {
+                ids: goods.shoppingCartId
+            })
         })
         .catch(() => {
-          alert('取消')
+
         })
       },
       // 明细

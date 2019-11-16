@@ -9,10 +9,12 @@
     </div>
 
     <div class="dan_wrap">
-
       <div class="set_cen set_cenpad set_img">
-        <img :src="userInfo.userHeadimg" alt="">
-        <van-cell title="个人头像" is-link />
+        <label class="upload" for="fileInput">
+          <img :src="userInfo.userHeadimg" alt="">
+          <van-cell title="个人头像" is-link />
+        </label>
+        <input v-show="false" id="fileInput" ref="file" type="file" @change="uploadImg($event)">
       </div>
 
       <div class="set_cen">
@@ -60,7 +62,7 @@
 </template>
 
 <script>
-import { Icon, Cell, Picker, Popup, Field } from 'vant'
+import { Icon, Cell, Picker, Popup, Field, Toast } from 'vant'
   export default {
     components: {
         'van-icon': Icon,
@@ -131,6 +133,30 @@ import { Icon, Cell, Picker, Popup, Field } from 'vant'
                 path: '/user/changeInfo',
                 query: opt
             })
+        },
+        async uploadImg(e) {
+            const file = this.$refs.file.files[0]
+            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                Toast('请上传 jpg，png 格式图片')
+                return false
+            }
+            const formdata = new FormData()
+            formdata.append('file', file)
+            const res = await this.$http({
+                method: 'post',
+                url: 'common/upload',
+                data: formdata
+                // dataType: 'json'
+            })
+            this.userInfo.userHeadimg = res.url
+            if (res.code === 0) {
+                await this.$http.post('/manager/user/edit', {
+                    code: this.userInfo.code,
+                    userHeadimg: res.url
+                })
+            } else {
+                Toast.fail('头像修改失败')
+            }
         }
     }
   }
@@ -194,5 +220,8 @@ import { Icon, Cell, Picker, Popup, Field } from 'vant'
       }
     }
   }
-
+  .upload {
+    color: #323233;
+    font-weight: 500;
+  }
 </style>

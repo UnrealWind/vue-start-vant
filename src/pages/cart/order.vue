@@ -6,6 +6,9 @@
       <div class="hesde_l2">
         <div class="p"> 选择收货地址 </div>
       </div>
+      <div class="header_l r black">
+        <van-icon name="delete" size="20" @click="delAddress" />
+      </div>
     </div>
 
     <div class="dan_wrap fix">
@@ -34,7 +37,7 @@
     data() {
       return {
           status: 'loading',
-          chosenAddressId: '1',
+          chosenAddressId: 1,
           show: false,
           addressList: []
       }
@@ -69,12 +72,25 @@
                 path: '/cart/address_list',
                 query: item
             })
+        },
+        async delAddress() {
+            const targetAddress = this.addressList[this.chosenAddressId - 1]
+            const res = await this.$http.post('product/userAddress/remove', { ids: targetAddress.id })
+            console.log(res)
         }
     }
   }
 
 </script>
 <style lang='scss' scoped>
+  .black {
+    color:#000;
+  }
+  .r{
+    position: absolute;
+    top:5px;
+    right: 10px;
+  }
   h1 {
     background: red;
     width: 375px;

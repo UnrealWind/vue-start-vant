@@ -211,7 +211,6 @@
 
 </script>
 <style lang='scss' scoped>
-
   .gwcLits{
     padding-bottom: 10px;
     p{
