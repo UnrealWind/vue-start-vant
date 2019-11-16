@@ -8,9 +8,14 @@
       <div class="hesde_l3"> <van-icon name="share" />  </div>
     </div>
 
-    <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/supermarketzone')"> <img src="../assets/img/advertising1.png" alt=""></van-swipe-item>
-      <van-swipe-item @click="$router.push('/supermarketzone')"> <img src="../assets/img/advertising1.png" alt=""></van-swipe-item>
+    <van-swipe
+      :autoplay="3000"
+      indicator-color="white"
+      class="van-swipe"
+    >
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push('/superMarketZone')">
+        <img :src="item.img" alt="">
+      </van-swipe-item>
     </van-swipe>
 
     <div class="nav_box dan_wrap fix">
@@ -78,10 +83,15 @@
 
     <div class="nav_box5 dan_wrap ">
       <div class="wp">
-        <div class="nav_ul ">
-          <div v-for="(opt, index) in navList" :key="index" class="li1" :class="{ active:opt.isActive }">  <p> {{ opt.title }} </p> </div>
-        </div>
-        <div class="icon"> <van-icon name="arrow-down" /> </div>
+        <!--        <div class="nav_ul ">-->
+        <!--          <div v-for="(opt, index) in navList" :key="index" class="li1" :class="{ active:opt.isActive }">-->
+        <!--            <p> {{ opt.title }} </p>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <van-tabs v-model="active">
+          <van-tab v-for="(item,index) in navList" :key="index" :title="item.title">
+          </van-tab>
+        </van-tabs>
       </div>
     </div>
 
@@ -106,35 +116,29 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon } from 'vant'
+import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
   export default {
     components: {
         'van-swipe': Swipe,
         'van-swipe-item': SwipeItem,
-        'van-icon': Icon
+        'van-icon': Icon,
+        'van-tab': Tab,
+        'van-tabs': Tabs
     },
     data() {
       return {
+          active: 0,
           status: 'loading',
           value: '',
           concentrateData: [
               {
-                  'type': 'list-concentrate',
-                  'discribe': '日本进口',
-                  'title': '神户龙虾450g*4袋',
-                  'concentratePriceDiscribe': '新品福利￥',
-                  'concentratePrice': '1200',
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/testtu1.png')
-              },
-              {
-                  'type': 'list-concentrate',
-                  'discribe': '日本进口',
-                  'title': '神户龙虾450g*4袋',
-                  'concentratePriceDiscribe': '新品福利￥',
-                  'concentratePrice': '1200',
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/testtu12.png')
+                  type: 'list-concentrate',
+                  image: require('assets/img/testtu1.png'),
+                  describe: '日本进口',
+                  title: '神户龙虾450g*4袋',
+                  concentratePrice: '1200',
+                  concentratePriceDiscribe: '新品福利￥',
+                  btnGo: '/user/productdetails'
               }
           ],
           navList: [
@@ -161,20 +165,8 @@ import { Swipe, SwipeItem, Icon } from 'vant'
                   title: '母婴玩具'
               }
           ],
-          choicenessData: [
-              {
-                  'img': require('../assets/css/static/images/a23.jpg'),
-                  'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
-                  'current': 123, // 现价
-                  'pre': 134 // 原价
-              },
-              {
-                  'img': require('../assets/css/static/images/a23.jpg'),
-                  'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
-                  'current': 123, // 现价
-                  'pre': 134 // 原价
-              }
-          ]
+          choicenessData: [],
+          bannerData: []
       }
     },
     computed: {
@@ -185,17 +177,51 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getBannerData()
+                await this.getConcentProductListData()
+                await this.getConcentRateData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        // 轮播图
+        async getBannerData() {
+            const res = await this.$http.post('product/banner/list?showFlag=1')
+            const arr = []
+            res.rows.forEach((n, i) => {
+                arr.push({
+                    img: n.url
+                })
+            })
+            this.bannerData = arr
+        },
+        async getConcentRateData() {
+            const res = await this.$http.post(`product/content/list?level=1&showFlag=1`)
+            const eee = await this.$http.post(`product/content/selectById?showFlag=1&id=21`)
+            // for (const i in res.data.dictMap) {
+            //     arr.push({
+            //         label: res.data.dictMap[i],
+            //         key: i
+            //     })
+            // }
+        },
+        async getConcentProductListData() {
+            const res = await this.$http.post('product/goods/listByCategory?category=20')
+            const arr = []
+            res.data.forEach((n, i) => {
+                arr.push({
+                    title: n.categoryName,
+                    img: require('../assets/css/static/images/a24.jpg'),
+                    id: n.id,
+                    current: 30,
+                    pre: 80
+                })
+            })
+            this.choicenessData = arr
         }
+
     }
   }
 
@@ -309,7 +335,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     }
   }
 .gwcLits li {
-  width: 50%;
+  width: 48%;
   .pic {
     height: 5rem;
   }

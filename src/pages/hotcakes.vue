@@ -17,98 +17,76 @@
     <div class="nav_box5 dan_wrap ">
       <div class="wp">
         <div class="nav_ul ">
-          <div v-for="(opt, index) in navList" :key="index" class="li1" :class="{ active:opt.isActive }">  <p> {{ opt.title }} </p> </div>
+          <van-tabs v-model="active" @click="changeTab">
+            <van-tab v-for="(item,index) in navList" :key="index" :title="item.label">
+              <div class="nav_box4 dan_wrap fix">
+                <div class="wp">
+                  <div v-for="(hot,navIndex) in hotData" :key="`${hot.type}-${navIndex}`" class="navdan_box4">
+                    <commodity
+                      :type="hot.type"
+                      :image="hot.image"
+                      :discribe="hot.discribe"
+                      :title="hot.title"
+                      :hot-price="hot.hotPrice"
+                      :hot-price-discribe="hot.hotPriceDiscribe"
+                      :btn-go="hot.btnGo"
+                      :popularity="hot.popularity"
+                      :preferential="hot.preferential"
+                      :evaluate="hot.evaluate"
+                    >
+                    </commodity>
+                  </div>
+
+                </div>
+              </div>
+            </van-tab>
+          </van-tabs>
         </div>
-        <div class="icon"> <van-icon name="arrow-down" /> </div>
+        <!--        <div class="icon"> <van-icon name="arrow-down" /> </div>-->
       </div>
     </div>
 
-    <div class="nav_box4 dan_wrap fix">
-      <div class="wp">
-        <div v-for="(hot,index) in hotData" :key="`${hot.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
-          <commodity
-            :type="hot.type"
-            :image="hot.image"
-            :discribe="hot.discribe"
-            :title="hot.title"
-            :hot-price="hot.hotPrice"
-            :hot-price-discribe="hot.hotPriceDiscribe"
-            :btn-go="hot.btnGo"
-            :popularity="hot.popularity"
-            :preferential="hot.preferential"
-            :evaluate="hot.evaluate"
-          >
-          </commodity>
-        </div>
+    <!--    <div class="nav_box4 dan_wrap fix">-->
+    <!--      <div class="wp">-->
+    <!--        <div v-for="(hot,index) in hotData" :key="`${hot.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">-->
+    <!--          <commodity-->
+    <!--            :type="hot.type"-->
+    <!--            :image="hot.image"-->
+    <!--            :discribe="hot.discribe"-->
+    <!--            :title="hot.title"-->
+    <!--            :hot-price="hot.hotPrice"-->
+    <!--            :hot-price-discribe="hot.hotPriceDiscribe"-->
+    <!--            :btn-go="hot.btnGo"-->
+    <!--            :popularity="hot.popularity"-->
+    <!--            :preferential="hot.preferential"-->
+    <!--            :evaluate="hot.evaluate"-->
+    <!--          >-->
+    <!--          </commodity>-->
+    <!--        </div>-->
 
-      </div>
-    </div>
+    <!--      </div>-->
+    <!--    </div>-->
 
   </van-container>
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon } from 'vant'
+import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
   export default {
     components: {
         'van-swipe': Swipe,
         'van-swipe-item': SwipeItem,
-        'van-icon': Icon
+        'van-icon': Icon,
+        'van-tab': Tab,
+        'van-tabs': Tabs
     },
     data() {
       return {
+          active: 0,
           status: 'loading',
           value: '',
-          hotData: [
-              {
-                  'type': 'list-hot',
-                  'discribe': '【三段有效期至 2019-01-01】，爱尔兰原装罐装奶粉，贼好喝。后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述',
-                  'title': '受妈妈欢迎的爆款奶粉',
-                  'hotPriceDiscribe': '￥',
-                  'hotPrice': '1200',
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/hottu13.png'),
-                  'popularity': '人气2.2w',
-                  'preferential': '满100减50',
-                  'evaluate': '很实惠，后续评价，这是一条评论'
-              },
-              {
-                  'type': 'list-hot',
-                  'discribe': '【三段有效期至 2019-01-01】，爱尔兰原装罐装奶粉，贼好喝。后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述',
-                  'title': '受妈妈欢迎的爆款奶粉',
-                  'hotPriceDiscribe': '￥',
-                  'hotPrice': '1200',
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/hottu12.png'),
-                  'popularity': '人气2.2w',
-                  'preferential': '满100减50',
-                  'evaluate': '很实惠，后续评价，这是一条评论'
-              }
-          ],
-          navList: [
-              {
-                  title: '全部',
-                  isActive: true
-              },
-              {
-                  title: '美食'
-              },
-              {
-                  title: '美妆'
-              },
-              {
-                  title: '服饰'
-              },
-              {
-                  title: '美妆'
-              },
-              {
-                  title: '运动'
-              },
-              {
-                  title: '玩具'
-              }
-          ]
+          hotData: [],
+          navList: []
       }
     },
     computed: {
@@ -119,16 +97,64 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getHotData()
+                await this.getHotTabData()
+                await this.getHotTabListData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getHotData() {
+            const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {
+            })
+            const arr = []
+            res.rows.forEach((n, i) => {
+                arr.push({
+                    img: n.logo,
+                    name: n.name,
+                    path: `/user/productdetails?id=${n.id}`
+                })
+            })
+            this.mallNavData = arr
+        },
+        // tab栏数据
+        async getHotTabData() {
+            const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
+            const arr = []
+            for (const i in res.data.dictMap) {
+                arr.push({
+                    label: res.data.dictMap[i],
+                    key: i
+                })
+            }
+            console.log(arr)
+            this.navList = arr
+        },
+        changeTab(idx, title) {
+            this.getHotTabListData(this.navList[idx].key)
+        },
+        // tab栏下商品数据
+        async getHotTabListData(category) {
+            if (!category) category = this.navList[0].key
+            const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+            const arr = []
+            res.data.forEach((n, i) => {
+                arr.push({
+                    type: 'list-hot',
+                    img: require('../assets/css/static/images/a24.jpg'),
+                    discribe: '【三段有效期至 2019-01-01】，爱尔兰原装罐装奶粉，贼好喝。后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述',
+                    title: n.categoryName,
+                    hotPrice: '1200',
+                    hotPriceDiscribe: '￥',
+                    btnGo: `/user/productdetails?id=${n.id}`,
+                    popularity: '人气2.2w',
+                    preferential: '满100减50',
+                    evaluate: '很实惠，后续评价，这是一条评论'
+                })
+            })
+            this.hotData = arr
         }
     }
   }
@@ -183,12 +209,14 @@ import { Swipe, SwipeItem, Icon } from 'vant'
   .nav_box4{  background: #f8f8f8;  }
   .nav_box5{ position: relative; width:100%;overflow-x: scroll; margin: 0 auto;
     .wp{ position: relative; overflow: hidden; }
-    .nav_ul{ width: 1000%}
+    .nav_ul{ width: 100%}
     .icon{
-      padding-left: 10px;
+      height: 100%;
+      padding-top: 12px;
+      padding-left: 1px;
       position: absolute;
-      right: 0px;
-      top: 15px;
+      right: 0;
+      top: 0;
       font-size: 20px;
       background: #f7f7f7;
       z-index: 9;}
@@ -202,5 +230,10 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     background: #fff;
     margin-bottom: 5px;
   }
-
+  .van-tabs {
+    width: 100%;
+  }
+  .van-tabs--line .van-tabs__wrap{
+    width: 100%;
+  }
 </style>

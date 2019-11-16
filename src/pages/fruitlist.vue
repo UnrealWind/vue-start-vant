@@ -15,14 +15,14 @@
 
     <div class="nav_box dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="nav_wrap" @click="$router.push('/user/productdetails')">
+        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="nav_wrap" @click="$router.push(vip.path)">
           <commodity
             :type="vip.type"
             :image="vip.image"
-            :discribe="vip.discribe"
+            :describe="vip.describe"
             :title="vip.title"
             :vip-price="vip.vipPrice"
-            :vip-price-discribe="vip.vipPriceDiscribe"
+            :vip-price-describe="vip.vipPriceDescribe"
             :btn-go="vip.btnGo"
           >
           </commodity>
@@ -45,38 +45,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
       return {
           status: 'loading',
           value: '',
-          vipData: [
-              {
-                  'type': 'list-vip',
-                  'discribe': '',
-                  'title': '  青姑娘 甘肃花牛苹果4.5~5斤装',
-                  'vipPriceDiscribe': {
-                      'type': '已告罄'
-                  },
-                  'vipPrice': {
-                      'current': '29.9',
-                      'pre': '35'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/frutu1.png')
-              },
-              {
-                  'type': 'list-vip',
-                  'discribe': '',
-                  'title': '四川盐源苹果 16粒',
-                  'vipPriceDiscribe': {
-                      'type': '抢购中',
-                      'num': '1234',
-                      'percent': '12'
-                  },
-                  'vipPrice': {
-                      'current': '29.9',
-                      'pre': '72'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/frutu12.png')
-              }
-          ]
+          vipData: []
       }
     },
     computed: {
@@ -87,6 +56,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     methods: {
         async init() {
             try {
+                await this.getFruitListData()
                 // await this.getData()
             } catch (e) {
                 this.status = 'error'
@@ -94,9 +64,27 @@ import { Swipe, SwipeItem, Icon } from 'vant'
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getFruitListData() {
+            const res = await this.$http.post(`product/content/list?parentId=${this.$route.query.id}`)
+            const arr = []
+            if (res.rows !== undefined) {
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        type: 'list-vip',
+                        image: n.logo,
+                        describe: '描述',
+                        title: n.name,
+                        vipPrice: { 'current': '123', 'pre': '134' },
+                        vipPriceDescribe: {
+                            'type': '抢购中',
+                            'num': '1234',
+                            'percent': '12'
+                        },
+                        btnGo: `/user/productdetails?id=${n.id}`
+                    })
+                })
+            }
+            this.vipData = arr
         }
     }
   }

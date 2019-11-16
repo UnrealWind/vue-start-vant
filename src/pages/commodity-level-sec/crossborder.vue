@@ -17,9 +17,11 @@
         <div class="swiper_minNav">
           <div class="swiper-container">
             <div class="swiper-wrapper">
-              <div v-for="(item,index) in corssBorderNavData" :key="index" class="swiper-slide act">
-                <van-icon name="gem-o" />
-                <p>{{ item["nav-name"] }}</p>
+              <div v-for="(item,index) in crossBorderNavData" :key="index" class="swiper-slide act">
+                <a @click="$router.push(item.path)">
+                  <van-icon name="gem-o" />
+                  <p>{{ item.title }}</p>
+                </a>
               </div>
             </div>
           </div>
@@ -32,32 +34,15 @@
     <div class="p2 contBody_top1 mb3">
       <!-- 焦点图 -->
       <div class="swiper_tabBox">
-        <div class="swiper-container1">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <a @click="$router.push('/user/productdetails')">
-                <img src="../../assets/css/static/images/s1.jpg" alt="">
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a @click="$router.push('/user/productdetails')">
-                <img src="../../assets/css/static/images/s1.jpg" alt="">
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a @click="$router.push('/user/productdetails')">
-                <img src="../../assets/css/static/images/s1.jpg" alt="">
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a @click="$router.push('/user/productdetails')">
-                <img src="../../assets/css/static/images/s1.jpg" alt="">
-              </a>
-            </div>
-          </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination"></div>
-        </div>
+        <van-swipe
+          :autoplay="3000"
+          indicator-color="white"
+          class="van-swipe"
+        >
+          <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push('/superMarketZone')">
+            <img :src="item.img" alt="">
+          </van-swipe-item>
+        </van-swipe>
       </div>
       <!-- 4大宣传 -->
       <div class="title_nav flex_betweenc mt3 p2 title_nav1">
@@ -78,9 +63,9 @@
           <div class="box2 flex_center"><a @click="$router.push('/productlistmin')"> 查看更多</a></div>
         </div>
         <ul class="commodityLits flex_wrap">
-          <li v-for="(item,index) in corssBorderRobData" :key="index">
-            <a @click="$router.push('/user/productdetails')">
-              <img :src="item.img" alt="">
+          <li v-for="(item,index) in crossBorderRobData" :key="index">
+            <a @click="$router.push({path:item.path,query:{id:item.id}})">
+              <img :src="item.image" alt="">
               <p class="title">{{ item.title }}</p>
               <p class="money flex_betweenc"><span>¥{{ item.current }}</span> <samp>赚{{ item.gain }}</samp></p>
               <span class="pop1">直降20元</span><span class="pop2">爆款</span>
@@ -98,7 +83,7 @@
           <div class="box2 flex_center"><a @click="$router.push('/productlistmin')">其他榜单</a></div>
         </div>
         <ul class="bangdanBox flex_betweenc mt3">
-          <li v-for="(item,index) in corssBorderHotListData" :key="index" class="li1">
+          <li v-for="(item,index) in crossBorderHotListData" :key="index" class="li1">
             <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"> <img
               :src="item.img"
               alt=""
@@ -106,29 +91,29 @@
             <p class="text"><a @click="$router.push('/productlistmin')">{{ item.title }}</a></p>
           </li>
         </ul>
-        <ul v-for="(item,index) in corssBorderHotListData" :key="index" class="bangdan2 flex_betweenc">
-          <li class="flex_betweenc li1">
+        <ul class="bangdan2 flex_betweenc">
+          <li v-for="(item,index) in crossBorderHotListData" :key="index" class="flex_betweenc li1">
             <p class="flex_center"><img :src="item.img" alt=""></p>
-            <a @click="$router.push('/user/productdetails')">{{ item.title }}></a>
+            <a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.title }}></a>
           </li>
         </ul>
       </div>
       <!-- 种草推荐 -->
-      <div class="tuijianBox publicBox mt3">
+      <div v-for="(item,index) in crossBorderRecommendData" :key="index" class="tuijianBox publicBox mt3">
         <div class="flex_betweenc  Storefront_cont">
           <div class="box1 flex">
             <h1>种草推荐</h1>
           </div>
           <div class="box2 flex_center"><a @click="$router.push('/shoppingcart')">更多></a></div>
         </div>
-        <a @click="$router.push('/shoppingcart')"> <img :src="corssBorderRecommendData.img" alt="" class="img1">
+        <a @click="$router.push('/shoppingcart')"> <img :src="item.image" alt="" class="img1">
         </a>
         <div class="title flex">
-          <a @click="$router.push('/shoppingcart')"><p>#护肤</p><span>{{ corssBorderRecommendData.title }}</span> </a>
+          <a @click="$router.push('/shoppingcart')"><p>#护肤</p><span>{{ item.title }}</span> </a>
         </div>
         <div class="cont box_sizing">
           <a @click="$router.push('/shoppingcart')"><p class="textOver2">
-            {{ corssBorderRecommendData.intro }}。</p></a>
+            {{ item.intro }}</p></a>
         </div>
         <div class="name_box flex_betweenc mt3">
           <div class="flex">
@@ -139,9 +124,9 @@
               src="../../assets/css/static/images/a9.jpg"
               alt=""
             >
-            <p>{{ corssBorderRecommendData.people }}+人在参加</p>
+            <p>{{ item.people }}+人在参加</p>
           </div>
-          <a @click="corssBorderRecommendData.path"> 查看详情</a>
+          <a> 查看详情</a>
         </div>
       </div>
       <!-- 逛全球 -->
@@ -154,7 +139,7 @@
           <div class="box2 flex_center"><a @click="$router.push('/productlist')">更多></a></div>
         </div>
         <ul class="commodityLits flex_wrap commodityLits_nav">
-          <li v-for="(item,index) in corssBorderStateData" :key="index">
+          <li v-for="(item,index) in crossBorderStateData" :key="index">
             <a @click="$router.push('/productlist')">
               <p class="flex_center"><img :src="item.img" alt=""></p>
               <span>{{ item.name }}</span>
@@ -164,20 +149,20 @@
       </div>
       <!-- 品牌 -->
       <ul class="publicBox logo_ification flex_wrap mt3">
-        <li v-for="(item,index) in corssBorderBrandData" :key="index">
+        <li v-for="(item,index) in crossBorderBrandData" :key="index">
           <a @click="$router.push('/store')">
             <p class="p1 flex_center"><img :src="item.img" alt=""></p>
             <p class="p2"></p>
-            <p class="p3">{{ item.name }}</p>
+            <p class="p3">{{ item.title }}</p>
           </a>
         </li>
       </ul>
       <!-- 今日推荐 -->
       <div class="mt3"><h1 style="font-size: 0.3rem">今日推荐</h1></div>
       <ul class="flex_wrap gwcLits">
-        <li v-for="(item,index) in corssBorderProductListData" :key="index">
-          <a @click="$router.push('/user/productdetails')">
-            <img :src="item.img" alt="" class="commodityList">
+        <li v-for="(item,index) in crossBorderProductListData" :key="index">
+          <a @click="$router.push({path:item.path,query:{id:item.id}})">
+            <img :src="item.image" alt="" class="commodityList">
             <p class="p1">{{ item.title }}</p>
             <p class="p2"><span>特卖</span> <span>新品</span></p>
             <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
@@ -192,67 +177,41 @@
 </template>
 
 <script>
-    import { Icon } from 'vant'
+    import { Icon, Swipe, SwipeItem } from 'vant'
 
     export default {
         components: {
-            'van-icon': Icon
+            'van-icon': Icon,
+            'van-swipe': Swipe,
+            'van-swipe-item': SwipeItem
         },
         data() {
             return {
                 status: 'loading',
-                corssBorderNavData: [
-                    {
-                        'img': '/',
-                        'nav-name': '精选'
-                    },
-                    {
-                        'img': '/',
-                        'nav-name': '护肤产品'
-                    }
-                ],
-                corssBorderRobData: [
-                    {
-                        img: require('../../assets/css/static/images/kj1 (1).png'),
-                        title: 'GU极优女装珊瑚',
-                        current: '155',
-                        gain: 10 // 赚  利润
-                    }
-                ],
-                corssBorderHotListData: [
+                // 轮播图
+                bannerData: [],
+                // nav
+                crossBorderNavData: [],
+                // 今日必抢
+                crossBorderRobData: [],
+                crossBorderHotListData: [
                     {
                         img: require('../../assets/css/static/images/kj1 (5).png'),
                         title: '人气面膜榜',
                         path: '/productlistmin'
                     }
                 ],
-                corssBorderProductListData: [
-                    {
-                        'img': require('../../assets/css/static/images/a24.jpg'),
-                        'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
-                        'current': 123, // 现价
-                        'pre': 134 // 原价
-                    }
-                ],
-                corssBorderBrandData: [
-                    {
-                        'img': require('../../assets/css/static/images/a11.jpg'),
-                        'name': '兰蔻'
-                    }
-                ],
-                corssBorderStateData: [
+                // 今日推荐
+                crossBorderProductListData: [],
+                crossBorderBrandData: [],
+                crossBorderStateData: [
                     {
                         'img': require('../../assets/css/static/images/guoqi.jpg'),
                         'name': '中国'
                     }
                 ],
-                corssBorderRecommendData: {
-                    'img': require('../../assets/css/static/images/a8.jpg'),
-                    'title': 'welade金板凳花儿婴儿护肤品',
-                    'intro': '兰蔻1935年诞生于法国,凭借着凭借着凭借着凭借着对香水的天才敏感嗅觉、执着不懈的冒险精神',
-                    'path': '/shoppingcart',
-                    'people': '165222'
-                }
+                // 种草推荐
+                crossBorderRecommendData: []
             }
         },
         computed: {},
@@ -262,26 +221,161 @@
         methods: {
             async init() {
                 try {
-                    // await this.getData()
+                    // 轮播图
+                    await this.getBannerData()
+                    // 今日必抢
+                    await this.getRobData()
+                    // nav
+                    await this.getCrossBorderNavData()
+                    // 种草推荐
+                    await this.getRecommendData()
+                    // 今日推荐
+                    await this.getTodayRecommendData()
+                    // 热门榜单
+                    await this.getHotListData()
+                    // 品牌列表
+                    await this.getBrandListData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
             },
-            async getData() {
-                const res = await this.$http.get('/user/12345')
-                console.log(res)
+            // 轮播图
+            async getBannerData() {
+                const res = await this.$http.post(`product/banner/list?showFlag=2`)
+                const arr = []
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        img: n.url
+                    })
+                })
+                this.bannerData = arr
+            },
+            // 导航nav
+            async getCrossBorderNavData() {
+                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
+                const arr = []
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        img: n.logo,
+                        title: n.name,
+                        path: n.url
+                    })
+                })
+                this.crossBorderNavData = arr
+            },
+            // 今日必抢
+            async getRobData() {
+                const res = await this.$http.post(`product/activity/activityGoodsList`, {
+                    activityCode: '1047f6936fb144e49c356e730a9b9cbd'
+                })
+                const arr = []
+                res.data.forEach((n, i) => {
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            title: good.categoryName,
+                            image: require('../../assets/css/static/images/kj1 (1).png'),
+                            current: good.linePrice,
+                            gain: 10,
+                            path: '/user/productdetails',
+                            id: good.id
+                        })
+                    })
+                })
+                this.crossBorderRobData = arr
+            },
+            // 种草推荐
+            async getRecommendData() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: '7e774262cd3b4bcaacd1cf9db4487fd4'
+                })
+                const arr = []
+                res.data.forEach((n, i) => {
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            image: require('../../assets/css/static/images/a8.jpg'),
+                            title: good.categoryName,
+                            intro: '兰蔻1935年诞生于法国,凭借着凭借着凭借着凭借着对香水的天才敏感嗅觉、执着不懈的冒险精神',
+                            path: '/shoppingcart',
+                            people: '1512'
+                        })
+                    })
+                })
+                console.log(arr)
+                this.crossBorderRecommendData = arr
+            },
+            // 今日推荐
+            async getTodayRecommendData() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: '5670925cb2b84399961c9a15a3bb4cd4'
+                })
+                const arr = []
+                res.data.forEach((n, i) => {
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            image: require('../../assets/css/static/images/a6.jpg'),
+                            title: good.categoryName,
+                            current: good.linePrice, // 现价
+                            pre: 134, // 原价
+                            path: '/user/productdetails',
+                            id: good.id
+                        })
+                    })
+                })
+                this.crossBorderProductListData = arr
+            },
+            // 热门榜单
+            async getHotListData() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
+                })
+                const arr = []
+                res.data.forEach((n, i) => {
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            image: require('../../assets/css/static/images/kj1 (5).png'),
+                            title: good.categoryName
+                        })
+                    })
+                })
+                this.crossBorderHotListData = arr
+            },
+            // 品牌列表
+            async getBrandListData() {
+               const res = await this.$http.post('product/goodsBrand/list', {
+                   pageNum: 0,
+                   pageSize: 10
+               })
+                const arr = []
+                res.rows.forEach((n, i) => {
+                        arr.push({
+                            image: n.logo,
+                            title: n.content
+                        })
+                })
+                this.crossBorderBrandData = arr
             }
         }
     }
 
 </script>
 <style lang='scss' scoped>
+
   .fix {
     background-color: #ac45f8;
     height: 37.5px;
   }
+
+  .swiper_tabBox {
+    height: 4rem;
+  }
+
+  .swiper-slide a {
+    margin-top: 10px;
+    display: inline-block;
+  }
+
   .header_l {
     position: absolute;
     left: 0;
@@ -303,6 +397,7 @@
       color: #fff;
     }
   }
+
   .van-icon {
     color: #fff;
     font-size: 18px;
@@ -320,6 +415,12 @@
     margin-left: 20px;
   }
 
+  .bangdan2 {
+    display: flex;
+  }
+  .bangdan2 li {
+    width: 50%;
+  }
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";

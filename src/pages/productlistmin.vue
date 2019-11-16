@@ -12,121 +12,18 @@
     <div class="nav_box dan_wrap fix">
       <div class="wp">
         <div class="nav_ul">
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="sale">
-                  <span> 特卖 </span>
-                </div>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="sale">
-                  <span> 特卖 </span>
-                </div>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="sale">
-                  <span> 特卖 </span>
-                </div>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="sale">
-                  <span> 特卖 </span>
-                </div>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="sale">
-                  <span> 特卖 </span>
-                </div>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="sale">
-                  <span> 特卖 </span>
-                </div>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <commodity
+            v-for="(commodity,index) in productListMinData"
+            :key="`${commodity.type}-${index}`"
+            :type="commodity.type"
+            :image="commodity.image"
+            :discribe="commodity.discribe"
+            :title="commodity.title"
+            :concentrate-price="commodity.concentratePrice"
+            :concentrate-price-discribe="commodity.concentratePriceDiscribe"
+            :btn-go="commodity.btnGo"
+          >
+          </commodity>
         </div>
       </div>
 
@@ -143,7 +40,8 @@ import { Icon } from 'vant'
     data() {
       return {
           status: 'loading',
-          value: ''
+          value: '',
+          productListMinData: []
       }
     },
     computed: {
@@ -154,6 +52,7 @@ import { Icon } from 'vant'
     methods: {
         async init() {
             try {
+                await this.getProductListMinData()
                 // await this.getData()
             } catch (e) {
                 this.status = 'error'
@@ -161,9 +60,22 @@ import { Icon } from 'vant'
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getProductListMinData() {
+            const res = await this.$http.post(`product/content/list?parentId=${this.$route.query.id}`)
+            const arr = []
+            if (res.rows !== undefined) {
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        type: 'list-vip',
+                        image: n.logo,
+                        discribe: '描述',
+                        title: n.name,
+                        vipPrice: { 'current': '123', 'pre': '134' },
+                        btnGo: '/user/productdetails'
+                    })
+                })
+            }
+            this.productListMinData = arr
         }
     }
   }

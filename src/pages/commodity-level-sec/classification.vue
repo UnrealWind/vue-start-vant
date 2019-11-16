@@ -17,22 +17,11 @@
 
         <div class="class_left l">
           <van-sidebar v-model="activeKey">
-            <van-sidebar-item title="为你推荐" />
-            <van-sidebar-item title="美妆护肤" />
-            <van-sidebar-item title="服饰内饰" />
-            <van-sidebar-item title="为你推荐" />
-            <van-sidebar-item title="美妆护肤" />
-            <van-sidebar-item title="服饰内饰" />
-            <van-sidebar-item title="为你推荐" />
-            <van-sidebar-item title="美妆护肤" />
-            <van-sidebar-item title="服饰内饰" />
-            <van-sidebar-item title="为你推荐" />
-            <van-sidebar-item title="美妆护肤" />
-            <van-sidebar-item title="服饰内饰" />
+            <van-sidebar-item v-for="(item,index) in classCategoryData" :key="index" :title="item.label" />
           </van-sidebar>
         </div>
-        <div class="class_right r" @click="$router.push('/user/productdetails')">
-          <div class="title"> 为你推荐 </div>
+        <div v-for="(item,index) in classTabData" :key="index" class="class_right r" @click="$router.push('/user/productdetails')">
+          <div class="title"> {{ item.title }} </div>
           <div class="class_ul fix">
             <div class="li">
               <img src="../../assets/img/zonetu12.png" alt="">
@@ -126,26 +115,9 @@
           status: 'loading',
           value: '',
           activeKey: 0,
-          concentrateData: [
-              {
-                  'type': 'list-concentrate',
-                  'discribe': '日本进口',
-                  'title': '神户龙虾450g*4袋',
-                  'concentratePriceDiscribe': '新品福利￥',
-                  'concentratePrice': '1200',
-                  'btnGo': '/test',
-                  'image': require('assets/img/test.png')
-              },
-              {
-                  'type': 'list-concentrate',
-                  'discribe': '日本进口',
-                  'title': '神户龙虾450g*4袋',
-                  'concentratePriceDiscribe': '新品福利￥',
-                  'concentratePrice': '1200',
-                  'btnGo': '/test',
-                  'image': require('assets/img/test.png')
-              }
-          ]
+          concentrateData: [],
+          classCategoryData: [],
+          classTabData: []
       }
     },
     computed: {
@@ -156,6 +128,8 @@
     methods: {
         async init() {
             try {
+                await this.getClassData()
+                await this.getclassTabData()
                 // await this.getData()
             } catch (e) {
                 this.status = 'error'
@@ -163,9 +137,28 @@
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getClassData() {
+            const res = await this.$http.get('manager/dictCategory/CategoryTreeData?dataLevel=1')
+            const arr = []
+            res.forEach((n, i) => {
+                arr.push({
+                    label: n.name
+                })
+            })
+            this.classCategoryData = arr
+        },
+        async getclassTabData() {
+            const res = await this.$http.post('manager/dictCategory/listByPcode', {
+                pCode: 12
+            })
+            const arr = []
+            for (const i in res.data) {
+                arr.push({
+                    title: res.data[i],
+                    id: i
+                })
+            }
+            console.log(arr)
         }
     }
   }

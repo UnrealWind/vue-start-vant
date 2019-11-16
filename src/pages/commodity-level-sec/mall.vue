@@ -30,8 +30,8 @@
         </div>
         <!-- 商品 -->
         <ul class="commodityLits mt7 flex_wrap">
-          <li v-for="(item,index) in mallTopListData" :key="index">
-            <a @click="$router.push('/user/productdetails')">
+          <li v-for="(item,index) in mallProductListData" :key="index">
+            <a @click="$router.push(item.path)">
               <img :src="item.img" alt="">
               <p class="title">{{ item.title }}</p>
               <p class="money"><span>¥{{ item.current }}</span> <samp>¥{{ item.pre }}</samp></p>
@@ -50,7 +50,7 @@
         <ul class="commodityLits flex_wrap commodityLits_nav">
 
           <li v-for="(item,index) in mallNavData" :key="index">
-            <a @click="$router.push('/productlistmin')">
+            <a @click="$router.push(item.path)">
               <p class="flex_center"><img :src="item.img" alt=""></p>
               <span>{{ item.name }}</span>
             </a>
@@ -97,7 +97,7 @@
         </div>
         <ul class="commodityLits flex_wrap">
           <li v-for="(module,stepIndex) in item.goods" :key="stepIndex">
-            <a @click="$router.push('/user/productdetails')">
+            <a @click="$router.push({path:module.path,query:{id:module.id}})">
               <img :src="module.img" alt="">
               <p class="title">{{ module.title }}</p>
               <p class="money"><span>¥{{ module.current }}</span> <samp>¥{{ module.pre }}</samp></p>
@@ -112,9 +112,9 @@
       <ul class="publicBox logo_ification flex_wrap">
         <li v-for="(items, indexs) in mallBrandData" :key="indexs">
           <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img :src="items.img" alt=""></p>
+            <p class="p1 flex_center"><img :src="items.image" alt=""></p>
             <p class="p2"></p>
-            <p class="p3">{{ items.brand }}</p>
+            <p class="p3">{{ items.title }}</p>
           </a>
         </li>
         <li class="more flex_center">
@@ -123,40 +123,34 @@
           </a>
         </li>
       </ul>
+      <!--      为您推荐-->
       <div class="tuijian flex_center">
         <p class="flex"><img src="../../assets/css/static/images/dianzan.png" alt="">为您推荐</p>
       </div>
       <div class="tuijianNav flex">
-        <van-tabs v-model="active" background="#f2f2f2" class="box flex_wrap">
-          <van-tab class="act" title="精选"></van-tab>
-          <van-tab title="服装"></van-tab>
-          <van-tab title="美妆个护"></van-tab>
-          <van-tab title="鞋包"></van-tab>
-          <van-tab title="内衣配饰"></van-tab>
-          <van-tab title="服装"></van-tab>
-          <van-tab title="美妆个护"></van-tab>
-          <van-tab title="鞋包"></van-tab>
-          <van-tab title="内衣配饰"></van-tab>
+        <van-tabs v-model="active" @click="changeTab">
+          <van-tab v-for="(opt,tabIndex) in mallTabData" :key="tabIndex" class="act" :title="opt.label">
+            <ul class="flex_wrap gwcLits">
+              <li v-for="(listItem, listIndex) in mallProductListData" :key="listIndex">
+                <a @click="$router.push({path: listItem.path, query:{id:listItem.id}})">
+                  <img :src="listItem.img" alt="" class="mallList">
+                  <p class="p1">{{ listItem.title }}</p>
+                  <p class="p2"><span>特卖</span> <span>新品</span></p>
+                  <div class="p3 flex_betweenc">
+                    <p>¥{{ listItem.current }}
+                      <span>
+                        ¥{{ listItem.pre }}
+                      </span>
+                    </p>
+                    <img src="../../assets/css/static/images/gwc.png" alt=""></div>
+                </a>
+              </li>
+            </ul>
+          </van-tab>
         </van-tabs>
-        <div class="more flex_center"><img src="../../assets/css/static/images/xia.png" alt=""></div>
+        <!--        <div class="more flex_center"><img src="../../assets/css/static/images/xia.png" alt=""></div>-->
       </div>
       <!-- 购物车商品list -->
-      <ul class="flex_wrap gwcLits">
-        <li v-for="(listItem, listIndex) in mallProductListData" :key="listIndex">
-          <a @click="$router.push('/user/productdetails')">
-            <img :src="listItem.img" alt="" class="mallList">
-            <p class="p1">{{ listItem.title }}</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
-            <div class="p3 flex_betweenc">
-              <p>¥{{ listItem.current }}
-                <span>
-                  ¥{{ listItem.pre }}
-                </span>
-              </p>
-              <img src="../../assets/css/static/images/gwc.png" alt=""></div>
-          </a>
-        </li>
-      </ul>
     </div>
   </van-container>
 </template>
@@ -173,61 +167,14 @@
             return {
                 status: 'loading',
                 active: 0,
-                mallTopListData: [
-                    {
-                        'img': require('../../assets/css/static/images/b.jpg'),
-                        'title': 'GU极优女装珊瑚绒起居套装起居套装起居套装',
-                        'current': 155, // 现价
-                        'pre': 188 // 原价
-                    }
-                ],
-                mallShopsData: [
-                    {
-                        'img': require('../../assets/css/static/images/a4.jpg'),
-                        'title': '梵西品牌团',
-                        'discounts': '限量领199减100', // 优惠、
-                        'goods': [
-                            {
-                                'img': require('../../assets/css/static/images/b.jpg'),
-                                'title': '级优女装珊瑚',
-                                'current': 155, // 现价
-                                'pre': 188 // 原价
-                            },
-                            {
-                                'img': require('../../assets/css/static/images/b.jpg'),
-                                'title': '级优女装珊瑚',
-                                'current': 155, // 现价
-                                'pre': 188 // 原价
-                            },
-                            {
-                                'img': require('../../assets/css/static/images/b.jpg'),
-                                'title': '级优女装珊瑚',
-                                'current': 155, // 现价
-                                'pre': 188 // 原价
-                            }
-                        ]
-                    }
-                ],
-                mallNavData: [
-                    {
-                        'img': require('../../assets/css/static/images/q1.png'),
-                        'name': '男装'
-                    }
-                ],
-                mallBrandData: [
-                    {
-                        'img': require('../../assets/css/static/images/a5.jpg'),
-                        'brand': '美特斯邦威'
-                    }
-                ],
-                mallProductListData: [
-                    {
-                        img: require('../../assets/css/static/images/a6.jpg'),
-                        title: '日系小浪漫与温暖羊毛针织拼接网纱百褶裙',
-                        current: 85, // 现价
-                        pre: 134 // 原价
-                    }
-                ]
+                // mallTopListData: [],
+                mallShopsData: [],
+                mallNavData: [],
+                mallBrandData: [],
+                // tab栏下商品
+                mallProductListData: [],
+                // tab栏
+                mallTabData: []
             }
         },
         computed: {},
@@ -237,16 +184,96 @@
         methods: {
             async init() {
                 try {
-                    // await this.getData()
+                    await this.getStoreListData()
+                    await this.getMallNavData()
+                    // tab栏
+                    await this.getMallTabData()
+                    // tab栏下商品
+                    await this.getMallProductListData()
+                    // 品牌
+                    await this.getBrandListData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
             },
-            async getData() {
-                const res = await this.$http.get('/user/12345')
-                console.log(res)
+            // 商城nav数据
+            async getMallNavData() {
+                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {
+                })
+                const arr = []
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        img: n.logo,
+                        name: n.name,
+                        path: n.url
+                    })
+                })
+                this.mallNavData = arr
+            },
+            // 店铺查询
+            async getStoreListData() {
+                const res = await this.$http.post('user/shop/list', {
+                    pageNum: 0,
+                    pageSize: 3
+                })
+                const arr = []
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        title: n.shopName,
+                        img: require('../../assets/css/static/images/a4.jpg'),
+                        discounts: n.address
+                    })
+                })
+                this.mallShopsData = arr
+            },
+            // tab栏
+            async getMallTabData() {
+                const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
+                const arr = []
+                for (const i in res.data.dictMap) {
+                    arr.push({
+                        label: res.data.dictMap[i],
+                        key: i
+                    })
+                }
+                this.mallTabData = arr
+            },
+            changeTab(idx, title) {
+                this.getMallProductListData(this.mallTabData[idx].key)
+            },
+            // tab栏下商品
+            async getMallProductListData(category) {
+                if (!category) category = this.mallTabData[0].key
+                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+                const arr = []
+                res.data.forEach((n, i) => {
+                    arr.push({
+                        path: `/user/productdetails?id=${n.id}`,
+                        title: n.categoryName,
+                        img: require('../../assets/css/static/images/a24.jpg'),
+                        id: n.id,
+                        current: 30,
+                        pre: 80
+                    })
+                })
+                this.mallProductListData = arr
+            },
+            // 品牌
+            async getBrandListData() {
+                const res = await this.$http.post('product/goodsBrand/list', {
+                    pageNum: 0,
+                    pageSize: 10
+                })
+                const arr = []
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        image: n.logo,
+                        title: n.content
+                    })
+                })
+                this.mallBrandData = arr
             }
         }
     }
@@ -279,7 +306,7 @@
     }
   }
   .gwcLits li {
-    width: 50%;
+    width: 48%;
   }
 
   .gwcLits li .mallList {
@@ -288,6 +315,16 @@
 
   .tuijianNav .box {
     height: auto;
+    width: 100%;
+  }
+  .van-tabs__wrap.van-hairline--top-bottom {
+    width: 100%;
+  }
+  .van-tabs {
+    width: 100%;
+  }
+  .van-tabs--line .van-tabs__wrap{
+    width: 100%;
   }
 
   @import "../../assets/css/static/css/app.css";

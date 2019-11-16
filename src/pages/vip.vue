@@ -2,26 +2,38 @@
 <template>
   <van-container :status="status">
     <div slot="header" class="fix">
-      <div class="hesde_l" @click="$router.back()"> <van-icon name="arrow-left" /> </div>
-      <div class="hesde_l2">
-        <div class="p"> VIP专享福利 </div>
+      <div class="hesde_l" @click="$router.back()">
+        <van-icon name="arrow-left" />
       </div>
-      <div class="hesde_l3"> <van-icon name="share" />  </div>
+      <div class="hesde_l2">
+        <div class="p"> VIP专享福利</div>
+      </div>
+      <div class="hesde_l3">
+        <van-icon name="share" />
+      </div>
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item> <img src="../assets/img/viptu1.png" alt=""></van-swipe-item>
+      <van-swipe-item><img src="../assets/img/viptu1.png" alt=""></van-swipe-item>
     </van-swipe>
 
     <div class="vip_title dan_wrap fix">
       <div class="wp">
-        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 今日必抢 <img src="../assets/img/viptu14.png" alt="">  </div>
+        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 今日必抢 <img
+          src="../assets/img/viptu14.png"
+          alt=""
+        ></div>
       </div>
     </div>
 
     <div class=" dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipData" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
+        <div
+          v-for="(vip,index) in vipData"
+          :key="`${vip.type}-${index}`"
+          class="navdan_box4"
+          @click="$router.push({path:vip.path,query:{id:vip.id}})"
+        >
 
           <commodity
             :type="vip.type"
@@ -40,13 +52,21 @@
 
     <div class="vip_title dan_wrap fix">
       <div class="wp">
-        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 精选好物 <img src="../assets/img/viptu14.png" alt="">  </div>
+        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 精选好物 <img
+          src="../assets/img/viptu14.png"
+          alt=""
+        ></div>
       </div>
     </div>
 
     <div class=" dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipDataMin" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
+        <div
+          v-for="(vip,index) in vipDataMin"
+          :key="`${vip.type}-${index}`"
+          class="navdan_box4"
+          @click="$router.push({path:vip.path,query:{id:vip.id}})"
+        >
 
           <commodity
             :type="vip.type"
@@ -67,86 +87,98 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon } from 'vant'
-  export default {
-    components: {
-        'van-swipe': Swipe,
-        'van-swipe-item': SwipeItem,
-        'van-icon': Icon
-    },
-    data() {
-      return {
-          status: 'loading',
-          vipData: [
-              {
-                  'type': 'list-vip',
-                  'discribe': '直降7元',
-                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                  'vipPriceDiscribe': {
-                      'type': '已告罄'
-                  },
-                  'vipPrice': {
-                      'current': '123',
-                      'pre': '134'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/viptu12.png')
-              }
-          ],
-          vipDataMin: [
-              {
-                  'type': 'list-vip',
-                  'discribe': '直降7元',
-                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                  'vipPriceDiscribe': {
-                      'type': '已告罄'
-                  },
-                  'vipPrice': {
-                      'current': '123',
-                      'pre': '134'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/viptu12.png')
-              },
-              {
-                  'type': 'list-vip',
-                  'discribe': '直降7元',
-                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                  'vipPriceDiscribe': {
-                      'type': '已告罄'
-                  },
-                  'vipPrice': {
-                      'current': '123',
-                      'pre': '134'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/viptu12.png')
-              }
-          ]
+    import { Icon, Swipe, SwipeItem } from 'vant'
 
-      }
-    },
-    computed: {
-    },
-    mounted() {
-        this.init()
-    },
-    methods: {
-        async init() {
-            try {
-                // await this.getData()
-            } catch (e) {
-                this.status = 'error'
-                throw e
-            }
-            this.status = 'success'
+    export default {
+        components: {
+            'van-swipe': Swipe,
+            'van-swipe-item': SwipeItem,
+            'van-icon': Icon
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        data() {
+            return {
+                status: 'loading',
+                vipData: [],
+                vipDataMin: []
+
+            }
+        },
+        computed: {},
+        mounted() {
+            this.init()
+        },
+        methods: {
+            async init() {
+                try {
+                    await this.getVipData()
+                    await this.getVipDataMin()
+                    // await this.getData()
+                } catch (e) {
+                    this.status = 'error'
+                    throw e
+                }
+                this.status = 'success'
+            },
+            // 今日必抢
+            async getVipData() {
+                const res = await this.$http.post(`product/activity/activityGoodsList`, {
+                    activityCode: 'b1f034550b31468c93dec8535a3dc1aa'
+                })
+                const arr = []
+                res.data.forEach((n, i) => {
+                    arr.push({
+                        discribe: n.actDetailName
+                    })
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            type: 'list-vip',
+                            image: good.mainImg,
+                            title: good.goodsProfile,
+                            vipPrice: {
+                                'pre': 508
+                            },
+                            vipPriceDiscribe: {
+                                'type': '111已告罄'
+                            },
+                            'btnGo': '/user/productdetails',
+                            id: good.id,
+                            path: '/user/productdetails'
+                        })
+                    })
+                })
+                this.vipData = arr
+            },
+            // 精选好物
+            async getVipDataMin() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: 'fb5355bd08d14090aad2f7f2f7d56546'
+                })
+                const arr = []
+                res.data.forEach((n, i) => {
+                    arr.push({
+                        discribe: n.actDetailName
+                    })
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            type: 'list-vip',
+                            image: good.mainImg,
+                            title: good.goodsProfile,
+                            vipPrice: {
+                                'pre': 300
+                            },
+                            vipPriceDiscribe: {
+                                'type': '已告罄'
+                            },
+                            'btnGo': '/user/productdetails',
+                            id: good.id,
+                            path: '/user/productdetails'
+                        })
+                    })
+                })
+                this.vipDataMin = arr
+            }
         }
     }
-  }
 
 </script>
 <style lang='scss' scoped>
@@ -154,13 +186,28 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     background: red;
     width: 375px;
   }
+
   .fix {
     *zoom: 1;
   }
-  .l{ float: left; }
-  .r{ float: right; }
-  .img{  display: block; }
-  .img img{ display: block; width: 100%; }
+
+  .l {
+    float: left;
+  }
+
+  .r {
+    float: right;
+  }
+
+  .img {
+    display: block;
+  }
+
+  .img img {
+    display: block;
+    width: 100%;
+  }
+
   .fix:after,
   .fix:before {
     display: block;
@@ -170,44 +217,91 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     overflow: hidden;
     visibility: hidden;
   }
-  .dan_wrap{ background: #c70b1a; .wp{ width: 95%; margin: 0 auto;  } }
-  .van-swipe {
-    margin-top: 45px;
-    img {
-      display: block;
-      width:100%;
-     }
+
+  .dan_wrap {
+    background: #c70b1a;
+
+    .wp {
+      width: 95%;
+      margin: 0 auto;
+    }
   }
 
-  .header{
-    .fix{
+  .van-swipe {
+    margin-top: 45px;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .header {
+    .fix {
       background: #fff;
     }
   }
-  .hesde_l{ position: absolute; left: 0px; top: 2px; font-size: 20px; color: #333;  }
-  .hesde_l3{
+
+  .hesde_l {
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .hesde_l3 {
     display: none;
-    position: absolute; right: 15px; top: 5px; font-size: 20px;  color: #333;
-  }
-  .hesde_l4{
-    position: absolute; right: 15px; top: 5px; font-size: 20px; color: #333;
-  }
-
-  .hesde_l2{ position: relative; width: 62%; margin: 0 auto; text-align: center;
-    .p { font-size: 16px;  color: #333;  }
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    font-size: 20px;
+    color: #333;
   }
 
-  .vipsnap{ background: #fff; border-radius: 5px;  }
-  .vip_title{ padding-top: 10px; padding-bottom: 20px;
-    .title{ color: #fff; text-align: center; font-weight: 500; font-size: 18px;
-      img{
+  .hesde_l4 {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .hesde_l2 {
+    position: relative;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+
+    .p {
+      font-size: 16px;
+      color: #333;
+    }
+  }
+
+  .vipsnap {
+    background: #fff;
+    border-radius: 5px;
+  }
+
+  .vip_title {
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+    .title {
+      color: #fff;
+      text-align: center;
+      font-weight: 500;
+      font-size: 18px;
+
+      img {
         display: inline-block;
         width: 30px;
       }
     }
   }
 
-  .navdan_box4{
+  .navdan_box4 {
     background: #fff;
     border-radius: 10px;
     margin-bottom: 10px;

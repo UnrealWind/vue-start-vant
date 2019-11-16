@@ -1,6 +1,7 @@
 <!-- home -->
 <template>
   <van-container :status="status" :active="'index'" :tabbar="true">
+    <!--    顶部-->
     <div slot="header" class="fix">
       <div class="hesde_l l" @click="$router.push('/static/news')">
         <van-icon name="chat-o" />
@@ -15,25 +16,25 @@
         <van-icon name="apps-o" />
       </div>
     </div>
+    <!--轮播图-->
+    <van-swipe
 
-    <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/supermarketzone')"><img src="../assets/img/lunbo1.png" alt="">
-      </van-swipe-item>
-      <van-swipe-item @click="$router.push('/supermarketzone')"><img src="../assets/img/lunbo1.png" alt="">
-      </van-swipe-item>
-      <van-swipe-item @click="$router.push('/supermarketzone')"><img src="../assets/img/lunbo1.png" alt="">
-      </van-swipe-item>
-      <van-swipe-item @click="$router.push('/supermarketzone')"><img src="../assets/img/lunbo1.png" alt="">
+      :autoplay="3000"
+      indicator-color="white"
+      class="van-swipe"
+    >
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push('/superMarketZone')">
+        <img :src="item.img" alt="">
       </van-swipe-item>
     </van-swipe>
 
     <div class="nav_box dan_wrap">
       <div class="nav_li fix wp">
         <div v-for="(opt, index) in navList" :key="index" class="li1">
-          <a class="img" @click="$router.push(opt.path)">
+          <a class="img" @click="$router.push({path:opt.path,query:{id:opt.id}})">
             <img :src="opt.img" alt="">
+            <p> {{ opt.title }} </p>
           </a>
-          <p><a> {{ opt.title }} </a></p>
         </div>
       </div>
     </div>
@@ -50,24 +51,18 @@
           <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav_box31.png" alt="">  </a>
         </div>
         <div class="nav3_l r">
-          <a class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav_box32.png" alt="">  </a>
+          <a class="img" @click="$router.push('/superMarketZone')"> <img src="../assets/img/nav_box32.png" alt="">  </a>
         </div>
       </div>-->
     </div>
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div class="nav3_l l">
-          <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav41.png" alt=""> </a>
-        </div>
         <div class="nav3_l r">
-          <a class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav412.png" alt=""> </a>
+          <a class="img" @click="$router.push('/commodityLevelSec/seasonal')"> <img src="../assets/img/nav412.png" alt=""> </a>
         </div>
         <div class="nav3_l l">
-          <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav413.png" alt=""> </a>
-        </div>
-        <div class="nav3_l r">
-          <a class="img" @click="$router.push('/supermarketzone')"> <img src="../assets/img/nav414.png" alt=""> </a>
+          <a class="img" @click="$router.push('/commodityLevelSec/daynew')"> <img src="../assets/img/nav413.png" alt=""> </a>
         </div>
       </div>
     </div>
@@ -117,8 +112,11 @@
 
     <div class="nav_box8 dan_wrap">
       <div class="nav_li fix wp">
-        <div v-for="(opt, index) in minNavList" :key="index" class="li1" :class="{ active:opt.isActive }"><p>
-          {{ opt.title }} </p></div>
+        <div v-for="(opt, index) in minNavList" :key="index" class="li1" @click="changeTab(index)">
+          <p>
+            {{ opt.label }}
+          </p>
+        </div>
       </div>
     </div>
 
@@ -129,7 +127,6 @@
           :key="`${commodity.type}-${index}`"
           class="nav_li"
         >
-
           <commodity
             :type="commodity.type"
             :image="commodity.image"
@@ -193,76 +190,10 @@
                         'image': require('assets/img/indextu12.png')
                     }
                 ],
+                bannerData: [],
                 // isActive: true,
-                navList: [
-                    {
-                        title: '时令水果',
-                        img: require('../assets/img/nav_img1.png'),
-                        path: '/commodityLevelSec/seasonal'
-                    },
-                    {
-                        title: '每日精选',
-                        img: require('../assets/img/nav_img12.png'),
-                        path: '/commodityLevelSec/daynew'
-                    },
-                    {
-                        title: '在线超市',
-                        img: require('../assets/img/nav_img13.png'),
-                        path: '/commodityLevelSec/onlinesupermarker'
-                    },
-                    {
-                        title: 'VIP',
-                        img: require('../assets/img/nav_img14.png'),
-                        path: '/vip'
-                    },
-                    {
-                        title: '跨境电商',
-                        img: require('../assets/img/nav_img15.png'),
-                        path: '/commodityLevelSec/crossborder'
-                    },
-                    {
-                        title: '热销榜',
-                        img: require('../assets/img/nav_img16.png'),
-                        path: '/hotcakes'
-                    },
-                    {
-                        title: '商城',
-                        img: require('../assets/img/nav_img17.png'),
-                        path: '/commodityLevelSec/mall'
-                    },
-                    {
-                        title: '分类',
-                        img: require('../assets/img/nav_img18.png'),
-                        path: '/commodityLevelSec/classification'
-                    }
-                ],
-                minNavList: [
-                    {
-                        title: '全部特卖',
-                        isActive: true
-                    },
-                    {
-                        title: '即将售罄'
-                    },
-                    {
-                        title: '美妆个护'
-                    },
-                    {
-                        title: '食品生鲜'
-                    },
-                    {
-                        title: '服饰鞋包'
-                    },
-                    {
-                        title: '家居家纺'
-                    },
-                    {
-                        title: '数码家电'
-                    },
-                    {
-                        title: '母婴玩具'
-                    }
-                ]
+                navList: [],
+                minNavList: []
             }
         },
         computed: {},
@@ -272,24 +203,83 @@
         methods: {
             async init() {
                 try {
-                  //  await this.getIndexData()
+                    //  await this.getIndexData()
+                    await this.getBannerData()
+                    await this.getIndexData()
+                    await this.getTabData()
+                    await this.getTabListData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
             },
+            // 首页nav数据
             async getIndexData() {
-                const res = await this.$http.post('product/content/list')
+                const res = await this.$http.post('product/content/list?level=1&showFlag=0')
                 const arr = []
-                res.data.forEach((n, i) => {
+                res.rows.forEach((n, i) => {
                     arr.push({
                         img: n.logo,
                         path: n.url,
-                        title: n.name
+                        title: n.name,
+                        id: n.id
                     })
                 })
                 this.navList = arr
+            },
+            // 轮播图数据
+            async getBannerData() {
+                const res = await this.$http.post('product/banner/list?showFlag=0')
+                const arr = []
+                res.rows.forEach((n, i) => {
+                    arr.push({
+                        img: n.url
+                    })
+                })
+                this.bannerData = arr
+            },
+            // tab栏
+            async getTabData() {
+                const res = await this.$http.post('product/content/list?level=0')
+                const arr = []
+                for (const i in res.rows[0].dictMap) {
+                    arr.push({
+                        label: res.rows[0].dictMap[i],
+                        id: i
+                    })
+                }
+                this.minNavList = arr
+            },
+            changeTab(index) {
+                this.getTabListData(this.minNavList[index].id)
+            },
+            // tab栏商品
+            async getTabListData(category) {
+                if (!category) category = this.minNavList[0].id
+                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+                const arr = []
+                res.data.forEach((n, i) => {
+                    arr.push({
+                        type: 'list-index',
+                        discribe: '第二件仅需24.9元#',
+                        path: '/user/productdetails',
+                        title: n.categoryName,
+                        img: require('assets/img/indextu12.png'),
+                        id: n.id,
+                        indexPriceDiscribe: {
+                            type: '抢购中',
+                            num: '1234',
+                            percent: '12'
+                        },
+                        indexPrice: {
+                            current: '123',
+                            pre: '134'
+                        },
+                        btnGo: `/user/productdetails?id=${n.id}`
+                    })
+                })
+                this.indexData = arr
             }
         }
     }

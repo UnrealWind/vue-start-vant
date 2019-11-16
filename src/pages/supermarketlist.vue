@@ -16,7 +16,10 @@
     <div class="nav_box5 dan_wrap ">
       <div class="wp">
         <div class="nav_ul ">
-          <div v-for="(opt, index) in navList" :key="index" class="li1" :class="{ active:opt.isActive }">  <p> {{ opt.title }} </p> </div>
+          <van-tabs v-model="active">
+            <van-tab v-for="(item,index) in navList" :key="index" :title="item.title">
+            </van-tab>
+          </van-tabs>
         </div>
         <div class="icon"> <van-icon name="arrow-down" /> </div>
       </div>
@@ -136,15 +139,18 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon } from 'vant'
+import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
   export default {
     components: {
         'van-swipe': Swipe,
         'van-swipe-item': SwipeItem,
-        'van-icon': Icon
+        'van-icon': Icon,
+        'van-tab': Tab,
+        'van-tabs': Tabs
     },
     data() {
       return {
+          active: 0,
           status: 'loading',
           value: '',
           navList: [
@@ -175,6 +181,7 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     methods: {
         async init() {
             try {
+                await this.getSuperMarketListData()
                 // await this.getData()
             } catch (e) {
                 this.status = 'error'
@@ -182,9 +189,8 @@ import { Swipe, SwipeItem, Icon } from 'vant'
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        async getSuperMarketListData() {
+            await this.$http.post(`product/content/list?parentId=${this.$route.query.id}`)
         }
     }
   }
@@ -291,15 +297,16 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     overflow-x: scroll;
     margin: 0 auto;
     .wp{ position: relative; overflow: hidden; }
-    .nav_ul{ width: 1000%}
+    .nav_ul{ width: 100%}
     .icon{
-      padding-left: 10px;
+      height: 100%;
+      padding-top: 12px;
+      padding-left: 1px;
       position: absolute;
-      right: 0px;
-      top: 15px;
+      right: 0;
+      top: 0;
       font-size: 20px;
-      color: #346e84;
-      background: #86c8e8;
+      background: #f7f7f7;
       z-index: 9;}
     .li1{ display: inline-block; }
     .li1.active p { background: #ffffff; color: #86c8e8; }

@@ -32,8 +32,8 @@ export const constantRoutes = [
     }
   },
   {
-    path: '/commodityLevelSec/onlinesupermarker',
-    component: () => import('@/pages/commodity-level-sec/onlinesupermarker'),
+    path: '/commodityLevelSec/onLineSuperMarket',
+    component: () => import('@/pages/commodity-level-sec/onLineSuperMarket'),
     meta: {
       keepAlive: false
     }
@@ -73,8 +73,8 @@ export const constantRoutes = [
     }
   },
   {
-    path: '/supermarketzone',
-    component: () => import('@/pages/supermarketzone'),
+    path: '/superMarketZone',
+    component: () => import('@/pages/superMarketZone'),
     meta: {
       keepAlive: false
     }
