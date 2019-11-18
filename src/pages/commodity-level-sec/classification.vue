@@ -17,65 +17,15 @@
 
         <div class="class_left l">
           <van-sidebar v-model="activeKey">
-            <van-sidebar-item v-for="(item,index) in classCategoryData" :key="index" :title="item.label" />
+            <van-sidebar-item v-for="(item,index) in classTabData" :key="index" :title="item.categoryName" @click="changeTab(index)" />
           </van-sidebar>
         </div>
-        <div v-for="(item,index) in classTabData" :key="index" class="class_right r" @click="$router.push('/user/productdetails')">
-          <div class="title"> {{ item.title }} </div>
+        <div v-for="(model,divIndex) in targetData" :key="divIndex" class="class_right r" @click="$router.push('/user/productdetails')">
+          <div class="title"> {{ model.categoryName }} </div>
           <div class="class_ul fix">
-            <div class="li">
+            <div v-for="(opt,liIndex) in model.list" :key="liIndex" class="li">
               <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-          </div>
-          <div class="title fix">
-            冬装
-            <span class="r"> 热销榜 <van-icon name="arrow" /> </span>
-          </div>
-          <div class="class_ul fix">
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-              <p> 用品 </p>
+              <p> {{ opt.categoryName }} </p>
             </div>
           </div>
         </div>
@@ -117,7 +67,8 @@
           activeKey: 0,
           concentrateData: [],
           classCategoryData: [],
-          classTabData: []
+          classTabData: [],
+          targetData: []
       }
     },
     computed: {
@@ -128,37 +79,24 @@
     methods: {
         async init() {
             try {
-                await this.getClassData()
                 await this.getclassTabData()
-                // await this.getData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getClassData() {
-            const res = await this.$http.get('manager/dictCategory/CategoryTreeData?dataLevel=1')
-            const arr = []
-            res.forEach((n, i) => {
-                arr.push({
-                    label: n.name
-                })
-            })
-            this.classCategoryData = arr
+        changeTab(index) {
+            this.targetData = this.classTabData[index].list
+            console.log(this.targetData)
         },
         async getclassTabData() {
             const res = await this.$http.post('manager/dictCategory/listByPcode', {
                 pCode: 12
             })
-            const arr = []
-            for (const i in res.data) {
-                arr.push({
-                    title: res.data[i],
-                    id: i
-                })
-            }
-            console.log(arr)
+            console.log(res)
+            this.classTabData = res.data
+            this.targetData = this.classTabData[0].list
         }
     }
   }
