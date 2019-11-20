@@ -21,7 +21,7 @@
     <div class="header_top  dan_wrap fix">
       <div class="wp">
 
-        <div class="logo"><img src="../../assets/img/getAvatar.do.jpg" alt=""> </div>
+        <div class="logo"><img :src="userInfo.userHeadimg" alt=""> </div>
         <div class="title"> {{ userInfo.nickName }} </div>
         <div class="header_ul fix">
           <div class="li l">

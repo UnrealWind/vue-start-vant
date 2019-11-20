@@ -16,6 +16,8 @@ Vue.component('Commodity', Commodity)
 
 import http from './components/http'
 Vue.use(http)
+import socket from './components/socket'
+Vue.use(socket)
 
 Vue.config.productionTip = false
 

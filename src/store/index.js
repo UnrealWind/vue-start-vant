@@ -7,7 +7,9 @@ const store = new Vuex.Store({
     targetOrder: [],
     token: null,
     coupon: {},
-    userCode: ''
+    userCode: '',
+    userType: '',
+    user: {}
   },
   getters: {
     getState: state => {
@@ -23,6 +25,12 @@ const store = new Vuex.Store({
     },
     setUserCode(state, userCode) {
       state.userCode = userCode
+    },
+    setUser(state, user) {
+      state.user = user
+    },
+    setUserType(state, userType) {
+      state.userType = userType
     },
     setTargetOrder(state, targetOrder) {
       targetOrder.forEach((n, i) => {

@@ -3,7 +3,7 @@
   <van-container :status="status" :active="'index'" :tabbar="true">
     <!--    顶部-->
     <div slot="header" class="fix">
-      <div class="hesde_l l" @click="$router.push('/static/news')">
+      <div class="hesde_l l" @click="$router.push('/user/infoList')">
         <van-icon name="chat-o" />
       </div>
       <div class="hesde_l2 l">
@@ -12,7 +12,7 @@
           <van-icon name="scan" />
         </div>
       </div>
-      <div class="hesde_l3 r" @click="$router.push('/static-dir/sort')">
+      <div class="hesde_l3 r" @click="$router.push('/commodityLevelSec/classification')">
         <van-icon name="apps-o" />
       </div>
     </div>

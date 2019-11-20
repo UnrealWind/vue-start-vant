@@ -520,8 +520,9 @@
             this.status = 'success'
         },
         async getData() {
+            const id = this.getQueryString(window.location.href, 'id')
             const res = await this.$http.post('product/goods/orderDetail', {
-                id: 138
+                id: id
             })
             this.good = res.data
 
@@ -599,6 +600,12 @@
                     })
                 })
             })
+        },
+        getQueryString(url, name) {
+            const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+            if (!url.split('?')[1]) return null
+            const r = url.split('?')[1].match(reg)
+            if (r != null) return decodeURI(r[2]); return null
         },
         showPopup() {
             this.show = true

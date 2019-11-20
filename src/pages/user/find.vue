@@ -17,10 +17,10 @@
 
       <div v-for="(opt,index) in findList" :key="index" class="store">
         <div class="wp">
-          <div class="img" @click="$router.push('/user/myshop')"><img src="../../assets/img/logo.jpg" alt=""> </div>
+          <div class="img" @click="$router.push('/user/myshop')"><img :src="opt.userImage" alt=""> </div>
 
           <div class="con-Title fix">
-            <div class="l" @click="$router.push('/user/myshop')"> 四叶草2号店 </div>
+            <div class="l" @click="$router.push('/user/myshop')"> {{ opt.nickName }} </div>
             <div class="r">
               <span> 加关注 </span>
               <van-icon name="cross" />
@@ -46,103 +46,56 @@
                 <div class="money"> ￥998.88 </div>
               </div>
             </div>
-
             <div class="comm_r r">
               查看详情
             </div>
-
           </div>
-
           <div class="comm-share fix">
             <div class="share_l l">
               <span>13</span> 人已分享
             </div>
             <div class="share_r r">
-              <span> <van-icon name="chat-o" /> </span>
+              <span @click="addComment(opt)"> <van-icon name="chat-o" /> </span>
               <span> <van-icon name="upgrade" /> </span>
-              <span> <van-icon name="like-o" /> </span>
+              <span>
+                <span v-if="!opt.thumb" @click="addThumb(opt)"> <van-icon name="like-o" /> </span>
+                <span v-else @click="addThumb(opt)"> <van-icon name="like" :color="'#F44336'" /> </span>
+              </span>
             </div>
           </div>
-          <!--<div class="comm-message">
-
-            <div class="mess_title">  <strong> 小丫： </strong> 哎呦！不错呦  </div>
-            <div class="mess_title">  <strong> 小黄： </strong> 我稀罕的狠呀！  </div>
-            <div class="mess_title">  <div is-link @click="showPopup">  <strong> 查看全部<i>4</i>条回复 </strong>   </div>  </div>
-            <van-popup
-              v-model="show"
-              closeable
-              round
-              position="bottom"
-              style="height: 50%"
-            >
-
-              <div class="mess-comment fix">
-
-                <div class="title"> 评论 <span>4 条 </span>  </div>
-
+          <van-cell-group v-if="opt.showAddComment">
+            <div class="comment">
+              <input
+                :ref="`input${opt.id}`"
+                v-model="opt.comment"
+                label="评论"
+                placeholder="请输入评论"
+              >
+              <van-button slot="button" size="small" type="primary" @click="sendComment(opt)">发送</van-button>
+            </div>
+          </van-cell-group>
+          <div class="comm-message">
+            <!--<div class="mess_title">  <strong> 小丫： </strong> 哎呦！不错呦  </div>
+            <div class="mess_title">  <strong> 小黄： </strong> 我稀罕的狠呀！  </div>-->
+            <div class="mess_title">
+              <div v-if="opt.commentNum !== 0" is-link @click="showPopup(opt)">
+                <strong> 查看全部<i>{{ opt.commentNum }}</i>条回复 </strong>
+              </div>
+              <div v-else>
+                <strong> 暂无评论 ！</strong>
+              </div>
+            </div>
+            <div v-if="opt.showCom">
+              <div v-for="(com,idx) in opt.comList" :key="idx" class="mess-comment fix">
                 <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
+                  <div class="img"><img :src="com.userImage" alt=""> </div>
                   <div class="mess-Title fix">
                     <div class="l">
                       <div class="title_min">
-                        <strong> 小丫： </strong> <div class="time"> 10-28 </div>
+                        <strong> {{ com.nickName }}： </strong> <div class="time"> {{ com.createTimes }} </div>
                       </div>
                       <div class="title_cont">
-                        哎呦！不错呦
-                      </div>
-                    </div>
-                    <div class="r">
-                      <span> 赞 </span>
-                      <van-icon name="like" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-                  <div class="mess-Title fix">
-                    <div class="l">
-                      <div class="title_min">
-                        <strong> 小黄： </strong> <div class="time"> 10-28 </div>
-                      </div>
-                      <div class="title_cont">
-                        我稀罕的狠呀！
-                      </div>
-                    </div>
-                    <div class="r">
-                      <span> 赞 </span>
-                      <van-icon name="like" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-                  <div class="mess-Title fix">
-                    <div class="l">
-                      <div class="title_min">
-                        <strong> 小丫： </strong> <div class="time"> 10-28 </div>
-                      </div>
-                      <div class="title_cont">
-                        哎呦！不错呦
-                      </div>
-                    </div>
-                    <div class="r">
-                      <span> 赞 </span>
-                      <van-icon name="like" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mess_conent">
-                  <div class="img"><img src="../../assets/img/logo.jpg" alt=""> </div>
-                  <div class="mess-Title fix">
-                    <div class="l">
-                      <div class="title_min">
-                        <strong> 小黄： </strong> <div class="time"> 10-28 </div>
-                      </div>
-                      <div class="title_cont">
-                        我稀罕的狠呀！
+                        {{ com.content }}
                       </div>
                     </div>
                     <div class="r">
@@ -152,28 +105,29 @@
                   </div>
                 </div>
               </div>
-            </van-popup>
-          </div>-->
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-  </van-container>
+    </div></van-container>
 </template>
 
 <script>
-  import { Icon } from 'vant'
+  import { Icon, CellGroup, Button } from 'vant'
 
   export default {
     components: {
-        'van-icon': Icon
+        'van-icon': Icon,
+        'van-cell-group': CellGroup,
+        'van-button': Button
     },
     data() {
       return {
           status: 'loading',
           value: '',
-          show: false,
-          findList: []
+          findList: [],
+          comment: ''
       }
     },
     computed: {
@@ -184,7 +138,6 @@
     methods: {
         async init() {
             try {
-                // await this.postFindData()
                 await this.getFindData()
             } catch (e) {
                 this.status = 'error'
@@ -197,29 +150,71 @@
                 pageNum: 0,
                 pageSize: 10
             })
-            if (res.rows.imgUrl) {
-                res.rows.imgUrl = JSON.parse(res.rows.imgUrl)
-            }
+            res.rows.forEach((n, i) => {
+                if (n.imgUrl) {
+                    n.imgUrl = JSON.parse(n.imgUrl)
+                }
+                n['showCom'] = false
+                n['showAddComment'] = false
+                n['comment'] = ''
+            })
+
             this.findList = res.rows
         },
-        async postFindData() {
-            const res = await this.$http.post('product/discover/add', {
-                text: 'tetetete'
+        async sendComment(opt) {
+            const res = await this.$http.post('product/discover/addComment', {
+                discoverId: opt.id,
+                content: opt.comment
             })
             console.log(res)
+            await this.getFindData()
+        },
+        async addThumb(opt) {
+            const res = await this.$http.post('product/discover/addThumb', {
+                discoverId: opt.id
+            })
+            opt.thumb = !opt.thumb
+            console.log(res)
+        },
+        async addComment(opt) {
+            opt['showAddComment'] = !opt['showAddComment']
+            setTimeout(() => {
+                if (opt['showAddComment']) {
+                    const ref = `input${opt.id}`
+                    this.$refs[ref][0].focus()
+                }
+            }, 0)
         },
         addFind() {
             this.$router.push('/user/addFind')
         },
-        showPopup() {
-            this.show = true
+        async showPopup(opt) {
+            if (!opt['showCom']) {
+                const res = await this.$http.post('product/discover/queryComment', {
+                    discoverId: opt.id,
+                    pageSize: 100,
+                    pageNum: 0
+                })
+                opt['comList'] = res.rows
+            }
+            opt['showCom'] = !opt['showCom']
         }
     }
   }
 
 </script>
 <style lang='scss' scoped>
-
+  .comment {
+    padding: 10px;
+    input {
+      border:0;
+      height:20px;
+      line-height: 20px;
+      padding: 0 10px;
+      width:70%;
+      margin-right: 20px;
+    }
+  }
   h1 {
     background: red;
     width: 375px;

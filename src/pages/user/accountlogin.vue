@@ -96,8 +96,11 @@
                     Toast('用户名或密码不能为空，请重新登陆')
                     return false
                 }
-                console.log(res)
                 this.$store.commit('setUserCode', res.data.userCode)
+                this.$store.commit('setUserType', res.data.userType)
+
+                // fydebug 最初设计的时候上面的code和type都不要，只需要用token就能够确认用户，现在搞得啥信息都要传递了，干脆一起存在store里
+                this.$store.commit('setUser', res.data)
                 this.$router.push('/')
             }
         }

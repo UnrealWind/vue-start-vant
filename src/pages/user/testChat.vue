@@ -47,7 +47,7 @@
               </view>
             </view>
             <view class="right">
-              <image :src="thisUserEntiry.attr.userHeadimg"></image>
+              <image :src="thisUserEntity.attr.userHeadimg"></image>
             </view>
           </view>
           <!-- 别人发出的消息 -->
@@ -90,6 +90,9 @@
         <div class="li">
           <image src="../../static/img/tabBar/photo3.png" mode=""></image>
           上传文件
+          <div class="upload">
+            <view ref="input" class="input"></view>
+          </div>
         </div>
       </div>
     </view>
@@ -167,7 +170,7 @@
                 // 录音相关参数
                 // #ifndef H5
                 // H5不能录音
-                // RECORDER: uni.getRecorderManager(),
+                RECORDER: uni.getRecorderManager(),
                 // #endif
                 isVoice: false,
                 voiceTis: '按住 说话',
@@ -178,7 +181,7 @@
                 recordTimer: null,
                 recordLength: 0,
                 // 播放语音相关参数
-                // AUDIO: uni.createInnerAudioContext(),
+                AUDIO: uni.createInnerAudioContext(),
                 playMsgid: null,
                 VoiceTimer: null,
                 // 是否显示抽屉菜单
@@ -197,7 +200,7 @@
                     'userCode': '1',
                     'userType': 1
                 },
-                thisUserEntiry: {
+                thisUserEntity: {
                     'attr': {
                         'headImg': '/static/img/face.jpg',
                         'nickName': 'gss'
@@ -235,10 +238,11 @@
             }
         },
         onLoad(option) {
+            this.getUserInfo()
             // 初始化socket
             this.initSocket()
 
-            this.getMsgList()
+            // this.getMsgList();
             // 语音自然播放结束
             this.AUDIO.onEnded((res) => {
                 this.playMsgid = null
@@ -254,10 +258,27 @@
             })
             // #endif
         },
+        onShow() {
+            this.getUserInfo()
+        },
+        // 上传文件
+        mounted() {
+            var input = document.createElement('input')
+            input.type = 'file'
+            input.onchange = (event) => {
+                console.log(event)
+            }
+            this.$refs.input.$el.appendChild(input)
+        },
         onPullDownRefresh() {
             // 获取更多历史记录
             var that = this
-            that.pageNum = that.pageNum + 1
+            if (that.params.pages < that.params.pageNum) {
+                uni.stopPullDownRefresh()
+                return
+            }
+            that.params.pageNum = that.params.pageNum + 1
+
             that.sendSocketMessage({
                 pageNum: that.params.pageNum,
                 pageSize: that.params.pageSize,
@@ -268,11 +289,31 @@
             uni.stopPullDownRefresh()
         },
         methods: {
+            getUserInfo() {
+                // 获取登录用户
+                var userInfo = uni.getStorageSync('userInfo')
+                if (userInfo == '') {
+                    uni.navigateTo({
+                        url: '/pages/login/login'
+                    })
+                    return
+                }
+                userInfo = JSON.parse(userInfo)
+                var userEntity = {}
+                var attr = {}
+                attr.headImg = userInfo.userHeadimg
+                attr.nickName = userInfo.nickName
+                userEntity.attr = attr
+                userEntity.userType = 0
+                userEntity.userCode = userInfo.userCode
+                userEntity.osType = 0
+                this.thisUserEntity = userEntity
+            },
             initSocket() {
                 var that = this
                 // 连接socket
                 uni.connectSocket({
-                    url: 'ws://192.168.1.2:8888/imServer.do?userCode=17342062324&userType=0&osType=0',
+                    url: 'ws://192.168.1.2:8888/imServer.do?userCode=' + that.thisUserEntity.userCode + '&userType=' + that.thisUserEntity.userType + '&osType=' + that.thisUserEntity.osType,
                     protocols: [],
                     method: 'GET',
                     success: function(res) {
@@ -398,12 +439,12 @@
             sendPageMsg(contentType, content, align, time) {
                 var that = this
                 that.msgList.push({ align: align, type: contentType, time: time, msg: { content: content }})
-                that.nextTick()
+                that.nextTick(1)
             },
             // 滚动到底部
-            nextTick() {
+            nextTick(length) {
                 this.$nextTick(function() {
-                    this.scrollTop = this.scrollTop + 100
+                    this.scrollTop = Number(this.scrollTop) + parseInt(200 * length)
                     this.scrollAnimation = true
                 })
             },
@@ -472,10 +513,19 @@
                     msgs.push(m)
                 }
                 msgs.reverse()
-                that.msgList = that.msgList.concat(msgs)
+                that.msgList = msgs.concat(that.msgList)
 
-                that.sendSystemMsg('text', '客服 : ' + that.otherUserEntity.attr.nickName + ' 为您服务')
-                that.sendOtherMsg('text', '您好!有什么可以帮助到您', that.getTime(3))
+                if (that.params.pageNum <= 1) {
+                    that.sendSystemMsg('text', '客服 : ' + that.otherUserEntity.attr.nickName + ' 为您服务')
+                    that.sendOtherMsg('text', '您好!有什么可以帮助到您', that.getTime(3))
+                }
+
+                // 已读消息
+                that.sendSocketMessage({
+                    msgType: 4,
+                    sendUserCode: that.otherUserEntity.userCode,
+                    sendUserType: that.otherUserEntity.userType
+                })
             },
             // 接受消息(筛选处理)
             screenMsg(msg) {
@@ -750,6 +800,14 @@
             uploadFile(file, callback) {
                 callback('/static/img/goods/p10.jpg')
             },
+// 			upload(){
+// 				let that = this;
+// 				uni.chooseImage({
+// 					success: (chooseImageRes) => {
+// 				  debugger
+// 					}
+// 				});
+// 			},
             getTime: function(type) {
                 const date = new Date()
                     let currentDate
@@ -881,13 +939,13 @@
     &.hideEmoji{animation: hideEM .15s linear both;}
     &.showEmoji{animation: showEM .15s linear both;}
     width: 96%;
-    height: 42vw;
+    height: 142vw;
     padding: 20upx 2%;
     background-color: #f3f3f3;
     border-top: solid 1upx #ddd;
     position: fixed;
     z-index: 20;
-    top: 100%;
+    top: 92%;
     .swiper{
       swiper-item{
         display: flex;
@@ -1366,6 +1424,20 @@
       width: 40px;
       height: 40px;
       margin: 0 auto 10px;
+    }
+  }
+
+  .upload{
+    opacity: 0;
+    position: relative;
+    top: -68px;
+    height: 71px;
+    .input{
+      height: 71px;
+    }
+    input{
+      display: block;
+      height: 71px;
     }
   }
 
