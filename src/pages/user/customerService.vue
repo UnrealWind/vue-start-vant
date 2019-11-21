@@ -48,7 +48,10 @@
               {{ $route.query.attr.nickName }}
             </div>
             <div class="question">
-              {{ opt.content }}
+              <span v-if="opt.contentType === 'text'">{{ opt.content }}</span>
+              <span v-if="opt.contentType === 'img'" class="content-img-box">
+                <img :src="opt.content">
+              </span>
             </div>
           </div>
 
@@ -57,7 +60,10 @@
               {{ $store.state.user.nickName }}
             </div>
             <div class="answer">
-              {{ opt.content }}
+              <span v-if="opt.contentType === 'text'">{{ opt.content }}</span>
+              <span v-if="opt.contentType === 'img'" class="content-img-box">
+                <img :src="opt.content">
+              </span>
             </div>
           </div>
         </div>
@@ -80,7 +86,6 @@
                 type="textarea"
                 placeholder="请输入您想咨询的问题"
                 @focus="focusInput"
-                @blur="blurInput"
               />
             </van-cell-group>
           </div>
@@ -152,9 +157,12 @@
             this.reData = reData
 
             if (reData.msgType === 2) {
+                let contentType = 'text'
+                if (reData.objData.object.contentType === 2) contentType = 'img'
                 this.chatData.push({
                     content: this.reData.objData.object.content,
-                    type: 'other'
+                    type: 'other',
+                    contentType: contentType
                 })
             }
         },
@@ -168,7 +176,8 @@
             this.blurInput()
             this.chatData.push({
                 content: this.message,
-                type: 'mine'
+                type: 'mine',
+                contentType: 'text'
             })
             this.$socket.sendMsg({
                 msgType: 2,
@@ -194,7 +203,18 @@
                 data: formdata
                 // dataType: 'json'
             })
-            console.log(res)
+            this.chatData.push({
+                content: res.url,
+                type: 'mine',
+                contentType: 'img'
+            })
+            this.$socket.sendMsg({
+                msgType: 2,
+                receiveUserType: this.$route.query.userType,
+                receiveUserCode: this.$route.query.userCode,
+                content: res.url,
+                contentType: 2 // 0 文本 1 表情 2 图片 3 视频 4 音乐 5 文件 6富文本
+            })
         }
   }
 }
@@ -256,7 +276,7 @@
   }
   .position-button {
     position: absolute;
-    right: 0;
+    right: 40px;
     top:9px;
     z-index: 2;
   }
@@ -360,7 +380,7 @@
 
     .footerLeft{
       display: inline-block;
-      width: 75%;
+      width: 68%;
       box-sizing: border-box;
       background: #f3f3f3;
       border-radius: 50px;
@@ -421,6 +441,13 @@
       text-align: center;
       font-size: 24px;
       margin-bottom: 5px;
+    }
+  }
+  .content-img-box {
+    display: inline-block;
+    max-width:300px;
+    img{
+      width:100%;
     }
   }
 
