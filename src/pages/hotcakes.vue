@@ -129,7 +129,6 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
                     key: i
                 })
             }
-            console.log(arr)
             this.navList = arr
         },
         changeTab(idx, title) {
@@ -139,14 +138,15 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
         async getHotTabListData(category) {
             if (!category) category = this.navList[0].key
             const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+            console.log(res)
             const arr = []
             res.data.forEach((n, i) => {
                 arr.push({
                     type: 'list-hot',
-                    img: require('../assets/css/static/images/a24.jpg'),
-                    discribe: '【三段有效期至 2019-01-01】，爱尔兰原装罐装奶粉，贼好喝。后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述后面都是奶粉描述',
-                    title: n.categoryName,
-                    hotPrice: '1200',
+                    image: n.goodsStatics[i].url,
+                    discribe: n.goodsProfile,
+                    title: n.goodsName,
+                    hotPrice: n.linePrice,
                     hotPriceDiscribe: '￥',
                     btnGo: `/user/productdetails?id=${n.id}`,
                     popularity: '人气2.2w',

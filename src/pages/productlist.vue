@@ -12,101 +12,34 @@
     <div class="nav_box dan_wrap fix">
       <div class="wp">
         <div class="nav_ul">
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!--          <div class="li" @click="$router.push('/user/productdetails')">-->
+          <!--            <div class="wrap fix">-->
+          <!--              <div class="nav_l l">-->
+          <!--                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>-->
+          <!--              </div>-->
+          <!--              <div class="nav_r r">-->
+          <!--                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>-->
+          <!--                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>-->
+          <!--                <div class="botom fix">-->
+          <!--                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>-->
+          <!--                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
 
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="li" @click="$router.push('/user/productdetails')">
-            <div class="wrap fix">
-              <div class="nav_l l">
-                <a href="" class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>
-              </div>
-              <div class="nav_r r">
-                <a href="" class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>
-                <a href="" class="titlemin"> 直降30元护肤必备小棕瓶</a>
-                <div class="botom fix">
-                  <a href="" class="price l"> ￥439 <span> ￥660 </span> </a>
-                  <a href="" class="car r"> <van-icon name="cart-o" /> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <commodity
+            v-for="(commodity,index) in concentrateData"
+            :key="`${commodity.type}-${index}`"
+            :type="commodity.type"
+            :image="commodity.image"
+            :discribe="commodity.discribe"
+            :title="commodity.title"
+            :concentrate-price="commodity.concentratePrice"
+            :concentrate-price-discribe="commodity.concentratePriceDiscribe"
+            :btn-go="commodity.btnGo"
+          >
+          </commodity>
         </div>
       </div>
 
@@ -122,7 +55,8 @@ import { Icon } from 'vant'
     data() {
       return {
           status: 'loading',
-          value: ''
+          value: '',
+          concentrateData: []
       }
     },
     computed: {
@@ -133,22 +67,44 @@ import { Icon } from 'vant'
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getIndexData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async getIndexData() {
+            const res = await this.$http.post('product/activity/activityGoodsList', {
+                activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
+            })
             console.log(res)
+            const arr = []
+            if (res.data) {
+                res.data.forEach((n, i) => {
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            'type': 'list-concentrate',
+                            'image': good.goodsStatics[i].url,
+                            'discribe': good.goodsProfile,
+                            'title': good.goodsName,
+                            'concentratePriceDiscribe': '新品福利￥',
+                            'concentratePrice': '1200',
+                            'btnGo': `/user/productdetails?id=${good.id}`
+                        })
+                    })
+                })
+            }
+            this.concentrateData = arr
         }
     }
   }
 
 </script>
 <style lang='scss' scoped>
+  .container{
+    margin-bottom: 10px;
+  }
   h1 {
     background: red;
     width: 375px;

@@ -14,13 +14,15 @@
       <van-swipe-item> <img src="../assets/img/supermarket.png" alt=""></van-swipe-item>
     </van-swipe>
 
-    <div class="nav_box5 dan_wrap ">
-      <div class="wp">
-        <div class="nav_ul ">
-          <div v-for="(opt, index) in navList" :key="index" class="li1" :class="{ active:opt.isActive }">  <p> {{ opt.title }} </p> </div>
-        </div>
-      </div>
-    </div>
+    <!--    <div class="nav_box5 dan_wrap ">-->
+    <!--      <div class="wp">-->
+    <!--        <div class="nav_ul ">-->
+    <!--          <div v-for="(opt, index) in navList" :key="index" class="li1" :class=" isActive==index? 'active': '' " @click="changeTab(index)">-->
+    <!--            <p> {{ opt.title }} </p>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="nav_box dan_wrap ">
       <div class="wp">
         <div class="nav_ul ">
@@ -31,7 +33,7 @@
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div v-for="(rebate,index) in rebateData" :key="`${rebate.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
+        <div v-for="(rebate,index) in rebateData" :key="`${rebate.type}-${index}`" class="navdan_box4">
           <commodity
             :type="rebate.type"
             :image="rebate.image"
@@ -60,45 +62,24 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     data() {
       return {
           status: 'loading',
-          rebateData: [
-              {
-                  'type': 'list-rebate',
-                  'title': '宅一起干湿两用毛巾 20条装',
-                  'rebatePrice': {
-                      'current': '19.9',
-                      'pre': '39.9'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/rebate.jpg'),
-                  'imageRebateLine': require('assets/img/rebate1.jpg'),
-                  'imageRebate': require('assets/img/rebate2.jpg')
-              },
-              {
-                  'type': 'list-rebate',
-                  'title': '宅一起干湿两用毛巾 20条装',
-                  'rebatePrice': {
-                      'current': '19.9',
-                      'pre': '39.9'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/rebate.jpg'),
-                  'imageRebateLine': require('assets/img/rebate1.jpg'),
-                  'imageRebate': require('assets/img/rebate2.jpg')
-              }
-          ],
+          rebateData: [],
+          isActive: '',
           navList: [
               {
                   title: '疯抢五折好货',
-                  isActive: true
+                  id: 1
               },
               {
-                  title: '超级爆款'
+                  title: '超级爆款',
+                  id: 2
               },
               {
-                  title: '精选大牌'
+                  title: '精选大牌',
+                  id: 3
               },
               {
-                  title: '返回超市'
+                  title: '返回超市',
+                  id: 4
               }
           ]
       }
@@ -111,16 +92,41 @@ import { Swipe, SwipeItem, Icon } from 'vant'
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
+        changeTab(index) {
+            this.isActive = index
+        },
+        // tab栏下商品
         async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+            const res = await this.$http.post('product/activity/activityGoodsList', {
+                activityCode: '42e3d8dad21b433cbaf85019214694fc'
+            })
+            const arr = []
+            if (res.data) {
+                res.data.forEach((n, i) => {
+                    n.goods.forEach((good, i) => {
+                        arr.push({
+                            type: 'list-rebate',
+                            rebatePrice: {
+                                current: '119.9',
+                                pre: '329.9'
+                            },
+                            title: good.goodsName,
+                            btnGo: `/user/productdetails?id=${good.id}`,
+                            image: require('assets/img/rebate.jpg'),
+                            imageRebateLine: require('assets/img/rebate1.jpg'),
+                            imageRebate: require('assets/img/rebate2.jpg')
+                        })
+                    })
+                })
+            }
+            this.rebateData = arr
         }
     }
   }

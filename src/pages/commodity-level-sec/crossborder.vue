@@ -65,10 +65,12 @@
         <ul class="commodityLits flex_wrap">
           <li v-for="(item,index) in crossBorderRobData" :key="index">
             <a @click="$router.push({path:item.path,query:{id:item.id}})">
-              <img :src="item.image" alt="">
+              <div>
+                <img :src="item.image" alt="">
+              </div>
               <p class="title">{{ item.title }}</p>
               <p class="money flex_betweenc"><span>¥{{ item.current }}</span> <samp>赚{{ item.gain }}</samp></p>
-              <span class="pop1">直降20元</span><span class="pop2">爆款</span>
+              <span class="pop1">降价40</span><span class="pop2">爆款</span>
             </a>
           </li>
         </ul>
@@ -84,11 +86,11 @@
         </div>
         <ul class="bangdanBox flex_betweenc mt3">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="li1">
-            <p class="imgBox flex_center"><a @click="$router.push('/productlistmin')"> <img
+            <p class="imgBox flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})"> <img
               :src="item.img"
               alt=""
             > </a></p>
-            <p class="text"><a @click="$router.push('/productlistmin')">{{ item.title }}</a></p>
+            <p class="text"><a @click="$router.push({path:'/productlistmin',query:{id:item.id}})">{{ item.title }}</a></p>
           </li>
         </ul>
         <ul class="bangdan2 flex_betweenc">
@@ -194,13 +196,8 @@
                 crossBorderNavData: [],
                 // 今日必抢
                 crossBorderRobData: [],
-                crossBorderHotListData: [
-                    {
-                        img: require('../../assets/css/static/images/kj1 (5).png'),
-                        title: '人气面膜榜',
-                        path: '/productlistmin'
-                    }
-                ],
+                // 热门榜单
+                crossBorderHotListData: [],
                 // 今日推荐
                 crossBorderProductListData: [],
                 crossBorderBrandData: [],
@@ -211,7 +208,8 @@
                     }
                 ],
                 // 种草推荐
-                crossBorderRecommendData: []
+                crossBorderRecommendData: [],
+                sonData: []
             }
         },
         computed: {},
@@ -245,24 +243,28 @@
             async getBannerData() {
                 const res = await this.$http.post(`product/banner/list?showFlag=2`)
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.url
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            img: n.url
+                        })
                     })
-                })
+                }
                 this.bannerData = arr
             },
             // 导航nav
             async getCrossBorderNavData() {
                 const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.logo,
-                        title: n.name,
-                        path: n.url
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            img: n.logo,
+                            title: n.name,
+                            path: n.url
+                        })
                     })
-                })
+                }
                 this.crossBorderNavData = arr
             },
             // 今日必抢
@@ -271,18 +273,20 @@
                     activityCode: '1047f6936fb144e49c356e730a9b9cbd'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            title: good.categoryName,
-                            image: require('../../assets/css/static/images/kj1 (1).png'),
-                            current: good.linePrice,
-                            gain: 10,
-                            path: '/user/productdetails',
-                            id: good.id
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                title: good.goodsName,
+                                image: good.goodsStatics[i].url,
+                                current: good.showPrice,
+                                gain: 10,
+                                path: '/user/productdetails',
+                                id: good.id
+                            })
                         })
                     })
-                })
+                }
                 this.crossBorderRobData = arr
             },
             // 种草推荐
@@ -291,18 +295,19 @@
                     activityCode: '7e774262cd3b4bcaacd1cf9db4487fd4'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            image: require('../../assets/css/static/images/a8.jpg'),
-                            title: good.categoryName,
-                            intro: '兰蔻1935年诞生于法国,凭借着凭借着凭借着凭借着对香水的天才敏感嗅觉、执着不懈的冒险精神',
-                            path: '/shoppingcart',
-                            people: '1512'
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                image: require('../../assets/css/static/images/a8.jpg'),
+                                title: good.goodsName,
+                                intro: n.goodsProfile,
+                                path: '/shoppingcart',
+                                people: '1512'
+                            })
                         })
                     })
-                })
-                console.log(arr)
+                }
                 this.crossBorderRecommendData = arr
             },
             // 今日推荐
@@ -311,18 +316,20 @@
                     activityCode: '5670925cb2b84399961c9a15a3bb4cd4'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            image: require('../../assets/css/static/images/a6.jpg'),
-                            title: good.categoryName,
-                            current: good.linePrice, // 现价
-                            pre: 134, // 原价
-                            path: '/user/productdetails',
-                            id: good.id
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                image: good.goodsStatics[i].url,
+                                title: good.goodsName,
+                                current: good.showPrice, // 现价
+                                pre: good.linePrice, // 原价
+                                path: '/user/productdetails',
+                                id: good.id
+                            })
                         })
                     })
-                })
+                }
                 this.crossBorderProductListData = arr
             },
             // 热门榜单
@@ -331,29 +338,32 @@
                     activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
+                if (res.data) {
+                    res.data.forEach((n, i) => {
                         arr.push({
-                            image: require('../../assets/css/static/images/kj1 (5).png'),
-                            title: good.categoryName
+                            title: n.actDetailName,
+                            path: `/productlistmin`,
+                            id: n.id
                         })
                     })
-                })
+                }
                 this.crossBorderHotListData = arr
             },
             // 品牌列表
             async getBrandListData() {
                const res = await this.$http.post('product/goodsBrand/list', {
-                   pageNum: 0,
-                   pageSize: 10
+                   pageNum: 1,
+                   pageSize: 6
                })
                 const arr = []
-                res.rows.forEach((n, i) => {
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
                         arr.push({
                             image: n.logo,
                             title: n.content
                         })
-                })
+                    })
+                }
                 this.crossBorderBrandData = arr
             }
         }
@@ -361,7 +371,6 @@
 
 </script>
 <style lang='scss' scoped>
-
   .fix {
     background-color: #ac45f8;
     height: 37.5px;

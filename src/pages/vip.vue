@@ -62,13 +62,13 @@
     <div class=" dan_wrap fix">
       <div class="wp">
         <div
-          v-for="(vip,index) in vipDataMin"
-          :key="`${vip.type}-${index}`"
           class="navdan_box4"
           @click="$router.push({path:vip.path,query:{id:vip.id}})"
         >
 
           <commodity
+            v-for="(vip,index) in vipDataMin"
+            :key="`${vip.type}-${index}`"
             :type="vip.type"
             :image="vip.image"
             :discribe="vip.discribe"
@@ -124,25 +124,22 @@
                 const res = await this.$http.post(`product/activity/activityGoodsList`, {
                     activityCode: 'b1f034550b31468c93dec8535a3dc1aa'
                 })
+                console.log(res)
                 const arr = []
                 res.data.forEach((n, i) => {
-                    arr.push({
-                        discribe: n.actDetailName
-                    })
                     n.goods.forEach((good, i) => {
                         arr.push({
                             type: 'list-vip',
-                            image: good.mainImg,
-                            title: good.goodsProfile,
+                            image: good.goodsStatics[i].url,
+                            title: good.goodsName,
+                            discribe: good.goodsProfile,
                             vipPrice: {
-                                'pre': 508
+                                current: good.linePrice,
+                                pre: '508'
                             },
-                            vipPriceDiscribe: {
-                                'type': '111已告罄'
-                            },
-                            'btnGo': '/user/productdetails',
-                            id: good.id,
-                            path: '/user/productdetails'
+                            vipPriceDiscribe: {},
+                            btnGo: '/user/productdetails',
+                            id: good.id
                         })
                     })
                 })
@@ -161,15 +158,16 @@
                     n.goods.forEach((good, i) => {
                         arr.push({
                             type: 'list-vip',
-                            image: good.mainImg,
+                            image: good.goodsStatics[i].url,
                             title: good.goodsProfile,
                             vipPrice: {
-                                'pre': 300
+                                current: good.linePrice,
+                                pre: '300'
                             },
                             vipPriceDiscribe: {
-                                'type': '已告罄'
+                                type: '已告罄'
                             },
-                            'btnGo': '/user/productdetails',
+                            btnGo: '/user/productdetails',
                             id: good.id,
                             path: '/user/productdetails'
                         })

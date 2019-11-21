@@ -203,13 +203,15 @@
                 const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {
                 })
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.logo,
-                        name: n.name,
-                        path: n.url
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            img: n.logo,
+                            name: n.name,
+                            path: n.url
+                        })
                     })
-                })
+                }
                 this.mallNavData = arr
             },
             // 店铺查询
@@ -218,14 +220,17 @@
                     pageNum: 0,
                     pageSize: 3
                 })
+                console.log(res)
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        title: n.shopName,
-                        img: require('../../assets/css/static/images/a4.jpg'),
-                        discounts: n.address
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            title: n.shopName,
+                            img: n.mainImg,
+                            discounts: n.address
+                        })
                     })
-                })
+                }
                 this.mallShopsData = arr
             },
             // tab栏
@@ -248,31 +253,35 @@
                 if (!category) category = this.mallTabData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
-                res.data.forEach((n, i) => {
-                    arr.push({
-                        path: `/user/productdetails?id=${n.id}`,
-                        title: n.categoryName,
-                        img: require('../../assets/css/static/images/a24.jpg'),
-                        id: n.id,
-                        current: 30,
-                        pre: 80
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        arr.push({
+                            path: `/user/productdetails?id=${n.id}`,
+                            title: n.categoryName,
+                            img: n.goodsStatics[i].url,
+                            id: n.id,
+                            current: n.showPrice,
+                            pre: n.linePrice
+                        })
                     })
-                })
+                }
                 this.mallProductListData = arr
             },
             // 品牌
             async getBrandListData() {
                 const res = await this.$http.post('product/goodsBrand/list', {
-                    pageNum: 0,
-                    pageSize: 10
+                    pageNum: 1,
+                    pageSize: 6
                 })
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        image: n.logo,
-                        title: n.content
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            image: n.logo,
+                            title: n.content
+                        })
                     })
-                })
+                }
                 this.mallBrandData = arr
             }
         }

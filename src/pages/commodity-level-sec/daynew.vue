@@ -156,16 +156,19 @@
                     pageSize: 2,
                     pageNum: 0
                 })
+                console.log(res)
                 const arr = []
+                if (res.rows) {
                     res.rows.forEach((n, i) => {
                         arr.push({
                             store: n.goodsName,
-                            discounts: n.goodsDesc,
-                            img: require('../../assets/css/static/images/a22.jpg'),
+                            discounts: n.goodsProfile,
+                            img: n.mainImg,
                             path: '/user/productdetails',
                             id: n.id
                         })
                     })
+                }
                     this.dayNewChoicenessData = arr
                 },
             // tab栏
@@ -178,7 +181,6 @@
                         key: i
                     })
                 }
-                console.log(arr)
                 this.dayNewTabData = arr
             },
             changeTab(idx, title) {
@@ -189,18 +191,18 @@
                 if (!category) category = this.dayNewTabData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
-                console.log(res)
-                res.data.forEach((n, i) => {
-                    arr.push({
-                        path: '/user/productdetails',
-                        title: n.categoryName,
-                        img: require('../../assets/css/static/images/a24.jpg'),
-                        id: n.id,
-                        current: 30,
-                        pre: 80
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        arr.push({
+                            path: '/user/productdetails',
+                            title: n.goodsName,
+                            img: n.goodsStatics[i].url,
+                            id: n.id,
+                            current: n.showPrice,
+                            pre: n.linePrice
+                        })
                     })
-                })
-                console.log(arr)
+                }
                 this.dayNewProductListData = arr
             }
         }

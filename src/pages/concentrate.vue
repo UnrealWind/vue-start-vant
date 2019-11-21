@@ -21,27 +21,27 @@
     <div class="nav_box dan_wrap fix">
       <div class="wp">
         <div class="nav3_l l">
-          <a href="" class="img" @click="$router.push('/bookinginformation')"> <img src="../assets/img/jiangtu1.png" alt="">  </a>
+          <a class="img" @click="$router.push('/pages/bookinginformation')"> <img src="../assets/img/jiangtu1.png" alt="">  </a>
         </div>
         <div class="nav3_l r">
-          <a href="" class="img" @click="$router.push('/trialcenter')"> <img src="../assets/img/jiangtu12.png" alt="">  </a>
+          <a class="img" @click="$router.push('/pages/trialcenter')"> <img src="../assets/img/jiangtu12.png" alt="">  </a>
         </div>
       </div>
     </div>
 
     <div class="nav_box2 dan_wrap fix">
       <div class="wp">
-        <a href="" class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/jiangtu13.png" alt="">  </a>
+        <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/jiangtu13.png" alt="">  </a>
       </div>
     </div>
-
+    <!--超人气新品-->
     <div class="nav_box3 dan_wrap fix">
       <div class="wp">
         <div class="title"> 超人气新品 <span> 必买新品限时优惠 </span> </div>
       </div>
     </div>
 
-    <div class="nav_box4 dan_wrap fix" @click="$router.push('/user/productdetails')">
+    <div class="nav_box4 dan_wrap fix">
       <div class="wp">
         <div v-for="(commodity,index) in concentrateData" :key="`${commodity.type}-${index}`" class="nav_li">
           <commodity
@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-
+    <!--大牌上新-->
     <div class="nav_box3 dan_wrap fix">
       <div class="wp">
         <div class="title"> 大牌上新 <span> 你爱的大牌上新了 </span> </div>
@@ -67,40 +67,35 @@
     <div class="nav_box dan_wrap fix">
       <div class="wp">
         <div class="nav3_l l">
-          <a href="" class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu15.png" alt="">  </a>
+          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu15.png" alt="">  </a>
         </div>
         <div class="nav3_l r">
-          <a href="" class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu16.png" alt="">  </a>
+          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu16.png" alt="">  </a>
         </div>
       </div>
     </div>
-
+    <!--每日新选-->
     <div class="nav_box3 dan_wrap fix">
       <div class="wp">
         <div class="title"> 每日新选 <span> 多为生活用点新 </span> </div>
       </div>
     </div>
-
+    <!--tab栏-->
     <div class="nav_box5 dan_wrap ">
       <div class="wp">
-        <!--        <div class="nav_ul ">-->
-        <!--          <div v-for="(opt, index) in navList" :key="index" class="li1" :class="{ active:opt.isActive }">-->
-        <!--            <p> {{ opt.title }} </p>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <van-tabs v-model="active">
-          <van-tab v-for="(item,index) in navList" :key="index" :title="item.title">
+        <van-tabs v-model="active" @click="changeTab">
+          <van-tab v-for="(item,index) in navList" :key="index" :title="item.label">
           </van-tab>
         </van-tabs>
       </div>
     </div>
-
+    <!--tab栏下商品-->
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
 
         <ul class="flex_wrap gwcLits ">
           <li v-for="(item,index) in choicenessData" :key="index">
-            <a @click="$router.push('/user/productdetails')">
+            <a @click="$router.push(item.path)">
               <img class="pic" alt="" :src="item.img">
               <p class="p1">{{ item.title }}</p>
               <p class="p2"><span>特卖</span> <span>新品</span></p>
@@ -130,41 +125,8 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
           active: 0,
           status: 'loading',
           value: '',
-          concentrateData: [
-              {
-                  type: 'list-concentrate',
-                  image: require('assets/img/testtu1.png'),
-                  describe: '日本进口',
-                  title: '神户龙虾450g*4袋',
-                  concentratePrice: '1200',
-                  concentratePriceDiscribe: '新品福利￥',
-                  btnGo: '/user/productdetails'
-              }
-          ],
-          navList: [
-              {
-                  title: '精选',
-                  isActive: true
-              },
-              {
-                  title: '美妆个护'
-              },
-              {
-                  title: '食品生鲜'
-              },
-              {
-                  title: '服饰鞋包'
-              },
-              {
-                  title: '家居家纺'
-              },
-              {
-                  title: '数码家电'
-              },
-              {
-                  title: '母婴玩具'
-              }
-          ],
+          concentrateData: [],
+          navList: [],
           choicenessData: [],
           bannerData: []
       }
@@ -177,9 +139,14 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
     methods: {
         async init() {
             try {
+                // 轮播图
                 await this.getBannerData()
+                // 超人气新品
+                await this.getNewProduct()
+                // tab 栏
+                await this.getConcentrateTabData()
+                // tab 栏下商品
                 await this.getConcentProductListData()
-                await this.getConcentRateData()
             } catch (e) {
                 this.status = 'error'
                 throw e
@@ -197,28 +164,62 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
             })
             this.bannerData = arr
         },
-        async getConcentRateData() {
-            /* const res = await this.$http.post(`product/content/list?level=1&showFlag=1`)
-            const eee = await this.$http.post(`product/content/selectById?showFlag=1&id=21`)*/
-            // for (const i in res.data.dictMap) {
-            //     arr.push({
-            //         label: res.data.dictMap[i],
-            //         key: i
-            //     })
-            // }
-        },
-        async getConcentProductListData() {
-            const res = await this.$http.post('product/goods/listByCategory?category=20')
+        // 超人气新品
+        async getNewProduct() {
+            const res = await this.$http.post('product/activity/activityGoodsList', {
+                activityCode: 'cf48dbb9013a418e87b8e47086cddc3b'
+            })
+            console.log(res)
             const arr = []
             res.data.forEach((n, i) => {
-                arr.push({
-                    title: n.categoryName,
-                    img: require('../assets/css/static/images/a24.jpg'),
-                    id: n.id,
-                    current: 30,
-                    pre: 80
+                n.goods.forEach((good, i) => {
+                    arr.push({
+                        type: 'list-concentrate',
+                        image: require('assets/img/testtu1.png'),
+                        describe: '日1本1进1口',
+                        title: good.goodsProfile,
+                        concentratePrice: '121010',
+                        concentratePriceDiscribe: '新1品1福1￥',
+                        id: good.id,
+                        btnGo: `/user/productdetails?id=${good.id}`
+                    })
                 })
             })
+            this.concentrateData = arr
+        },
+        // tab栏
+        async getConcentrateTabData() {
+          const res = await this.$http.post('product/content/list?level=0')
+            const arr = []
+            for (const i in res.rows[0].dictMap) {
+                arr.push({
+                    label: res.rows[0].dictMap[i],
+                    id: i
+                })
+            }
+            this.navList = arr
+        },
+        changeTab(index) {
+            this.getConcentProductListData(this.navList[index].id)
+        },
+        // tab下商品
+        async getConcentProductListData(category) {
+            if (!category) category = this.navList[0].id
+            const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+            console.log(res)
+            const arr = []
+            if (res.data) {
+                res.data.forEach((n, i) => {
+                    arr.push({
+                        title: n.goodsName,
+                        img: n.goodsStatics[i].url,
+                        id: n.id,
+                        current: n.showPrice,
+                        pre: n.linePrice,
+                        path: `/user/productdetails?id=${n.id}`
+                    })
+                })
+            }
             this.choicenessData = arr
         }
 

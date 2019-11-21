@@ -353,17 +353,19 @@
                     activityCode: '3c5b7614f62e4491b4c8ce91af868b4d'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            img: require('../../assets/css/static/images/a20.jpg'),
-                            title: good.goodsName,
-                            current: good.linePrice,
-                            pre: 300,
-                            path: `/user/productdetails?id=${good.id}`
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                img: good.goodsStatics[i].url,
+                                title: good.goodsName,
+                                current: good.linePrice,
+                                pre: good.showPrice,
+                                path: `/user/productdetails?id=${good.id}`
+                            })
                         })
                     })
-                })
+                }
                 this.supermarketGoodStuffData = arr
             },
             // 超市必抢
@@ -375,10 +377,10 @@
                 res.data.forEach((n, i) => {
                     n.goods.forEach((good, i) => {
                         arr.push({
-                            img: require('../../assets/css/static/images/a20.jpg'),
+                            img: good.goodsStatics[i].url,
                             title: good.goodsName,
-                            current: good.linePrice,
-                            pre: 300,
+                            current: good.showPrice,
+                            pre: good.linePrice,
                             path: `/user/productdetails?id=${good.id}`
                         })
                     })
@@ -393,8 +395,8 @@
                 const arr = []
                 res.data[0].goods.forEach((n, i) => {
                       arr.push({
-                          img: n.mainImg,
-                          pre: n.linePrice
+                          img: n.goodsStatics[i].url,
+                          pre: n.showPrice
                       })
                 })
                 this.goodThingsGroupBookingData = arr
@@ -407,8 +409,8 @@
                 const arr = []
                 res.data[1].goods.forEach((n, i) => {
                     arr.push({
-                        img: n.mainImg,
-                        pre: n.linePrice
+                        img: n.goodsStatics[i].url,
+                        pre: n.showPrice
                     })
                 })
                 this.goodThingsOptionalData = arr
@@ -419,10 +421,11 @@
                     activityCode: 'a32dc5d72f5441889ac6df84133d9396'
                 })
                 const arr = []
+                console.log(res)
                 res.data[2].goods.forEach((n, i) => {
                     arr.push({
-                        img: n.mainImg,
-                        pre: n.linePrice
+                        img: n.goodsStatics[i].url,
+                        pre: n.showPrice
                     })
                 })
                 this.goodThingsMassRetailData = arr
@@ -449,11 +452,11 @@
                 const arr = []
                 res.data.forEach((n, i) => {
                     arr.push({
-                        title: n.categoryName,
-                        img: require('../../assets/css/static/images/a24.jpg'),
+                        title: n.goodsName,
+                        img: n.goodsStatics[2].url,
                         id: n.id,
-                        current: 30,
-                        pre: 80,
+                        current: n.linePrice,
+                        pre: n.showPrice,
                         path: `/user/productdetails?id=${n.id}`
                     })
                 })

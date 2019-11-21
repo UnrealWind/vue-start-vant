@@ -58,11 +58,11 @@
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div class="nav3_l r">
-          <a class="img" @click="$router.push('/commodityLevelSec/seasonal')"> <img src="../assets/img/nav412.png" alt=""> </a>
-        </div>
         <div class="nav3_l l">
-          <a class="img" @click="$router.push('/commodityLevelSec/daynew')"> <img src="../assets/img/nav413.png" alt=""> </a>
+          <a class="img" @click="$router.push({path:'/commodityLevelSec/seasonal',query:{id:2}})"> <img src="../assets/img/nav413.png" alt=""> </a>
+        </div>
+        <div class="nav3_l r">
+          <a class="img" @click="$router.push({path:'/commodityLevelSec/daynew',query:{id:14}})"> <img src="../assets/img/nav412.png" alt=""> </a>
         </div>
       </div>
     </div>
@@ -82,37 +82,37 @@
     </div>
 
     <div class="nav_box7 dan_wrap">
-      <div class="nav7_ul fix">
-        <div class="li">
+      <ul class="nav7_ul fix">
+        <li>
           <div class="title2"> 14:00</div>
           <p> 已抢光 </p>
-        </div>
-        <div class="li">
+        </li>
+        <li>
           <div class="title2"> 16:00</div>
           <p> 抢购进行中 </p>
-        </div>
-        <div class="li">
+        </li>
+        <li>
           <div class="title2 active"> 热抢榜单</div>
           <p class="active"> 抢购进行中 </p>
-        </div>
-        <div class="li">
+        </li>
+        <li>
           <div class="title2"> 18:00</div>
           <p> 已抢光 </p>
-        </div>
-        <div class="li">
+        </li>
+        <li>
           <div class="title2"> 21:00</div>
           <p> 抢购进行中 </p>
-        </div>
-        <div class="li">
+        </li>
+        <li>
           <div class="title2"> 22:00</div>
           <p> 抢购进行中 </p>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
 
     <div class="nav_box8 dan_wrap">
       <div class="nav_li fix wp">
-        <div v-for="(opt, index) in minNavList" :key="index" class="li1" @click="changeTab(index)">
+        <div v-for="(opt, index) in minNavList" :key="index" class="li1" :class="isActive==index? 'active' : ''" @click="changeTab(index)">
           <p>
             {{ opt.label }}
           </p>
@@ -123,7 +123,7 @@
     <div class="nav_box9 dan_wrap">
       <div class="wp">
         <div
-          v-for="(commodity,index) in indexData"
+          v-for="(commodity,index) in tabListData"
           :key="`${commodity.type}-${index}`"
           class="nav_li"
         >
@@ -158,40 +158,9 @@
             return {
                 status: 'loading',
                 value: '',
-                indexData: [
-                    {
-                        'type': 'list-index',
-                        'discribe': '直降20元清心润肺',
-                        'title': '凯司令秋梨膏2瓶',
-                        'indexPriceDiscribe': {
-                            'type': '已告罄'
-                        },
-                        'indexPrice': {
-                            'current': '123',
-                            'pre': '134'
-                        },
-                        'btnGo': '/user/productdetails',
-                        'image': require('assets/img/indextu1.png')
-                    },
-                    {
-                        'type': 'list-index',
-                        'discribe': '第二件仅需24.9元#',
-                        'title': '维达细韧抽纸20包',
-                        'indexPriceDiscribe': {
-                            'type': '抢购中',
-                            'num': '1234',
-                            'percent': '12'
-                        },
-                        'indexPrice': {
-                            'current': '123',
-                            'pre': '134'
-                        },
-                        'btnGo': '/user/productdetails',
-                        'image': require('assets/img/indextu12.png')
-                    }
-                ],
+                tabListData: [],
                 bannerData: [],
-                // isActive: true,
+                isActive: '',
                 navList: [],
                 minNavList: []
             }
@@ -218,25 +187,29 @@
             async getIndexData() {
                 const res = await this.$http.post('product/content/list?level=1&showFlag=0')
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.logo,
-                        path: n.url,
-                        title: n.name,
-                        id: n.id
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            img: n.logo,
+                            path: n.url,
+                            title: n.name,
+                            id: n.id
+                        })
                     })
-                })
+                }
                 this.navList = arr
             },
             // 轮播图数据
             async getBannerData() {
                 const res = await this.$http.post('product/banner/list?showFlag=0')
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.url
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            img: n.url
+                        })
                     })
-                })
+                }
                 this.bannerData = arr
             },
             // tab栏
@@ -253,33 +226,33 @@
             },
             changeTab(index) {
                 this.getTabListData(this.minNavList[index].id)
+                this.isActive = index
             },
             // tab栏商品
             async getTabListData(category) {
                 if (!category) category = this.minNavList[0].id
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+                console.log(res)
                 const arr = []
-                res.data.forEach((n, i) => {
-                    arr.push({
-                        type: 'list-index',
-                        discribe: '第二件仅需24.9元#',
-                        path: '/user/productdetails',
-                        title: n.categoryName,
-                        img: require('assets/img/indextu12.png'),
-                        id: n.id,
-                        indexPriceDiscribe: {
-                            type: '抢购中',
-                            num: '1234',
-                            percent: '12'
-                        },
-                        indexPrice: {
-                            current: '123',
-                            pre: '134'
-                        },
-                        btnGo: `/user/productdetails?id=${n.id}`
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        arr.push({
+                            type: 'list-index',
+                            discribe: n.goodsProfile,
+                            path: '/user/productdetails',
+                            title: n.goodsName,
+                            image: n.goodsStatics[i].url,
+                            id: n.id,
+                            indexPriceDiscribe: {},
+                            indexPrice: {
+                                current: n.linePrice,
+                                pre: n.showPrice
+                            },
+                            btnGo: `/user/productdetails?id=${n.id}`
+                        })
                     })
-                })
-                this.indexData = arr
+                }
+                this.tabListData = arr
             }
         }
     }
@@ -370,6 +343,7 @@
       line-height: 30px;
       padding: 0px;
       margin-top: 2px;
+      width: 1.5rem;
 
       a {
         color: #aaa;
@@ -416,9 +390,9 @@
   }
 
   .nav7_ul {
-    width: 171%;
+    width: 180%;
 
-    .li {
+    li {
       float: left;
       margin: 0px 20px;
       text-align: center;

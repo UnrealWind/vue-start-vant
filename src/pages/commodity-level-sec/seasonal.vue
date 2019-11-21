@@ -136,7 +136,7 @@
           </div>
           <div class="flex_betweenc jaiqian">
             <p class="p4">¥ {{ item.current }} <span>¥ {{ item.originalPrice }}</span></p>
-            <p class="p5 flex_betweenc"><span>已售 {{ item.sell }}</span><span>库存 {{ item.inventory }} </span></p>
+            <!--            <p class="p5 flex_betweenc"><span>已售 {{ item.sell }}</span><span>库存 {{ item.inventory }} </span></p>-->
           </div>
         </a>
       </div>
@@ -155,7 +155,7 @@
               <p class="s0">___</p>
               <p class="s2">{{ item.title }}</p>
               <p class="s3">{{ item.intro }}</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">{{ item.pre }}</span>/元{{ item.weight }}装</p>
+              <p class="s4"><span class="s41">惊爆价</span><span class="s42">{{ item.current }}</span>/元{{ item.weight }}装</p>
             </div>
             <img :src="item.img" alt="">
           </a>
@@ -176,7 +176,7 @@
               <p class="s0">___</p>
               <p class="s2">{{ item.title }}</p>
               <p class="s3">{{ item.intro }}</p>
-              <p class="s4"><span class="s41">惊爆价</span><span class="s42">{{ item.pre }}</span>/元 {{ item.weight }}装
+              <p class="s4"><span class="s41">惊爆价</span><span class="s42">{{ item.current }}</span>/元 {{ item.weight }}装
               </p>
             </div>
             <img :src="item.img" alt="">
@@ -194,22 +194,22 @@
     <div class="tuijianNav flex p2">
       <van-tabs v-model="active" @click="changeTab">
         <van-tab v-for="(item,index) in seasonalCategoryData" :key="index" :title="item.label">
-          <ul class="flex_wrap gwcLits gwcLits_SG">
-            <li v-for="(opt,liIndex) in seasonalProductListData" :key="liIndex">
-              <a @click="$router.push({path:opt.path,query:{id:opt.id}})">
-                <img class="commodityLits" :src="opt.img" alt="">
-                <p class="p1">{{ opt.title }}</p>
-                <p class="p2"><span>特卖</span> <span>新品</span></p>
-                <div class="p3 flex_betweenc"><p>¥ {{ opt.current }}<span>¥{{ opt.pre }}</span></p><img
-                  src="../../assets/css/static/images/gwc2.png"
-                  alt=""
-                ></div>
-              </a>
-            </li>
-          </ul>
         </van-tab>
       </van-tabs>
     </div>
+    <ul class="flex_wrap gwcLits gwcLits_SG">
+      <li v-for="(opt,liIndex) in seasonalProductListData" :key="liIndex">
+        <a @click="$router.push({path:opt.path,query:{id:opt.id}})">
+          <img class="commodityLits" :src="opt.img" alt="">
+          <p class="p1">{{ opt.title }}</p>
+          <p class="p2"><span>特卖</span> <span>新品</span></p>
+          <div class="p3 flex_betweenc"><p>¥ {{ opt.current }}<span>¥{{ opt.pre }}</span></p><img
+            src="../../assets/css/static/images/gwc2.png"
+            alt=""
+          ></div>
+        </a>
+      </li>
+    </ul>
   </van-container>
 </template>
 
@@ -260,14 +260,16 @@
             async getSeasonalNavData() {
                 const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
                 const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.logo,
-                        title: n.name,
-                        path: n.url,
-                        id: n.id
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            img: n.logo,
+                            title: n.name,
+                            path: n.url,
+                            id: n.id
+                        })
                     })
-                })
+                }
                 this.seasonalNavData = arr
             },
             // tab栏数据
@@ -289,17 +291,20 @@
             async getSeasonalProductListData(category) {
                 if (!category) category = this.seasonalCategoryData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+                console.log(res)
                 const arr = []
-                res.data.forEach((n, i) => {
-                    arr.push({
-                        title: n.categoryName,
-                        img: require('../../assets/css/static/images/a24.jpg'),
-                        id: n.id,
-                        current: 30,
-                        pre: 80,
-                        path: `/user/productdetails?id=${n.id}`
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        arr.push({
+                            title: n.goodsName,
+                            img: n.goodsStatics[3].url,
+                            id: n.id,
+                            current: n.showPrice,
+                            pre: n.linePrice,
+                            path: `/user/productdetails?id=${n.id}`
+                        })
                     })
-                })
+                }
                 this.seasonalProductListData = arr
             },
             // 半价试吃
@@ -308,19 +313,21 @@
                     activityCode: '1d2d80a442154b23a00962dd7747d381'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            title: good.goodsName,
-                            intro: good.goodsProfile,
-                            current: 20,
-                            originalPrice: 100,
-                            sell: 200,
-                            inventory: 0,
-                            path: `/user/productdetails?id=${good.id}`
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                title: good.goodsName,
+                                intro: good.goodsProfile,
+                                current: good.showPrice,
+                                originalPrice: good.linePrice,
+                                // sell: 200,
+                                // inventory: 0,
+                                path: `/user/productdetails?id=${good.id}`
+                            })
                         })
                     })
-                })
+                }
                 this.seasonalHalfPriceData = arr
             },
             // 镇店之宝
@@ -329,19 +336,21 @@
                     activityCode: '861d2a8053c541b0a998f1069f9303e8'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            title: good.goodsName,
-                            intro: good.goodsProfile,
-                            current: 20,
-                            img: require('../../assets/css/static/images/timg2.jpg'),
-                            address: good.shopName,
-                            path: `/user/productdetails?id=${good.id}`,
-                            weight: '4.5~5斤'
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                title: good.goodsName,
+                                intro: good.goodsProfile,
+                                current: good.showPrice,
+                                img: good.goodsStatics[3].url,
+                                address: good.shopName,
+                                path: `/user/productdetails?id=${good.id}`,
+                                weight: '4.5~5斤'
+                            })
                         })
                     })
-                })
+                }
                 this.seasonalTopOneData = arr
             },
             // 爆款直降
@@ -350,20 +359,22 @@
                     activityCode: 'a51f02bab751461b88e8b16ede38af1e'
                 })
                 const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            title: good.goodsName,
-                            intro: good.goodsProfile,
-                            current: 20,
-                            img: require('../../assets/css/static/images/timg2.jpg'),
-                            address: good.shopName,
-                            weight: '4.5~5斤',
-                            path: `/user/productdetails?id=${good.id}`,
-                            id: good.id
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                title: good.goodsName,
+                                intro: good.goodsProfile,
+                                current: good.showPrice,
+                                img: good.goodsStatics[i].url,
+                                address: good.shopName,
+                                weight: '4.5~5斤',
+                                path: `/user/productdetails?id=${good.id}`,
+                                id: good.id
+                            })
                         })
                     })
-                })
+                }
                 this.seasonalHotStyleData = arr
             }
         }

@@ -2,11 +2,15 @@
 <template>
   <van-container :status="status">
     <div slot="header" class="fix">
-      <div class="hesde_l " @click="$router.back()"> <van-icon name="arrow-left" /> </div>
-      <div class="hesde_l2">
-        <div class="p"> 人气面膜榜 </div>
+      <div class="hesde_l " @click="$router.back()">
+        <van-icon name="arrow-left" />
       </div>
-      <div class="hesde_l3"> <van-icon name="share" />  </div>
+      <div class="hesde_l2">
+        <div class="p"> 人气面膜榜</div>
+      </div>
+      <div class="hesde_l3">
+        <van-icon name="share" />
+      </div>
     </div>
 
     <div class="nav_box dan_wrap fix">
@@ -19,8 +23,8 @@
             :image="commodity.image"
             :discribe="commodity.discribe"
             :title="commodity.title"
-            :concentrate-price="commodity.concentratePrice"
-            :concentrate-price-discribe="commodity.concentratePriceDiscribe"
+            :index-price="commodity.indexPrice"
+            :index-price-discribe="commodity.indexPriceDiscribe"
             :btn-go="commodity.btnGo"
           >
           </commodity>
@@ -32,53 +36,59 @@
 </template>
 
 <script>
-import { Icon } from 'vant'
-  export default {
-    components: {
-        'van-icon': Icon
-    },
-    data() {
-      return {
-          status: 'loading',
-          value: '',
-          productListMinData: []
-      }
-    },
-    computed: {
-    },
-    mounted() {
-        this.init()
-    },
-    methods: {
-        async init() {
-            try {
-                await this.getProductListMinData()
-                // await this.getData()
-            } catch (e) {
-                this.status = 'error'
-                throw e
-            }
-            this.status = 'success'
+    import { Icon } from 'vant'
+
+    export default {
+        components: {
+            'van-icon': Icon
         },
-        async getProductListMinData() {
-            const res = await this.$http.post(`product/content/list?parentId=${this.$route.query.id}`)
-            const arr = []
-            if (res.rows !== undefined) {
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        type: 'list-vip',
-                        image: n.logo,
-                        discribe: '描述',
-                        title: n.name,
-                        vipPrice: { 'current': '123', 'pre': '134' },
-                        btnGo: '/user/productdetails'
-                    })
-                })
+        data() {
+            return {
+                status: 'loading',
+                value: '',
+                current: '',
+                productListMinData: []
             }
-            this.productListMinData = arr
+        },
+        computed: {},
+        mounted() {
+            this.init()
+        },
+        methods: {
+            async init() {
+                try {
+                    await this.getProductListMinData()
+                    // await this.getData()
+                } catch (e) {
+                    this.status = 'error'
+                    throw e
+                }
+                this.status = 'success'
+            },
+            async getProductListMinData() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
+                })
+                const arr = []
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                'type': 'list-index',
+                                'image': good.goodsStatics[i].url,
+                                'discribe': good.goodsProfile,
+                                'title': good.goodsName,
+                                'indexPrice': { 'current': good.linePrice, 'pre': good.showPrice },
+                                'indexPriceDiscribe': {},
+                                'btnGo': `/user/productdetails?id=${good.id}`
+                            })
+                        })
+                    })
+                }
+                this.productListMinData = arr
+            }
         }
     }
-  }
 
 </script>
 <style lang='scss' scoped>
@@ -86,13 +96,28 @@ import { Icon } from 'vant'
     background: red;
     width: 375px;
   }
+
   .fix {
     *zoom: 1;
   }
-  .l{ float: left; }
-  .r{ float: right; }
-  .img{  display: block; }
-  .img img{ display: block; width: 100%; }
+
+  .l {
+    float: left;
+  }
+
+  .r {
+    float: right;
+  }
+
+  .img {
+    display: block;
+  }
+
+  .img img {
+    display: block;
+    width: 100%;
+  }
+
   .fix:after,
   .fix:before {
     display: block;
@@ -102,91 +127,131 @@ import { Icon } from 'vant'
     overflow: hidden;
     visibility: hidden;
   }
-  .dan_wrap{
+
+  .dan_wrap {
     margin-top: 50px;
     background: #f2f2f2;
     background-size: 100% 50%;
-    .wp{
+
+    .wp {
       width: 95%;
       margin: 0 auto;
     }
   }
+
   .van-swipe {
     img {
       display: block;
-      width:100%;
-     }
+      width: 100%;
+    }
   }
-  .header{
-    .fix{
+
+  .header {
+    .fix {
       background: #fff;
     }
   }
-  .hesde_l{ position: absolute; left: 0px; top: 2px; font-size: 20px;  color: #333; }
-  .hesde_l3{
+
+  .hesde_l {
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .hesde_l3 {
     display: none;
-    position: absolute; right: 15px; top: 5px; font-size: 20px;
-    color: #333;
-  }
-  .hesde_l4{
-    position: absolute; right: 50px; top: 5px; font-size: 20px;  color: #333;
-  }
-
-  .hesde_l2{ position: relative; width: 62%; margin: 0 auto; text-align: center;
-    .p { font-size: 16px;  color: #333;  }
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    font-size: 20px;
     color: #333;
   }
 
-  .header{
-    .fix{
+  .hesde_l4 {
+    position: absolute;
+    right: 50px;
+    top: 5px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .hesde_l2 {
+    position: relative;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+
+    .p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    color: #333;
+  }
+
+  .header {
+    .fix {
       background: #fff;
     }
   }
-  .nav_ul{
+
+  .nav_ul {
     padding-top: 10px;
-    .li{
+
+    .li {
       background: #fff;
       border-radius: 10px;
       padding: 0px 10px;
       box-sizing: border-box;
       margin-bottom: 20px;
     }
-    .nav_l{
+
+    .nav_l {
       width: 35%;
     }
-    .nav_r{
+
+    .nav_r {
       width: 60%;
       padding-top: 10px;
-      a{
+
+      a {
         display: block;
       }
-      .title{
+
+      .title {
         font-size: 14px;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         color: #333333;
         line-height: 20px;
       }
-      .titlemin{
+
+      .titlemin {
         font-size: 14px;
         color: #808080;
         line-height: 20px;
       }
-      .botom{
+
+      .botom {
         padding-top: 20px;
       }
-      .price{
+
+      .price {
         color: #f00d3b;
         font-size: 18px;
-        span{
+
+        span {
           color: #808080;
           text-decoration: line-through;
           font-size: 12px;
           font-weight: normal;
         }
       }
-      .car{
+
+      .car {
         width: 25px;
         height: 25px;
         text-align: center;
@@ -197,8 +262,11 @@ import { Icon } from 'vant'
         font-size: 16px;
       }
     }
-    .sale{ padding-top: 5px;
-      span{
+
+    .sale {
+      padding-top: 5px;
+
+      span {
         display: inline-block;
         border: 1px solid #dc94a2;
         color: #d41c42;

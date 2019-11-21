@@ -80,6 +80,7 @@
                 type="textarea"
                 placeholder="请输入您想咨询的问题"
                 @focus="focusInput"
+                @blur="blurInput"
               />
             </van-cell-group>
           </div>
@@ -89,8 +90,10 @@
             <van-collapse-item title="">
               <div class="shoe_emoji-ul fix">
                 <div class="li">
-                  <van-icon name="newspaper-o" />
-                  访问照片
+                  <label class="upload" for="fileInput">
+                    <van-icon name="newspaper-o" />
+                    访问照片
+                  </label>
                 </div>
                 <div class="li">
                   <van-icon name="paid" />
@@ -101,6 +104,7 @@
                   上传文件
                 </div>
               </div>
+              <input v-show="false" id="fileInput" ref="file" type="file" @change="uploadImg($event)">
             </van-collapse-item>
           </div>
 
@@ -112,7 +116,7 @@
 </template>
 
 <script>
-  import { Icon, Field, CellGroup, Collapse, CollapseItem, Button } from 'vant'
+  import { Icon, Field, CellGroup, Collapse, CollapseItem, Button, Toast } from 'vant'
 
   export default {
     components: {
@@ -175,6 +179,22 @@
             })
             // 重置了
             this.message = ''
+        },
+        async uploadImg(e) {
+            const file = this.$refs.file.files[0]
+            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                Toast('请上传 jpg，png 格式图片')
+                return false
+            }
+            const formdata = new FormData()
+            formdata.append('file', file)
+            const res = await this.$http({
+                method: 'post',
+                url: 'common/upload',
+                data: formdata
+                // dataType: 'json'
+            })
+            console.log(res)
         }
   }
 }
