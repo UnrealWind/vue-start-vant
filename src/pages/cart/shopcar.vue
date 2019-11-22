@@ -136,7 +136,7 @@
             let price = 0
             this.cartList.forEach((n, i) => {
                 n.goods.forEach((good, i) => {
-                    if (good.checked) {
+                    if (good.checked && good.activityList.length > 0) {
                         switch (good.activityList[0].activityType) {
                             case 0: good.activityMoney = good.goodsMoney * good.num - JSON.parse(good.activityList[0].resultJson).drop; break
                             case 1:
@@ -147,6 +147,8 @@
                             case 2:good.activityMoney = good.goodsMoney * good.num * JSON.parse(good.activityList[0].resultJson).discount / 10; break
                         }
                         price += good.activityMoney
+                    } else if (good.checked && good.activityList.length === 0) {
+                        price += good.goodsMoney * good.num
                     }
                 })
             })
@@ -223,10 +225,12 @@
           this.cartList.forEach((n, i) => {
               n.goods.forEach((good, i) => {
                   if (good.checked) {
+                      let activityResultId
+                      good.activityList.length > 0 ? activityResultId = good.activityList[0].id : activityResultId = null
                       goodsVoList.goodsVos.push({
                           'amount': good.num,
                           'skuCode': good.skuCode,
-                          'activityResultId': good.activityList[0].id
+                          'activityResultId': activityResultId
                       })
                   }
               })

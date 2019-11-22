@@ -98,6 +98,7 @@
         </div>
       </div>
     </div>
+    <div v-show="false" ref="paystr" v-html="html"></div>
   </van-container>
 </template>
 
@@ -122,7 +123,8 @@
           chosenAddressId: 1,
           show: false,
           addressList: [],
-          orderList: []
+          orderList: [],
+          html: ''
       }
     },
     computed: {
@@ -182,6 +184,12 @@
             }
             const res = await this.$http.post('order/order/placeOrder', data)
             console.log(res)
+            this.html = res.data.form
+            this.$nextTick(() => {
+                const ele = document.createElement('script')
+                ele.innerHTML = 'document.forms[0].submit();'
+                this.$refs.paystr.append(ele)
+            })
         },
         showPopup() {
             this.show = true
