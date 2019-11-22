@@ -339,6 +339,27 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/user/afterSale',
+    component: () => import('@/pages/user/afterSale'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/refund',
+    component: () => import('@/pages/user/refund'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/progressDetails',
+    component: () => import('@/pages/user/progressDetails'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '*',
     redirect: '/'
   }

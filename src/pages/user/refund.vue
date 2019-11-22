@@ -15,55 +15,45 @@
     <div class="dan_wrap">
       <div class="wp">
 
-        <div v-for="(refund, index) in refund" :key="index" class="refund_top">
+        <div v-for="(refund, index) in refunds" :key="index" class="refund_top">
           <van-cell-group>
             <van-cell
-              :icon="refund.img"
-              :title="refund.title"
+              :icon="refund.mainImg"
+              :title="refund.goodsName"
               :value="refund.price"
               size="large"
-              :label="refund.label"
+              :label="refund.goodsDesc"
             >
             </van-cell>
             <div class="num">
-              {{ refund.num }}
+              x{{ refund.amount }}
             </div>
           </van-cell-group>
         </div>
 
         <div class="refund_top refundBottomMin">
           <van-cell-group>
-            <van-cell title="货物状态" value="未收到货" />
-            <van-cell is-link title="退款原因" value="请选择退款原因" @click="showPopup" />
-            <van-popup v-model="show">
-              <p> 样式一 </p>
-              <p> 样式二 </p>
-              <p> 样式三 </p>
-            </van-popup>
-
-            <van-cell title="退款数量" value="1" />
+            <van-cell title="请选择退款类型" :value="refundType" @click="show = !show" />
           </van-cell-group>
         </div>
-
+        <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
         <div class="refund_top refundBottom">
           <van-cell-group>
-            <van-cell value="￥14.9" class="custom-price">
+            <van-cell :value="`￥${actMoney}`" class="custom-price">
               <!-- 使用 title 插槽来自定义标题 -->
               <template slot="title">
                 <span class="custom-title">退款金额</span>
-                <van-tag type="danger"><van-icon name="question-o" /></van-tag>
+                <span type="danger"><van-icon name="question-o" /></span>
               </template>
             </van-cell>
 
-            <van-cell title="实付金额" value="14.9" />
-            <van-cell title="余额" value="0" />
+            <van-cell title="实付金额" :value="`￥${actMoney}`" />
           </van-cell-group>
         </div>
 
         <div class="refund_top">
           <van-cell-group>
             <van-cell value="详细说明" />
-
             <van-field
               v-model="message"
               rows="3"
@@ -81,7 +71,7 @@
           </van-cell-group>
         </div>
 
-        <van-button type="primary" class="button" @click="$router.push('/user/afterSale')"> 申请售后 </van-button>
+        <van-button type="primary" class="button" @click="refundData"> 申请售后 </van-button>
 
       </div>
     </div>
@@ -90,7 +80,7 @@
 </template>
 
 <script>
-  import { Icon, Field, Cell, CellGroup, Uploader, Button, Popup } from 'vant'
+  import { Icon, Field, Cell, CellGroup, Uploader, Button, ActionSheet } from 'vant'
 
   export default {
     components: {
@@ -100,15 +90,15 @@
         'van-cell-group': CellGroup,
         'van-uploader': Uploader,
         'van-button': Button,
-        'van-popup': Popup
+        'van-action-sheet': ActionSheet
     },
     data() {
       return {
           status: 'loading',
           message: '',
           fileList: [],
-          show: false,
-          refund: [
+          query: {},
+          refunds: [
               {
                   title: '南极人中老年保暖内衣男女士',
                   price: '￥59.00',
@@ -116,7 +106,14 @@
                   img: require('../../assets/img/cart/card.png'),
                   num: 'x1'
               }
-        ]
+          ],
+          show: false,
+          actions: [
+              { name: '退款', value: 1 },
+              { name: '退货', value: 2 }
+          ],
+          refundType: '',
+          refundTypeVal: ''
       }
     },
     computed: {
@@ -126,20 +123,37 @@
     },
     methods: {
         async init() {
+            this.query = this.$route.query
+            this.refunds[0] = this.$route.query
+            console.log(this.query)
             try {
-                // await this.getData()
+                await this.getActMoney()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async getActMoney() {
+            const res = await this.$http.post('/order/orderDetail/queryOneByCode', {
+                orderDetailCode: this.query.orderDetailCode
+            })
             console.log(res)
+            this.actMoney = res.data.totalMoney
         },
-        showPopup() {
-            this.show = true
+        onSelect(item) {
+            this.show = false
+            this.refundType = item.name
+            this.refundTypeVal = item.value
+            console.log(item)
+        },
+        async refundData() {
+            const res = await this.$http.post('/product/orderReturn/add', {
+                orderDetailCode: this.query.orderDetailCode,
+                returnMoney: '',
+                returnType: this.refundTypeVal
+            })
+            console.log(res)
         }
     }
   }

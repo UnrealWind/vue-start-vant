@@ -19,8 +19,7 @@
               <div v-for="(goods, idx) in shop.goods" :key="idx" class="list_wrap">
                 <van-checkbox v-model="goods.checked"></van-checkbox>
                 <van-card
-                  :origin-price="goods.goodsMoney"
-                  :price="goods.activityMoney"
+                  :price="goods.goodsMoney"
                   :desc="goods.activityTitle"
                   :title="goods.goodsName"
                   :thumb="goods.mainImg"
@@ -68,7 +67,7 @@
               <span v-for="(shop, index) in cartList" :key="index">
                 <span v-for="(goods, idx) in shop.goods" :key="idx">
                   <div v-if="goods.checked" class="img">
-                    <img :src="goods.img" alt="">
+                    <img :src="goods.mainImg" alt="">
                     <span> x{{ goods.num }} </span>
                   </div>
                 </span>
@@ -137,7 +136,18 @@
             let price = 0
             this.cartList.forEach((n, i) => {
                 n.goods.forEach((good, i) => {
-                    if (good.checked) price += good.activityMoney * good.num
+                    if (good.checked) {
+                        switch (good.activityList[0].activityType) {
+                            case 0: good.activityMoney = good.goodsMoney * good.num - JSON.parse(good.activityList[0].resultJson).drop; break
+                            case 1:
+                                if (JSON.parse(good.activityList[0].resultJson).full < good.goodsMoney * good.num) {
+                                    good.activityMoney = good.goodsMoney * good.num - JSON.parse(good.activityList[0].resultJson).minus
+                                }
+                                break
+                            case 2:good.activityMoney = good.goodsMoney * good.num * JSON.parse(good.activityList[0].resultJson).discount / 10; break
+                        }
+                        price += good.activityMoney
+                    }
                 })
             })
             return price
@@ -175,8 +185,15 @@
               n.goods.forEach((good, i) => {
                   good['checked'] = false
                   if (!good.activityMoney) {
-                      good.activityMoney = good.goodsMoney
-                      good.annulMoney = 0
+                      /* switch (good.activityList[0].activityType) {
+                          case 0: good.activityMoney = good.goodsMoney - JSON.parse(good.activityList[0].resultJson).drop; break
+                          case 1:
+                              if (JSON.parse(good.activityList[0].resultJson).full < good.goodsMoney) {
+                                  good.activityMoney = good.goodsMoney - JSON.parse(good.activityList[0].resultJson).minus
+                              }
+                              break
+                          case 2:good.activityMoney = good.goodsMoney * JSON.parse(good.activityList[0].resultJson).discount / 10; break
+                      }*/
                   }
               })
           })
@@ -200,14 +217,16 @@
       async postOrder() {
           const goodsVoList = {
               'goodsVos': [],
-              'orderType': 2 // 1是直接下单，2是购物车下单
+              'orderType': 2, // 1是直接下单，2是购物车下单
+              'total': this.customTotalPrice
           }
           this.cartList.forEach((n, i) => {
               n.goods.forEach((good, i) => {
                   if (good.checked) {
                       goodsVoList.goodsVos.push({
                           'amount': good.num,
-                          'skuCode': good.skuCode
+                          'skuCode': good.skuCode,
+                          'activityResultId': good.activityList[0].id
                       })
                   }
               })
@@ -216,7 +235,8 @@
               Toast.fail('请选择商品')
               return
           }
-          const res = await this.$http.post('product/goods/orderByCart', goodsVoList)
+          console.log(JSON.stringify(goodsVoList))
+          const res = await this.$http.post('product/goods/createOrderInfo', goodsVoList)
           this.$store.commit('setTargetOrder', res.data)
           this.$router.push('/cart/confirm_order')
       },
@@ -228,6 +248,7 @@
             await this.$http.post(`order/shoppingCart/remove?ids=${goods.shoppingCartId}`, {
                 ids: goods.shoppingCartId
             })
+            await this.getData()
         })
         .catch(() => {
 

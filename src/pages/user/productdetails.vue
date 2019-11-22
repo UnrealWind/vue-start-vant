@@ -83,21 +83,21 @@
       </div>
     </div>
 
-    <div class="sale-securities" @click="$router.push('/cart/coupon')">
+    <!--<div class="sale-securities" @click="$router.push('/cart/coupon')">
       <div class="wp fix">
 
-        <div class="l">
-          领劵
-          <span> 满51减50 </span>
-          <span> 满100减8 </span>
-        </div>
-
-        <div class="r">
-          <span> 领劵 </span>
-        </div>
-
+      <div class="l">
+        领劵
+        <span> 满51减50 </span>
+        <span> 满100减8 </span>
       </div>
+
+      <div class="r">
+        <span> 领劵 </span>
+      </div>
+
     </div>
+    </div>-->
 
     <div class="sale-specs">
       <div class="wp fix">
@@ -627,15 +627,35 @@
             this.show = false
         },
         async pay(data) {
+            let price
+            let activityResultId
+            if (this.good.activityResultList.length === 0) {
+                price = data.selectedSkuComb.price / 100 * data.selectedNum
+                activityResultId = null
+            } else {
+                switch (this.good.activityResultList[0].activityType) {
+                    case 0: price = data.selectedSkuComb.price / 100 * data.selectedNum - JSON.parse(this.good.activityResultList[0].resultJson).drop; break
+                    case 1:
+                        if (JSON.parse(this.good.activityResultList[0].resultJson).full < data.selectedSkuComb.price / 100 * data.selectedNum) {
+                            price = data.selectedSkuComb.price / 100 * data.selectedNum - JSON.parse(this.good.activityResultList[0].resultJson).minus
+                        }
+                        break
+                    case 2:price = data.selectedSkuComb.price / 100 * data.selectedNum * JSON.parse(this.good.activityResultList[0].resultJson).discount / 10; break
+                }
+                activityResultId = this.good.activityResultList[0].id
+            }
             const goodsVoList = {
                 'goodsVos': [],
-                'orderType': 1 // 1是直接下单，2是购物车下单
+                'orderType': 1, // 1是直接下单，2是购物车下单
+                'total': price
             }
+
             goodsVoList.goodsVos.push({
                 'amount': data.selectedNum,
-                'skuCode': data.selectedSkuComb.id
+                'skuCode': data.selectedSkuComb.id,
+                'activityResultId': activityResultId
             })
-            const res = await this.$http.post('product/goods/orderByCart', goodsVoList)
+            const res = await this.$http.post('product/goods/createOrderInfo', goodsVoList)
             this.$store.commit('setTargetOrder', res.data)
             this.$router.push('/cart/confirm_order')
         }

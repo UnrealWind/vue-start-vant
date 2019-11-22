@@ -20,7 +20,7 @@
                 <div v-for="(commodity, idx) in shop.goods" :key="idx" class="list_wrap">
                   <van-card
                     :num="commodity.amount"
-                    :price="shop.goodsMoney"
+                    :price="commodity.unitPrice"
                     :desc="commodity.goodsDesc"
                     :title="commodity.goodsName"
                     :thumb="commodity.mainImg"
@@ -28,16 +28,19 @@
                     <!--<div slot="tags" class="tags">
                       <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
                     </div>-->
-                    <div slot="footer">
-                      <van-button v-if="shop.nodeCode === 0" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付  </van-button>
+                    <div v-if="idx === shop.goods.length-1" slot="footer">
+                      <van-button v-if="shop.nodeCode === '0'" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付  </van-button>
                       <van-button size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>
                       <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>
                       <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
-                      <van-button v-if="shop.nodeCode === 2" size="mini" class="font_bottom"> 确认收货 </van-button>
+                      <van-button v-if="shop.nodeCode === '2'" size="mini" class="font_bottom"> 确认收货 </van-button>
                     </div>
                   </van-card>
                   <div class="font_top">
-                    共 {{ commodity.amount }} 件商品 应付款：<span>￥{{ shop.realTotalMoney }}</span>  （含运费 {{ shop.deliverMoney }}元）
+                    共 {{ commodity.amount|judNull }} 件商品
+                    <span v-if="idx === shop.goods.length-1">
+                      应付款：<span>￥{{ shop.goodsMoney }}</span>  （含运费 {{ shop.deliverMoney }}元）
+                    </span>
                   </div>
                 </div>
               </div>
@@ -54,23 +57,30 @@
                 <div v-for="(commodity, idx) in shop.goods" :key="idx" class="list_wrap">
                   <van-card
                     :num="commodity.amount"
-                    :price="shop.goodsMoney"
+                    :price="commodity.unitPrice"
                     :desc="commodity.goodsDesc"
                     :title="commodity.goodsName"
                     :thumb="commodity.mainImg"
                   >
-                    <!--<div slot="tags" class="tags">
-                      <van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>
+                    <!--<div v-if="shop.nodeCode !== '0'" slot="tags" class="tags">
+                      &lt;!&ndash;<van-tag plain type="danger" class="tagsvan"> 特卖 </van-tag>&ndash;&gt;
                     </div>-->
+
                     <div slot="footer">
-                      <van-button v-if="shop.nodeCode === 0" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>
-                      <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>
-                      <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
-                      <van-button v-if="shop.nodeCode === 2" size="mini" class="font_bottom"> 确认收货 </van-button>
+                      <span v-if="idx === shop.goods.length-1">
+                        <van-button v-if="shop.nodeCode === '0'" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>
+                        <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>
+                        <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
+                        <van-button v-if="shop.nodeCode === '2'" size="mini" class="font_bottom"> 确认收货 </van-button>
+                      </span>
+                      <van-button v-if="shop.nodeCode!=='0'" size="mini" class="font_bottom" @click="refund(commodity)"> 售后 </van-button>
                     </div>
                   </van-card>
                   <div class="font_top">
-                    共 {{ commodity.amount }} 件商品 应付款：<span>￥{{ shop.realTotalMoney }}</span>  （含运费 {{ shop.deliverMoney }}元）
+                    共 {{ commodity.amount|judNull }} 件商品
+                    <span v-if="idx === shop.goods.length-1">
+                      应付款：<span>￥{{ shop.goodsMoney }}</span>  （含运费 {{ shop.deliverMoney }}元）
+                    </span>
                   </div>
                 </div>
               </div>
@@ -179,8 +189,10 @@
             this.status = 'success'
         },
         async getOrderList() {
-            const res = await this.$http.post('order/order/list', {
-                node_code: 0
+            const res = await this.$http.post('order/order/list?pageNum=0&pageSize=100', {
+                node_code: 0,
+                pageNum: 0,
+                pageSize: 100
             })
             this.orderList = res.data
         },
@@ -191,7 +203,7 @@
             })
         },
         async pay() {
-            const data = {
+            /* const data = {
                 'receiverId': this.targetOrder.receiverId,
                 'receiverName': this.targetOrder.receiverName,
                 'receiverPhone': this.targetOrder.receiverPhone,
@@ -201,13 +213,23 @@
                 'orderType': this.targetOrder.orderType,
                 'trueMoney': this.targetOrder.totalMoney,
                 'goodsPoList': this.targetOrder.goods
-            }
-            const res = await this.$http.post('order/order/placeOrder', data)
+            }*/
+            const res = await this.$http.post('order/order/toPayAgain', {
+                orderCode: this.targetOrder.orderCode,
+                'payType': this.payType
+            })
             console.log(res)
         },
         showPopup(shop) {
             this.targetOrder = shop
             this.show = true
+        },
+        refund(msg) {
+            console.log(msg)
+            this.$router.push({
+                path: '/user/refund',
+                query: msg
+            })
         }
     }
   }
@@ -231,6 +253,10 @@
     clear: both;
     overflow: hidden;
     visibility: hidden;
+  }
+  .tags {
+    padding:10px 0 10px 0;
+    text-align: right;
   }
   .dan_wrap{
     padding-top: 55px;
@@ -434,7 +460,6 @@
     .font_bottom{
       border: 1px solid #cbcbcb;
       padding: 0px 10px;
-      line-height: 26px;
       font-size: 12px;
       box-sizing: border-box;
       display: inline-block;
