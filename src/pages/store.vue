@@ -19,11 +19,11 @@
 
         <div class="nav_header fix">
           <div class="nav_l l">
-            <a href="" class="img"> <img src="../assets/img/storetu1.png" alt=""> </a>
+            <a class="img"> <img :src="shopData.logo" alt=""> </a>
           </div>
           <div class="nav_c l">
-            <a href="" class="title"> 裂帛旗舰店 </a>
-            <a href="" class="titlemin"> 在线商品<span>350 </span> 粉丝数量<span>3333 </span> </a>
+            <a class="title"> {{ shopData.shopName }} </a>
+            <!--            <a href="" class="titlemin"> 在线商品<span>350 </span> 粉丝数量<span>3333 </span> </a>-->
           </div>
           <div class="nav_r r">
             <a href="">
@@ -32,54 +32,54 @@
           </div>
         </div>
 
-        <div class="nav_coupons">
-          <div class="nav_ul fix">
-            <div class="li">
-              <div class="fix">
-                <div class="nav_l l">
-                  <a href="" class="title"> <em>￥</em><i>40</i> <span> 全店通用 </span> </a>
-                  <a href="" class="titlemin"> 满199可用 </a>
-                </div>
-                <div class="nav_r r">
-                  <a href=""> 立即领取 </a>
-                </div>
-              </div>
-            </div>
-            <div class="li">
-              <div class="fix">
-                <div class="nav_l l">
-                  <a href="" class="title"> <em>￥</em><i>40 </i> <span> 全店通用 </span> </a>
-                  <a href="" class="titlemin"> 满199可用 </a>
-                </div>
-                <div class="nav_r r on">
-                  <a href=""> 已 抢 光 </a>
-                </div>
-              </div>
-            </div>
-            <div class="li">
-              <div class="fix">
-                <div class="nav_l l">
-                  <a href="" class="title"> <em>￥</em><i>40</i> <span> 全店通用 </span> </a>
-                  <a href="" class="titlemin"> 满199可用 </a>
-                </div>
-                <div class="nav_r r">
-                  <a href=""> 立即领取 </a>
-                </div>
-              </div>
-            </div>
-            <div class="li">
-              <div class="fix">
-                <div class="nav_l l">
-                  <a href="" class="title"> <em>￥</em><i>40 </i> <span> 全店通用 </span> </a>
-                  <a href="" class="titlemin"> 满199可用 </a>
-                </div>
-                <div class="nav_r r on">
-                  <a href=""> 已 抢 光 </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!--        <div class="nav_coupons">-->
+        <!--          <div class="nav_ul fix">-->
+        <!--            <div class="li">-->
+        <!--              <div class="fix">-->
+        <!--                <div class="nav_l l">-->
+        <!--                  <a href="" class="title"> <em>￥</em><i>40</i> <span> 全店通用 </span> </a>-->
+        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
+        <!--                </div>-->
+        <!--                <div class="nav_r r">-->
+        <!--                  <a href=""> 立即领取 </a>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="li">-->
+        <!--              <div class="fix">-->
+        <!--                <div class="nav_l l">-->
+        <!--                  <a href="" class="title"> <em>￥</em><i>40 </i> <span> 全店通用 </span> </a>-->
+        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
+        <!--                </div>-->
+        <!--                <div class="nav_r r on">-->
+        <!--                  <a href=""> 已 抢 光 </a>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="li">-->
+        <!--              <div class="fix">-->
+        <!--                <div class="nav_l l">-->
+        <!--                  <a href="" class="title"> <em>￥</em><i>40</i> <span> 全店通用 </span> </a>-->
+        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
+        <!--                </div>-->
+        <!--                <div class="nav_r r">-->
+        <!--                  <a href=""> 立即领取 </a>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--            <div class="li">-->
+        <!--              <div class="fix">-->
+        <!--                <div class="nav_l l">-->
+        <!--                  <a href="" class="title"> <em>￥</em><i>40 </i> <span> 全店通用 </span> </a>-->
+        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
+        <!--                </div>-->
+        <!--                <div class="nav_r r on">-->
+        <!--                  <a href=""> 已 抢 光 </a>-->
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
 
         <div class="nav_cou_img">
           <div class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/storetu12.png" alt="">
@@ -158,7 +158,8 @@
                 status: 'loading',
                 value: '',
                 vipData: [],
-                storeListData: []
+                storeListData: [],
+                shopData: {}
             }
         },
         computed: {},
@@ -178,15 +179,16 @@
                 this.status = 'success'
             },
             async getShopData() {
-                const res = await this.$http.post(`user/shop/queryById?id=${this.$route.query.id}`)
-                console.log(res)
+                const res = await this.$http.post('user/shop/queryByCode', {
+                    shopCode: this.$route.query.shopCode
+                })
+                this.shopData = res.data
             },
             // 必抢爆款
             async getFaddishData() {
                 const res = await this.$http.post('product/activity/activityGoodsList', {
                     activityCode: '89f3986c4e76419cbb3265633ae0d153'
                 })
-                console.log(res)
                 const arr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
@@ -215,7 +217,6 @@
                     pageSize: 4,
                     shopCode: this.$route.query.shopCode
                 })
-                console.log(this.$route.query.shopCode)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
@@ -286,6 +287,7 @@
     margin: 0 auto;
     text-align: center;
   }
+
   .header_l3 {
     position: absolute;
     top: 0px;

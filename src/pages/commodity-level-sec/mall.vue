@@ -101,7 +101,7 @@
             <p><span>{{ item.title }}</span><span class="bj">{{ item.discounts }}</span></p>
           </div>
           <div class="box2 flex_center"><a
-            @click="$router.push({path:'/store',query:{id:item.id,shopCode: item.shopCode}})"
+            @click="$router.push({path:'/store',query:{shopCode: item.shopCode}})"
           >进店</a></div>
         </div>
         <ul class="commodityLits flex_wrap">
@@ -121,7 +121,7 @@
     </div>
     <ul class="publicBox logo_ification flex_wrap">
       <li v-for="(items, indexs) in mallBrandData" :key="indexs">
-        <a @click="$router.push({path:'/store',query:{id:items.id,shopCode: items.shopCode}})">
+        <a @click="$router.push({path:'/store',query:{shopCode: items.shopCode}})">
           <p class="p1 flex_center"><img :src="items.img" alt=""></p>
           <p class="p2"></p>
           <p class="p3">{{ items.title }}</p>

@@ -152,7 +152,7 @@
       <!-- 品牌 -->
       <ul class="publicBox logo_ification flex_wrap mt3">
         <li v-for="(item,index) in crossBorderBrandData" :key="index">
-          <a @click="$router.push({path:'/store',query:{id:item.id,shopCode: item.shopCode}})">
+          <a @click="$router.push({path:'/store',query:{shopCode: item.shopCode}})">
             <p class="p1 flex_center"><img :src="item.image" alt=""></p>
             <p class="p2"></p>
             <p class="p3">{{ item.title }}</p>
