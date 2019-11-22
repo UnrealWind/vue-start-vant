@@ -94,7 +94,6 @@
           v-for="(vip,index) in vipData"
           :key="`${vip.type}-${index}`"
           class="navdan_box4"
-          @click="$router.push('/user/productdetails')"
         >
           <commodity
             :type="vip.type"
@@ -102,7 +101,7 @@
             :discribe="vip.discribe"
             :title="vip.title"
             :vip-price="vip.vipPrice"
-            :vip-price-discribe="false"
+            :vip-price-discribe="vip.vipPriceDiscribe"
             :btn-go="vip.btnGo"
           >
           </commodity>
@@ -158,52 +157,8 @@
             return {
                 status: 'loading',
                 value: '',
-                vipData: [
-                    {
-                        'type': 'list-vip',
-                        'discribe': '领券立减20元滋润护唇',
-                        'title': '瓷妆润唇膏情侣套装',
-                        'vipPriceDiscribe': {
-                            'type': '已告罄'
-                        },
-                        'vipPrice': {
-                            'current': '123',
-                            'pre': '134'
-                        },
-                        'btnGo': '/static/introduction',
-                        'image': require('assets/img/viptu16.png')
-                    },
-                    {
-                        'type': 'list-vip',
-                        'discribe': '直降7元',
-                        'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                        'vipPriceDiscribe': {
-                            'type': '抢购中',
-                            'num': '1234',
-                            'percent': '12'
-                        },
-                        'vipPrice': {
-                            'current': '123',
-                            'pre': '134'
-                        },
-                        'btnGo': '/static/introduction',
-                        'image': require('assets/img/viptu12.png')
-                    }
-                ],
-                storeListData: [
-                    {
-                        'img': require('../assets/css/static/images/timg3.png'),
-                        'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
-                        'current': 123, // 现价
-                        'pre': 134 // 原价
-                    },
-                    {
-                        'img': require('../assets/css/static/images/timg3.png'),
-                        'title': 'Touch Miss日系小浪漫与温暖羊毛针织',
-                        'current': 123, // 现价
-                        'pre': 134 // 原价
-                    }
-                ]
+                vipData: [],
+                storeListData: []
             }
         },
         computed: {},
@@ -213,16 +168,66 @@
         methods: {
             async init() {
                 try {
-                    // await this.getData()
+                    await this.getShopData()
+                    await this.getFaddishData()
+                    await this.getShopListData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
             },
-            async getData() {
-                const res = await this.$http.get('/user/12345')
+            async getShopData() {
+                const res = await this.$http.post(`user/shop/queryById?id=${this.$route.query.id}`)
                 console.log(res)
+            },
+            // 必抢爆款
+            async getFaddishData() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: '89f3986c4e76419cbb3265633ae0d153'
+                })
+                console.log(res)
+                const arr = []
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                type: 'list-vip',
+                                discribe: good.goodsProfile,
+                                title: good.goodsName,
+                                vipPriceDiscribe: {},
+                                vipPrice: {
+                                    current: good.showPrice,
+                                    pre: good.linePrice
+                                },
+                                btnGo: `/user/productdetails?id=${good.id}`,
+                                image: good.goodsStatics[i].url
+                            })
+                        })
+                    })
+                }
+                this.vipData = arr
+            },
+            // 商品
+            async getShopListData() {
+                const res = await this.$http.post('product/goods/list', {
+                    pageNum: 1,
+                    pageSize: 4,
+                    shopCode: this.$route.query.shopCode
+                })
+                console.log(this.$route.query.shopCode)
+                const arr = []
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            title: n.goodsName,
+                            current: n.showPrice,
+                            pre: n.linePrice,
+                            img: n.mainImg
+                        })
+                    })
+                }
+                this.storeListData = arr
             }
         }
     }

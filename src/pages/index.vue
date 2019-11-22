@@ -245,8 +245,8 @@
                             id: n.id,
                             indexPriceDiscribe: {},
                             indexPrice: {
-                                current: n.linePrice,
-                                pre: n.showPrice
+                                current: n.showPrice,
+                                pre: n.linePrice
                             },
                             btnGo: `/user/productdetails?id=${n.id}`
                         })

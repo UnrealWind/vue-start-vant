@@ -211,7 +211,7 @@ import { Icon, Cell, Picker, Popup, Field, Toast } from 'vant'
       position: relative;
       img{
         position: absolute;
-        top: 5px;
+        top: 15px;
         right: 40px;
         max-width: 40px;
         max-height: 40px;

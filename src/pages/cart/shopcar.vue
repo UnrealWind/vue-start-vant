@@ -11,7 +11,7 @@
             <div>
               <!-- 店铺标题-->
               <div class="comm-title">
-                <span @click="$router.push('/store')">  {{ shop.shopName }}  <van-icon name="arrow" class="con_titl_arr" /></span>
+                <span @click="goStore(shop)">  {{ shop.shopName }}  <van-icon name="arrow" class="con_titl_arr" /></span>
                 <van-checkbox v-model="shop.checked" @click="checkShop(shop)"></van-checkbox>
                 <i @click="$router.push('/cart/coupon')">领券</i>
               </div>
@@ -257,6 +257,14 @@
       // 明细
       showPopup() {
           this.showDetails = true
+      },
+      goStore(shop) {
+          this.$router.push({
+              path: '/store',
+              query: {
+                  shopCode: shop.shopCode
+              }
+          })
       }
     }
 }

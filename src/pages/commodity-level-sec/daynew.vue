@@ -33,7 +33,7 @@
           </li>
         </ul>
         <ul class="jxdpImgList flex_wrap jxdpImgList1">
-          <li v-for="(item,index) in dayNewChoicenessData" :key="index">
+          <li v-for="(item,index) in dayNewChoicenessDatas" :key="index">
             <a @click="$router.push({path:item.path,query:{id:item.id}})"><img
               :src="item.img"
               alt=""
@@ -96,6 +96,7 @@
                 bannerData: [],
                 // 精选大牌
                 dayNewChoicenessData: [],
+                dayNewChoicenessDatas: [],
                 // tab栏
                 dayNewTabData: [],
                 // tab栏下商品
@@ -115,6 +116,8 @@
                     await this.getBannerData()
                     // 精选大牌
                     await this.getBrandData()
+                    await this.getBrandDatas()
+
                     // tab栏
                     await this.getDayNewTabData()
                     // tab栏下商品
@@ -151,12 +154,9 @@
             },
             // 精选大牌
             async getBrandData() {
-                const res = await this.$http.post('product/goods/recommendGoodslist', {
-                    type: 1,
-                    pageSize: 2,
-                    pageNum: 0
+                const res = await this.$http.post('product/goods/recommendGoodslist?pageNum=1&pageSize=2', {
+                    type: 1
                 })
-                console.log(res)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
@@ -171,6 +171,24 @@
                 }
                     this.dayNewChoicenessData = arr
                 },
+            async getBrandDatas() {
+                const res = await this.$http.post('product/goods/recommendGoodslist', {
+                    type: 1
+                })
+                const arr = []
+                if (res.rows) {
+                    res.rows.forEach((n, i) => {
+                        arr.push({
+                            store: n.goodsName,
+                            discounts: n.goodsProfile,
+                            img: n.mainImg,
+                            path: '/user/productdetails',
+                            id: n.id
+                        })
+                    })
+                }
+                this.dayNewChoicenessDatas = arr
+            },
             // tab栏
             async getDayNewTabData() {
                 const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)

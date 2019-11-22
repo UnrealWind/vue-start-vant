@@ -134,8 +134,8 @@
                             title: good.goodsName,
                             discribe: good.goodsProfile,
                             vipPrice: {
-                                current: good.linePrice,
-                                pre: '508'
+                                current: good.showPrice,
+                                pre: good.linePrice
                             },
                             vipPriceDiscribe: {},
                             btnGo: '/user/productdetails',

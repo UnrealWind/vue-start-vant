@@ -16,118 +16,30 @@
     <div class="nav_box5 dan_wrap ">
       <div class="wp">
         <div class="nav_ul ">
-          <van-tabs v-model="active">
-            <van-tab v-for="(item,index) in navList" :key="index" :title="item.title">
+          <van-tabs v-model="active" @click="changeTab">
+            <van-tab v-for="(item,index) in navList" :key="index" :title="item.label">
             </van-tab>
           </van-tabs>
         </div>
-        <div class="icon"> <van-icon name="arrow-down" /> </div>
+        <!--        <div class="icon"> <van-icon name="arrow-down" /> </div>-->
       </div>
     </div>
 
     <div class="nav_box dan_wrap fix">
       <div class="wp">
 
-        <div class="title"> 精选推荐 </div>
+        <!--        <div class="title"> 精选推荐 </div>-->
 
         <ul class="flex_wrap gwcLits ">
-          <li>
-            <a @click="$router.push('/user/productdetails')">
+          <li v-for="(item,index) in listData" :key="index">
+            <a @click="$router.push(item.path)">
               <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
+                <img :src="item.img" alt="">
                 <h4> 特卖</h4>
               </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
-            </a>
-          </li>
-          <li>
-            <a @click="$router.push('/user/productdetails')">
-              <div class="p2">
-                <img src="../assets/css/static/images/timg3.png" alt="">
-                <h4> 特卖</h4>
-              </div>
-              <p class="p1"> 与温暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <p class="p4"> 暖羊毛针织拼接网纱百褶中长收腰连衣裙</p>
-              <div class="p3 flex_betweenc"><p>¥155 <span>¥199</span></p> </div>
+              <p class="p1"> {{ item.title }}</p>
+              <p class="p4"> {{ item.intro }}</p>
+              <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p> </div>
             </a>
           </li>
         </ul>
@@ -153,24 +65,8 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
           active: 0,
           status: 'loading',
           value: '',
-          navList: [
-              {
-                  title: '精选推荐',
-                  isActive: true
-              },
-              {
-                  title: '乳品'
-              },
-              {
-                  title: '果汁饮料'
-              },
-              {
-                  title: '酒'
-              },
-              {
-                  title: '冲调早餐'
-              }
-          ]
+          navList: [],
+          listData: []
       }
     },
     computed: {
@@ -181,16 +77,47 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
     methods: {
         async init() {
             try {
+                await this.getMarketTabData()
                 await this.getSuperMarketListData()
-                // await this.getData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getSuperMarketListData() {
-            await this.$http.post(`product/content/list?parentId=${this.$route.query.id}`)
+        async getMarketTabData() {
+            const res = await this.$http.post(`product/content/selectById?level=3&id=${this.$route.query.id}`)
+            const arr = []
+            for (const i in res.data.dictMap) {
+                arr.push({
+                    label: res.data.dictMap[i],
+                    key: i
+                })
+            }
+            this.navList = arr
+        },
+        changeTab(idx, title) {
+            this.navList[idx].key
+            this.getSuperMarketListData(this.navList[idx].key)
+        },
+        async getSuperMarketListData(category) {
+            if (!category) category = this.navList[0].key
+            const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+            const arr = []
+            console.log(res)
+            if (res.data) {
+                res.data.forEach((n, i) => {
+                    arr.push({
+                        path: `/user/productdetails?id=${n.id}`,
+                        img: n.goodsStatics[i].url,
+                        title: n.goodsName,
+                        intro: n.goodsgoodsProfile,
+                        current: n.showPrice,
+                        pre: n.linePrice
+                    })
+                })
+            }
+            this.listData = arr
         }
     }
   }
@@ -322,5 +249,4 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
       padding-bottom: 2px;
     }
   }
-
 </style>

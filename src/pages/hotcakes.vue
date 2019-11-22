@@ -146,7 +146,7 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
                     image: n.goodsStatics[i].url,
                     discribe: n.goodsProfile,
                     title: n.goodsName,
-                    hotPrice: n.linePrice,
+                    hotPrice: n.linePrice + '',
                     hotPriceDiscribe: '￥',
                     btnGo: `/user/productdetails?id=${n.id}`,
                     popularity: '人气2.2w',

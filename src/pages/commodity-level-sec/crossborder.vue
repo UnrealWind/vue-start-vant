@@ -70,7 +70,7 @@
               </div>
               <p class="title">{{ item.title }}</p>
               <p class="money flex_betweenc"><span>¥{{ item.current }}</span> <samp>赚{{ item.gain }}</samp></p>
-              <span class="pop1">降价40</span><span class="pop2">爆款</span>
+              <!--              <span class="pop1">降价40</span><span class="pop2">爆款</span>-->
             </a>
           </li>
         </ul>
@@ -87,7 +87,7 @@
         <ul class="bangdanBox flex_betweenc mt3">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="li1">
             <p class="imgBox flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})"> <img
-              :src="item.img"
+              :src="item.image"
               alt=""
             > </a></p>
             <p class="text"><a @click="$router.push({path:'/productlistmin',query:{id:item.id}})">{{ item.title }}</a></p>
@@ -95,7 +95,7 @@
         </ul>
         <ul class="bangdan2 flex_betweenc">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="flex_betweenc li1">
-            <p class="flex_center"><img :src="item.img" alt=""></p>
+            <p class="flex_center"><img :src="item.image" alt=""></p>
             <a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.title }}></a>
           </li>
         </ul>
@@ -128,7 +128,7 @@
             >
             <p>{{ item.people }}+人在参加</p>
           </div>
-          <a> 查看详情</a>
+          <a @click="$router.push('/shoppingcart')"> 查看详情</a>
         </div>
       </div>
       <!-- 逛全球 -->
@@ -152,8 +152,8 @@
       <!-- 品牌 -->
       <ul class="publicBox logo_ification flex_wrap mt3">
         <li v-for="(item,index) in crossBorderBrandData" :key="index">
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img :src="item.img" alt=""></p>
+          <a @click="$router.push({path:'/store',query:{id:item.id,shopCode: item.shopCode}})">
+            <p class="p1 flex_center"><img :src="item.image" alt=""></p>
             <p class="p2"></p>
             <p class="p3">{{ item.title }}</p>
           </a>
@@ -301,7 +301,7 @@
                             arr.push({
                                 image: require('../../assets/css/static/images/a8.jpg'),
                                 title: good.goodsName,
-                                intro: n.goodsProfile,
+                                intro: good.goodsProfile,
                                 path: '/shoppingcart',
                                 people: '1512'
                             })
@@ -342,6 +342,7 @@
                     res.data.forEach((n, i) => {
                         arr.push({
                             title: n.actDetailName,
+                            image: n.logo,
                             path: `/productlistmin`,
                             id: n.id
                         })
@@ -351,16 +352,19 @@
             },
             // 品牌列表
             async getBrandListData() {
-               const res = await this.$http.post('product/goodsBrand/list', {
-                   pageNum: 1,
-                   pageSize: 6
+               const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=6', {
+                   'dataType': 'json',
+                   'method': 'post',
+                   'data': {}
                })
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
                         arr.push({
                             image: n.logo,
-                            title: n.content
+                            title: n.shopName,
+                            id: n.id,
+                            shopCode: n.shopCode
                         })
                     })
                 }
@@ -428,7 +432,7 @@
     display: flex;
   }
   .bangdan2 li {
-    width: 50%;
+    width: 33%;
   }
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";

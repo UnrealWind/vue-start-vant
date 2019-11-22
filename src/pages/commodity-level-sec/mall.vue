@@ -1,9 +1,11 @@
 <template>
   <van-container :tabber="true" :status="status">
     <div slot="header" class="fix">
-      <div class="header_l " @click="$router.back()"> <van-icon name="arrow-left" /> </div>
+      <div class="header_l " @click="$router.back()">
+        <van-icon name="arrow-left" />
+      </div>
       <div class="header_l2">
-        <div class="p"> 商场 </div>
+        <div class="p"> 商场</div>
       </div>
     </div>
     <div class="topHead">
@@ -30,7 +32,7 @@
         </div>
         <!-- 商品 -->
         <ul class="commodityLits mt7 flex_wrap">
-          <li v-for="(item,index) in mallProductListData" :key="index">
+          <li v-for="(item,index) in mallShopsListData" :key="index">
             <a @click="$router.push(item.path)">
               <img :src="item.img" alt="">
               <p class="title">{{ item.title }}</p>
@@ -64,7 +66,10 @@
             <h1>每日必抢</h1>
           </a>
           <a class="p1" @click="$router.push('/supermarket')">爆款秒杀></a>
-          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img src="../../assets/css/static/images/a2.jpg" alt=""> </a>
+          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img
+            src="../../assets/css/static/images/a2.jpg"
+            alt=""
+          > </a>
           </p>
 
         </div>
@@ -73,7 +78,10 @@
             <h1>领劵中心</h1>
           </a>
           <a class="p1" @click="$router.push('/supermarket')">大额优惠劵一站领齐></a>
-          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img src="../../assets/css/static/images/a3.jpg" alt=""> </a>
+          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img
+            src="../../assets/css/static/images/a3.jpg"
+            alt=""
+          > </a>
           </p>
 
         </div>
@@ -84,7 +92,6 @@
     <div class="everyday_shop flex">
       <h1>每日好店</h1><span>天天上新，好店推荐</span>
     </div>
-
     <!-- 内容2 -->
     <div v-for="(item,index) in mallShopsData" :key="index" class="p2 mt3 mb3">
       <div class="Storefront publicBox mt3">
@@ -93,11 +100,13 @@
             <img :src="item.img" alt="">
             <p><span>{{ item.title }}</span><span class="bj">{{ item.discounts }}</span></p>
           </div>
-          <div class="box2 flex_center"><a @click="$router.push('/store')">进店</a></div>
+          <div class="box2 flex_center"><a
+            @click="$router.push({path:'/store',query:{id:item.id,shopCode: item.shopCode}})"
+          >进店</a></div>
         </div>
         <ul class="commodityLits flex_wrap">
-          <li v-for="(module,stepIndex) in item.goods" :key="stepIndex">
-            <a @click="$router.push({path:module.path,query:{id:module.id}})">
+          <li v-for="(module,stepIndex) in mallShopsListData" :key="stepIndex">
+            <a @click="$router.push(module.path)">
               <img :src="module.img" alt="">
               <p class="title">{{ module.title }}</p>
               <p class="money"><span>¥{{ module.current }}</span> <samp>¥{{ module.pre }}</samp></p>
@@ -105,58 +114,58 @@
           </li>
         </ul>
       </div>
-      <!-- 更多好店 -->
-      <div class="everyday_shop flex">
-        <h1>更多好店</h1><span>天天上新，好店推荐</span>
-      </div>
-      <ul class="publicBox logo_ification flex_wrap">
-        <li v-for="(items, indexs) in mallBrandData" :key="indexs">
-          <a @click="$router.push('/store')">
-            <p class="p1 flex_center"><img :src="items.image" alt=""></p>
-            <p class="p2"></p>
-            <p class="p3">{{ items.title }}</p>
-          </a>
-        </li>
-        <li class="more flex_center">
-          <a @click="$router.push('/store')">
-            查看全部>
-          </a>
-        </li>
-      </ul>
-      <!--      为您推荐-->
-      <div class="tuijian flex_center">
-        <p class="flex"><img src="../../assets/css/static/images/dianzan.png" alt="">为您推荐</p>
-      </div>
-      <div class="tuijianNav flex">
-        <van-tabs v-model="active" @click="changeTab">
-          <van-tab v-for="(opt,tabIndex) in mallTabData" :key="tabIndex" class="act" :title="opt.label">
-            <ul class="flex_wrap gwcLits">
-              <li v-for="(listItem, listIndex) in mallProductListData" :key="listIndex">
-                <a @click="$router.push({path: listItem.path, query:{id:listItem.id}})">
-                  <img :src="listItem.img" alt="" class="mallList">
-                  <p class="p1">{{ listItem.title }}</p>
-                  <p class="p2"><span>特卖</span> <span>新品</span></p>
-                  <div class="p3 flex_betweenc">
-                    <p>¥{{ listItem.current }}
-                      <span>
-                        ¥{{ listItem.pre }}
-                      </span>
-                    </p>
-                    <img src="../../assets/css/static/images/gwc.png" alt=""></div>
-                </a>
-              </li>
-            </ul>
-          </van-tab>
-        </van-tabs>
-        <!--        <div class="more flex_center"><img src="../../assets/css/static/images/xia.png" alt=""></div>-->
-      </div>
-      <!-- 购物车商品list -->
+    </div>
+    <!-- 更多好店 -->
+    <div class="everyday_shop flex">
+      <h1>更多好店</h1><span>天天上新，好店推荐</span>
+    </div>
+    <ul class="publicBox logo_ification flex_wrap">
+      <li v-for="(items, indexs) in mallBrandData" :key="indexs">
+        <a @click="$router.push({path:'/store',query:{id:items.id,shopCode: items.shopCode}})">
+          <p class="p1 flex_center"><img :src="items.img" alt=""></p>
+          <p class="p2"></p>
+          <p class="p3">{{ items.title }}</p>
+        </a>
+      </li>
+      <li class="more flex_center">
+        <a @click="$router.push('/store')">
+          查看全部>
+        </a>
+      </li>
+    </ul>
+    <!--      为您推荐-->
+    <div class="tuijian flex_center">
+      <p class="flex"><img src="../../assets/css/static/images/dianzan.png" alt="">为您推荐</p>
+    </div>
+    <div class="tuijianNav flex">
+      <van-tabs v-model="active" @click="changeTab">
+        <van-tab v-for="(opt,tabIndex) in mallTabData" :key="tabIndex" class="act" :title="opt.label">
+          <ul class="flex_wrap gwcLits">
+            <li v-for="(listItem, listIndex) in mallProductListData" :key="listIndex">
+              <a @click="$router.push({path: listItem.path, query:{id:listItem.id}})">
+                <img :src="listItem.img" alt="" class="mallList">
+                <p class="p1">{{ listItem.title }}</p>
+                <p class="p2"><span>特卖</span> <span>新品</span></p>
+                <div class="p3 flex_betweenc">
+                  <p>¥{{ listItem.current }}
+                    <span>
+                      ¥{{ listItem.pre }}
+                    </span>
+                  </p>
+                  <img src="../../assets/css/static/images/gwc.png" alt=""></div>
+              </a>
+            </li>
+          </ul>
+        </van-tab>
+      </van-tabs>
+      <!--        <div class="more flex_center"><img src="../../assets/css/static/images/xia.png" alt=""></div>-->
     </div>
   </van-container>
 </template>
 
 <script>
-    import { Tab, Tabs, Icon } from 'vant'
+    import { Icon, Tab, Tabs } from 'vant'
+
     export default {
         components: {
             'van-icon': Icon,
@@ -169,6 +178,7 @@
                 active: 0,
                 // mallTopListData: [],
                 mallShopsData: [],
+                mallShopsListData: [],
                 mallNavData: [],
                 mallBrandData: [],
                 // tab栏下商品
@@ -200,8 +210,7 @@
             },
             // 商城nav数据
             async getMallNavData() {
-                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {
-                })
+                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {})
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
@@ -216,21 +225,36 @@
             },
             // 店铺查询
             async getStoreListData() {
-                const res = await this.$http.post('user/shop/list', {
-                    pageNum: 0,
-                    pageSize: 3
+                const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=1', {
+                    'dataType': 'json',
+                    'method': 'post',
+                    'data': {}
                 })
-                console.log(res)
                 const arr = []
+                const list = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
                         arr.push({
                             title: n.shopName,
-                            img: n.mainImg,
-                            discounts: n.address
+                            img: n.logo,
+                            discounts: '',
+                            id: n.id,
+                            shopCode: n.shopCode
                         })
+                        n.goods.forEach((good, i) => {
+                            list.push({
+                                title: good.goodsName,
+                                img: good.mainImg,
+                                current: good.showPrice,
+                                pre: good.linePrice,
+                                path: `/user/productdetails?id=${good.id}`
+                            })
+                        })
+                        console.log(list)
+                        this.mallShopsListData = list
                     })
                 }
+                console.log(arr)
                 this.mallShopsData = arr
             },
             // tab栏
@@ -257,7 +281,7 @@
                     res.data.forEach((n, i) => {
                         arr.push({
                             path: `/user/productdetails?id=${n.id}`,
-                            title: n.categoryName,
+                            title: n.goodsName,
                             img: n.goodsStatics[i].url,
                             id: n.id,
                             current: n.showPrice,
@@ -269,30 +293,34 @@
             },
             // 品牌
             async getBrandListData() {
-                const res = await this.$http.post('product/goodsBrand/list', {
-                    pageNum: 1,
-                    pageSize: 6
+                const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=10', {
+                    'dataType': 'json',
+                    'method': 'post',
+                    'data': {}
                 })
+                console.log(res)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
                         arr.push({
-                            image: n.logo,
-                            title: n.content
+                            title: n.shopName,
+                            img: n.logo,
+                            id: n.id,
+                            shopCode: n.shopCode
                         })
                     })
+                    this.mallBrandData = arr
                 }
-                this.mallBrandData = arr
             }
         }
     }
-
 </script>
 <style lang='scss' scoped>
   .fix {
     background-color: #fff;
     height: 37.5px;
   }
+
   .header_l {
     position: absolute;
     left: 0;
@@ -314,6 +342,7 @@
       color: #000;
     }
   }
+
   .gwcLits li {
     width: 48%;
   }
@@ -326,13 +355,16 @@
     height: auto;
     width: 100%;
   }
+
   .van-tabs__wrap.van-hairline--top-bottom {
     width: 100%;
   }
+
   .van-tabs {
     width: 100%;
   }
-  .van-tabs--line .van-tabs__wrap{
+
+  .van-tabs--line .van-tabs__wrap {
     width: 100%;
   }
 

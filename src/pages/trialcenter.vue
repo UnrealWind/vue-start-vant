@@ -12,20 +12,18 @@
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div v-for="(vip,index) in vipDataMin" :key="`${vip.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">
-
-          <commodity
-            :type="vip.type"
-            :image="vip.image"
-            :discribe="vip.discribe"
-            :title="vip.title"
-            :vip-price="vip.vipPrice"
-            :vip-price-discribe="vip.vipPriceDiscribe"
-            :btn-go="vip.btnGo"
-          >
-          </commodity>
-
-        </div>
+        <commodity
+          v-for="(commodity,index) in vipDataMin"
+          :key="`${commodity.type}-${index}`"
+          :type="commodity.type"
+          :image="commodity.image"
+          :discribe="commodity.discribe"
+          :title="commodity.title"
+          :index-price="commodity.indexPrice"
+          :index-price-discribe="commodity.indexPriceDiscribe"
+          :btn-go="commodity.btnGo"
+        >
+        </commodity>
       </div>
     </div>
 
@@ -33,100 +31,58 @@
 </template>
 
 <script>
-import { Icon } from 'vant'
-  export default {
-    components: {
-        'van-icon': Icon
-    },
-    data() {
-      return {
-          status: 'loading',
-          value: '',
-          vipDataMin: [
-              {
-                  'type': 'list-vip',
-                  'discribe': '直降7元',
-                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                  'vipPriceDiscribe': {
-                      'type': '申请试用'
-                  },
-                  'vipPrice': {
-                      'current': '123',
-                      'pre': '134'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/viptu12.png')
-              },
-              {
-                  'type': 'list-vip',
-                  'discribe': '直降7元',
-                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                  'vipPriceDiscribe': {
-                      'type': '抢购中',
-                      'num': '1234',
-                      'percent': '12'
-                  },
-                  'vipPrice': {
-                      'current': '123',
-                      'pre': '134'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/viptu12.png')
-              },
-              {
-                  'type': 'list-vip',
-                  'discribe': '直降7元',
-                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                  'vipPriceDiscribe': {
-                      'type': '申请试用'
-                  },
-                  'vipPrice': {
-                      'current': '123',
-                      'pre': '134'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/viptu12.png')
-              },
-              {
-                  'type': 'list-vip',
-                  'discribe': '直降7元',
-                  'title': '麻辣多拿，纯素火锅-快乐元素  300g*3盒',
-                  'vipPriceDiscribe': {
-                      'type': '抢购中',
-                      'num': '1234',
-                      'percent': '12'
-                  },
-                  'vipPrice': {
-                      'current': '123',
-                      'pre': '134'
-                  },
-                  'btnGo': '/user/productdetails',
-                  'image': require('assets/img/viptu12.png')
-              }
-          ]
-      }
-    },
-    computed: {
-    },
-    mounted() {
-        this.init()
-    },
-    methods: {
-        async init() {
-            try {
-                // await this.getData()
-            } catch (e) {
-                this.status = 'error'
-                throw e
-            }
-            this.status = 'success'
+    import { Icon } from 'vant'
+    export default {
+        components: {
+            'van-icon': Icon
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
-            console.log(res)
+        data() {
+            return {
+                status: 'loading',
+                value: '',
+                vipDataMin: []
+            }
+        },
+        computed: {
+        },
+        mounted() {
+            this.init()
+        },
+        methods: {
+            async init() {
+                try {
+                    await this.getVipDataMin()
+                } catch (e) {
+                    this.status = 'error'
+                    throw e
+                }
+                this.status = 'success'
+            },
+            async getVipDataMin() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
+                })
+                console.log(res)
+                const arr = []
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                'type': 'list-index',
+                                'image': good.goodsStatics[i].url,
+                                'discribe': good.goodsProfile,
+                                'title': good.goodsName,
+                                'indexPrice': { 'current': good.showPrice, 'pre': good.linePrice },
+                                'indexPriceDiscribe': {},
+                                'btnGo': `/user/productdetails?id=${good.id}`
+                            })
+                        })
+                    })
+                }
+                this.vipDataMin = arr
+            }
         }
     }
-  }
 
 </script>
 <style lang='scss' scoped>

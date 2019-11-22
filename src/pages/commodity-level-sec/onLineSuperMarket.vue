@@ -455,8 +455,8 @@
                         title: n.goodsName,
                         img: n.goodsStatics[2].url,
                         id: n.id,
-                        current: n.linePrice,
-                        pre: n.showPrice,
+                        current: n.showPrice,
+                        pre: n.linePrice,
                         path: `/user/productdetails?id=${n.id}`
                     })
                 })
