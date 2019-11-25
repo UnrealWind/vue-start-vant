@@ -28,7 +28,7 @@
         <div class="titleMin">
           已同意退款，系统已通知支付宝办理退款，请耐心等待
         </div>
-        <div class="service" @click="$router.push('/user/customerService')" >
+        <div class="service" @click="$router.push('/user/customerService')">
           <span> 联系客服 </span>
         </div>
 
@@ -54,7 +54,7 @@
 
     <div class="afderProduct wp">
 
-      <div v-for="(refund, index) in refund" :key="index">
+      <div v-for="(refund, index) in refunds" :key="index">
         <van-cell-group>
           <van-cell
             :icon="refund.img"
@@ -98,7 +98,7 @@
       return {
           status: 'loading',
           active: 0,
-          refund: [
+          refunds: [
               {
                   title: '南极人中老年保暖内衣男女士',
                   price: '￥14.9',
