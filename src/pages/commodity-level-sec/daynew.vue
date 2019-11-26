@@ -64,7 +64,6 @@
                       </p>
                       <img src="../../assets/css/static/images/gwc.png" alt="">
                     </div>
-                    <span class="popt">即将卖空</span>
                   </a>
                 </li>
               </ul>
@@ -169,8 +168,8 @@
                         })
                     })
                 }
-                    this.dayNewChoicenessData = arr
-                },
+                this.dayNewChoicenessData = arr
+            },
             async getBrandDatas() {
                 const res = await this.$http.post('product/goods/recommendGoodslist', {
                     type: 1

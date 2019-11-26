@@ -81,7 +81,7 @@
       </div>
     </div>
 
-    <div class="nav_box7 dan_wrap">
+    <!--<div class="nav_box7 dan_wrap">
       <ul class="nav7_ul fix">
         <li>
           <div class="title2"> 14:00</div>
@@ -108,7 +108,7 @@
           <p> 抢购进行中 </p>
         </li>
       </ul>
-    </div>
+    </div>-->
 
     <div class="nav_box8 dan_wrap">
       <div class="nav_li fix wp">
