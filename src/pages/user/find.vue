@@ -1,13 +1,14 @@
 <!-- home -->
 <template>
   <van-container :status="status" :tabbar="true" :active="'zone'">
-    <div slot="header" class="fix">
+    <div slot="header" class="fix header">
       <div class="wp">
-        <div class="header_l l" @click="$router.push('/user/myshop')">
+        <!--<div class="header_l l" @click="$router.push('/user/myshop')">
           <van-icon name="user-o" />
-        </div>
+        </div>-->
+        <span>发现</span>
         <div class="header_l r">
-          <van-icon name="search" @click="$router.push('/user/mysearch')" />
+          <!--<van-icon name="search" @click="$router.push('/user/mysearch')" />-->
           <van-icon name="add-o" @click="addFind" />
         </div>
       </div>
@@ -21,10 +22,10 @@
 
           <div class="con-Title fix">
             <div class="l" @click="$router.push('/user/myshop')"> {{ opt.nickName }} </div>
-            <div class="r">
+            <!--<div class="r">
               <span> 加关注 </span>
               <van-icon name="cross" />
-            </div>
+            </div>-->
           </div>
 
           <div class="con-Title-min">
@@ -51,12 +52,12 @@
             </div>
           </div>
           <div class="comm-share fix">
-            <div class="share_l l">
+            <!--<div class="share_l l">
               <span>13</span> 人已分享
-            </div>
+            </div>-->
             <div class="share_r r">
               <span @click="addComment(opt)"> <van-icon name="chat-o" /> </span>
-              <span> <van-icon name="upgrade" /> </span>
+              <!--<span> <van-icon name="upgrade" /> </span>-->
               <span>
                 <span v-if="!opt.thumb" @click="addThumb(opt)"> <van-icon name="like-o" /> </span>
                 <span v-else @click="addThumb(opt)"> <van-icon name="like" :color="'#F44336'" /> </span>
@@ -98,10 +99,10 @@
                         {{ com.content }}
                       </div>
                     </div>
-                    <div class="r">
+                    <!--<div class="r">
                       <span> 赞 </span>
                       <van-icon name="like" />
-                    </div>
+                    </div>-->
                   </div>
                 </div>
               </div>
@@ -241,6 +242,14 @@
   .wp{
     width: 95%;
     margin: 0 auto;
+  }
+  .header{
+    .wp{
+      text-align: center;
+      span {
+        color:#000;
+      }
+    }
   }
 
   .dan_wrap{
@@ -429,8 +438,6 @@
   .mess_conent{
     position: relative;
     padding-left: 50px;
-    padding-top: 10px;
-    margin-top: 10px;
     .img{
       position: absolute;
       left: 0px;

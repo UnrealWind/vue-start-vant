@@ -7,10 +7,10 @@
           <van-icon name="chat-o" />
           <div class="p"> 消息 </div>
         </div>
-        <div class="header_r l">
+        <!--<div class="header_r l">
           <van-icon name="service-o" />
           <div class="p"> 客服 </div>
-        </div>
+        </div>-->
         <div class="header_r r" @click="$router.push('/set')">
           <van-icon name="setting-o" />
           <div class="p"> 设置 </div>
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <div class="tools">
+    <!--<div class="tools">
       <div class="wp">
         <div class="title fix ">
           <div class="l"> 常用工具 </div>
@@ -101,9 +101,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
 
-    <div class="tools">
+    <!--<div class="tools">
       <div class="wp">
         <div class="title fix ">
           <div class="l"> 更多服务 </div>
@@ -115,7 +115,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!--<div class="choose">
       <div class="title"> 为你精选 </div>

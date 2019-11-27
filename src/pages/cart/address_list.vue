@@ -61,6 +61,7 @@ import { areaList } from '@/assets/json/areaList'
     methods: {
         async init() {
             if (this.$route.query.address) {
+                this.$route.query.isDefault === '1' ? this.$route.query.isDefault = true : this.$route.query.isDefault = false
                 this.title = '修改地址'
                 this.addressInfo.name = this.$route.query.receiverName
                 this.addressInfo.tel = this.$route.query.receiverPhone

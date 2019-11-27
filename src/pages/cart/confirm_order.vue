@@ -120,7 +120,7 @@
       return {
           status: 'loading',
           payType: '1',
-          chosenAddressId: 1,
+          chosenAddressId: null,
           show: false,
           addressList: [],
           orderList: [],
@@ -159,6 +159,7 @@
                 n.tel = n.receiverPhone
                 n.name = n.receiverName
                 n.id = i + 1
+                if (n.isDefault && !this.chosenAddressId) this.chosenAddressId = i + 1
             })
             this.addressList = JSON.parse(JSON.stringify(res.data))
             this.addressList.length = 3

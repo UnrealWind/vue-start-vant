@@ -7,7 +7,7 @@
         <div class="header_l l" @click="$router.back()">
           <van-icon name="arrow-left" />
         </div>
-        <div class="header_l r" @click="$router.push('/user/mysearch')">
+        <div class="header_l r" @click="shopShare">
           <van-icon name="share" />
         </div>
       </div>
@@ -61,7 +61,7 @@
 
         <div class="title fix">
           <span class="l">  {{ good.goodsName }} </span>
-          <span class="r">  <van-icon name="like-o" /> 收藏 </span>
+          <!--<span class="r">  <van-icon name="like-o" /> 收藏 </span>-->
         </div>
 
         <div class="min-title"> {{ good.goodsDesc }} </div>
@@ -429,10 +429,10 @@
       </div>
     </div>
     <van-goods-action>
-      <van-goods-action-icon icon="cart-o" text="购物车" @click="$router.push('/shoppingcart')" />
-      <van-goods-action-icon icon="shop-o" text="进店" @click="$router.push('/store')" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="$router.push('/cart/shopcar')" />
+      <van-goods-action-icon icon="shop-o" text="进店" @click="goStore" />
       <van-goods-action-button type="warning" text="购买" @click="buy" />
-      <van-goods-action-button type="danger" text="分享" @click="share" />
+      <van-goods-action-button type="danger" text="分享" @click="shopShare" />
     </van-goods-action>
     <van-overlay :show="show" @click="show = false" />
     <van-sku
@@ -446,11 +446,59 @@
       @add-cart="addinCart"
     />
 
+    <van-popup
+      v-model="share"
+      round
+      position="bottom"
+    >
+      <div class="wp header_wrapper ">
+        <!--<div class="title"> 赚<span>1.19</span> </div>
+        <div class="share">
+          分享后好友购买至少赚1.19
+        </div>-->
+
+        <div class="header_ul fix">
+          <div class="li">
+            <img src="../../assets/img/user/wechat.png" alt="">
+            <span> 微信 </span>
+          </div>
+          <!--<div class="li">
+            <img src="../../assets/img/user/QRcode.png" alt="">
+            <span> 二维码海报 </span>
+          </div>
+          <div class="li">
+            <img src="../../assets/img/user/copy.png" alt="">
+            <span> 复制链接 </span>
+          </div>
+          <div class="li">
+            <img src="../../assets/img/user/Password.png" alt="">
+            <span> 云口令 </span>
+          </div>
+          <div class="li">
+            <img src="../../assets/img/user/smallprogram.png" alt="">
+            <span> 小程序 </span>
+          </div>
+          <div class="li">
+            <img src="../../assets/img/user/coco.png" alt="">
+            <span> QQ </span>
+          </div>
+          <div class="li">
+            <img src="../../assets/img/user/microblog.png" alt="">
+            <span> 微博 </span>
+          </div>-->
+        </div>
+
+        <van-button type="warning" @click="shopShare">取消</van-button>
+
+      </div>
+
+    </van-popup>
+
   </van-container>
 </template>
 
 <script>
-  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku, Overlay, Toast } from 'vant'
+  import { Swipe, SwipeItem, Icon, Tab, Tabs, Popup, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku, Overlay, Toast, Button } from 'vant'
 
   export default {
     components: {
@@ -464,13 +512,15 @@
         'van-goods-action': GoodsAction,
         'van-goods-action-button': GoodsActionButton,
         'van-sku': Sku,
-        'van-overlay': Overlay
+        'van-overlay': Overlay,
+        'van-button': Button
     },
     data() {
       return {
           status: 'loading',
           active: 0,
           show: false,
+          share: false,
           goodsId: '',
           good: {},
           priceArea: '',
@@ -525,6 +575,7 @@
                 id: id
             })
             this.good = res.data
+            console.log(JSON.stringify(res))
 
             // 超级适配器，目测大几十行
             this.goods.title = this.good.goodsName
@@ -610,11 +661,19 @@
         showPopup() {
             this.show = true
         },
+        shopShare() {
+            this.share = !this.share
+        },
         buy() {
             this.show = true
         },
-        share() {
-            this.show = true
+        goStore() {
+            this.$router.push({
+                path: '/store',
+                query: {
+                    shopCode: this.good.shopCode
+                }
+            })
         },
         async addinCart(data) {
             const res = await this.$http.post('order/shoppingCart/add', {
@@ -656,7 +715,7 @@
                 'activityResultId': activityResultId
             })
             const res = await this.$http.post('product/goods/createOrderInfo', goodsVoList)
-            this.$store.commit('setTargetOrder', res.data)
+            res.data ? this.$store.commit('setTargetOrder', res.data) : Toast.fail(res.msg)
             this.$router.push('/cart/confirm_order')
         }
     }
@@ -1284,5 +1343,51 @@
     }
   }
 
+  .header_wrapper{
+    padding-top: 20px;
+    padding-bottom: 40px;
+    .title{
+      text-align: center;
+      font-size: 12px;
+      color: #cb2f44;
+      span{
+        font-size: 30px;
+      }
+    }
+    .share{
+      text-align: center;
+      color: #ababab;
+      line-height: 20px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .header_ul{
+      padding-top: 20px;
+      .li{
+        float: left;
+        width: 25%;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      img{
+        display: block;
+        width: 60%;
+        max-width: 100px;
+        margin: 0 auto;
+      }
+      span{
+        display: block;
+        font-size: 14px;
+        padding-top: 10px;
+      }
+    }
+    .van-button{
+      width: 100%;
+      background: #f8f8f8;
+      color: #292929;
+      border: 0px;
+      border-radius: 50px;
+    }
+  }
 </style>
 

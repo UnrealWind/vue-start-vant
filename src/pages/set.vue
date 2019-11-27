@@ -12,16 +12,16 @@
 
       <div class="set_cen">
         <van-cell title="个人资料" icon="manager-o" is-link @click="$router.push('personaldata')" />
-        <van-cell title="账户与安全" icon="completed" is-link />
-        <van-cell title="更换邀请店铺" icon="shop-o" is-link value="xxx店铺" />
+        <!--<van-cell title="账户与安全" icon="completed" is-link />-->
+        <van-cell title="邀请人" icon="shop-o" :value="upUser.nickName" />
       </div>
 
-      <div class="set_cen">
+      <!-- <div class="set_cen">
         <van-cell title="消息及模式设置" icon="volume-o" is-link />
         <van-cell title="清除缓存" icon="fire-o" is-link value="0.00MB" />
-      </div>
+      </div>-->
 
-      <div class="set_cen">
+      <!--<div class="set_cen">
         <van-cell title="关于电商" icon="warning-o" is-link />
       </div>
 
@@ -31,7 +31,7 @@
 
       <div class="set_cen">
         <van-cell title="当前版本" icon="medel-o" value="0.0.00（0.0.00）" />
-      </div>
+      </div>-->
 
       <div class="set_cen">
         <div class="go" @click="logout"> 退出登录 </div>
@@ -51,7 +51,8 @@ import { Icon, Cell } from 'vant'
     },
     data() {
       return {
-          status: 'loading'
+          status: 'loading',
+          upUser: {}
       }
     },
     computed: {
@@ -62,16 +63,17 @@ import { Icon, Cell } from 'vant'
     methods: {
         async init() {
             try {
-                // await this.getData()
+                await this.getUpUserData()
             } catch (e) {
                 this.status = 'error'
                 throw e
             }
             this.status = 'success'
         },
-        async getData() {
-            const res = await this.$http.get('/user/12345')
+        async getUpUserData() {
+            const res = await this.$http.post('/user/distributionRel/puser')
             console.log(res)
+            this.upUser = res.data
         },
         async logout() {
             await this.$http.post('/manager/user/loginOut')

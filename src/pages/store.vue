@@ -5,9 +5,9 @@
       <div class="header_l l" @click="$router.back()">
         <van-icon name="arrow-left" />
       </div>
-      <div class="header_l2">
+      <!--<div class="header_l2">
         <van-search v-model="value" placeholder="请输入搜索关键词" />
-      </div>
+      </div>-->
       <div class="header_l3 r" @click="$router.push('/storelist')">
         <van-icon name="bars" />
       </div>
@@ -25,11 +25,11 @@
             <a class="title"> {{ shopData.shopName }} </a>
             <!--            <a href="" class="titlemin"> 在线商品<span>350 </span> 粉丝数量<span>3333 </span> </a>-->
           </div>
-          <div class="nav_r r">
+          <!--<div class="nav_r r">
             <a href="">
               <van-icon name="like-o" />
               关注 </a>
-          </div>
+          </div>-->
         </div>
 
         <!--        <div class="nav_coupons">-->
