@@ -18,6 +18,8 @@ import http from './components/http'
 Vue.use(http)
 import socket from './components/socket'
 Vue.use(socket)
+import upload from './components/upload'
+Vue.use(upload)
 
 Vue.config.productionTip = false
 

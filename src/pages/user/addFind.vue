@@ -98,16 +98,17 @@
             },
             async upload(file) {
                 const uploadImg = async(file) => {
-                    const formdata = new FormData()
+                    /* const formdata = new FormData()
                     formdata.append('file', file.file)
                     const res = await this.$http({
                         method: 'post',
                         url: 'common/upload',
                         data: formdata
                         // dataType: 'json'
-                    })
-                    if (res.code === 0) {
-                        this.fileList.push({ url: res.url })
+                    })*/
+                    const res = await this.$upload(file)
+                    if (res.data.code === 0) {
+                        this.fileList.push({ url: res.data.url })
                     }
                 }
                 if (file instanceof Array) {
