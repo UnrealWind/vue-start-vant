@@ -8,6 +8,7 @@ const config = {
     '/user/accountLogin',
     '/'
   ],
+  backStageUrl: process.env.VUE_APP_BASE_URL,
   socketUrl: '127.0.0.1:8088/', // 链接websocket
   // fileUploadUrl: '115.29.109.95:8081/resources/', // 上传文件
   fileUploadUrl: 'http://127.0.0.1:8080/', // 上传文件

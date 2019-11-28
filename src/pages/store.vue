@@ -8,9 +8,9 @@
       <!--<div class="header_l2">
         <van-search v-model="value" placeholder="请输入搜索关键词" />
       </div>-->
-      <div class="header_l3 r" @click="$router.push('/storelist')">
+      <!--<div class="header_l3 r" @click="$router.push('/storelist')">
         <van-icon name="bars" />
-      </div>
+      </div>-->
     </div>
 
     <div class="nav_box dan_wrap fix">
@@ -32,59 +32,29 @@
           </div>-->
         </div>
 
-        <!--        <div class="nav_coupons">-->
-        <!--          <div class="nav_ul fix">-->
-        <!--            <div class="li">-->
-        <!--              <div class="fix">-->
-        <!--                <div class="nav_l l">-->
-        <!--                  <a href="" class="title"> <em>￥</em><i>40</i> <span> 全店通用 </span> </a>-->
-        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
-        <!--                </div>-->
-        <!--                <div class="nav_r r">-->
-        <!--                  <a href=""> 立即领取 </a>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--            <div class="li">-->
-        <!--              <div class="fix">-->
-        <!--                <div class="nav_l l">-->
-        <!--                  <a href="" class="title"> <em>￥</em><i>40 </i> <span> 全店通用 </span> </a>-->
-        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
-        <!--                </div>-->
-        <!--                <div class="nav_r r on">-->
-        <!--                  <a href=""> 已 抢 光 </a>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--            <div class="li">-->
-        <!--              <div class="fix">-->
-        <!--                <div class="nav_l l">-->
-        <!--                  <a href="" class="title"> <em>￥</em><i>40</i> <span> 全店通用 </span> </a>-->
-        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
-        <!--                </div>-->
-        <!--                <div class="nav_r r">-->
-        <!--                  <a href=""> 立即领取 </a>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--            <div class="li">-->
-        <!--              <div class="fix">-->
-        <!--                <div class="nav_l l">-->
-        <!--                  <a href="" class="title"> <em>￥</em><i>40 </i> <span> 全店通用 </span> </a>-->
-        <!--                  <a href="" class="titlemin"> 满199可用 </a>-->
-        <!--                </div>-->
-        <!--                <div class="nav_r r on">-->
-        <!--                  <a href=""> 已 抢 光 </a>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-
-        <div class="nav_cou_img">
-          <div class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/storetu12.png" alt="">
+        <div class="nav_coupons">
+          <div class="nav_ul fix">
+            <div v-for="(item,index) in couponList" :key="index" class="li">
+              <div class="fix">
+                <div class="nav_l l">
+                  <a href="" class="title"> <!--<em>￥</em><i>40</i> --><span> 全店通用 </span> </a>
+                  <a href="" class="titlemin"> {{ item.ticketName }} </a>
+                </div>
+                <div v-if="item.isChoose === 0" class="nav_r r">
+                  <a @click="receiveCoupon(item)"> 立即领取 </a>
+                </div>
+                <div v-else class="nav_r r gray">
+                  <a> 已领取 </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!--<div class="nav_cou_img">
+          <div class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/storetu12.png" alt="">
+          </div>
+        </div>-->
 
         <div class="navc_title">
           <a href="" class="title"> <img src="../assets/img/storetu14.png" alt=""> 必抢爆款 </a>
@@ -107,7 +77,7 @@
           </commodity>
         </div>
 
-        <div class="nav_box8 dan_wrap">
+        <!--<div class="nav_box8 dan_wrap">
           <div class="nav_li fix wp">
             <div class="li active"> 综合</div>
             <div class="li"> 上新</div>
@@ -120,7 +90,7 @@
               <van-icon name="qr" class="fon-icon" />
             </div>
           </div>
-        </div>
+        </div>-->
 
         <div class="wp">
           <ul class="flex_wrap gwcLits ">
@@ -146,12 +116,11 @@
 </template>
 
 <script>
-    import { Icon, Search } from 'vant'
+    import { Icon, Toast } from 'vant'
 
     export default {
         components: {
-            'van-icon': Icon,
-            'van-search': Search
+            'van-icon': Icon
         },
         data() {
             return {
@@ -159,7 +128,8 @@
                 value: '',
                 vipData: [],
                 storeListData: [],
-                shopData: {}
+                shopData: {},
+                couponList: []
             }
         },
         computed: {},
@@ -172,11 +142,27 @@
                     await this.getShopData()
                     await this.getFaddishData()
                     await this.getShopListData()
+                    await this.getCouponList()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
+            },
+            async receiveCoupon(item) {
+                const res = await this.$http.post('manager/userTicket/add', {
+                    ticketCode: item.ticketCode
+                })
+                res.code === 0 ? Toast.success('领取成功') : Toast.fail('领取失败')
+            },
+            async getCouponList() {
+                const res = await this.$http.post('product/activityTicket/queryList', {
+                    shopCode: this.$route.query.shopCode
+                })
+                this.couponList = res.data
+                this.couponList.forEach((n, i) => {
+                    n.ticketContent = JSON.parse(n.ticketContent)
+                })
             },
             async getShopData() {
                 const res = await this.$http.post('user/shop/queryByCode', {
@@ -464,13 +450,11 @@
         }
       }
     }
-
   }
-
   .nav_coupons {
     margin-top: 10px;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: scroll;
 
     .nav_ul {
       width: 1000%;
@@ -535,8 +519,14 @@
         text-align: center;
         box-sizing: border-box;
       }
-    }
 
+    }
+    .gray {
+      background:#ccc;
+      a{
+        background:#ccc;
+      }
+    }
     .nav_r.on {
       background: #ff5a5e;
 

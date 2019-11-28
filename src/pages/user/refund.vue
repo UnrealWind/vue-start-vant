@@ -64,8 +64,18 @@
               show-word-limit
             />
             <div class="wp">
-              <van-uploader v-model="fileList" :max-count="5" multiple class="van-uploader" />
-              <div class="mun"> 最多上传五张照片 </div>
+              <div class="uploadBox">
+                <van-image
+                  v-for="(opt,index) in fileList"
+                  :key="index"
+                  width="78"
+                  height="78"
+                  :src="opt.url"
+                />
+                <div>
+                  <van-uploader :before-read="beforeRead" :after-read="upload" result-type="text" multiple />
+                </div>
+              </div>
             </div>
 
           </van-cell-group>
@@ -80,7 +90,7 @@
 </template>
 
 <script>
-  import { Icon, Field, Cell, CellGroup, Uploader, Button, ActionSheet } from 'vant'
+  import { Icon, Field, Cell, CellGroup, Uploader, Button, ActionSheet, Toast, Image } from 'vant'
 
   export default {
     components: {
@@ -90,7 +100,8 @@
         'van-cell-group': CellGroup,
         'van-uploader': Uploader,
         'van-button': Button,
-        'van-action-sheet': ActionSheet
+        'van-action-sheet': ActionSheet,
+        'van-image': Image
     },
     data() {
       return {
@@ -148,12 +159,60 @@
             console.log(item)
         },
         async refundData() {
+            let imgStr = ''
+            this.fileList.forEach((n, i) => {
+                i === 0 ? imgStr += n.url : imgStr += `,${n.url}`
+            })
             const res = await this.$http.post('/product/orderReturn/add', {
                 orderDetailCode: this.query.orderDetailCode,
-                returnMoney: '',
-                returnType: this.refundTypeVal
+                returnMoney: this.actMoney,
+                returnType: this.refundTypeVal,
+                returnReason: this.message,
+                imgUrl: imgStr
             })
+
+            Toast.success('已提交！')
             console.log(res)
+        },
+        beforeRead(file) {
+            const judImg = (file) => {
+                if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                    Toast('请上传 jpg，png 格式图片')
+                    return false
+                }
+            }
+            if (file instanceof Array) {
+                file.forEach((n, i) => {
+                    judImg(n)
+                })
+            } else {
+                judImg(file)
+            }
+            return true
+        },
+        // fydebug 这里是上传文件的例子
+        async upload(file) {
+            const uploadImg = async(file) => {
+                /* const formdata = new FormData()
+                formdata.append('file', file.file)
+                const res = await this.$http({
+                    method: 'post',
+                    url: 'common/upload',
+                    data: formdata
+                    // dataType: 'json'
+                })*/
+                const res = await this.$upload(file)
+                if (res.data.code === 0) {
+                    this.fileList.push({ url: res.data.url })
+                }
+            }
+            if (file instanceof Array) {
+                file.forEach((n, i) => {
+                    uploadImg(n)
+                })
+            } else {
+                uploadImg(file)
+            }
         }
     }
   }

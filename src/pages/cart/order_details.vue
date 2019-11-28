@@ -55,32 +55,32 @@
             </van-card>
           </div>
           <div class="font_top">
-            <div class="font_title">
+            <!--<div class="font_title">
               <van-cell value="查看详情" is-link>
                 <template slot="title">
                   <span class="custom-title"> 保险价 </span>
                   <van-tag type="danger"> 商品降价赔付差额 </van-tag>
                 </template>
               </van-cell>
-            </div>
+            </div>-->
 
-            <div class="font_title">
+            <!--<div class="font_title">
               <van-cell value="已出单" is-link>
                 <template slot="title">
                   <span class="custom-title"> 运险费 </span>
                   <van-tag type="danger"> 退换货可自动理赔 </van-tag>
                 </template>
               </van-cell>
-            </div>
+            </div>-->
 
-            <div class="font_title">
+            <!--<div class="font_title">
               <van-cell value="查看详情" is-link>
                 <template slot="title">
                   <span class="custom-title"> 保险服务 </span>
                   <van-tag type="danger"> 定制化购物保障 </van-tag>
                 </template>
               </van-cell>
-            </div>
+            </div>-->
 
             <div class="font_title font_title_min">
               <van-cell :value="`￥${shop.realTotalMoney}`">
@@ -98,13 +98,13 @@
               </van-cell>
             </div>
 
-            <div class="font_title font_title_min">
+            <!--<div class="font_title font_title_min">
               <van-cell value="￥0.00">
                 <template slot="title">
                   <span class="custom-title"> 保险费（卖家赠送） </span>
                 </template>
               </van-cell>
-            </div>
+            </div>-->
 
             <div class="font_title font_title_min">
               <van-cell :value="`-￥${shop.annulMoney}`">
@@ -127,10 +127,10 @@
                 <div class="r"> 支付明细 </div>
               </div>
 
-              <div class="font_title fix">
+              <!--<div class="font_title fix">
                 <div class="l"> 红包 </div>
                 <div class="r"> ￥0.00 </div>
-              </div>
+              </div>-->
 
               <div class="font_title fix">
                 <div class="l"> 实付款 </div>
@@ -182,19 +182,19 @@
           <div class="ms_title_cen l">  {{ shop.finishTime }} </div>
         </div>
 
-        <div class="mess_font fix">
+        <!--<div class="mess_font fix">
           <div class="meass_l l">
             <van-icon name="shop-o" /> 联系卖家
           </div>
           <div class="meass_r r">
             <van-icon name="phone-circle-o" /> 拨打电话
           </div>
-        </div>
+        </div>-->
 
       </div>
     </div>
 
-    <div class="order_store">
+    <!--<div class="order_store">
       <div class="wp">
 
         <div class="nav_header fix">
@@ -216,20 +216,19 @@
         </div>
 
       </div>
-    </div>
+    </div>-->
 
   </van-container>
 </template>
 
 <script>
- import { Icon, AddressList, Card, Cell, Tag } from 'vant'
+ import { Icon, AddressList, Card, Cell } from 'vant'
   export default {
     components: {
         'van-icon': Icon,
         'van-address-list': AddressList,
         'van-card': Card,
-        'van-cell': Cell,
-        'van-tag': Tag
+        'van-cell': Cell
     },
     data() {
       return {

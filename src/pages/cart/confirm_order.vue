@@ -43,8 +43,8 @@
           </div>
         </div>
 
-        <div class="coupin fix" @click="$router.push('/cart/coupon')">
-          <van-cell title="优惠券" is-link value="暂无可用" />
+        <div class="coupin fix" @click="useCoupon">
+          <van-cell title="优惠券" is-link :value="targetCoupon.ticketName" />
         </div>
 
         <div class="coupin fix">
@@ -99,11 +99,20 @@
       </div>
     </div>
     <div v-show="false" ref="paystr" v-html="html"></div>
+    <van-popup v-model="showCoupon" position="bottom">
+      <van-coupon-list
+        :coupons="coupons"
+        :chosen-coupon="chosenCoupon"
+        :disabled-coupons="disabledCoupons"
+        @change="onChange"
+        @exchange="onExchange"
+      />
+    </van-popup>
   </van-container>
 </template>
 
 <script>
-    import { Icon, AddressList, Cell, SubmitBar, Card, Popup, RadioGroup, Radio, CellGroup } from 'vant'
+    import { Icon, AddressList, Cell, SubmitBar, Card, Popup, RadioGroup, Radio, CellGroup, CouponList } from 'vant'
     export default {
         components: {
           'van-icon': Icon,
@@ -114,7 +123,8 @@
           'van-popup': Popup,
           'van-radio-group': RadioGroup,
           'van-radio': Radio,
-          'van-cell-group': CellGroup
+          'van-cell-group': CellGroup,
+          'van-coupon-list': CouponList
         },
     data() {
       return {
@@ -124,7 +134,12 @@
           show: false,
           addressList: [],
           orderList: [],
-          html: ''
+          html: '',
+          showCoupon: false,
+          chosenCoupon: -1,
+          coupons: [],
+          disabledCoupons: [],
+          targetCoupon: {}
       }
     },
     computed: {
@@ -132,7 +147,25 @@
             let price = 0
             this.orderList.forEach((n, i) => {
                 n.goods.forEach((good, i) => {
-                   price += good.goodsMoney * good.num
+                   price += good.activityMoney
+                })
+            })
+            switch (this.targetCoupon.ticketType) {
+                case 0: price = price - JSON.parse(this.targetCoupon.ticketContent).drop; break
+                case 1:
+                    if (JSON.parse(this.targetCoupon.ticketContent).full < price) {
+                        price = price - JSON.parse(this.targetCoupon.ticketContent).minus
+                    }
+                    break
+                case 2:price = price * JSON.parse(this.targetCoupon.ticketContent).discount / 10; break
+            }
+            return price
+        },
+        customPreTotalPrice() {
+            let price = 0
+            this.orderList.forEach((n, i) => {
+                n.goods.forEach((good, i) => {
+                    price += good.activityMoney
                 })
             })
             return price
@@ -146,6 +179,7 @@
             this.orderList = this.$store.state.targetOrder
             try {
                 await this.getAddressList()
+                await this.getCouponList()
             } catch (e) {
                 this.status = 'error'
                 throw e
@@ -164,14 +198,73 @@
             this.addressList = JSON.parse(JSON.stringify(res.data))
             this.addressList.length = 3
         },
+        async getCouponList() {
+            const res = await this.$http.post('/manager/userTicket/list')
+            this.couponList = res.data
+            this.couponList.forEach((n, i) => {
+                let use = false
+                if (n.useType === 1) {
+                    this.orderList.forEach((ni, ii) => {
+                        if (ni.shopCode === n.shopCode) {
+                            n['use'] = true
+                            use = true
+                        }
+                    })
+                }/* else if (n.useType === 3) {
+                    this.orderList.forEach((ni, ii) => {
+                        ni.goods.forEach((nx, ix) => {
+                            if (nx.brandCode === n.brandCode) {
+                                this.trueCouponList.push(n)
+                                use = true
+                            }
+                        })
+                    })
+                }*/
+                if (!use) n['use'] = false
+            })
+        },
         changeAddress(item, index) {
             this.$router.push({
                 path: '/cart/address_list',
                 query: item
             })
         },
+        useCoupon() {
+            this.coupons = []
+            const res = this.couponList
+            this.showCoupon = true
+            const pushCoupon = (n, target) => {
+                target.push({
+                    condition: '优惠卷',
+                    value: '',
+                    name: n.ticketName,
+                    reason: '',
+                    startAt: new Date(n.ticketBeginTime).getTime() / 1000,
+                    endAt: new Date(n.ticketEndTime).getTime() / 1000,
+                    valueDesc: n.valueDesc,
+                    unitDesc: n.unitDesc,
+                    data: n // 这里把后台的数据存在data里，上面的数据只是作为显示
+                })
+            }
+            res.forEach((n, i) => {
+                if (n['used']) return
+                switch (n.ticketType) {
+                    case 0: n['valueDesc'] = JSON.parse(n.ticketContent).drop; n['unitDesc'] = '元'; break
+                    case 1: n['valueDesc'] = `满${JSON.parse(n.ticketContent).full}减${JSON.parse(n.ticketContent).minus}`
+                        n['unitDesc'] = `满${JSON.parse(n.ticketContent).full}减`; break
+                    case 2: n['valueDesc'] = `${JSON.parse(n.ticketContent).discount}`; n['unitDesc'] = '折'; break
+                }
+                n['use'] ? pushCoupon(n, this.coupons) : pushCoupon(n, this.disabledCoupons)
+            })
+        },
         async pay() {
             const targetAddress = this.addressList[this.chosenAddressId - 1]
+            this.orderList.forEach((n, i) => {
+                if (n.shopCode === this.targetCoupon.shopCode) {
+                    n['ticketCode'] = this.targetCoupon.ticketCode
+                    n['ticketMoney'] = this.customPreTotalPrice - this.customTotalPrice
+                }
+            })
             const data = {
                 'receiverId': targetAddress.id,
                 'receiverName': targetAddress.receiverName,
@@ -194,6 +287,14 @@
         },
         showPopup() {
             this.show = true
+        },
+        onChange(index) {
+            this.showCoupon = false
+            if (index === -1) return
+            this.targetCoupon = this.coupons[index].data
+        },
+        onExchange(code) {
+            return
         }
     }
   }

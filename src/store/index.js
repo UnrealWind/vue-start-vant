@@ -6,7 +6,6 @@ const store = new Vuex.Store({
     test: '123',
     targetOrder: [],
     token: null,
-    coupon: {},
     userCode: '',
     userType: '',
     user: {}
@@ -19,9 +18,6 @@ const store = new Vuex.Store({
   mutations: {
     setToken(state, token) {
       state.token = token
-    },
-    setCoupon(state, coupon) {
-      state.coupon = coupon
     },
     setUserCode(state, userCode) {
       state.userCode = userCode

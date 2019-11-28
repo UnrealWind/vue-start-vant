@@ -30,8 +30,8 @@
                     </div>-->
                     <div v-if="idx === shop.goods.length-1" slot="footer">
                       <van-button v-if="shop.nodeCode === '0'" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付  </van-button>
-                      <van-button size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>
-                      <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>
+                      <!--<van-button size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>-->
+                      <!--<van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>-->
                       <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
                       <van-button v-if="shop.nodeCode === '2'" size="mini" class="font_bottom"> 确认收货 </van-button>
                     </div>
@@ -69,11 +69,12 @@
                     <div slot="footer">
                       <span v-if="idx === shop.goods.length-1">
                         <van-button v-if="shop.nodeCode === '0'" size="mini" class="font_bottom active" @click="showPopup(shop)"> 支付 </van-button>
-                        <van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>
+                        <!--<van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>-->
                         <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
                         <van-button v-if="shop.nodeCode === '2'" size="mini" class="font_bottom"> 确认收货 </van-button>
                       </span>
                       <van-button v-if="shop.nodeCode!=='0'" size="mini" class="font_bottom" @click="refund(commodity)"> 售后 </van-button>
+                      <van-button v-else size="mini" class="font_bottom" @click="refund(commodity)"> 售后 </van-button>
                     </div>
                   </van-card>
                   <div class="font_top">

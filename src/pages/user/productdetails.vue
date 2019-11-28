@@ -60,7 +60,7 @@
       <div class="wp">
 
         <div class="title fix">
-          <span class="l">  {{ good.goodsName }} </span>
+          <span class="l"> {{ good.goodsName }} </span>
           <!--<span class="r">  <van-icon name="like-o" /> 收藏 </span>-->
         </div>
 
@@ -83,20 +83,18 @@
       </div>
     </div>
 
-    <!--<div class="sale-securities" @click="$router.push('/cart/coupon')">
+    <!--<div class="sale-securities">
       <div class="wp fix">
+        <div class="l">
+          领劵
+          <span> 满51减50 </span>
+          <span> 满100减8 </span>
+        </div>
 
-      <div class="l">
-        领劵
-        <span> 满51减50 </span>
-        <span> 满100减8 </span>
+        <div class="r">
+          <span> 领劵 </span>
+        </div>
       </div>
-
-      <div class="r">
-        <span> 领劵 </span>
-      </div>
-
-    </div>
     </div>-->
 
     <div class="sale-specs">
@@ -459,7 +457,7 @@
 
         <div class="header_ul fix">
           <div class="li">
-            <img src="../../assets/img/user/wechat.png" alt="">
+            <img src="../../assets/img/user/wechat.png" alt="" @click="shareWx">
             <span> 微信 </span>
           </div>
           <!--<div class="li">
@@ -575,7 +573,6 @@
                 id: id
             })
             this.good = res.data
-            console.log(JSON.stringify(res))
 
             // 超级适配器，目测大几十行
             this.goods.title = this.good.goodsName
@@ -674,6 +671,9 @@
                     shopCode: this.good.shopCode
                 }
             })
+        },
+        shareWx() {
+          // 全局注册的时候就去跑接口权限了，但是现在没有
         },
         async addinCart(data) {
             const res = await this.$http.post('order/shoppingCart/add', {

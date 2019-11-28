@@ -1,11 +1,10 @@
 'use strict'
 const path = require('path')
-const defaultSettings = require('./src/config/index.js')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue mobile template' // page title
+const name = 'vue mobile template' // page title
 const port = 23333 // dev port
 const externals = {
   vue: 'Vue',

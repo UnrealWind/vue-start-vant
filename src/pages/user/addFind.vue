@@ -96,6 +96,7 @@
                 }
                 return true
             },
+            // fydebug 这里是上传文件的例子
             async upload(file) {
                 const uploadImg = async(file) => {
                     /* const formdata = new FormData()

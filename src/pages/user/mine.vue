@@ -198,7 +198,7 @@
             this.status = 'success'
         },
         async getCoupon() {
-            const res = await this.$http.post('/product/userCoupon/selectUserCouponRel')
+            const res = await this.$http.post('/manager/userTicket/list')
             this.coupon = res.data
             console.log(res)
         },

@@ -4,8 +4,7 @@
     <div slot="header" class="fix"></div>
     <van-nav-bar title="购物车" color="#fff" />
     <div class="main">
-      <div style="background:#ef0e38;height:40px"></div>
-      <div class="commodity">
+      <div v-if="cartList.length >0" class="commodity">
         <div v-for="(shop, index) in cartList" :key="index" class="card_top">
           <div class="comm-list">
             <div>
@@ -13,7 +12,8 @@
               <div class="comm-title">
                 <span @click="goStore(shop)">  {{ shop.shopName }}  <van-icon name="arrow" class="con_titl_arr" /></span>
                 <van-checkbox v-model="shop.checked" @click="checkShop(shop)"></van-checkbox>
-                <i @click="$router.push('/cart/coupon')">领券</i>
+                <!--<i v-if="!shop.targetShopCoupon" @click="useCoupon(shop)">优惠券</i>
+                <i v-else class="red" @click="useCoupon(shop)">{{ shop.targetShopCoupon.ticketName }}</i>-->
               </div>
               <!--卡片-->
               <div v-for="(goods, idx) in shop.goods" :key="idx" class="list_wrap">
@@ -91,6 +91,15 @@
         </div>
       </van-popup>
     </van-submit-bar>
+    <van-popup v-model="showCoupon" position="bottom">
+      <van-coupon-list
+        :coupons="coupons"
+        :chosen-coupon="chosenCoupon"
+        :disabled-coupons="disabledCoupons"
+        @change="onChange"
+        @exchange="onExchange"
+      />
+    </van-popup>
   </van-container>
 </template>
 
@@ -106,7 +115,8 @@
     Checkbox,
     SubmitBar,
     Popup,
-    Toast
+    Toast,
+    CouponList
   } from 'vant'
   export default {
     components: {
@@ -118,7 +128,8 @@
       'van-nav-bar': NavBar,
       'van-checkbox': Checkbox,
       'van-submit-bar': SubmitBar,
-      'van-popup': Popup
+      'van-popup': Popup,
+      'van-coupon-list': CouponList
     },
     data() {
       return {
@@ -128,7 +139,11 @@
           cartList: [],
           value: 1,
           active: 0,
-          checkedAll: false
+          checkedAll: false,
+          showCoupon: false,
+          chosenCoupon: -1,
+          coupons: [],
+          disabledCoupons: []
       }
     },
     computed: {
@@ -147,10 +162,22 @@
                             case 2:good.activityMoney = good.goodsMoney * good.num * JSON.parse(good.activityList[0].resultJson).discount / 10; break
                         }
                         price += good.activityMoney
-                    } else if (good.checked && good.activityList.length === 0) {
+                    } else if (good.checked && good.activityList.length > 0) {
                         price += good.goodsMoney * good.num
                     }
                 })
+
+                if (n['targetShopCoupon']) {
+                    switch (n['targetShopCoupon'].ticketType) {
+                        case 0: price = price - JSON.parse(n['targetShopCoupon'].ticketContent).drop; break
+                        case 1:
+                            if (JSON.parse(n['targetShopCoupon'].ticketContent).full < price) {
+                                price = price - JSON.parse(n['targetShopCoupon'].ticketContent).minus
+                            }
+                            break
+                        case 2:price = price * JSON.parse(n['targetShopCoupon'].ticketContent).discount / 10; break
+                    }
+                }
             })
             return price
         },
@@ -186,20 +213,52 @@
               n['checked'] = false
               n.goods.forEach((good, i) => {
                   good['checked'] = false
-                  if (!good.activityMoney) {
-                      /* switch (good.activityList[0].activityType) {
-                          case 0: good.activityMoney = good.goodsMoney - JSON.parse(good.activityList[0].resultJson).drop; break
-                          case 1:
-                              if (JSON.parse(good.activityList[0].resultJson).full < good.goodsMoney) {
-                                  good.activityMoney = good.goodsMoney - JSON.parse(good.activityList[0].resultJson).minus
-                              }
-                              break
-                          case 2:good.activityMoney = good.goodsMoney * JSON.parse(good.activityList[0].resultJson).discount / 10; break
-                      }*/
-                  }
               })
           })
           this.cartList = JSON.parse(JSON.stringify(res.data))
+      },
+      useCoupon(shop) {
+          this.coupons = []
+          const res = shop.shopTicketList
+          this.showCoupon = true
+          res.forEach((n, i) => {
+              n.shopCode = shop.shopCode
+              if (n['used']) return
+              switch (n.ticketType) {
+                  case 0: n['valueDesc'] = JSON.parse(n.ticketContent).drop; n['unitDesc'] = '元'; break
+                  case 1: n['valueDesc'] = `满${JSON.parse(n.ticketContent).full}减${JSON.parse(n.ticketContent).minus}`
+                      n['unitDesc'] = `满${JSON.parse(n.ticketContent).full}减`; break
+                  case 2: n['valueDesc'] = `${JSON.parse(n.ticketContent).discount}`; n['unitDesc'] = '折'; break
+              }
+              this.coupons.push({
+                  condition: '优惠卷',
+                  value: '',
+                  name: n.ticketName,
+                  reason: '',
+                  startAt: new Date(n.ticketBeginTime).getTime() / 1000,
+                  endAt: new Date(n.ticketEndTime).getTime() / 1000,
+                  valueDesc: n.valueDesc,
+                  unitDesc: n.unitDesc,
+                  data: n // 这里把后台的数据存在data里，上面的数据只是作为显示
+              })
+          })
+      },
+      onChange(index) {
+          console.log(index)
+          this.showCoupon = false
+          if (index === -1) return
+          this.cartList.forEach((n, i) => {
+              if (n.shopCode === this.coupons[index].data.shopCode) {
+                  n['targetShopCoupon'] = this.coupons[index].data
+                  n.shopTicketList.forEach((ni, ii) => {
+                      ni['used'] = false
+                      if (this.coupons[index].data.ticketCode === ni.ticketCode) ni['used'] = true
+                  })
+              }
+          })
+      },
+      onExchange(code) {
+          return
       },
       checkShop(shop) {
           shop.checked = !shop.checked
@@ -218,24 +277,31 @@
       },
       async postOrder() {
           const goodsVoList = {
-              'goodsVos': [],
+              'shopVos': [],
               'orderType': 2, // 1是直接下单，2是购物车下单
               'total': this.customTotalPrice
           }
           this.cartList.forEach((n, i) => {
+              const data = {
+                  shopCode: n.shopCode,
+                  shopName: n.shopName,
+                  goodsVos: []
+              }
+              if (n.targetShopCoupon) data['ticketCode'] = n.targetShopCoupon.ticketCode
               n.goods.forEach((good, i) => {
                   if (good.checked) {
                       let activityResultId
-                      good.activityList.length > 0 ? activityResultId = good.activityList[0].id : activityResultId = null
-                      goodsVoList.goodsVos.push({
+                      good.activityList.length > 0 ? (activityResultId = good.activityList[0].id, delete data['ticketCode']) : activityResultId = null
+                      data.goodsVos.push({
                           'amount': good.num,
                           'skuCode': good.skuCode,
                           'activityResultId': activityResultId
                       })
                   }
               })
+              goodsVoList.shopVos.push(data)
           })
-          if (goodsVoList.goodsVos.length === 0) {
+          if (!this.customTotalPrice) {
               Toast.fail('请选择商品')
               return
           }
@@ -277,6 +343,9 @@
 <style lang="scss" scoped>
 i {
   font-style: normal;
+}
+.red {
+  color:red
 }
 .van-nav-bar {
   position: fixed;

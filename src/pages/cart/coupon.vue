@@ -74,32 +74,33 @@
             this.status = 'success'
         },
         async getCoupon() {
-            const res = await this.$http.post('/product/userCoupon/selectUserCouponRel')
+            const res = await this.$http.post('/manager/userTicket/list')
             res.data.forEach((n, i) => {
+                switch (n.ticketType) {
+                    case 0: n['valueDesc'] = JSON.parse(n.ticketContent).drop; n['unitDesc'] = '元'; break
+                    case 1: n['valueDesc'] = `满${JSON.parse(n.ticketContent).full}减${JSON.parse(n.ticketContent).minus}`
+                        n['unitDesc'] = `满${JSON.parse(n.ticketContent).full}减`; break
+                    case 2: n['valueDesc'] = `${JSON.parse(n.ticketContent).discount}`; n['unitDesc'] = '折'; break
+                }
                 this.coupons.push({
-                    condition: `无使用门槛\n优惠${JSON.parse(n.ticketContent).drop}元`,
+                    condition: '优惠卷',
+                    value: '',
                     name: n.ticketName,
                     reason: '',
-                    value: JSON.parse(n.ticketContent).drop * 100,
-                    startAt: new Date(n.ticketBegintime).getTime() / 1000,
-                    endAt: new Date(n.ticketEndtime).getTime() / 1000,
-                    valueDesc: JSON.parse(n.ticketContent).drop,
-                    unitDesc: '元'
+                    startAt: new Date(n.ticketBeginTime).getTime() / 1000,
+                    endAt: new Date(n.ticketEndTime).getTime() / 1000,
+                    valueDesc: n.valueDesc,
+                    unitDesc: n.unitDesc
                 })
             })
         },
         onChange(index) {
-            this.showList = false
-            this.chosenCoupon = index
+
         },
         onExchange(code) {
-            this.coupons.push(this.coupon)
+
         },
         back() {
-            this.$store.commit('setCoupon', {
-                used: false,
-                coupon: this.coupons[this.chosenCoupon]
-            })
             this.$router.back()
         }
     }
