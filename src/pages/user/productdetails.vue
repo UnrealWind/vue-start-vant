@@ -703,13 +703,17 @@
                 }
                 activityResultId = this.good.activityResultList[0].id
             }
+
             const goodsVoList = {
-                'goodsVos': [],
+                'shopVos': [{
+                    shopCode: this.good.shopCode,
+                    shopName: this.good.shopName,
+                    goodsVos: []
+                }],
                 'orderType': 1, // 1是直接下单，2是购物车下单
                 'total': price
             }
-
-            goodsVoList.goodsVos.push({
+            goodsVoList.shopVos[0].goodsVos.push({
                 'amount': data.selectedNum,
                 'skuCode': data.selectedSkuComb.id,
                 'activityResultId': activityResultId
