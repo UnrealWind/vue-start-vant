@@ -27,8 +27,8 @@
       <!-- 1 -->
       <div class="publicBox box_sizing" style="margin-bottom: 10px">
         <div class="title_xl flex">
-          <p class="p1">限量199减100</p>
-          <p>满99减20&nbsp;159减30&nbsp;259减50</p>
+          <p class="p1">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+          <p> </p>
         </div>
         <!-- 商品 -->
         <ul class="commodityLits mt7 flex_wrap">

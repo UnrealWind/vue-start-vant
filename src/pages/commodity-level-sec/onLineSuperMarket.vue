@@ -309,8 +309,8 @@
                     // Tab栏
 
                     // 活动
-                    await this.getActivityData()
-                    await this.getGoodData()
+                    this.getActivityData()
+                    this.getGoodData()
                     await this.getMarketCategoryData()
                     // tab栏下商品
                     await this.getSuperMarketTabData()

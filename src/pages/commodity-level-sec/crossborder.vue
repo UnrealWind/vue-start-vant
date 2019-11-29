@@ -56,7 +56,6 @@
         <div class="flex_betweenc  Storefront_cont">
           <div class="box1 flex">
             <p class="p1">{{ activity.activityName }}</p>
-            <p>每天09点更新</p>
           </div>
           <!--          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')"> 查看更多</a></div>-->
         </div>
