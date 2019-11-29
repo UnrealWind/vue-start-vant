@@ -138,9 +138,9 @@
             <span class="rebatePrice">五折价￥
               <span>{{ rebatePrice.current }}</span>
             </span>
-            <div class="img-container">
+            <!--<div class="img-container">
               <img class="imageRebate" :src="imageRebate">
-            </div>
+            </div>-->
           </div>
         </van-col>
         <van-col class="img-box" span="12">

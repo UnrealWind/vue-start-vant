@@ -207,7 +207,7 @@
           <div class="swiper-container ">
             <div class="swiper-wrapper gwcLits fix">
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -215,7 +215,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -223,7 +223,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -231,7 +231,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -239,7 +239,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -266,7 +266,7 @@
           <div class="swiper-container ">
             <div class="swiper-wrapper gwcLits fix">
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -274,7 +274,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -282,7 +282,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -290,7 +290,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>
@@ -298,7 +298,7 @@
                 <div class="p3 flex_betweenc"><p>¥85 <span>¥39</span></p></div>
               </div>
               <div class="swiper-slide li">
-                <a href="" class="img">
+                <a class="img">
                   <img src="../../assets/img/zonetu12.png" alt="">
                   <p class="p2">特卖 </p>
                 </a>

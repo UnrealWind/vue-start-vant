@@ -6,58 +6,54 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="hesde_l2">
-        <div class="p"> 品质水果 - 苹果</div>
-      </div>
-      <div class="hesde_l3">
-        <van-icon name="certificate" />
-      </div>
-      <div class="hesde_l4" @click="$router.push('/cart/shopcar')">
-        <van-icon name="cart-o" />
-      </div>
-    </div>
-    <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item><img src="../assets/img/fruittu1.png" alt="">
-      </van-swipe-item>
-    </van-swipe>
-
-    <div class="nav_box dan_wrap fix">
-      <div class="wp">
-        <div
-          class="nav_wrap"
+        <van-search
+          v-model="value"
+          placeholder="请输入搜索关键词"
+          show-action
+          shape="round"
+          autofocus="autofocus"
+          @search="search"
         >
-          <commodity
-            v-for="(vip,index) in vipData"
-            :key="`${vip.type}-${index}`"
-            :type="vip.type"
-            :image="vip.image"
-            :describe="vip.describe"
-            :title="vip.title"
-            :vip-price="vip.vipPrice"
-            :vip-price-describe="vip.vipPriceDescribe"
-            :btn-go="vip.btnGo"
-          >
-          </commodity>
-        </div>
+          <div slot="action" @click="search(value)">搜索</div>
+        </van-search>
       </div>
+
     </div>
 
+    <div class="comm">
+      <commodity
+        v-for="(commodity,index) in commodityData"
+        :key="`${commodity.type}-${index}`"
+        :type="commodity.type"
+        :image="commodity.image"
+        :discribe="commodity.discribe"
+        :title="commodity.title"
+        :index-price="commodity.indexPrice"
+        :index-price-discribe="commodity.indexPriceDiscribe"
+        :btn-go="commodity.btnGo"
+      >
+      </commodity>
+    </div>
+    <div v-show="hintShow" class="hint">
+      <p>暂未搜索到商品</p>
+    </div>
   </van-container>
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem } from 'vant'
+    import { Icon, Search } from 'vant'
 
     export default {
         components: {
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
-            'van-icon': Icon
+            'van-icon': Icon,
+            'van-search': Search
         },
         data() {
             return {
                 status: 'loading',
                 value: '',
-                vipData: []
+                hintShow: false,
+                commodityData: []
             }
         },
         computed: {},
@@ -67,50 +63,67 @@
         methods: {
             async init() {
                 try {
-                    await this.getFruitListData()
-                    // await this.getData()
+                    //
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
             },
-            async getFruitListData() {
-                const res1 = await this.$http.post(`product/content/list?level=3&parentId=${this.$route.query.id}`)
-                const res = await this.$http.post('product/goods/listByLastCategoryCode?pageSize=3&pageNum=1', {
-                    categoryCodeList: [res1.rows[0].dictCategoryIds]
+            async search(value) {
+                if (value === '') {
+                    return false
+                }
+                console.log(value)
+                const res = await this.$http.post('product/goods/list?pageNum=1&pageSize=10', {
+                    goodsName: value
                 })
-                console.log(res1)
-                console.log(res)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
                         arr.push({
-                            type: 'list-vip',
-                            describe: n.goodsName,
-                            title: n.goodsName,
-                            vipPrice: { 'current': n.showPrice, 'pre': n.linePrice },
-                            vipPriceDescribe: {},
-                            id: n.id,
-                            btnGo: `/user/productdetails?id=${n.id}`,
-                            image: n.mainImg
+                            'type': 'list-index',
+                            'discribe': n.goodsProfile,
+                            'title': n.goodsName,
+                            'indexPriceDiscribe': {},
+                            'indexPrice': {
+                                'current': n.showPrice,
+                                'pre': n.linePrice
+                            },
+                            'btnGo': `/user/productdetails?id=${n.id}`,
+                            'image': n.mainImg
                         })
                     })
+                    this.commodityData = arr
+                    this.hintShow = false
+                    if (this.commodityData.length === 0) {
+                        this.hintShow = true
+                    }
                 }
-                this.vipData = arr
             }
         }
     }
 
 </script>
 <style lang='scss' scoped>
-  h1 {
-    background: red;
-    width: 375px;
+  .hint {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
+  .comm {
+    margin-top: 60px;
+  }
+  .container >>> {
+    margin-bottom: 20px;
   }
 
   .fix {
     *zoom: 1;
+  }
+
+  .wp .container > > > {
+    margin-top: 15px;
   }
 
   .l {
@@ -145,7 +158,7 @@
 
     .wp {
       width: 95%;
-      margin: 0 auto;
+      margin: 50px auto;
     }
   }
 
@@ -167,7 +180,7 @@
   .hesde_l {
     position: absolute;
     left: 0px;
-    top: 2px;
+    top: 5px;
     font-size: 20px;
     color: #333;
   }
@@ -191,7 +204,7 @@
 
   .hesde_l2 {
     position: relative;
-    width: 62%;
+    width: 90%;
     margin: 0 auto;
     text-align: center;
 

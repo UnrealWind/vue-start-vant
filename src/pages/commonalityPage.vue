@@ -6,7 +6,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="hesde_l2">
-        <div class="p"> 品质水果 - 苹果</div>
+        <div class="p"> {{ this.$route.query.title }}</div>
       </div>
       <div class="hesde_l3">
         <van-icon name="certificate" />
@@ -15,28 +15,22 @@
         <van-icon name="cart-o" />
       </div>
     </div>
-    <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item><img src="../assets/img/fruittu1.png" alt="">
-      </van-swipe-item>
-    </van-swipe>
-
     <div class="nav_box dan_wrap fix">
       <div class="wp">
-        <div
-          class="nav_wrap"
+        <commodity
+          v-for="(commodity,index) in commodityData"
+          :key="`${commodity.type}-${index}`"
+          :type="commodity.type"
+          :image="commodity.image"
+          :discribe="commodity.discribe"
+          :title="commodity.title"
+          :index-price="commodity.indexPrice"
+          :index-price-discribe="commodity.indexPriceDiscribe"
+          :btn-go="commodity.btnGo"
         >
-          <commodity
-            v-for="(vip,index) in vipData"
-            :key="`${vip.type}-${index}`"
-            :type="vip.type"
-            :image="vip.image"
-            :describe="vip.describe"
-            :title="vip.title"
-            :vip-price="vip.vipPrice"
-            :vip-price-describe="vip.vipPriceDescribe"
-            :btn-go="vip.btnGo"
-          >
-          </commodity>
+        </commodity>
+        <div v-show="hintShow" class="nav_box10 dan_wrap">
+          <div class="hint">当前类目下没有分类</div>
         </div>
       </div>
     </div>
@@ -45,19 +39,18 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem } from 'vant'
+    import { Icon } from 'vant'
 
     export default {
         components: {
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
             'van-icon': Icon
         },
         data() {
             return {
                 status: 'loading',
                 value: '',
-                vipData: []
+                hintShow: false,
+                commodityData: []
             }
         },
         computed: {},
@@ -67,52 +60,56 @@
         methods: {
             async init() {
                 try {
-                    await this.getFruitListData()
-                    // await this.getData()
+                    await this.getListData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
                 }
                 this.status = 'success'
             },
-            async getFruitListData() {
-                const res1 = await this.$http.post(`product/content/list?level=3&parentId=${this.$route.query.id}`)
-                const res = await this.$http.post('product/goods/listByLastCategoryCode?pageSize=3&pageNum=1', {
-                    categoryCodeList: [res1.rows[0].dictCategoryIds]
+            async getListData() {
+                const res = await this.$http.post('product/goods/listByLastCategoryCode?pageSize=4&pageNum=1', {
+                    categoryCode: this.$route.query.id
                 })
-                console.log(res1)
                 console.log(res)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
                         arr.push({
-                            type: 'list-vip',
-                            describe: n.goodsName,
-                            title: n.goodsName,
-                            vipPrice: { 'current': n.showPrice, 'pre': n.linePrice },
-                            vipPriceDescribe: {},
-                            id: n.id,
-                            btnGo: `/user/productdetails?id=${n.id}`,
-                            image: n.mainImg
+                            'type': 'list-index',
+                            'discribe': n.goodsProfile,
+                            'title': n.goodsName,
+                            'indexPriceDiscribe': {},
+                            'indexPrice': {
+                                'current': n.showPrice,
+                                'pre': n.linePrice
+                            },
+                            'btnGo': `/user/productdetails?id=${n.id}`,
+                            'image': n.mainImg
                         })
                     })
+                    this.commodityData = arr
+                    if (this.commodityData.length === 0) {
+                        this.hintShow = true
+                    }
                 }
-                this.vipData = arr
             }
         }
     }
 
 </script>
 <style lang='scss' scoped>
-  h1 {
-    background: red;
-    width: 375px;
+  .hint {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
   }
-
   .fix {
     *zoom: 1;
   }
-
+  .wp .container >>> {
+    margin-top: 15px;
+  }
   .l {
     float: left;
   }
@@ -145,7 +142,7 @@
 
     .wp {
       width: 95%;
-      margin: 0 auto;
+      margin: 50px auto;
     }
   }
 

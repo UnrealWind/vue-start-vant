@@ -19,81 +19,81 @@
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 
           <div class="li fix">
             <div class="nav_l l" @click="$router.push('/user/productdetails')">
-              <a href="" class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
+              <a class="title"> 君乐宝开啡尔原味常温酸奶两种规格可选 </a>
               <div class="time"> 2019/10/23 08:00 开卖 </div>
             </div>
             <div class="nav_r r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
+              <a class="img"> <img src="../assets/img/inftu1.png" alt=""> </a>
             </div>
           </div>
 

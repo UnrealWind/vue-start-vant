@@ -17,71 +17,69 @@
       <van-swipe-item><img src="../assets/img/viptu1.png" alt=""></van-swipe-item>
     </van-swipe>
 
-    <div class="vip_title dan_wrap fix">
-      <div class="wp">
-        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 今日必抢 <img
-          src="../assets/img/viptu14.png"
-          alt=""
-        ></div>
+    <div v-for="(activity,actIndex) in activityData" :key="actIndex">
+      <div class="vip_title dan_wrap fix">
+        <div class="wp">
+          <div class="title"><img src="../assets/img/viptu13.png" alt=""> {{ activity.activityName }} <img
+            src="../assets/img/viptu14.png"
+            alt=""
+          ></div>
+        </div>
       </div>
-    </div>
-
-    <div class=" dan_wrap fix">
-      <div class="wp">
-        <div
-          v-for="(vip,index) in vipData"
-          :key="`${vip.type}-${index}`"
-          class="navdan_box4"
-          @click="$router.push({path:vip.path,query:{id:vip.id}})"
-        >
-
-          <commodity
-            :type="vip.type"
-            :image="vip.image"
-            :discribe="vip.discribe"
-            :title="vip.title"
-            :vip-price="vip.vipPrice"
-            :vip-price-discribe="vip.vipPriceDiscribe"
-            :btn-go="vip.btnGo"
-          >
-          </commodity>
-
+      <div class=" dan_wrap fix">
+        <div class="wp">
+          <div class="navdan_box4">
+            <ul class="commodityLits flex_wrap">
+              <li v-for="(item,index) in activity.children" :key="index">
+                <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
+                  <div>
+                    <img :src="item.goodsStatics[3].url" alt="">
+                  </div>
+                  <p class="title">{{ item.goodsName }}</p>
+                  <div class="p3 flex_betweenc">
+                    <p class="price">
+                      ¥ {{ item.showPrice }}<span class="pre">¥{{ item.linePrice }}</span>
+                    </p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="vip_title dan_wrap fix">
-      <div class="wp">
-        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 精选好物 <img
-          src="../assets/img/viptu14.png"
-          alt=""
-        ></div>
-      </div>
-    </div>
+    <!--    <div class="vip_title dan_wrap fix">-->
+    <!--      <div class="wp">-->
+    <!--        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 精选好物 <img-->
+    <!--          src="../assets/img/viptu14.png"-->
+    <!--          alt=""-->
+    <!--        ></div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
-    <div class=" dan_wrap fix">
-      <div class="wp">
-        <div
-          class="navdan_box4"
-          @click="$router.push({path:vip.path,query:{id:vip.id}})"
-        >
+    <!--    <div class=" dan_wrap fix">-->
+    <!--      <div class="wp">-->
+    <!--        <div-->
+    <!--          class="navdan_box4"-->
+    <!--        >-->
 
-          <commodity
-            v-for="(vip,index) in vipDataMin"
-            :key="`${vip.type}-${index}`"
-            :type="vip.type"
-            :image="vip.image"
-            :discribe="vip.discribe"
-            :title="vip.title"
-            :vip-price="vip.vipPrice"
-            :vip-price-discribe="vip.vipPriceDiscribe"
-            :btn-go="vip.btnGo"
-          >
-          </commodity>
+    <!--          <commodity-->
+    <!--            v-for="(vip,index) in vipDataMin"-->
+    <!--            :key="`${vip.type}-${index}`"-->
+    <!--            :type="vip.type"-->
+    <!--            :image="vip.image"-->
+    <!--            :discribe="vip.discribe"-->
+    <!--            :title="vip.title"-->
+    <!--            :vip-price="vip.vipPrice"-->
+    <!--            :vip-price-discribe="vip.vipPriceDiscribe"-->
+    <!--            :btn-go="vip.btnGo"-->
+    <!--          >-->
+    <!--          </commodity>-->
 
-        </div>
-      </div>
-    </div>
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
   </van-container>
 </template>
@@ -99,7 +97,7 @@
             return {
                 status: 'loading',
                 vipData: [],
-                vipDataMin: []
+                activityData: []
 
             }
         },
@@ -110,8 +108,10 @@
         methods: {
             async init() {
                 try {
+                    // 活动
+                    await this.getActivityData()
                     await this.getVipData()
-                    await this.getVipDataMin()
+                    // await this.getVipDataMin()
                     // await this.getData()
                 } catch (e) {
                     this.status = 'error'
@@ -119,62 +119,51 @@
                 }
                 this.status = 'success'
             },
-            // 今日必抢
-            async getVipData() {
-                const res = await this.$http.post(`product/activity/activityGoodsList`, {
-                    activityCode: 'b1f034550b31468c93dec8535a3dc1aa'
+            // 活动
+            async getActivityData() {
+                const res = await this.$http.post('product/activity/contentActivityRel', {
+                    contentId: this.$route.query.id
                 })
                 console.log(res)
-                const arr = []
-                res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            type: 'list-vip',
-                            image: good.goodsStatics[i].url,
-                            title: good.goodsName,
-                            discribe: good.goodsProfile,
-                            vipPrice: {
-                                current: good.showPrice,
-                                pre: good.linePrice
-                            },
-                            vipPriceDiscribe: {},
-                            btnGo: '/user/productdetails',
-                            id: good.id
-                        })
-                    })
+                res.data.forEach(async(n, i) => {
+                    const res = await this.getVipData(n.activityCode)
+                    this.$set(n, 'children', res.data[0].goods)
                 })
-                this.vipData = arr
+                this.activityData = res.data
             },
-            // 精选好物
-            async getVipDataMin() {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: 'fb5355bd08d14090aad2f7f2f7d56546'
+            // 今日必抢
+            async getVipData(activityCode) {
+                const res = await this.$http.post(`product/activity/activityGoodsList`, {
+                    activityCode: activityCode
                 })
-                const arr = []
-                res.data.forEach((n, i) => {
-                    arr.push({
-                        discribe: n.actDetailName
-                    })
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            type: 'list-vip',
-                            image: good.goodsStatics[i].url,
-                            title: good.goodsProfile,
-                            vipPrice: {
-                                current: good.linePrice,
-                                pre: '300'
-                            },
-                            vipPriceDiscribe: {
-                                type: '已告罄'
-                            },
-                            btnGo: '/user/productdetails',
-                            id: good.id,
-                            path: '/user/productdetails'
-                        })
-                    })
-                })
-                this.vipDataMin = arr
+                return res
             }
+            // 精选好物
+            // async getVipDataMin() {
+            //     const res = await this.$http.post('product/activity/activityGoodsList', {
+            //         activityCode: 'fb5355bd08d14090aad2f7f2f7d56546'
+            //     })
+            //     const arr = []
+            //     res.data.forEach((n, i) => {
+            //         arr.push({
+            //             discribe: n.actDetailName
+            //         })
+            //         n.goods.forEach((good, i) => {
+            //             arr.push({
+            //                 type: 'list-vip',
+            //                 image: good.goodsStatics[i].url,
+            //                 title: good.goodsProfile,
+            //                 vipPrice: {
+            //                     current: good.showPrice,
+            //                     pre: good.linePrice
+            //                 },
+            //                 vipPriceDiscribe: {},
+            //                 btnGo: `/user/productdetails?id=${good.id}`
+            //             })
+            //         })
+            //     })
+            //     this.vipDataMin = arr
+            // }
         }
     }
 
@@ -304,6 +293,22 @@
     border-radius: 10px;
     margin-bottom: 10px;
     overflow: hidden;
+  }
+
+  .price {
+    color: red;
+    font-size: 18px;
+  }
+
+  .title{
+    font-size: 16px;
+  }
+
+  .pre {
+    color: grey;
+    font-size: 12px;
+    margin-left: 10px;
+    text-decoration: line-through;
   }
 
 </style>

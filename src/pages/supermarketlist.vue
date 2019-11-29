@@ -2,15 +2,20 @@
 <template>
   <van-container :status="status">
     <div slot="header" class="fix">
-      <div class="hesde_l " @click="$router.back()"> <van-icon name="arrow-left" /> </div>
-      <div class="hesde_l2">
-        <div class="p"> 电商超市-奶制品 </div>
+      <div class="hesde_l " @click="$router.back()">
+        <van-icon name="arrow-left" />
       </div>
-      <div class="hesde_l3"> <van-icon name="certificate" />  </div>
+      <div class="hesde_l2">
+        <div class="p"> 电商超市-奶制品</div>
+      </div>
+      <div class="hesde_l3">
+        <van-icon name="certificate" />
+      </div>
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/user/productdetails')"> <img src="../assets/img/supermarketlist.png" alt=""></van-swipe-item>
+      <van-swipe-item @click="$router.push('/user/productdetails')"><img src="../assets/img/supermarketlist.png" alt="">
+      </van-swipe-item>
     </van-swipe>
 
     <div class="nav_box5 dan_wrap ">
@@ -39,11 +44,13 @@
               </div>
               <p class="p1"> {{ item.title }}</p>
               <p class="p4"> {{ item.intro }}</p>
-              <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p> </div>
+              <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p></div>
             </a>
           </li>
         </ul>
-
+        <div v-show="tabShow" class="nav_box10 dan_wrap">
+          <div class="hint">当前类目下没有分类</div>
+        </div>
       </div>
     </div>
 
@@ -51,76 +58,80 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
-  export default {
-    components: {
-        'van-swipe': Swipe,
-        'van-swipe-item': SwipeItem,
-        'van-icon': Icon,
-        'van-tab': Tab,
-        'van-tabs': Tabs
-    },
-    data() {
-      return {
-          active: 0,
-          status: 'loading',
-          value: '',
-          navList: [],
-          listData: []
-      }
-    },
-    computed: {
-    },
-    mounted() {
-        this.init()
-    },
-    methods: {
-        async init() {
-            try {
-                await this.getMarketTabData()
-                await this.getSuperMarketListData()
-            } catch (e) {
-                this.status = 'error'
-                throw e
+    import { Icon, Swipe, SwipeItem, Tab, Tabs } from 'vant'
+
+    export default {
+        components: {
+            'van-swipe': Swipe,
+            'van-swipe-item': SwipeItem,
+            'van-icon': Icon,
+            'van-tab': Tab,
+            'van-tabs': Tabs
+        },
+        data() {
+            return {
+                active: 0,
+                status: 'loading',
+                value: '',
+                tabShow: false,
+                navList: [],
+                listData: []
             }
-            this.status = 'success'
         },
-        async getMarketTabData() {
-            const res = await this.$http.post(`product/content/selectById?level=3&id=${this.$route.query.id}`)
-            const arr = []
-            for (const i in res.data.dictMap) {
-                arr.push({
-                    label: res.data.dictMap[i],
-                    key: i
-                })
-            }
-            this.navList = arr
+        computed: {},
+        mounted() {
+            this.init()
         },
-        changeTab(idx, title) {
-            this.navList[idx].key
-            this.getSuperMarketListData(this.navList[idx].key)
-        },
-        async getSuperMarketListData(category) {
-            if (!category) category = this.navList[0].key
-            const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-            const arr = []
-            console.log(res)
-            if (res.data) {
-                res.data.forEach((n, i) => {
+        methods: {
+            async init() {
+                try {
+                    await this.getMarketTabData()
+                    await this.getSuperMarketListData()
+                } catch (e) {
+                    this.status = 'error'
+                    throw e
+                }
+                this.status = 'success'
+            },
+            async getMarketTabData() {
+                const res = await this.$http.post(`product/content/selectById?level=3&id=${this.$route.query.id}`)
+                const arr = []
+                for (const i in res.data.dictMap) {
                     arr.push({
-                        path: `/user/productdetails?id=${n.id}`,
-                        img: n.goodsStatics[i].url,
-                        title: n.goodsName,
-                        intro: n.goodsgoodsProfile,
-                        current: n.showPrice,
-                        pre: n.linePrice
+                        label: res.data.dictMap[i],
+                        key: i
                     })
-                })
+                }
+                this.navList = arr
+            },
+            async changeTab(idx, title) {
+                this.tabShow = false
+                await this.getSuperMarketListData(this.navList[idx].key)
+                if (this.listData.length === 0) {
+                    this.tabShow = true
+                }
+            },
+            async getSuperMarketListData(category) {
+                if (!category) category = this.navList[0].key
+                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+                const arr = []
+                console.log(res)
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        arr.push({
+                            path: `/user/productdetails?id=${n.id}`,
+                            img: n.goodsStatics[i].url,
+                            title: n.goodsName,
+                            intro: n.goodsgoodsProfile,
+                            current: n.showPrice,
+                            pre: n.linePrice
+                        })
+                    })
+                }
+                this.listData = arr
             }
-            this.listData = arr
         }
     }
-  }
 
 </script>
 <style lang='scss' scoped>
@@ -128,27 +139,32 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
   @import "../assets/css/static/css/app.css";
   @import "../assets/css/static/css/style.css";
 
-  .gwcLits{
+  .gwcLits {
     font-size: 14px;
-    li{
+
+    li {
       width: 31%;
     }
-    p{
+
+    p {
       display: block;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       line-height: 24px;
     }
-    .p2{
-     position: relative;
-      span{
+
+    .p2 {
+      position: relative;
+
+      span {
         position: absolute;
         left: 2px;
         bottom: 0px;
         font-size: 12px;
       }
-      h4{
+
+      h4 {
         position: absolute;
         left: 5px;
         bottom: 0px;
@@ -161,28 +177,47 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
         font-weight: normal;
       }
     }
-    p.p4{
+
+    p.p4 {
       color: #828282;
       font-size: 12px;
     }
-    .p3{
+
+    .p3 {
       padding-top: 0px;
     }
-    .p3 span{
+
+    .p3 span {
       font-size: 12px;
     }
   }
+
   h1 {
     background: red;
     width: 375px;
   }
+
   .fix {
     *zoom: 1;
   }
-  .l{ float: left; }
-  .r{ float: right; }
-  .img{  display: block; }
-  .img img{ display: block; width: 100%; }
+
+  .l {
+    float: left;
+  }
+
+  .r {
+    float: right;
+  }
+
+  .img {
+    display: block;
+  }
+
+  .img img {
+    display: block;
+    width: 100%;
+  }
+
   .fix:after,
   .fix:before {
     display: block;
@@ -192,40 +227,83 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
     overflow: hidden;
     visibility: hidden;
   }
-  .dan_wrap{ background: #86c8e8; .wp{ width: 95%; margin: 0 auto;  } }
+
+  .dan_wrap {
+    background: #86c8e8;
+
+    .wp {
+      width: 95%;
+      margin: 0 auto;
+    }
+  }
+
   .van-swipe {
     margin-top: 45px;
+
     img {
       display: block;
-      width:100%;
-     }
+      width: 100%;
+    }
   }
-  .header{
-    .fix{
+
+  .header {
+    .fix {
       background: #fff;
     }
   }
-  .hesde_l{ position: absolute; left: 0px; top: 2px; font-size: 20px;  color: #333;  }
-  .hesde_l3{
+
+  .hesde_l {
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .hesde_l3 {
     display: none;
-    position: absolute; right: 15px; top: 5px; font-size: 20px;  color: #333;
-  }
-  .hesde_l4{
-    position: absolute; right: 50px; top: 5px; font-size: 20px;
-  }
-
-  .hesde_l2{ position: relative; width: 62%; margin: 0 auto; text-align: center;
-    .p { font-size: 16px;   color: #333;  }
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    font-size: 20px;
+    color: #333;
   }
 
-  .nav_box5{
+  .hesde_l4 {
+    position: absolute;
+    right: 50px;
+    top: 5px;
+    font-size: 20px;
+  }
+
+  .hesde_l2 {
     position: relative;
-    width:100%;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+
+    .p {
+      font-size: 16px;
+      color: #333;
+    }
+  }
+
+  .nav_box5 {
+    position: relative;
+    width: 100%;
     overflow-x: scroll;
     margin: 0 auto;
-    .wp{ position: relative; overflow: hidden; }
-    .nav_ul{ width: 100%}
-    .icon{
+
+    .wp {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav_ul {
+      width: 100%
+    }
+
+    .icon {
       height: 100%;
       padding-top: 12px;
       padding-left: 1px;
@@ -234,19 +312,42 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
       top: 0;
       font-size: 20px;
       background: #f7f7f7;
-      z-index: 9;}
-    .li1{ display: inline-block; }
-    .li1.active p { background: #ffffff; color: #86c8e8; }
-    p{ display: inline-block; color: #777; padding:8px 15px; border-radius: 50px; font-size: 12px; color: #fff; margin-top: 10px; }
+      z-index: 9;
+    }
+
+    .li1 {
+      display: inline-block;
+    }
+
+    .li1.active p {
+      background: #ffffff;
+      color: #86c8e8;
+    }
+
+    p {
+      display: inline-block;
+      color: #777;
+      padding: 8px 15px;
+      border-radius: 50px;
+      font-size: 12px;
+      color: #fff;
+      margin-top: 10px;
+    }
   }
 
-  .nav_box{
+  .nav_box {
     padding-bottom: 10px;
-    .title{
+
+    .title {
       font-size: 16px;
       line-height: 30px;
       padding-top: 20px;
       padding-bottom: 2px;
     }
+  }
+  .hint {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
   }
 </style>

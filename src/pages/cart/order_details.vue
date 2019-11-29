@@ -199,11 +199,11 @@
 
         <div class="nav_header fix">
           <div class="nav_l l">
-            <a href="" class="img"> <img src="../../assets/img/cart/strornav.png" alt=""> </a>
+            <a class="img"> <img src="../../assets/img/cart/strornav.png" alt=""> </a>
           </div>
           <div class="nav_c l">
-            <a href="" class="title"> {{ shop.shopName }} </a>
-            <a href="" class="titlemin"> <span>1万</span>人已关注 </a>
+            <a class="title"> {{ shop.shopName }} </a>
+            <a class="titlemin"> <span>1万</span>人已关注 </a>
           </div>
         </div>
 

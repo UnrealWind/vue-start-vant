@@ -7,7 +7,7 @@
         <div class="p"> 热销榜单 </div>
       </div>
       <div class="hesde_l3"> <van-icon name="share" />  </div>
-      <div class="hesde_l4" @click="$router.push('/user/productdetails')"> <van-icon name="cart-o" />  </div>
+      <div class="hesde_l4" @click="$router.push('/cart/shopcar')"> <van-icon name="cart-o" />  </div>
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
@@ -27,16 +27,15 @@
                       :image="hot.image"
                       :discribe="hot.discribe"
                       :title="hot.title"
-                      :hot-price="hot.hotPrice"
-                      :hot-price-discribe="hot.hotPriceDiscribe"
+                      :concentrate-price="hot.concentratePrice"
+                      :concentrate-price-discribe="hot.concentratePriceDiscribe"
                       :btn-go="hot.btnGo"
-                      :popularity="hot.popularity"
-                      :preferential="hot.preferential"
-                      :evaluate="hot.evaluate"
                     >
                     </commodity>
                   </div>
-
+                  <div v-show="tabShow" class="nav_box10 dan_wrap">
+                    <div class="hint">当前类目下没有分类</div>
+                  </div>
                 </div>
               </div>
             </van-tab>
@@ -85,6 +84,7 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
           active: 0,
           status: 'loading',
           value: '',
+          tabShow: false,
           hotData: [],
           navList: []
       }
@@ -131,8 +131,12 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
             }
             this.navList = arr
         },
-        changeTab(idx, title) {
-            this.getHotTabListData(this.navList[idx].key)
+       async changeTab(idx, title) {
+           this.tabShow = false
+           await this.getHotTabListData(this.navList[idx].key)
+           if (this.hotData.length === 0) {
+               this.tabShow = true
+           }
         },
         // tab栏下商品数据
         async getHotTabListData(category) {
@@ -142,16 +146,13 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
             const arr = []
             res.data.forEach((n, i) => {
                 arr.push({
-                    type: 'list-hot',
+                    type: 'list-concentrate',
                     image: n.goodsStatics[i].url,
                     discribe: n.goodsProfile,
                     title: n.goodsName,
-                    hotPrice: n.linePrice + '',
-                    hotPriceDiscribe: '￥',
-                    btnGo: `/user/productdetails?id=${n.id}`,
-                    popularity: '人气2.2w',
-                    preferential: '满100减50',
-                    evaluate: '很实惠，后续评价，这是一条评论'
+                    concentratePrice: n.linePrice + '',
+                    concentratePriceDiscribe: '￥',
+                    btnGo: `/user/productdetails?id=${n.id}`
                 })
             })
             this.hotData = arr
@@ -235,5 +236,9 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
   }
   .van-tabs--line .van-tabs__wrap{
     width: 100%;
+  }
+  .hint {
+    font-size: 14px;
+    text-align: center;
   }
 </style>

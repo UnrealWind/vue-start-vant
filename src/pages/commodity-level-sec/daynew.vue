@@ -16,7 +16,7 @@
         indicator-color="white"
         class="van-swipe"
       >
-        <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push('/superMarketZone')">
+        <van-swipe-item v-for="(item,index) in bannerData" :key="index">
           <img :src="item.img" alt="">
         </van-swipe-item>
       </van-swipe>
@@ -67,6 +67,9 @@
                   </a>
                 </li>
               </ul>
+              <div v-show="tabShow" class="nav_box10 dan_wrap">
+                <div class="hint">当前类目下没有分类</div>
+              </div>
             </van-tab>
           </van-tabs>
         </div>
@@ -91,11 +94,14 @@
             return {
                 status: 'loading',
                 active: 0,
+                tabShow: false,
                 // 轮播图
                 bannerData: [],
                 // 精选大牌
                 dayNewChoicenessData: [],
                 dayNewChoicenessDatas: [],
+                // 活动
+                activityName: [],
                 // tab栏
                 dayNewTabData: [],
                 // tab栏下商品
@@ -116,6 +122,8 @@
                     // 精选大牌
                     await this.getBrandData()
                     await this.getBrandDatas()
+                    // 活动
+                    await this.getActivityName()
 
                     // tab栏
                     await this.getDayNewTabData()
@@ -150,6 +158,13 @@
                     })
                 })
                 this.bannerData = arr
+            },
+            async getActivityName() {
+                const res = await this.$http.post('product/activity/contentActivityRel', {
+                    contentId: this.$route.query.id
+                })
+                console.log(res)
+                this.activityName = res.data
             },
             // 精选大牌
             async getBrandData() {
@@ -200,8 +215,12 @@
                 }
                 this.dayNewTabData = arr
             },
-            changeTab(idx, title) {
-                this.getDayNewProductListData(this.dayNewTabData[idx].key)
+           async changeTab(idx, title) {
+               this.tabShow = false
+               await this.getDayNewProductListData(this.dayNewTabData[idx].key)
+               if (this.dayNewProductListData.length === 0) {
+                   this.tabShow = true
+               }
             },
             // tab栏下商品数据
             async getDayNewProductListData(category) {
@@ -227,6 +246,11 @@
 
 </script>
 <style lang='scss' scoped>
+  .hint {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
   .fix {
     background-color: #fff;
     height: 37.5px;
@@ -267,6 +291,9 @@
     height: 5rem;
   }
 
+  .tuijianNav {
+    margin-bottom: 20px;
+  }
   .tuijianNav .box {
     height: auto;
     width: 100%;

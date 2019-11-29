@@ -70,125 +70,125 @@
         </div>
       </div>
       <!-- trade price批发价 -->
-      <div class="tradePrice clearfix">
-        <div class="title">
-          <span>购物享受批发价！</span>
-          <span>“批发价”帮你搞定全年生活必需品</span>
-        </div>
-        <ul>
-          <li class="clearfix">
-            <div class="pic">
-              <img src="../../src/assets/img/图层 7.png" alt>
-            </div>
-            <div class="text">
-              <span>
-                每人每月用2支舒客牙膏，一个人，一年就
-                <i>省342.65元!</i>
-              </span>
-              <i>会员价￥58.35/6支</i>
-              <i style="text-decoration:line-through">市场价￥144/6支</i>
-            </div>
-          </li>
-          <li class="clearfix">
-            <div class="pic">
-              <img src="../../src/assets/img/图层 7.png" alt>
-            </div>
-            <div class="text">
-              <span>
-                每人每月用2支舒客牙膏，一个人，一年就
-                <i>省342.65元!</i>
-              </span>
-              <i>会员价￥58.35/6支</i>
-              <i style="text-decoration:line-through">市场价￥144/6支</i>
-            </div>
-          </li>
-          <li class="clearfix">
-            <div class="pic">
-              <img src="../../src/assets/img/图层 7.png" alt>
-            </div>
-            <div class="text">
-              <span>
-                每人每月用2支舒客牙膏，一个人，一年就
-                <i>省342.65元!</i>
-              </span>
-              <i>会员价￥58.35/6支</i>
-              <i style="text-decoration:line-through">市场价￥144/6支</i>
-            </div>
-          </li>
-          <li class="clearfix">
-            <div class="pic">
-              <img src="../../src/assets/img/图层 7.png" alt>
-            </div>
-            <div class="text">
-              <span>
-                每人每月用2支舒客牙膏，一个人，一年就
-                <i>省342.65元!</i>
-              </span>
-              <i>会员价￥58.35/6支</i>
-              <i style="text-decoration:line-through">市场价￥144/6支</i>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <!-- cutOff 分割线 -->
-      <div class="cutOff">
-        <i></i>
-        <i></i>
-        <i></i>
-      </div>
-      <!-- share 分享 -->
-      <div class="share">
-        <div class="title">
-          <span>分享商品有返利!</span>
-          <span>返利最高达40% 分享越多赚得越多</span>
-        </div>
-        <ul class="clearfix">
-          <li>
-            <div class="pic">
-              <img src="../../src/assets/img/图层 8.png" alt>
-            </div>
-            <span>
-              分享赚 ￥
-              <i>24.5</i>
-            </span>
-            <span>台湾TT蜗牛胶原天丝面膜三盒</span>
-            <span>会员价￥129</span>
-          </li>
-          <li>
-            <div class="pic">
-              <img src="../../src/assets/img/图层 8.png" alt>
-            </div>
-            <span>
-              分享赚 ￥
-              <i>24.5</i>
-            </span>
-            <span>台湾TT蜗牛胶原天丝面膜三盒</span>
-            <span>会员价￥129</span>
-          </li>
-          <li>
-            <div class="pic">
-              <img src="../../src/assets/img/图层 8.png" alt>
-            </div>
-            <span>
-              分享赚 ￥
-              <i>24.5</i>
-            </span>
-            <span>台湾TT蜗牛胶原天丝面膜三盒</span>
-            <span>会员价￥129</span>
-          </li>
-          <li>
-            <div class="pic">
-              <img src="../../src/assets/img/图层 8.png" alt>
-            </div>
-            <span>
-              分享赚 ￥
-              <i>24.5</i>
-            </span>
-            <span>台湾TT蜗牛胶原天丝面膜三盒</span>
-            <span>会员价￥129</span>
-          </li>
-        </ul>
-      </div>
+      <!--      <div class="tradePrice clearfix">-->
+      <!--        <div class="title">-->
+      <!--          <span>购物享受批发价！</span>-->
+      <!--          <span>“批发价”帮你搞定全年生活必需品</span>-->
+      <!--        </div>-->
+      <!--        <ul>-->
+      <!--          <li class="clearfix">-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 7.png" alt>-->
+      <!--            </div>-->
+      <!--            <div class="text">-->
+      <!--              <span>-->
+      <!--                每人每月用2支舒客牙膏，一个人，一年就-->
+      <!--                <i>省342.65元!</i>-->
+      <!--              </span>-->
+      <!--              <i>会员价￥58.35/6支</i>-->
+      <!--              <i style="text-decoration:line-through">市场价￥144/6支</i>-->
+      <!--            </div>-->
+      <!--          </li>-->
+      <!--          <li class="clearfix">-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 7.png" alt>-->
+      <!--            </div>-->
+      <!--            <div class="text">-->
+      <!--              <span>-->
+      <!--                每人每月用2支舒客牙膏，一个人，一年就-->
+      <!--                <i>省342.65元!</i>-->
+      <!--              </span>-->
+      <!--              <i>会员价￥58.35/6支</i>-->
+      <!--              <i style="text-decoration:line-through">市场价￥144/6支</i>-->
+      <!--            </div>-->
+      <!--          </li>-->
+      <!--          <li class="clearfix">-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 7.png" alt>-->
+      <!--            </div>-->
+      <!--            <div class="text">-->
+      <!--              <span>-->
+      <!--                每人每月用2支舒客牙膏，一个人，一年就-->
+      <!--                <i>省342.65元!</i>-->
+      <!--              </span>-->
+      <!--              <i>会员价￥58.35/6支</i>-->
+      <!--              <i style="text-decoration:line-through">市场价￥144/6支</i>-->
+      <!--            </div>-->
+      <!--          </li>-->
+      <!--          <li class="clearfix">-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 7.png" alt>-->
+      <!--            </div>-->
+      <!--            <div class="text">-->
+      <!--              <span>-->
+      <!--                每人每月用2支舒客牙膏，一个人，一年就-->
+      <!--                <i>省342.65元!</i>-->
+      <!--              </span>-->
+      <!--              <i>会员价￥58.35/6支</i>-->
+      <!--              <i style="text-decoration:line-through">市场价￥144/6支</i>-->
+      <!--            </div>-->
+      <!--          </li>-->
+      <!--        </ul>-->
+      <!--      </div>-->
+      <!--      &lt;!&ndash; cutOff 分割线 &ndash;&gt;-->
+      <!--      <div class="cutOff">-->
+      <!--        <i></i>-->
+      <!--        <i></i>-->
+      <!--        <i></i>-->
+      <!--      </div>-->
+      <!--      &lt;!&ndash; share 分享 &ndash;&gt;-->
+      <!--      <div class="share">-->
+      <!--        <div class="title">-->
+      <!--          <span>分享商品有返利!</span>-->
+      <!--          <span>返利最高达40% 分享越多赚得越多</span>-->
+      <!--        </div>-->
+      <!--        <ul class="clearfix">-->
+      <!--          <li>-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 8.png" alt>-->
+      <!--            </div>-->
+      <!--            <span>-->
+      <!--              分享赚 ￥-->
+      <!--              <i>24.5</i>-->
+      <!--            </span>-->
+      <!--            <span>台湾TT蜗牛胶原天丝面膜三盒</span>-->
+      <!--            <span>会员价￥129</span>-->
+      <!--          </li>-->
+      <!--          <li>-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 8.png" alt>-->
+      <!--            </div>-->
+      <!--            <span>-->
+      <!--              分享赚 ￥-->
+      <!--              <i>24.5</i>-->
+      <!--            </span>-->
+      <!--            <span>台湾TT蜗牛胶原天丝面膜三盒</span>-->
+      <!--            <span>会员价￥129</span>-->
+      <!--          </li>-->
+      <!--          <li>-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 8.png" alt>-->
+      <!--            </div>-->
+      <!--            <span>-->
+      <!--              分享赚 ￥-->
+      <!--              <i>24.5</i>-->
+      <!--            </span>-->
+      <!--            <span>台湾TT蜗牛胶原天丝面膜三盒</span>-->
+      <!--            <span>会员价￥129</span>-->
+      <!--          </li>-->
+      <!--          <li>-->
+      <!--            <div class="pic">-->
+      <!--              <img src="../../src/assets/img/图层 8.png" alt>-->
+      <!--            </div>-->
+      <!--            <span>-->
+      <!--              分享赚 ￥-->
+      <!--              <i>24.5</i>-->
+      <!--            </span>-->
+      <!--            <span>台湾TT蜗牛胶原天丝面膜三盒</span>-->
+      <!--            <span>会员价￥129</span>-->
+      <!--          </li>-->
+      <!--        </ul>-->
+      <!--      </div>-->
       <!-- brand 商标 -->
       <div class="brand">
         <h2>·一线大牌直供·</h2>
@@ -196,55 +196,55 @@
         <div class="pic">
           <img src="../../src/assets/img/图层 9.png" alt>
         </div>
-        <h2>电商速度 不断刷新</h2>
-        <div class="list">
-          <ul class="clearfix">
-            <li>
-              <div class="pic">
-                <img src="../../src/assets/img/图层 10.png" alt>
-              </div>
-              <div class="text">
-                <span>
-                  <i>30秒</i>卖出32万枚鸡蛋
-                </span>
-                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
-              </div>
-            </li>
-            <li>
-              <div class="pic">
-                <img src="../../src/assets/img/图层 10.png" alt>
-              </div>
-              <div class="text">
-                <span>
-                  <i>30秒</i>卖出32万枚鸡蛋
-                </span>
-                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
-              </div>
-            </li>
-            <li>
-              <div class="pic">
-                <img src="../../src/assets/img/图层 10.png" alt>
-              </div>
-              <div class="text">
-                <span>
-                  <i>30秒</i>卖出32万枚鸡蛋
-                </span>
-                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
-              </div>
-            </li>
-            <li>
-              <div class="pic">
-                <img src="../../src/assets/img/图层 10.png" alt>
-              </div>
-              <div class="text">
-                <span>
-                  <i>30秒</i>卖出32万枚鸡蛋
-                </span>
-                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>
-              </div>
-            </li>
-          </ul>
-        </div>
+        <!--        <h2>电商速度 不断刷新</h2>-->
+        <!--        <div class="list">-->
+        <!--          <ul class="clearfix">-->
+        <!--            <li>-->
+        <!--              <div class="pic">-->
+        <!--                <img src="../../src/assets/img/图层 10.png" alt>-->
+        <!--              </div>-->
+        <!--              <div class="text">-->
+        <!--                <span>-->
+        <!--                  <i>30秒</i>卖出32万枚鸡蛋-->
+        <!--                </span>-->
+        <!--                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>-->
+        <!--              </div>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--              <div class="pic">-->
+        <!--                <img src="../../src/assets/img/图层 10.png" alt>-->
+        <!--              </div>-->
+        <!--              <div class="text">-->
+        <!--                <span>-->
+        <!--                  <i>30秒</i>卖出32万枚鸡蛋-->
+        <!--                </span>-->
+        <!--                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>-->
+        <!--              </div>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--              <div class="pic">-->
+        <!--                <img src="../../src/assets/img/图层 10.png" alt>-->
+        <!--              </div>-->
+        <!--              <div class="text">-->
+        <!--                <span>-->
+        <!--                  <i>30秒</i>卖出32万枚鸡蛋-->
+        <!--                </span>-->
+        <!--                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>-->
+        <!--              </div>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--              <div class="pic">-->
+        <!--                <img src="../../src/assets/img/图层 10.png" alt>-->
+        <!--              </div>-->
+        <!--              <div class="text">-->
+        <!--                <span>-->
+        <!--                  <i>30秒</i>卖出32万枚鸡蛋-->
+        <!--                </span>-->
+        <!--                <span>2017年3月5日，德青源安全鸡蛋首次上架电商，仅30秒，1万组32万枚鸡蛋被“秒杀”。</span>-->
+        <!--              </div>-->
+        <!--            </li>-->
+        <!--          </ul>-->
+        <!--        </div>-->
       </div>
     </div>
   </van-container>
@@ -288,7 +288,7 @@
                             discribe: n.goodsProfile,
                             current: '200',
                             pre: n.linePrice,
-                            path: '/user/vipLogon',
+                            path: '/user/productdetails',
                             id: n.id
                         })
                     })
@@ -701,6 +701,9 @@
           }
         }
       }
+    }
+    >>>.list-rebate-box{
+      margin-top: 25px;
     }
   }
 </style>

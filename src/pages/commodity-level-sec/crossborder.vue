@@ -10,17 +10,17 @@
     </div>
     <div class="topHead topHead1">
       <div class="box1 p2 box_sizing">
-        <div class="searchInput flex">
-          <img src="../../assets/css/static/images/ss1.png" alt="">
-          <input type="text" placeholder="可人儿">
-        </div>
+        <!--        <div class="searchInput flex">-->
+        <!--          <img src="../../assets/css/static/images/ss1.png" alt="">-->
+        <!--          <input type="text" placeholder="请输入店铺">-->
+        <!--        </div>-->
         <div class="swiper_minNav">
           <div class="swiper-container">
             <div class="swiper-wrapper">
               <div v-for="(item,index) in crossBorderNavData" :key="index" class="swiper-slide act">
-                <a @click="$router.push(item.path)">
+                <a @click="$router.push({path:'/commonalityPage',query:{id:item.id,title: item.categoryName}})">
                   <van-icon name="gem-o" />
-                  <p>{{ item.title }}</p>
+                  <p>{{ item.categoryName }}</p>
                 </a>
               </div>
             </div>
@@ -39,37 +39,37 @@
           indicator-color="white"
           class="van-swipe"
         >
-          <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push('/superMarketZone')">
+          <van-swipe-item v-for="(item,index) in bannerData" :key="index">
             <img :src="item.img" alt="">
           </van-swipe-item>
         </van-swipe>
       </div>
       <!-- 4大宣传 -->
       <div class="title_nav flex_betweenc mt3 p2 title_nav1">
-        <p class="p1">电商国际</p>
+        <p>电商国际</p>
         <p><img src="../../assets/css/static/images/pp.png" alt="">自营直采</p>
         <p><img src="../../assets/css/static/images/zp.png" alt="">正品保障</p>
         <p><img src="../../assets/css/static/images/sh.png" alt="">售后无忧</p>
       </div>
       <!-- 今日必抢 -->
-      <div class="Storefront publicBox mt3 Storefront1">
+      <div v-for="(activity,actIndex) in activityData" :key="actIndex" class="Storefront publicBox mt3 Storefront1">
         <div class="flex_betweenc  Storefront_cont">
           <div class="box1 flex">
             <a @click="$router.push('/productlistmin')">
-              <img src="../../assets/css/static/images/t1.png" alt="">
+              <p class="p1">{{ activity.activityName }}</p>
               <p>每天09点更新</p>
             </a>
           </div>
-          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')"> 查看更多</a></div>
+          <!--          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')"> 查看更多</a></div>-->
         </div>
         <ul class="commodityLits flex_wrap">
-          <li v-for="(item,index) in crossBorderRobData" :key="index">
-            <a @click="$router.push({path:item.path,query:{id:item.id}})">
+          <li v-for="(item,index) in activity.children" :key="index">
+            <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
               <div>
-                <img :src="item.image" alt="">
+                <img :src="item.goodsStatics[3].url" alt="">
               </div>
-              <p class="title">{{ item.title }}</p>
-              <p class="money flex_betweenc"><span>¥{{ item.current }}</span> <samp>赚{{ item.gain }}</samp></p>
+              <p class="title">{{ item.goodsName }}</p>
+              <p class="money flex_betweenc"><span>¥{{ item.showPrice }}</span></p>
               <!--              <span class="pop1">降价40</span><span class="pop2">爆款</span>-->
             </a>
           </li>
@@ -79,76 +79,79 @@
       <div class="Storefront publicBox mt3 Storefront1">
         <div class="flex_betweenc  Storefront_cont">
           <div class="box1 flex">
-            <img src="../../assets/css/static/images/t2.png" alt="">
+            <p class="p1">热门榜单</p>
             <p>甄选热卖好物</p>
           </div>
-          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')">其他榜单</a></div>
+          <!--          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')">其他榜单</a></div>-->
         </div>
         <ul class="bangdanBox flex_betweenc mt3">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="li1">
-            <p class="imgBox flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})"> <img
+            <p class="imgBox flex_center"><a
+              @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"
+            > <img
               :src="item.image"
               alt=""
             > </a></p>
-            <p class="text"><a @click="$router.push({path:'/productlistmin',query:{id:item.id}})">{{ item.title }}</a></p>
+            <p class="text"><a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})">{{
+              item.title }}</a></p>
           </li>
         </ul>
         <ul class="bangdan2 flex_betweenc">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="flex_betweenc li1">
             <p class="flex_center"><img :src="item.image" alt=""></p>
-            <a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.title }}></a>
+            <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})">{{ item.title }}></a>
           </li>
         </ul>
       </div>
       <!-- 种草推荐 -->
-      <div v-for="(item,index) in crossBorderRecommendData" :key="index" class="tuijianBox publicBox mt3">
-        <div class="flex_betweenc  Storefront_cont">
-          <div class="box1 flex">
-            <h1>种草推荐</h1>
-          </div>
-          <div class="box2 flex_center"><a @click="$router.push('/shoppingcart')">更多></a></div>
-        </div>
-        <a @click="$router.push('/shoppingcart')"> <img :src="item.image" alt="" class="img1">
-        </a>
-        <div class="title flex">
-          <a @click="$router.push('/shoppingcart')"><p>#护肤</p><span>{{ item.title }}</span> </a>
-        </div>
-        <div class="cont box_sizing">
-          <a @click="$router.push('/shoppingcart')"><p class="textOver2">
-            {{ item.intro }}</p></a>
-        </div>
-        <div class="name_box flex_betweenc mt3">
-          <div class="flex">
-            <img src="../../assets/css/static/images/a9.jpg" alt=""><img
-              src="../../assets/css/static/images/a10.jpg"
-              alt=""
-            ><img
-              src="../../assets/css/static/images/a9.jpg"
-              alt=""
-            >
-            <p>{{ item.people }}+人在参加</p>
-          </div>
-          <a @click="$router.push('/shoppingcart')"> 查看详情</a>
-        </div>
-      </div>
+      <!--      <div v-for="(item,index) in crossBorderRecommendData" :key="index" class="tuijianBox publicBox mt3">-->
+      <!--        <div class="flex_betweenc  Storefront_cont">-->
+      <!--          <div class="box1 flex">-->
+      <!--            <h1>种草推荐</h1>-->
+      <!--          </div>-->
+      <!--          &lt;!&ndash;          <div class="box2 flex_center"><a @click="$router.push('/shoppingcart')">更多></a></div>&ndash;&gt;-->
+      <!--        </div>-->
+      <!--        <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"> <img :src="item.image" alt="" class="img1">-->
+      <!--        </a>-->
+      <!--        <div class="title flex">-->
+      <!--          <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"><p>#护肤</p><span>{{ item.title }}</span> </a>-->
+      <!--        </div>-->
+      <!--        <div class="cont box_sizing">-->
+      <!--          <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"><p class="textOver2">-->
+      <!--            {{ item.intro }}</p></a>-->
+      <!--        </div>-->
+      <!--        <div class="name_box flex_betweenc mt3">-->
+      <!--          <div class="flex">-->
+      <!--            <img src="../../assets/css/static/images/a9.jpg" alt=""><img-->
+      <!--              src="../../assets/css/static/images/a10.jpg"-->
+      <!--              alt=""-->
+      <!--            ><img-->
+      <!--              src="../../assets/css/static/images/a9.jpg"-->
+      <!--              alt=""-->
+      <!--            >-->
+      <!--            <p>{{ item.people }}+人在参加</p>-->
+      <!--          </div>-->
+      <!--          <a @click="$router.push('/shoppingcart')"> 查看详情</a>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <!-- 逛全球 -->
-      <div class="publicBox mt3 StrollGlobal">
-        <div class="flex_betweenc  Storefront_cont">
-          <div class="box1 flex">
-            <h1>逛全球</h1>
-            <p>带你发现全球好物</p>
-          </div>
-          <div class="box2 flex_center"><a @click="$router.push('/productlist')">更多></a></div>
-        </div>
-        <ul class="commodityLits flex_wrap commodityLits_nav">
-          <li v-for="(item,index) in crossBorderStateData" :key="index">
-            <a @click="$router.push('/productlist')">
-              <p class="flex_center"><img :src="item.img" alt=""></p>
-              <span>{{ item.name }}</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+      <!--      <div class="publicBox mt3 StrollGlobal">-->
+      <!--        <div class="flex_betweenc  Storefront_cont">-->
+      <!--          <div class="box1 flex">-->
+      <!--            <h1>逛全球</h1>-->
+      <!--            <p>带你发现全球好物</p>-->
+      <!--          </div>-->
+      <!--          <div class="box2 flex_center"><a @click="$router.push('/productlist')">更多></a></div>-->
+      <!--        </div>-->
+      <!--        <ul class="commodityLits flex_wrap commodityLits_nav">-->
+      <!--          <li v-for="(item,index) in crossBorderStateData" :key="index">-->
+      <!--            <a @click="$router.push('/productlist')">-->
+      <!--              <p class="flex_center"><img :src="item.img" alt=""></p>-->
+      <!--              <span>{{ item.name }}</span>-->
+      <!--            </a>-->
+      <!--          </li>-->
+      <!--        </ul>-->
+      <!--      </div>-->
       <!-- 品牌 -->
       <ul class="publicBox logo_ification flex_wrap mt3">
         <li v-for="(item,index) in crossBorderBrandData" :key="index">
@@ -166,7 +169,6 @@
           <a @click="$router.push({path:item.path,query:{id:item.id}})">
             <img :src="item.image" alt="" class="commodityList">
             <p class="p1">{{ item.title }}</p>
-            <p class="p2"><span>特卖</span> <span>新品</span></p>
             <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
               src="../../assets/css/static/images/gwc.png"
               alt=""
@@ -194,6 +196,8 @@
                 bannerData: [],
                 // nav
                 crossBorderNavData: [],
+                // 活动
+                activityData: [],
                 // 今日必抢
                 crossBorderRobData: [],
                 // 热门榜单
@@ -221,12 +225,14 @@
                 try {
                     // 轮播图
                     await this.getBannerData()
+                    // 活动
+                    await this.getActivityData()
                     // 今日必抢
                     await this.getRobData()
                     // nav
                     await this.getCrossBorderNavData()
                     // 种草推荐
-                    await this.getRecommendData()
+                    // await this.getRecommendData()
                     // 今日推荐
                     await this.getTodayRecommendData()
                     // 热门榜单
@@ -260,56 +266,54 @@
                     res.rows.forEach((n, i) => {
                         arr.push({
                             img: n.logo,
-                            title: n.name,
-                            path: n.url
+                            categoryName: n.name,
+                            path: n.url,
+                            id: n.id
                         })
                     })
                 }
                 this.crossBorderNavData = arr
             },
-            // 今日必抢
-            async getRobData() {
-                const res = await this.$http.post(`product/activity/activityGoodsList`, {
-                    activityCode: '1047f6936fb144e49c356e730a9b9cbd'
+            // 活动
+            async getActivityData() {
+                const res = await this.$http.post('product/activity/contentActivityRel', {
+                    contentId: this.$route.query.id
                 })
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goods.forEach((good, i) => {
-                            arr.push({
-                                title: good.goodsName,
-                                image: good.goodsStatics[i].url,
-                                current: good.showPrice,
-                                gain: 10,
-                                path: '/user/productdetails',
-                                id: good.id
-                            })
-                        })
-                    })
-                }
-                this.crossBorderRobData = arr
+                console.log(res)
+                res.data.forEach(async(n, i) => {
+                    const res = await this.getRobData(n.activityCode)
+                    this.$set(n, 'children', res.data[0].goods)
+                })
+                this.activityData = res.data
+            },
+            // 今日必抢
+            async getRobData(activityCode) {
+                const res = await this.$http.post(`product/activity/activityGoodsList`, {
+                    activityCode: activityCode
+                })
+                return res
             },
             // 种草推荐
-            async getRecommendData() {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: '7e774262cd3b4bcaacd1cf9db4487fd4'
-                })
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goods.forEach((good, i) => {
-                            arr.push({
-                                image: require('../../assets/css/static/images/a8.jpg'),
-                                title: good.goodsName,
-                                intro: good.goodsProfile,
-                                path: '/shoppingcart',
-                                people: '1512'
-                            })
-                        })
-                    })
-                }
-                this.crossBorderRecommendData = arr
-            },
+            // async getRecommendData() {
+            //     const res = await this.$http.post('product/activity/activityGoodsList', {
+            //         activityCode: '7e774262cd3b4bcaacd1cf9db4487fd4'
+            //     })
+            //     const arr = []
+            //     if (res.data) {
+            //         res.data.forEach((n, i) => {
+            //             n.goods.forEach((good, i) => {
+            //                 arr.push({
+            //                     image: require('../../assets/css/static/images/a8.jpg'),
+            //                     title: good.goodsName,
+            //                     intro: good.goodsProfile,
+            //                     path: '/shoppingcart',
+            //                     people: '1512'
+            //                 })
+            //             })
+            //         })
+            //     }
+            //     this.crossBorderRecommendData = arr
+            // },
             // 今日推荐
             async getTodayRecommendData() {
                 const res = await this.$http.post('product/activity/activityGoodsList', {
@@ -352,11 +356,11 @@
             },
             // 品牌列表
             async getBrandListData() {
-               const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=6', {
-                   'dataType': 'json',
-                   'method': 'post',
-                   'data': {}
-               })
+                const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=6', {
+                    'dataType': 'json',
+                    'method': 'post',
+                    'data': {}
+                })
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
@@ -378,6 +382,13 @@
   .fix {
     background-color: #ac45f8;
     height: 37.5px;
+  }
+
+  .p1 {
+    color: #000 !important;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 10px;
   }
 
   .swiper_tabBox {
@@ -431,9 +442,11 @@
   .bangdan2 {
     display: flex;
   }
+
   .bangdan2 li {
     width: 33%;
   }
+
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";

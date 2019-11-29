@@ -6,7 +6,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="hesde_l2">
-        <div class="p"> 人气面膜榜</div>
+        <div class="p"> {{ $route.query.title }}</div>
       </div>
       <div class="hesde_l3">
         <van-icon name="share" />

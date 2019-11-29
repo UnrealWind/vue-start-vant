@@ -12,10 +12,10 @@
     <div class="nav_box danNav_box dan_wrap fix">
       <div class="wp">
         <div class="nav_concent">
-          <a href="" class="img" @click="$router.push('/store')"><img src="../assets/img/brandtu1.png" alt=""> </a>
+          <a class="img" @click="$router.push('/store')"><img src="../assets/img/brandtu1.png" alt=""> </a>
           <div class="nav_img fix">
-            <a href="" class="img l" @click="$router.push('/store')"> <img src="../assets/img/brandtu12.png" alt="">  </a>
-            <a href="" class="img l" @click="$router.push('/store')"> <img src="../assets/img/brandtu13.png" alt="">  </a>
+            <a class="img l" @click="$router.push('/store')"> <img src="../assets/img/brandtu12.png" alt="">  </a>
+            <a class="img l" @click="$router.push('/store')"> <img src="../assets/img/brandtu13.png" alt="">  </a>
           </div>
           <div class="img"><img src="../assets/img/brandtu14.png" alt=""> </div>
         </div>
@@ -24,69 +24,69 @@
 
     <div class="nav_box2 dan_wrap fix">
       <div class="wp">
-        <a href="" class="img" @click="$router.push('/store')"><img src="../assets/img/brandtu15.png" alt=""> </a>
+        <a class="img" @click="$router.push('/store')"><img src="../assets/img/brandtu15.png" alt=""> </a>
       </div>
     </div>
 
     <div class="nav_box nav_box3 dan_wrap fix">
       <div class="wp">
         <div class="nav_concent">
-          <a href="" class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu16.png" alt=""> </a>
+          <a class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu16.png" alt=""> </a>
           <div class="nav_ul fix">
             <div class="li l" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
+              <a class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
               <p>
-                <a href=""> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
+                <a> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
               </p>
               <div class="price"> ￥69 </div>
             </div>
             <div class="li r" @click="$router.push('/user/productdetails')">
-              <a href="" class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
+              <a class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
               <p>
-                <a href=""> 加宽松紧腰舒适休闲裤 </a>
+                <a> 加宽松紧腰舒适休闲裤 </a>
               </p>
               <div class="price"> ￥69 </div>
             </div>
           </div>
 
-          <a href="" class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu19.png" alt=""> </a>
+          <a class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu19.png" alt=""> </a>
 
         </div>
       </div>
     </div>
 
     <div class="nav_box4 dan_wrap fix">
-      <a href="" class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu20.png" alt=""> </a>
+      <a class="img" @click="$router.push('/user/productdetails')"><img src="../assets/img/brandtu20.png" alt=""> </a>
     </div>
 
     <div class="nav_box5 dan_wrap fix">
       <div class="wp">
         <div class="nav_ul fix">
           <div class="li l" @click="$router.push('/user/productdetails')">
-            <a href="" class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
+            <a class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
             <p>
-              <a href=""> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
+              <a> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
             </p>
             <div class="price"> ￥69 </div>
           </div>
           <div class="li r" @click="$router.push('/user/productdetails')">
-            <a href="" class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
+            <a class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
             <p>
-              <a href=""> 加宽松紧腰舒适休闲裤 </a>
+              <a> 加宽松紧腰舒适休闲裤 </a>
             </p>
             <div class="price"> ￥69 </div>
           </div>
           <div class="li l" @click="$router.push('/user/productdetails')">
-            <a href="" class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
+            <a class="img"> <img src="../assets/img/brandtu17.png" alt="">  </a>
             <p>
-              <a href=""> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
+              <a> <strong> #100%棉# </strong> 刺绣盘口T恤 </a>
             </p>
             <div class="price"> ￥69 </div>
           </div>
           <div class="li r" @click="$router.push('/user/productdetails')">
-            <a href="" class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
+            <a class="img"> <img src="../assets/img/brandtu18.png" alt="">  </a>
             <p>
-              <a href=""> 加宽松紧腰舒适休闲裤 </a>
+              <a> 加宽松紧腰舒适休闲裤 </a>
             </p>
             <div class="price"> ￥69 </div>
           </div>

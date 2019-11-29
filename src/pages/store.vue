@@ -23,10 +23,10 @@
           </div>
           <div class="nav_c l">
             <a class="title"> {{ shopData.shopName }} </a>
-            <!--            <a href="" class="titlemin"> 在线商品<span>350 </span> 粉丝数量<span>3333 </span> </a>-->
+            <!--            <a class="titlemin"> 在线商品<span>350 </span> 粉丝数量<span>3333 </span> </a>-->
           </div>
           <!--<div class="nav_r r">
-            <a href="">
+            <a>
               <van-icon name="like-o" />
               关注 </a>
           </div>-->
@@ -37,8 +37,8 @@
             <div v-for="(item,index) in couponList" :key="index" class="li">
               <div class="fix">
                 <div class="nav_l l">
-                  <a href="" class="title"> <!--<em>￥</em><i>40</i> --><span> 全店通用 </span> </a>
-                  <a href="" class="titlemin"> {{ item.ticketName }} </a>
+                  <a class="title"> <!--<em>￥</em><i>40</i> --><span> 全店通用 </span> </a>
+                  <a class="titlemin"> {{ item.ticketName }} </a>
                 </div>
                 <div v-if="item.isChoose === 0" class="nav_r r">
                   <a @click="receiveCoupon(item)"> 立即领取 </a>

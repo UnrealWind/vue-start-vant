@@ -7,7 +7,7 @@
         <div class="p"> 试用中心 </div>
       </div>
       <div class="hesde_l3"> <van-icon name="share" />  </div>
-      <div class="hesde_l4" @click="$router.push('/user/productdetails')"> <van-icon name="cart-o" />  </div>
+      <div class="hesde_l4" @click="$router.push('/cart/shopcar')"> <van-icon name="cart-o" />  </div>
     </div>
 
     <div class="nav_box4 dan_wrap fix">

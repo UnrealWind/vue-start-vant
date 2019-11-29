@@ -10,15 +10,15 @@
     </div>
     <div class="topHead">
       <div class="box1 p2 box_sizing">
-        <div class="searchInput flex">
-          <img src="../../assets/css/static/images/ss.png" alt="">
-          <input type="text" placeholder="可人儿">
-        </div>
+        <!--        <div class="searchInput flex">-->
+        <!--          <img src="../../assets/css/static/images/ss.png" alt="">-->
+        <!--          <input type="text" placeholder="可人儿">-->
+        <!--        </div>-->
         <img src="../../assets/css/static/images/jx.jpg" alt="" class="jxhdImg">
-        <div class="flex_betweenc logoBox">
-          <p class="flex_center"><img src="../../assets/css/static/images/logo.jpg" alt=""> 可人儿品牌旗航店</p>
-          <a @click="$router.push('/stroe')">进入店铺</a>
-        </div>
+        <!--        <div class="flex_betweenc logoBox">-->
+        <!--          <p class="flex_center"><img src="../../assets/css/static/images/logo.jpg" alt=""> 可人儿品牌旗航店</p>-->
+        <!--          <a @click="$router.push({path:'/store',query:{shopCode: 1}})">进入店铺</a>-->
+        <!--        </div>-->
       </div>
       <div class="box2"></div>
     </div>
@@ -60,32 +60,32 @@
         </ul>
       </div>
       <!-- 3 -->
-      <div class="publicBox box_sizing mt3 flex SecuritiesBox">
-        <div class="box">
-          <a @click="$router.push('/supermarket')">
-            <h1>每日必抢</h1>
-          </a>
-          <a class="p1" @click="$router.push('/supermarket')">爆款秒杀></a>
-          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img
-            src="../../assets/css/static/images/a2.jpg"
-            alt=""
-          > </a>
-          </p>
+      <!--      <div class="publicBox box_sizing mt3 flex SecuritiesBox">-->
+      <!--        <div class="box">-->
+      <!--          <a @click="$router.push('/supermarket')">-->
+      <!--            <h1>每日必抢</h1>-->
+      <!--          </a>-->
+      <!--          <a class="p1" @click="$router.push('/supermarket')">爆款秒杀></a>-->
+      <!--          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img-->
+      <!--            src="../../assets/css/static/images/a2.jpg"-->
+      <!--            alt=""-->
+      <!--          > </a>-->
+      <!--          </p>-->
 
-        </div>
-        <div class="box">
-          <a @click="$router.push('/supermarket')">
-            <h1>领劵中心</h1>
-          </a>
-          <a class="p1" @click="$router.push('/supermarket')">大额优惠劵一站领齐></a>
-          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img
-            src="../../assets/css/static/images/a3.jpg"
-            alt=""
-          > </a>
-          </p>
+      <!--        </div>-->
+      <!--        <div class="box">-->
+      <!--          <a @click="$router.push('/supermarket')">-->
+      <!--            <h1>领劵中心</h1>-->
+      <!--          </a>-->
+      <!--          <a class="p1" @click="$router.push('/supermarket')">大额优惠劵一站领齐></a>-->
+      <!--          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img-->
+      <!--            src="../../assets/css/static/images/a3.jpg"-->
+      <!--            alt=""-->
+      <!--          > </a>-->
+      <!--          </p>-->
 
-        </div>
-      </div>
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
 
     <!-- 每日好店 -->
@@ -127,11 +127,11 @@
           <p class="p3">{{ items.title }}</p>
         </a>
       </li>
-      <li class="more flex_center">
-        <a @click="$router.push('/store')">
-          查看全部>
-        </a>
-      </li>
+      <!--      <li class="more flex_center">-->
+      <!--        <a @click="$router.push('/store')">-->
+      <!--          查看全部>-->
+      <!--        </a>-->
+      <!--      </li>-->
     </ul>
     <!--      为您推荐-->
     <div class="tuijian flex_center">
@@ -156,6 +156,9 @@
               </a>
             </li>
           </ul>
+          <div v-show="tabShow" class="nav_box10 dan_wrap">
+            <div class="hint">当前类目下没有分类</div>
+          </div>
         </van-tab>
       </van-tabs>
       <!--        <div class="more flex_center"><img src="../../assets/css/static/images/xia.png" alt=""></div>-->
@@ -176,6 +179,7 @@
             return {
                 status: 'loading',
                 active: 0,
+                tabShow: false,
                 // mallTopListData: [],
                 mallShopsData: [],
                 mallShopsListData: [],
@@ -269,8 +273,12 @@
                 }
                 this.mallTabData = arr
             },
-            changeTab(idx, title) {
-                this.getMallProductListData(this.mallTabData[idx].key)
+            async changeTab(idx, title) {
+                this.tabShow = false
+                await this.getMallProductListData(this.mallTabData[idx].key)
+                if (this.mallProductListData.length === 0) {
+                    this.tabShow = true
+                }
             },
             // tab栏下商品
             async getMallProductListData(category) {
@@ -316,6 +324,12 @@
     }
 </script>
 <style lang='scss' scoped>
+  .hint {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
+
   .fix {
     background-color: #fff;
     height: 37.5px;
@@ -351,6 +365,13 @@
     height: 5rem;
   }
 
+  .tuijianNav {
+    margin-bottom: 20px;
+  }
+
+  .van-tab__pane {
+    padding: 0 10px;
+  }
   .tuijianNav .box {
     height: auto;
     width: 100%;

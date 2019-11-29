@@ -7,7 +7,15 @@
           <van-icon name="arrow-left" />
         </div>
         <div class="header_r l">
-          <van-search v-model="value" placeholder="画画" />
+          <van-search
+            v-model="value"
+            placeholder="请输入搜索关键词"
+            show-action
+            shape="round"
+            @focus="focus"
+          >
+            <div slot="action">搜索</div>
+          </van-search>
         </div>
       </div>
     </div>
@@ -17,34 +25,43 @@
 
         <div class="class_left l">
           <van-sidebar v-model="activeKey">
-            <van-sidebar-item v-for="(item,index) in classTabData" :key="index" :title="item.categoryName" @click="changeTab(index)" />
+            <van-sidebar-item
+              v-for="(item,index) in classTabData"
+              :key="index"
+              :title="item.categoryName"
+              @click="changeTab(index)"
+            />
           </van-sidebar>
         </div>
-        <div v-for="(model,divIndex) in targetData" :key="divIndex" class="class_right r" @click="$router.push('/user/productdetails')">
-          <div class="title"> {{ model.categoryName }} </div>
+        <div v-for="(model,divIndex) in targetData" v-show="!thisShow" :key="divIndex" class="class_right r">
+          <div class="title"> {{ model.categoryName }}</div>
           <div class="class_ul fix">
-            <div v-for="(opt,liIndex) in model.list" :key="liIndex" class="li">
+            <div v-for="(opt,liIndex) in model.list" :key="liIndex" class="li" @click="$router.push({path:'/commonalityPage',query:{id:opt.code,title: opt.categoryName}})">
               <img src="../../assets/img/zonetu12.png" alt="">
               <p> {{ opt.categoryName }} </p>
             </div>
+            <div v-if="model.list.length === 0" class="hint">当前类目下没有分类</div>
           </div>
+        </div>
+        <div v-show="thisShow" class="class_right r">
+          <div class="hint">当前类目下没有分类</div>
         </div>
       </div>
 
-      <div v-if="false" class="class_img wp">
-        <div v-for="(commodity,index) in concentrateData" :key="`${commodity.type}-${index}`" class="nav_li">
-          <commodity
-            :type="commodity.type"
-            :image="commodity.image"
-            :discribe="commodity.discribe"
-            :title="commodity.title"
-            :concentrate-price="commodity.concentratePrice"
-            :concentrate-price-discribe="commodity.concentratePriceDiscribe"
-            :btn-go="commodity.btnGo"
-          >
-          </commodity>
-        </div>
-      </div>
+      <!--      <div v-if="false" class="class_img wp">-->
+      <!--        <div v-for="(commodity,index) in concentrateData" :key="`${commodity.type}-${index}`" class="nav_li">-->
+      <!--          <commodity-->
+      <!--            :type="commodity.type"-->
+      <!--            :image="commodity.image"-->
+      <!--            :discribe="commodity.discribe"-->
+      <!--            :title="commodity.title"-->
+      <!--            :concentrate-price="commodity.concentratePrice"-->
+      <!--            :concentrate-price-discribe="commodity.concentratePriceDiscribe"-->
+      <!--            :btn-go="commodity.btnGo"-->
+      <!--          >-->
+      <!--          </commodity>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
     </div>
 
@@ -52,7 +69,8 @@
 </template>
 
 <script>
-    import { Icon, Search, Sidebar, SidebarItem } from 'vant'
+    import { Icon, Sidebar, SidebarItem, Search } from 'vant'
+
     export default {
         components: {
             'van-icon': Icon,
@@ -60,59 +78,78 @@
             'van-sidebar': Sidebar,
             'van-sidebar-item': SidebarItem
         },
-    data() {
-      return {
-          status: 'loading',
-          value: '',
-          activeKey: 0,
-          concentrateData: [],
-          classCategoryData: [],
-          classTabData: [],
-          targetData: []
-      }
-    },
-    computed: {
-    },
-    mounted() {
-        this.init()
-    },
-    methods: {
-        async init() {
-            try {
-                await this.getclassTabData()
-            } catch (e) {
-                this.status = 'error'
-                throw e
+        data() {
+            return {
+                status: 'loading',
+                value: '',
+                activeKey: 0,
+                thisShow: false,
+                concentrateData: [],
+                classCategoryData: [],
+                classTabData: [],
+                targetData: []
             }
-            this.status = 'success'
         },
-        changeTab(index) {
-            this.targetData = this.classTabData[index].list
-            console.log(this.targetData)
+        computed: {},
+        mounted() {
+            this.init()
         },
-        async getclassTabData() {
-            const res = await this.$http.post('manager/dictCategory/listByPcode', {
-                pCode: 12
-            })
-            console.log(res)
-            this.classTabData = res.data
-            this.targetData = this.classTabData[0].list
+        methods: {
+            async init() {
+                try {
+                    await this.getClassTabData()
+                } catch (e) {
+                    this.status = 'error'
+                    throw e
+                }
+                this.status = 'success'
+            },
+            changeTab(index) {
+                this.thisShow = true
+                this.targetData = this.classTabData[index].list
+                for (let i = 0; i < this.targetData.length; i++) {
+                    if (this.targetData[i].list.length > 0) {
+                        this.thisShow = false
+                    }
+                }
+            },
+            async getClassTabData() {
+                const res = await this.$http.post('manager/dictCategory/listByPcode', {
+                    pCode: 12
+                })
+                this.classTabData = res.data
+                this.targetData = this.classTabData[0].list
+            },
+            // 搜索功能
+             focus() {
+                 this.$router.push('/searchPage')
+            }
         }
     }
-  }
 
 </script>
 <style lang='scss' scoped>
+  > > > .main {
+    background: #fff;
+  }
 
   h1 {
     background: red;
     width: 375px;
   }
+
   .fix {
     *zoom: 1;
   }
-  .l{ float: left; }
-  .r{ float: right; }
+
+  .l {
+    float: left;
+  }
+
+  .r {
+    float: right;
+  }
+
   .fix:after,
   .fix:before {
     display: block;
@@ -123,42 +160,46 @@
     visibility: hidden;
   }
 
-  .wp{
+  .wp {
     width: 95%;
     margin: 0 auto;
   }
 
-  .dan_wrap{
+  .dan_wrap {
     padding-top: 55px;
     background: #fff;
   }
 
-  .header{
-    .fix{
+  .header {
+    .fix {
       background: #ffffff;
       padding-bottom: 10px;
     }
 
-    .van-search__content{
+    .van-search__content {
       border-radius: 50px;
       overflow: hidden;
       width: 100%;
     }
-    .header_r{
+
+    .header_r {
       width: 85%;
       margin-top: 10px;
       margin-left: 20px;
-      .van-search{
+
+      .van-search {
         padding: 0px;
         border-radius: 10px;
 
       }
     }
-    .header_l{
+
+    .header_l {
       position: relative;
       margin-top: 12px;
       line-height: 30px;
-      .van-icon{
+
+      .van-icon {
         font-size: 18px;
         line-height: 30px;
         color: #333;
@@ -166,72 +207,88 @@
     }
   }
 
-  .class_left{
+  .class_left {
+    position: fixed;
+    left: 0;
     width: 22%;
     background: #f2f2f2;
-    .van-sidebar{
+
+    .van-sidebar {
       width: 100%;
     }
-    .van-sidebar-item{
+
+    .van-sidebar-item {
       background: #f2f2f2;
     }
-    .van-sidebar-item--select{
-      .van-sidebar-item__text{
+
+    .van-sidebar-item--select {
+      .van-sidebar-item__text {
         color: #e9001d;
       }
     }
   }
 
-  .class_right{
+  .class_right {
     width: 78%;
     padding-left: 2%;
     padding-right: 1%;
     background: #fff;
     padding-top: 20px;
 
-    .title{
+    .title {
       font-size: 14px;
       font-weight: bold;
       color: #1f1f1f;
-      span{
+
+      span {
         color: #c33144;
         position: relative;
       }
-      .van-icon{
+
+      .van-icon {
         position: relative;
         top: 2px;
       }
     }
 
-    .class_ul{
+    .class_ul {
       margin-bottom: 10px;
-      .li{
+
+      .li {
         float: left;
         width: 32%;
         margin-left: 1%;
         margin-top: 20px;
       }
-      img{
+
+      img {
         display: block;
         width: 100%;
       }
-      p{
+
+      p {
         display: block;
         margin: 0px;
         line-height: 30px;
         text-align: center;
         overflow: hidden;
         white-space: nowrap;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
       }
     }
 
   }
 
-  .class_img{
+  .hint {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .class_img {
     padding-bottom: 30px;
   }
-  .nav_li{
+
+  .nav_li {
     margin-top: 20px;
   }
 

@@ -14,12 +14,12 @@
 
       <div v-for="(item,index) in zoneListData" :key="index" class="nav_box dan_wrap fix">
         <div class="wp">
-          <a href="" class="img" @click="$router.push('/user/productdetails')">  <img :src="item.img" alt=""> </a>
+          <a class="img" @click="$router.push('/user/productdetails')">  <img :src="item.img" alt=""> </a>
           <div class="nav_wrap">
             <div class="nva_ul fix">
               <div v-for="(items,indexs) in item.goods" :key="indexs" class="li" @click="$router.push('/user/productdetails')">
-                <a href="" class="img">  <img :src="items.img" alt=""> </a>
-                <p><a href="">  ¥{{ items.current }} <span>  ¥{{ items.pre }} </span>  </a> </p>
+                <a class="img">  <img :src="items.img" alt=""> </a>
+                <p><a>  ¥{{ items.current }} <span>  ¥{{ items.pre }} </span>  </a> </p>
               </div>
             </div>
           </div>

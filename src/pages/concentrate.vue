@@ -20,20 +20,20 @@
 
     <div class="nav_box dan_wrap fix">
       <div class="wp">
+        <!--        <div class="nav3_l l">-->
+        <!--          <a class="img" @click="$router.push('/bookinginformation')"> <img src="../assets/img/jiangtu1.png" alt="">  </a>-->
+        <!--        </div>-->
         <div class="nav3_l l">
-          <a class="img" @click="$router.push('/pages/bookinginformation')"> <img src="../assets/img/jiangtu1.png" alt="">  </a>
-        </div>
-        <div class="nav3_l r">
-          <a class="img" @click="$router.push('/pages/trialcenter')"> <img src="../assets/img/jiangtu12.png" alt="">  </a>
+          <a class="img" @click="$router.push('/trialcenter')"> <img src="../assets/img/jiangtu12.png" alt="">  </a>
         </div>
       </div>
     </div>
 
-    <div class="nav_box2 dan_wrap fix">
-      <div class="wp">
-        <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/jiangtu13.png" alt="">  </a>
-      </div>
-    </div>
+    <!--    <div class="nav_box2 dan_wrap fix">-->
+    <!--      <div class="wp">-->
+    <!--        <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/jiangtu13.png" alt="">  </a>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <!--超人气新品-->
     <div class="nav_box3 dan_wrap fix">
       <div class="wp">
@@ -58,22 +58,22 @@
       </div>
     </div>
     <!--大牌上新-->
-    <div class="nav_box3 dan_wrap fix">
-      <div class="wp">
-        <div class="title"> 大牌上新 <span> 你爱的大牌上新了 </span> </div>
-      </div>
-    </div>
+    <!--    <div class="nav_box3 dan_wrap fix">-->
+    <!--      <div class="wp">-->
+    <!--        <div class="title"> 大牌上新 <span> 你爱的大牌上新了 </span> </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
-    <div class="nav_box dan_wrap fix">
-      <div class="wp">
-        <div class="nav3_l l">
-          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu15.png" alt="">  </a>
-        </div>
-        <div class="nav3_l r">
-          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu16.png" alt="">  </a>
-        </div>
-      </div>
-    </div>
+    <!--    <div class="nav_box dan_wrap fix">-->
+    <!--      <div class="wp">-->
+    <!--        <div class="nav3_l l">-->
+    <!--          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu15.png" alt="">  </a>-->
+    <!--        </div>-->
+    <!--        <div class="nav3_l r">-->
+    <!--          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu16.png" alt="">  </a>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <!--每日新选-->
     <div class="nav_box3 dan_wrap fix">
       <div class="wp">
@@ -103,7 +103,9 @@
             </a>
           </li>
         </ul>
-
+        <div v-show="tabShow" class="nav_box10 dan_wrap">
+          <div class="hint">当前类目下没有分类</div>
+        </div>
       </div>
     </div>
 
@@ -125,6 +127,7 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
           active: 0,
           status: 'loading',
           value: '',
+          tabShow: false,
           concentrateData: [],
           navList: [],
           choicenessData: [],
@@ -199,8 +202,12 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
             }
             this.navList = arr
         },
-        changeTab(index) {
-            this.getConcentProductListData(this.navList[index].id)
+        async changeTab(index) {
+            this.tabShow = false
+           await this.getConcentProductListData(this.navList[index].id)
+            if (this.choicenessData.length === 0) {
+                this.tabShow = true
+            }
         },
         // tab下商品
         async getConcentProductListData(category) {
@@ -341,4 +348,9 @@ import { Swipe, SwipeItem, Icon, Tab, Tabs } from 'vant'
     height: 5rem;
   }
 }
+  .hint {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
 </style>

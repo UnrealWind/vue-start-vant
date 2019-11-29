@@ -11,6 +11,20 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/commonalityPage',
+    component: () => import('@/pages/commonalityPage'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/searchPage',
+    component: () => import('@/pages/searchPage'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '/commodityLevelSec/mall',
     component: () => import('@/pages/commodity-level-sec/mall'),
     meta: {

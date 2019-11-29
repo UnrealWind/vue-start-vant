@@ -15,87 +15,87 @@
 
         <div class="nav_header fix">
           <div class="nav_l l">
-            <a href="" class="img"> <img src="../assets/img/storetu1.png" alt=""> </a>
+            <a class="img"> <img src="../assets/img/storetu1.png" alt=""> </a>
           </div>
           <div class="nav_c l">
-            <a href="" class="title"> 裂帛旗舰店 </a>
-            <a href="" class="titlemin"> 在线商品<span>350 </span> 粉丝数量<span>3333 </span> </a>
+            <a class="title"> 裂帛旗舰店 </a>
+            <a class="titlemin"> 在线商品<span>350 </span> 粉丝数量<span>3333 </span> </a>
           </div>
           <div class="nav_r r">
-            <a href=""> <van-icon name="like-o" /> 关注 </a>
+            <a> <van-icon name="like-o" /> 关注 </a>
           </div>
         </div>
 
         <div class="nav_bottom">
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 每周新品 </a>
+            <a class="title" @click="$router.push('/productlist')"> 每周新品 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 每周新品 </a>
+              <a @click="$router.push('/productlist')"> 每周新品 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 
           <div class="nav_list">
-            <a href="" class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
+            <a class="title" @click="$router.push('/productlist')"> 热卖爆款 </a>
             <div class="nav_mintitle">
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
-              <a href="" @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
+              <a @click="$router.push('/productlist')"> 热卖爆款 </a>
             </div>
           </div>
 

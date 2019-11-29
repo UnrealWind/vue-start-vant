@@ -7,7 +7,13 @@
         <van-icon name="chat-o" />
       </div>
       <div class="hesde_l2 l">
-        <van-search v-model="value" placeholder="请输入搜索关键词" />
+        <van-search
+          v-model="value"
+          placeholder="请输入搜索关键词"
+          shape="round"
+          @focus="focus"
+        >
+        </van-search>
         <div class="p">
           <van-icon name="scan" />
         </div>
@@ -23,7 +29,7 @@
       indicator-color="white"
       class="van-swipe"
     >
-      <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push('/superMarketZone')">
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
         <img :src="item.img" alt="">
       </van-swipe-item>
     </van-swipe>
@@ -59,10 +65,16 @@
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
         <div class="nav3_l l">
-          <a class="img" @click="$router.push({path:'/commodityLevelSec/seasonal',query:{id:2}})"> <img src="../assets/img/nav413.png" alt=""> </a>
+          <a class="img" @click="$router.push({path:'/commodityLevelSec/seasonal',query:{id:2}})"> <img
+            src="../assets/img/nav413.png"
+            alt=""
+          > </a>
         </div>
         <div class="nav3_l r">
-          <a class="img" @click="$router.push({path:'/commodityLevelSec/daynew',query:{id:14}})"> <img src="../assets/img/nav412.png" alt=""> </a>
+          <a class="img" @click="$router.push({path:'/commodityLevelSec/daynew',query:{id:14}})"> <img
+            src="../assets/img/nav412.png"
+            alt=""
+          > </a>
         </div>
       </div>
     </div>
@@ -112,7 +124,13 @@
 
     <div class="nav_box8 dan_wrap">
       <div class="nav_li fix wp">
-        <div v-for="(opt, index) in minNavList" :key="index" class="li1" :class="isActive==index? 'active' : ''" @click="changeTab(index)">
+        <div
+          v-for="(opt, index) in minNavList"
+          :key="index"
+          class="li1"
+          :class="tabStyleActive==index? 'active' : ''"
+          @click="changeTab(index)"
+        >
           <p>
             {{ opt.label }}
           </p>
@@ -140,12 +158,15 @@
         </div>
       </div>
     </div>
+    <div v-show="tabShow" class="nav_box10 dan_wrap">
+      <div class="hint">当前类目下没有分类</div>
+    </div>
 
   </van-container>
 </template>
 
 <script>
-    import { Icon, Search, Swipe, SwipeItem } from 'vant'
+    import { Icon, Swipe, SwipeItem, Search } from 'vant'
 
     export default {
         components: {
@@ -158,9 +179,10 @@
             return {
                 status: 'loading',
                 value: '',
+                tabShow: false,
                 tabListData: [],
                 bannerData: [],
-                isActive: '',
+                tabStyleActive: '',
                 navList: [],
                 minNavList: []
             }
@@ -172,7 +194,7 @@
         methods: {
             async init() {
                 try {
-                    //  await this.getIndexData()
+                    await this.getData()
                     await this.getBannerData()
                     await this.getIndexData()
                     await this.getTabData()
@@ -182,6 +204,12 @@
                     throw e
                 }
                 this.status = 'success'
+            },
+            async getData() {
+                const res = await this.$http.post('product/activity/contentActivityRel', {
+                    contentId: 0
+                })
+                console.log(res)
             },
             // 首页nav数据
             async getIndexData() {
@@ -224,15 +252,18 @@
                 }
                 this.minNavList = arr
             },
-            changeTab(index) {
-                this.getTabListData(this.minNavList[index].id)
-                this.isActive = index
+            async changeTab(index) {
+                this.tabShow = false
+                await this.getTabListData(this.minNavList[index].id)
+                if (this.tabListData.length === 0) {
+                    this.tabShow = true
+                }
+                this.tabStyleActive = index
             },
             // tab栏商品
             async getTabListData(category) {
                 if (!category) category = this.minNavList[0].id
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                console.log(res)
                 const arr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
@@ -253,12 +284,21 @@
                     })
                 }
                 this.tabListData = arr
+            },
+            // 搜索功能
+            focus() {
+                this.$router.push('/searchPage')
             }
         }
     }
 
 </script>
 <style lang='scss' scoped>
+  .hint {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
 
   h1 {
     background: red;
