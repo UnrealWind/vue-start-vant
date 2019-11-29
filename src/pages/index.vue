@@ -295,7 +295,6 @@
 </script>
 <style lang='scss' scoped>
   .hint {
-    margin-top: 20px;
     font-size: 14px;
     text-align: center;
   }
