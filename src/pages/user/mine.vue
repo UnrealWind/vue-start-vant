@@ -75,6 +75,23 @@
       </div>
     </div>
 
+    <div class="tools">
+      <div class="wp">
+        <div class="title fix ">
+          <div class="l"> 常用工具 </div>
+          <!--<div class="r">
+            <van-icon name="edit" />
+          </div>-->
+        </div>
+        <div class="tools_ul fix">
+          <div class="li">
+            <van-icon name="cluster-o" />
+            <p> 关系 <span>  </span> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--<div class="tools">
       <div class="wp">
         <div class="title fix ">

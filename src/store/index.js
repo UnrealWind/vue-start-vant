@@ -8,7 +8,8 @@ const store = new Vuex.Store({
     token: null,
     userCode: '',
     userType: '',
-    user: {}
+    user: {},
+    direction: 'forward' // 页面切换方向
   },
   getters: {
     getState: state => {
@@ -40,6 +41,10 @@ const store = new Vuex.Store({
         })
       })
       state.targetOrder = JSON.parse(JSON.stringify(targetOrder))
+    },
+    // 更新页面切换方向
+    updateDirection(state, direction) {
+      state.direction = direction
     }
   },
   actions: {}

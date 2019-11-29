@@ -5,9 +5,9 @@
       <div class="header_l l" @click="$router.back()">
         <van-icon name="arrow-left" />
       </div>
-      <!--<div class="header_l2">
-        <van-search v-model="value" placeholder="请输入搜索关键词" />
-      </div>-->
+      <div class="header_l2">
+        {{ shopData.shopName }}
+      </div>
       <!--<div class="header_l3 r" @click="$router.push('/storelist')">
         <van-icon name="bars" />
       </div>-->
@@ -57,7 +57,7 @@
         </div>-->
 
         <div class="navc_title">
-          <a href="" class="title"> <img src="../assets/img/storetu14.png" alt=""> 必抢爆款 </a>
+          <a class="title"> <img src="../assets/img/storetu14.png" alt=""> 必抢爆款 </a>
         </div>
 
         <div
@@ -77,39 +77,30 @@
           </commodity>
         </div>
 
-        <!--<div class="nav_box8 dan_wrap">
+        <div class="nav_box8 dan_wrap">
           <div class="nav_li fix wp">
-            <div class="li active"> 综合</div>
-            <div class="li"> 上新</div>
-            <div class="li"> 价格 <span>  <van-icon name="arrow-up" class="fon-icon12" /> <van-icon
-              name="arrow-down"
-              class="fon-icon13"
-            /> </span>
-            </div>
-            <div class="li">
-              <van-icon name="qr" class="fon-icon" />
-            </div>
+            <div v-for="(item,index) in tabList" :key="index" class="li" :class="{ active:item.active }" @click="getShopListData(item)">{{ item.label }}</div>
           </div>
-        </div>-->
-
-        <div class="wp">
-          <ul class="flex_wrap gwcLits ">
-            <li v-for="(item,index) in storeListData" :key="index">
-              <a @click="$router.push('/user/productdetails')">
-                <img :src="item.img" alt="" class="pic">
-                <p class="p1">{{ item.title }}</p>
-                <p class="p2"><span>特卖</span> <span>新品</span></p>
-                <div class="p3 flex_betweenc"><p>¥{{ item.current }}<span>¥{{ item.pre }}</span></p><img
-                  src="../assets/css/static/images/gwc2.png"
-                  alt=""
-                ></div>
-              </a>
-            </li>
-          </ul>
-
         </div>
+      </div>
+
+      <div class="wp">
+        <ul class="flex_wrap gwcLits ">
+          <li v-for="(item,index) in storeListData" :key="index">
+            <a @click="$router.push('/user/productdetails')">
+              <img :src="item.img" alt="" class="pic">
+              <p class="p1">{{ item.title }}</p>
+              <p class="p2"><span>特卖</span> <span>新品</span></p>
+              <div class="p3 flex_betweenc"><p>¥{{ item.current }}<span>¥{{ item.pre }}</span></p><img
+                src="../assets/css/static/images/gwc2.png"
+                alt=""
+              ></div>
+            </a>
+          </li>
+        </ul>
 
       </div>
+
     </div>
 
   </van-container>
@@ -129,7 +120,18 @@
                 vipData: [],
                 storeListData: [],
                 shopData: {},
-                couponList: []
+                couponList: [],
+                tabList: [{
+                    label: '综合',
+                    value: '',
+                    active: true
+                }, {
+                    label: '上新',
+                    value: 'modifyTime'
+                }, {
+                    label: '价格',
+                    value: 'linePrice'
+                }]
             }
         },
         computed: {},
@@ -197,12 +199,21 @@
                 this.vipData = arr
             },
             // 商品
-            async getShopListData() {
-                const res = await this.$http.post('product/goods/list', {
+            async getShopListData(opt) {
+                const data = {
                     pageNum: 1,
                     pageSize: 4,
                     shopCode: this.$route.query.shopCode
-                })
+                }
+                if (opt) {
+                    this.tabList.forEach((n, i) => {
+                        n['active'] = false
+                    })
+                    opt['active'] = true
+
+                    if (opt.value) data['orderByColumn'] = opt.value
+                }
+                const res = await this.$http.post('product/goods/list', data)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
@@ -268,10 +279,11 @@
   .header_l2 {
     position: absolute;
     left: 72px;
-    top: 5px;
+    top: -5px;
     width: 62%;
     margin: 0 auto;
     text-align: center;
+    color:#000;
   }
 
   .header_l3 {
@@ -551,7 +563,7 @@
     text-align: center;
     font-size: 20px;
     margin-bottom: 20px;
-
+    margin-top:140px;
     a {
       display: inline-block;
       box-sizing: border-box;
