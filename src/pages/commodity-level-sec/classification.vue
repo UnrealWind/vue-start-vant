@@ -47,22 +47,6 @@
           <div class="hint">当前类目下没有分类</div>
         </div>
       </div>
-
-      <!--      <div v-if="false" class="class_img wp">-->
-      <!--        <div v-for="(commodity,index) in concentrateData" :key="`${commodity.type}-${index}`" class="nav_li">-->
-      <!--          <commodity-->
-      <!--            :type="commodity.type"-->
-      <!--            :image="commodity.image"-->
-      <!--            :discribe="commodity.discribe"-->
-      <!--            :title="commodity.title"-->
-      <!--            :concentrate-price="commodity.concentratePrice"-->
-      <!--            :concentrate-price-discribe="commodity.concentratePriceDiscribe"-->
-      <!--            :btn-go="commodity.btnGo"-->
-      <!--          >-->
-      <!--          </commodity>-->
-      <!--        </div>-->
-      <!--      </div>-->
-
     </div>
 
   </van-container>

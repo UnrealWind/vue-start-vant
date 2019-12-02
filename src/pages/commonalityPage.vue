@@ -34,6 +34,9 @@
         </div>
       </div>
     </div>
+    <div v-show="errorShow" class="nav_box10 dan_wrap">
+      <div class="hint">未获取到数据，请刷新重试</div>
+    </div>
 
   </van-container>
 </template>
@@ -50,7 +53,8 @@
                 status: 'loading',
                 value: '',
                 hintShow: false,
-                commodityData: []
+                commodityData: [],
+                errorShow: false
             }
         },
         computed: {},
@@ -92,6 +96,8 @@
                     if (this.commodityData.length === 0) {
                         this.hintShow = true
                     }
+                } else {
+                    this.errorShow = true
                 }
             }
         }
@@ -138,8 +144,6 @@
   }
 
   .dan_wrap {
-    background: #f2f2f2;
-
     .wp {
       width: 95%;
       margin: 50px auto;

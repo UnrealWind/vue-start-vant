@@ -10,15 +10,7 @@
     </div>
     <div class="topHead">
       <div class="box1 p2 box_sizing">
-        <!--        <div class="searchInput flex">-->
-        <!--          <img src="../../assets/css/static/images/ss.png" alt="">-->
-        <!--          <input type="text" placeholder="可人儿">-->
-        <!--        </div>-->
         <img src="../../assets/css/static/images/jx.jpg" alt="" class="jxhdImg">
-        <!--        <div class="flex_betweenc logoBox">-->
-        <!--          <p class="flex_center"><img src="../../assets/css/static/images/logo.jpg" alt=""> 可人儿品牌旗航店</p>-->
-        <!--          <a @click="$router.push({path:'/store',query:{shopCode: 1}})">进入店铺</a>-->
-        <!--        </div>-->
       </div>
       <div class="box2"></div>
     </div>
@@ -59,33 +51,6 @@
           </li>
         </ul>
       </div>
-      <!-- 3 -->
-      <!--      <div class="publicBox box_sizing mt3 flex SecuritiesBox">-->
-      <!--        <div class="box">-->
-      <!--          <a @click="$router.push('/supermarket')">-->
-      <!--            <h1>每日必抢</h1>-->
-      <!--          </a>-->
-      <!--          <a class="p1" @click="$router.push('/supermarket')">爆款秒杀></a>-->
-      <!--          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img-->
-      <!--            src="../../assets/css/static/images/a2.jpg"-->
-      <!--            alt=""-->
-      <!--          > </a>-->
-      <!--          </p>-->
-
-      <!--        </div>-->
-      <!--        <div class="box">-->
-      <!--          <a @click="$router.push('/supermarket')">-->
-      <!--            <h1>领劵中心</h1>-->
-      <!--          </a>-->
-      <!--          <a class="p1" @click="$router.push('/supermarket')">大额优惠劵一站领齐></a>-->
-      <!--          <p class="flex_center"><a @click="$router.push('/supermarket')"> <img-->
-      <!--            src="../../assets/css/static/images/a3.jpg"-->
-      <!--            alt=""-->
-      <!--          > </a>-->
-      <!--          </p>-->
-
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
 
     <!-- 每日好店 -->
@@ -127,11 +92,6 @@
           <p class="p3">{{ items.title }}</p>
         </a>
       </li>
-      <!--      <li class="more flex_center">-->
-      <!--        <a @click="$router.push('/store')">-->
-      <!--          查看全部>-->
-      <!--        </a>-->
-      <!--      </li>-->
     </ul>
     <!--      为您推荐-->
     <div class="tuijian flex_center">
@@ -145,7 +105,6 @@
               <a @click="$router.push({path: listItem.path, query:{id:listItem.id}})">
                 <img :src="listItem.img" alt="" class="mallList">
                 <p class="p1">{{ listItem.title }}</p>
-                <p class="p2"><span>特卖</span> <span>新品</span></p>
                 <div class="p3 flex_betweenc">
                   <p>¥{{ listItem.current }}
                     <span>
@@ -161,7 +120,6 @@
           </div>
         </van-tab>
       </van-tabs>
-      <!--        <div class="more flex_center"><img src="../../assets/css/static/images/xia.png" alt=""></div>-->
     </div>
   </van-container>
 </template>
@@ -180,10 +138,13 @@
                 status: 'loading',
                 active: 0,
                 tabShow: false,
-                // mallTopListData: [],
+                // 店铺信息
                 mallShopsData: [],
+                // 店铺下商品信息
                 mallShopsListData: [],
+                // nav
                 mallNavData: [],
+                // 品牌
                 mallBrandData: [],
                 // tab栏下商品
                 mallProductListData: [],
@@ -198,14 +159,16 @@
         methods: {
             async init() {
                 try {
-                    await this.getStoreListData()
-                    await this.getMallNavData()
+                    // 店铺信息
+                    this.getStoreListData()
+                    // nav
+                    this.getMallNavData()
                     // tab栏
                     await this.getMallTabData()
                     // tab栏下商品
                     await this.getMallProductListData()
                     // 品牌
-                    await this.getBrandListData()
+                    this.getBrandListData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
@@ -328,6 +291,7 @@
     margin-top: 20px;
     font-size: 14px;
     text-align: center;
+    height: 150px;
   }
 
   .fix {
@@ -364,6 +328,9 @@
   .gwcLits li .mallList {
     height: 5rem;
   }
+  .tuijian {
+    margin-top: 30px;
+  }
 
   .tuijianNav {
     margin-bottom: 20px;
@@ -387,6 +354,9 @@
 
   .van-tabs--line .van-tabs__wrap {
     width: 100%;
+  }
+  .everyday_shop {
+    margin-top: 50px;
   }
 
   @import "../../assets/css/static/css/app.css";

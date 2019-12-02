@@ -42,7 +42,7 @@
             <p class="flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.store }}></a></p>
           </li>
         </ul>
-        <div class="title_mrsx">精选商品</div>
+        <div class="title_mrsx" style="margin-top: 50px;">精选商品</div>
         <div class="tuijianNav flex">
           <van-tabs v-model="active" @click="changeTab">
             <van-tab v-for="(item,index) in dayNewTabData" :key="index" :title="item.label">
@@ -51,10 +51,6 @@
                   <a @click="$router.push({path:opt.path,query:{id:opt.id}})">
                     <img class="ProductList" :src="opt.img" alt="">
                     <p class="p1">{{ opt.title }}</p>
-                    <p class="p2">
-                      <span>特卖</span>
-                      <span>新品</span>
-                    </p>
                     <div class="p3 flex_betweenc">
                       <p>
                         ¥ {{ opt.current }}
@@ -100,8 +96,6 @@
                 // 精选大牌
                 dayNewChoicenessData: [],
                 dayNewChoicenessDatas: [],
-                // 活动
-                activityName: [],
                 // tab栏
                 dayNewTabData: [],
                 // tab栏下商品
@@ -122,9 +116,6 @@
                     // 精选大牌
                     await this.getBrandData()
                     await this.getBrandDatas()
-                    // 活动
-                    await this.getActivityName()
-
                     // tab栏
                     await this.getDayNewTabData()
                     // tab栏下商品
@@ -158,13 +149,6 @@
                     })
                 })
                 this.bannerData = arr
-            },
-            async getActivityName() {
-                const res = await this.$http.post('product/activity/contentActivityRel', {
-                    contentId: this.$route.query.id
-                })
-                console.log(res)
-                this.activityName = res.data
             },
             // 精选大牌
             async getBrandData() {
@@ -250,6 +234,7 @@
     margin-top: 20px;
     font-size: 14px;
     text-align: center;
+    height: 150px;
   }
   .fix {
     background-color: #fff;

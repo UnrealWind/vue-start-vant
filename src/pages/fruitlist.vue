@@ -6,7 +6,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="hesde_l2">
-        <div class="p"> 品质水果 - 苹果</div>
+        <div class="p"> {{ this.$route.query.title }}</div>
       </div>
       <div class="hesde_l3">
         <van-icon name="certificate" />
@@ -39,6 +39,9 @@
           </commodity>
         </div>
       </div>
+      <div v-show="tabShow" class="nav_box10 dan_wrap">
+        <div class="hint">未获取到数据，请刷新重试</div>
+      </div>
     </div>
 
   </van-container>
@@ -57,7 +60,8 @@
             return {
                 status: 'loading',
                 value: '',
-                vipData: []
+                vipData: [],
+                tabShow: false
             }
         },
         computed: {},
@@ -80,7 +84,6 @@
                 const res = await this.$http.post('product/goods/listByLastCategoryCode?pageSize=3&pageNum=1', {
                     categoryCodeList: [res1.rows[0].dictCategoryIds]
                 })
-                console.log(res1)
                 console.log(res)
                 const arr = []
                 if (res.rows) {
@@ -96,6 +99,8 @@
                             image: n.mainImg
                         })
                     })
+                } else {
+                    this.tabShow = true
                 }
                 this.vipData = arr
             }
@@ -104,6 +109,11 @@
 
 </script>
 <style lang='scss' scoped>
+  .hint {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 100px;
+  }
   h1 {
     background: red;
     width: 375px;
@@ -141,7 +151,7 @@
   }
 
   .dan_wrap {
-    background: #f2f2f2;
+    background: #efefef;
 
     .wp {
       width: 95%;

@@ -6,7 +6,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="hesde_l2">
-        <div class="p"> 电商超市-奶制品</div>
+        <div class="p">{{ this.$route.query.title }}</div>
       </div>
       <div class="hesde_l3">
         <van-icon name="certificate" />
@@ -14,7 +14,7 @@
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item @click="$router.push('/user/productdetails')"><img src="../assets/img/supermarketlist.png" alt="">
+      <van-swipe-item><img src="../assets/img/supermarketlist.png" alt="">
       </van-swipe-item>
     </van-swipe>
 
@@ -26,21 +26,16 @@
             </van-tab>
           </van-tabs>
         </div>
-        <!--        <div class="icon"> <van-icon name="arrow-down" /> </div>-->
       </div>
     </div>
 
     <div class="nav_box dan_wrap fix">
       <div class="wp">
-
-        <!--        <div class="title"> 精选推荐 </div>-->
-
         <ul class="flex_wrap gwcLits ">
           <li v-for="(item,index) in listData" :key="index">
             <a @click="$router.push(item.path)">
               <div class="p2">
                 <img :src="item.img" alt="">
-                <h4> 特卖</h4>
               </div>
               <p class="p1"> {{ item.title }}</p>
               <p class="p4"> {{ item.intro }}</p>
@@ -51,6 +46,9 @@
         <div v-show="tabShow" class="nav_box10 dan_wrap">
           <div class="hint">当前类目下没有分类</div>
         </div>
+      </div>
+      <div v-show="errorShow" class="nav_box10 dan_wrap">
+        <div class="hint">未获取到数据，请刷新重试</div>
       </div>
     </div>
 
@@ -74,6 +72,7 @@
                 status: 'loading',
                 value: '',
                 tabShow: false,
+                errorShow: false,
                 navList: [],
                 listData: []
             }
@@ -115,7 +114,6 @@
                 if (!category) category = this.navList[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
-                console.log(res)
                 if (res.data) {
                     res.data.forEach((n, i) => {
                         arr.push({
@@ -127,6 +125,8 @@
                             pre: n.linePrice
                         })
                     })
+                } else {
+                    this.errorShow = true
                 }
                 this.listData = arr
             }
@@ -190,6 +190,9 @@
     .p3 span {
       font-size: 12px;
     }
+  }
+  >>>.main{
+    background: #86c8e8;
   }
 
   h1 {

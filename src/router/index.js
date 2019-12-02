@@ -374,6 +374,13 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/user/sideMenu',
+    component: () => import('@/pages/user/sideMenu'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '*',
     redirect: '/'
   }

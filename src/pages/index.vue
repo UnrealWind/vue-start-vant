@@ -29,7 +29,7 @@
       indicator-color="white"
       class="van-swipe"
     >
-      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index" style="height: 200px;">
         <img :src="item.img" alt="">
       </van-swipe-item>
     </van-swipe>
@@ -93,48 +93,12 @@
       </div>
     </div>
 
-    <!--<div class="nav_box7 dan_wrap">
-      <ul class="nav7_ul fix">
-        <li>
-          <div class="title2"> 14:00</div>
-          <p> 已抢光 </p>
-        </li>
-        <li>
-          <div class="title2"> 16:00</div>
-          <p> 抢购进行中 </p>
-        </li>
-        <li>
-          <div class="title2 active"> 热抢榜单</div>
-          <p class="active"> 抢购进行中 </p>
-        </li>
-        <li>
-          <div class="title2"> 18:00</div>
-          <p> 已抢光 </p>
-        </li>
-        <li>
-          <div class="title2"> 21:00</div>
-          <p> 抢购进行中 </p>
-        </li>
-        <li>
-          <div class="title2"> 22:00</div>
-          <p> 抢购进行中 </p>
-        </li>
-      </ul>
-    </div>-->
-
     <div class="nav_box8 dan_wrap">
       <div class="nav_li fix wp">
-        <div
-          v-for="(opt, index) in minNavList"
-          :key="index"
-          class="li1"
-          :class="tabStyleActive==index? 'active' : ''"
-          @click="changeTab(index)"
-        >
-          <p>
-            {{ opt.label }}
-          </p>
-        </div>
+        <van-tabs v-model="active" @click="changeTab">
+          <van-tab v-for="(item,index) in minNavList" :key="index" :title="item.label">
+          </van-tab>
+        </van-tabs>
       </div>
     </div>
 
@@ -166,17 +130,20 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Search } from 'vant'
+    import { Icon, Swipe, SwipeItem, Search, Tab, Tabs } from 'vant'
 
     export default {
         components: {
             'van-swipe': Swipe,
             'van-swipe-item': SwipeItem,
             'van-icon': Icon,
-            'van-search': Search
+            'van-search': Search,
+            'van-tab': Tab,
+            'van-tabs': Tabs
         },
         data() {
             return {
+                active: 0,
                 status: 'loading',
                 value: '',
                 tabShow: false,
@@ -194,9 +161,8 @@
         methods: {
             async init() {
                 try {
-                    await this.getData()
+                    this.getIndexData()
                     await this.getBannerData()
-                    await this.getIndexData()
                     await this.getTabData()
                     await this.getTabListData()
                 } catch (e) {
@@ -204,12 +170,6 @@
                     throw e
                 }
                 this.status = 'success'
-            },
-            async getData() {
-                const res = await this.$http.post('product/activity/contentActivityRel', {
-                    contentId: 0
-                })
-                console.log(res)
             },
             // 首页nav数据
             async getIndexData() {
@@ -297,6 +257,7 @@
   .hint {
     font-size: 14px;
     text-align: center;
+    margin-bottom: 100px;
   }
 
   h1 {
@@ -349,6 +310,9 @@
       display: block;
       width: 100%;
     }
+  }
+  .nav_box {
+    padding: 20px 0;
   }
 
   .nav_box .nav_li {
@@ -462,6 +426,9 @@
     }
   }
 
+  .nav_box8 {
+    height: 60px;
+  }
   .nav_box8 .nav_li {
     display: block;
 
@@ -547,6 +514,7 @@
 
   .nav_box9 {
     padding-bottom: 1px;
+    padding-top: 25px;
 
     .nav_li {
       margin-bottom: 20px;
@@ -554,6 +522,9 @@
       border: 1px solid #ccc;
       overflow: hidden;
     }
+  }
+  .nav_box10 {
+    height: 150px;
   }
 
 </style>

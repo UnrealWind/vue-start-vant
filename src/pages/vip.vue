@@ -48,39 +48,6 @@
         </div>
       </div>
     </div>
-
-    <!--    <div class="vip_title dan_wrap fix">-->
-    <!--      <div class="wp">-->
-    <!--        <div class="title"><img src="../assets/img/viptu13.png" alt=""> 精选好物 <img-->
-    <!--          src="../assets/img/viptu14.png"-->
-    <!--          alt=""-->
-    <!--        ></div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-
-    <!--    <div class=" dan_wrap fix">-->
-    <!--      <div class="wp">-->
-    <!--        <div-->
-    <!--          class="navdan_box4"-->
-    <!--        >-->
-
-    <!--          <commodity-->
-    <!--            v-for="(vip,index) in vipDataMin"-->
-    <!--            :key="`${vip.type}-${index}`"-->
-    <!--            :type="vip.type"-->
-    <!--            :image="vip.image"-->
-    <!--            :discribe="vip.discribe"-->
-    <!--            :title="vip.title"-->
-    <!--            :vip-price="vip.vipPrice"-->
-    <!--            :vip-price-discribe="vip.vipPriceDiscribe"-->
-    <!--            :btn-go="vip.btnGo"-->
-    <!--          >-->
-    <!--          </commodity>-->
-
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-
   </van-container>
 </template>
 
@@ -124,11 +91,14 @@
                 const res = await this.$http.post('product/activity/contentActivityRel', {
                     contentId: this.$route.query.id
                 })
-                console.log(res)
-                res.data.forEach(async(n, i) => {
-                    const res = await this.getVipData(n.activityCode)
-                    this.$set(n, 'children', res.data[0].goods)
-                })
+                if (res.data) {
+                    res.data.forEach(async(n, i) => {
+                        const res = await this.getVipData(n.activityCode)
+                        this.$set(n, 'children', res.data[0].goods)
+                    })
+                } else {
+                    alert(1)
+                }
                 this.activityData = res.data
             },
             // 今日必抢
@@ -138,32 +108,6 @@
                 })
                 return res
             }
-            // 精选好物
-            // async getVipDataMin() {
-            //     const res = await this.$http.post('product/activity/activityGoodsList', {
-            //         activityCode: 'fb5355bd08d14090aad2f7f2f7d56546'
-            //     })
-            //     const arr = []
-            //     res.data.forEach((n, i) => {
-            //         arr.push({
-            //             discribe: n.actDetailName
-            //         })
-            //         n.goods.forEach((good, i) => {
-            //             arr.push({
-            //                 type: 'list-vip',
-            //                 image: good.goodsStatics[i].url,
-            //                 title: good.goodsProfile,
-            //                 vipPrice: {
-            //                     current: good.showPrice,
-            //                     pre: good.linePrice
-            //                 },
-            //                 vipPriceDiscribe: {},
-            //                 btnGo: `/user/productdetails?id=${good.id}`
-            //             })
-            //         })
-            //     })
-            //     this.vipDataMin = arr
-            // }
         }
     }
 

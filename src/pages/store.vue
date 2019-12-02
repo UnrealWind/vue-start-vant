@@ -90,7 +90,6 @@
             <a @click="$router.push('/user/productdetails')">
               <img :src="item.img" alt="" class="pic">
               <p class="p1">{{ item.title }}</p>
-              <p class="p2"><span>特卖</span> <span>新品</span></p>
               <div class="p3 flex_betweenc"><p>¥{{ item.current }}<span>¥{{ item.pre }}</span></p><img
                 src="../assets/css/static/images/gwc2.png"
                 alt=""

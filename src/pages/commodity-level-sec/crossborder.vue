@@ -10,10 +10,6 @@
     </div>
     <div class="topHead topHead1">
       <div class="box1 p2 box_sizing">
-        <!--        <div class="searchInput flex">-->
-        <!--          <img src="../../assets/css/static/images/ss1.png" alt="">-->
-        <!--          <input type="text" placeholder="请输入店铺">-->
-        <!--        </div>-->
         <div class="swiper_minNav">
           <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -57,7 +53,6 @@
           <div class="box1 flex">
             <p class="p1">{{ activity.activityName }}</p>
           </div>
-          <!--          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')"> 查看更多</a></div>-->
         </div>
         <ul class="commodityLits flex_wrap">
           <li v-for="(item,index) in activity.children" :key="index">
@@ -67,7 +62,6 @@
               </div>
               <p class="title">{{ item.goodsName }}</p>
               <p class="money flex_betweenc"><span>¥{{ item.showPrice }}</span></p>
-              <!--              <span class="pop1">降价40</span><span class="pop2">爆款</span>-->
             </a>
           </li>
         </ul>
@@ -79,7 +73,6 @@
             <p class="p1">热门榜单</p>
             <p>甄选热卖好物</p>
           </div>
-          <!--          <div class="box2 flex_center"><a @click="$router.push('/productlistmin')">其他榜单</a></div>-->
         </div>
         <ul class="bangdanBox flex_betweenc mt3">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="li1">
@@ -100,55 +93,6 @@
           </li>
         </ul>
       </div>
-      <!-- 种草推荐 -->
-      <!--      <div v-for="(item,index) in crossBorderRecommendData" :key="index" class="tuijianBox publicBox mt3">-->
-      <!--        <div class="flex_betweenc  Storefront_cont">-->
-      <!--          <div class="box1 flex">-->
-      <!--            <h1>种草推荐</h1>-->
-      <!--          </div>-->
-      <!--          &lt;!&ndash;          <div class="box2 flex_center"><a @click="$router.push('/shoppingcart')">更多></a></div>&ndash;&gt;-->
-      <!--        </div>-->
-      <!--        <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"> <img :src="item.image" alt="" class="img1">-->
-      <!--        </a>-->
-      <!--        <div class="title flex">-->
-      <!--          <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"><p>#护肤</p><span>{{ item.title }}</span> </a>-->
-      <!--        </div>-->
-      <!--        <div class="cont box_sizing">-->
-      <!--          <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"><p class="textOver2">-->
-      <!--            {{ item.intro }}</p></a>-->
-      <!--        </div>-->
-      <!--        <div class="name_box flex_betweenc mt3">-->
-      <!--          <div class="flex">-->
-      <!--            <img src="../../assets/css/static/images/a9.jpg" alt=""><img-->
-      <!--              src="../../assets/css/static/images/a10.jpg"-->
-      <!--              alt=""-->
-      <!--            ><img-->
-      <!--              src="../../assets/css/static/images/a9.jpg"-->
-      <!--              alt=""-->
-      <!--            >-->
-      <!--            <p>{{ item.people }}+人在参加</p>-->
-      <!--          </div>-->
-      <!--          <a @click="$router.push('/shoppingcart')"> 查看详情</a>-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <!-- 逛全球 -->
-      <!--      <div class="publicBox mt3 StrollGlobal">-->
-      <!--        <div class="flex_betweenc  Storefront_cont">-->
-      <!--          <div class="box1 flex">-->
-      <!--            <h1>逛全球</h1>-->
-      <!--            <p>带你发现全球好物</p>-->
-      <!--          </div>-->
-      <!--          <div class="box2 flex_center"><a @click="$router.push('/productlist')">更多></a></div>-->
-      <!--        </div>-->
-      <!--        <ul class="commodityLits flex_wrap commodityLits_nav">-->
-      <!--          <li v-for="(item,index) in crossBorderStateData" :key="index">-->
-      <!--            <a @click="$router.push('/productlist')">-->
-      <!--              <p class="flex_center"><img :src="item.img" alt=""></p>-->
-      <!--              <span>{{ item.name }}</span>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--        </ul>-->
-      <!--      </div>-->
       <!-- 品牌 -->
       <ul class="publicBox logo_ification flex_wrap mt3">
         <li v-for="(item,index) in crossBorderBrandData" :key="index">
@@ -202,12 +146,6 @@
                 // 今日推荐
                 crossBorderProductListData: [],
                 crossBorderBrandData: [],
-                crossBorderStateData: [
-                    {
-                        'img': require('../../assets/css/static/images/guoqi.jpg'),
-                        'name': '中国'
-                    }
-                ],
                 // 种草推荐
                 crossBorderRecommendData: [],
                 sonData: []
@@ -221,21 +159,19 @@
             async init() {
                 try {
                     // 轮播图
-                    await this.getBannerData()
+                    this.getBannerData()
+                    // nav
+                    await this.getCrossBorderNavData()
                     // 活动
                     await this.getActivityData()
                     // 今日必抢
                     await this.getRobData()
-                    // nav
-                    await this.getCrossBorderNavData()
-                    // 种草推荐
-                    // await this.getRecommendData()
-                    // 今日推荐
-                    await this.getTodayRecommendData()
                     // 热门榜单
                     await this.getHotListData()
                     // 品牌列表
                     await this.getBrandListData()
+                    // 今日推荐
+                    await this.getTodayRecommendData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
@@ -285,53 +221,9 @@
             },
             // 今日必抢
             async getRobData(activityCode) {
-                const res = await this.$http.post(`product/activity/activityGoodsList`, {
+                return await this.$http.post(`product/activity/activityGoodsList`, {
                     activityCode: activityCode
                 })
-                return res
-            },
-            // 种草推荐
-            // async getRecommendData() {
-            //     const res = await this.$http.post('product/activity/activityGoodsList', {
-            //         activityCode: '7e774262cd3b4bcaacd1cf9db4487fd4'
-            //     })
-            //     const arr = []
-            //     if (res.data) {
-            //         res.data.forEach((n, i) => {
-            //             n.goods.forEach((good, i) => {
-            //                 arr.push({
-            //                     image: require('../../assets/css/static/images/a8.jpg'),
-            //                     title: good.goodsName,
-            //                     intro: good.goodsProfile,
-            //                     path: '/shoppingcart',
-            //                     people: '1512'
-            //                 })
-            //             })
-            //         })
-            //     }
-            //     this.crossBorderRecommendData = arr
-            // },
-            // 今日推荐
-            async getTodayRecommendData() {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: '5670925cb2b84399961c9a15a3bb4cd4'
-                })
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goods.forEach((good, i) => {
-                            arr.push({
-                                image: good.goodsStatics[i].url,
-                                title: good.goodsName,
-                                current: good.showPrice, // 现价
-                                pre: good.linePrice, // 原价
-                                path: '/user/productdetails',
-                                id: good.id
-                            })
-                        })
-                    })
-                }
-                this.crossBorderProductListData = arr
             },
             // 热门榜单
             async getHotListData() {
@@ -370,12 +262,37 @@
                     })
                 }
                 this.crossBorderBrandData = arr
+            },
+            // 今日推荐
+            async getTodayRecommendData() {
+                const res = await this.$http.post('product/activity/activityGoodsList', {
+                    activityCode: '5670925cb2b84399961c9a15a3bb4cd4'
+                })
+                const arr = []
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goods.forEach((good, i) => {
+                            arr.push({
+                                image: good.goodsStatics[i].url,
+                                title: good.goodsName,
+                                current: good.showPrice, // 现价
+                                pre: good.linePrice, // 原价
+                                path: '/user/productdetails',
+                                id: good.id
+                            })
+                        })
+                    })
+                }
+                this.crossBorderProductListData = arr
             }
         }
     }
 
 </script>
 <style lang='scss' scoped>
+  .Storefront {
+    margin-bottom: 50px;
+  }
   .fix {
     background-color: #ac45f8;
     height: 37.5px;

@@ -12,22 +12,6 @@
     <div class="nav_box dan_wrap fix">
       <div class="wp">
         <div class="nav_ul">
-          <!--          <div class="li" @click="$router.push('/user/productdetails')">-->
-          <!--            <div class="wrap fix">-->
-          <!--              <div class="nav_l l">-->
-          <!--                <a  class="img"> <img src="../assets/img/prolisttu1.png" alt=""> </a>-->
-          <!--              </div>-->
-          <!--              <div class="nav_r r">-->
-          <!--                <a  class="title"> Estee Lauder雅诗兰黛ANR小棕... </a>-->
-          <!--                <a  class="titlemin"> 直降30元护肤必备小棕瓶</a>-->
-          <!--                <div class="botom fix">-->
-          <!--                  <a  class="price l"> ￥439 <span> ￥660 </span> </a>-->
-          <!--                  <a  class="car r"> <van-icon name="cart-o" /> </a>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </div>-->
-
           <commodity
             v-for="(commodity,index) in concentrateData"
             :key="`${commodity.type}-${index}`"

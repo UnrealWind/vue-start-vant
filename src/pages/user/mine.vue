@@ -84,7 +84,7 @@
           </div>-->
         </div>
         <div class="tools_ul fix">
-          <div class="li">
+          <div class="li" @click="$router.push('/user/sideMenu')">
             <van-icon name="cluster-o" />
             <p> 关系 <span>  </span> </p>
           </div>
