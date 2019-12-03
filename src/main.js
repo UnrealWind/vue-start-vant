@@ -20,6 +20,8 @@ import socket from './components/socket'
 Vue.use(socket)
 import upload from './components/upload'
 Vue.use(upload)
+import wx from './components/wxInit'
+Vue.use(wx)
 
 Vue.config.productionTip = false
 

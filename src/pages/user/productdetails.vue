@@ -366,7 +366,7 @@
 
             <div class="sale-specimg">
               <span v-for="(opt,index) in good.goodsStatics" :key="index">
-                <div v-if="opt.spuStaticType === 3">
+                <div v-if="opt.spuStaticType === 2">
                   <img :src="opt.url" alt="">
                 </div>
               </span>

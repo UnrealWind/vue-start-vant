@@ -374,6 +374,13 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/origin',
+    component: () => import('@/pages/origin'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '/user/sideMenu',
     component: () => import('@/pages/user/sideMenu'),
     meta: {
@@ -389,7 +396,7 @@ export const constantRoutes = [
 const createRouter = () =>
   new Router({
     mode: 'hash', // require service support
-    base: '/',
+    base: '/origin',
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes
   })

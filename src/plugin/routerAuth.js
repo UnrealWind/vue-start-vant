@@ -3,7 +3,7 @@ import config from '../config/config'
 import store from '../store'
 const routerAuth = () => {
   const history = window.sessionStorage
-  history.clear()
+  // history.clear()
   let historyCount = history.getItem('count') * 1 || 0
   history.setItem('/', 0)
 
