@@ -33,7 +33,6 @@
         <van-swipe
           :autoplay="3000"
           indicator-color="white"
-          class="van-swipe"
         >
           <van-swipe-item v-for="(item,index) in bannerData" :key="index">
             <img :src="item.img" alt="">
@@ -76,12 +75,13 @@
         </div>
         <ul class="bangdanBox flex_betweenc mt3">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="li1">
-            <p class="imgBox flex_center"><a
-              @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})"
-            > <img
-              :src="item.image"
-              alt=""
-            > </a></p>
+            <p class="imgBox flex_center">
+              <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})">
+                <van-image :src="item.image">
+                  <template v-slot:error>加载失败</template>
+                </van-image>
+              </a>
+            </p>
             <p class="text"><a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})">{{
               item.title }}</a></p>
           </li>
@@ -97,14 +97,18 @@
       <ul class="publicBox logo_ification flex_wrap mt3">
         <li v-for="(item,index) in crossBorderBrandData" :key="index">
           <a @click="$router.push({path:'/store',query:{shopCode: item.shopCode}})">
-            <p class="p1 flex_center"><img :src="item.image" alt=""></p>
+            <p class="p1 flex_center">
+              <van-image :src="item.image">
+                <template v-slot:error>加载失败</template>
+              </van-image>
+            </p>
             <p class="p2"></p>
             <p class="p3">{{ item.title }}</p>
           </a>
         </li>
       </ul>
       <!-- 今日推荐 -->
-      <div class="mt3"><h1 style="font-size: 0.3rem">今日推荐</h1></div>
+      <div class="mt3"><h1>今日推荐</h1></div>
       <ul class="flex_wrap gwcLits">
         <li v-for="(item,index) in crossBorderProductListData" :key="index">
           <a @click="$router.push({path:item.path,query:{id:item.id}})">
@@ -122,13 +126,14 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem } from 'vant'
+    import { Icon, Swipe, SwipeItem, Image } from 'vant'
 
     export default {
         components: {
             'van-icon': Icon,
             'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem
+            'van-swipe-item': SwipeItem,
+            'van-image': Image
         },
         data() {
             return {
@@ -212,7 +217,6 @@
                 const res = await this.$http.post('product/activity/contentActivityRel', {
                     contentId: this.$route.query.id
                 })
-                console.log(res)
                 res.data.forEach(async(n, i) => {
                     const res = await this.getRobData(n.activityCode)
                     this.$set(n, 'children', res.data[0].goods)
@@ -290,8 +294,14 @@
 
 </script>
 <style lang='scss' scoped>
+  .van-swipe {
+    height: 100%;
+  }
+  .mt3 h1 {
+    font-size: 0.3rem;
+  }
   .Storefront {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
   .fix {
     background-color: #ac45f8;
@@ -347,6 +357,10 @@
 
   .gwcLits li .commodityList {
     height: 5rem;
+  }
+
+  .commodityLits img{
+    height: 150px;
   }
 
   .imgBox img {

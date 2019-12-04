@@ -29,8 +29,10 @@
       indicator-color="white"
       class="van-swipe"
     >
-      <van-swipe-item v-for="(item,index) in bannerData" :key="index" style="height: 200px;">
-        <img :src="item.img" alt="">
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+        <van-image :src="item.img">
+          <template v-slot:error>图片加载失败</template>
+        </van-image>
       </van-swipe-item>
     </van-swipe>
 
@@ -38,7 +40,9 @@
       <div class="nav_li fix wp">
         <div v-for="(opt, index) in navList" :key="index" class="li1">
           <a class="img" @click="$router.push({path:opt.path,query:{id:opt.id}})">
-            <img :src="opt.img" alt="">
+            <van-image :src="opt.img">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
             <p> {{ opt.title }} </p>
           </a>
         </div>
@@ -49,17 +53,6 @@
       <div class="wp">
         <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/dingjinyushao.png" alt=""> </a>
       </div>
-    </div>
-
-    <div class="nav_box3 dan_wrap fix">
-      <!--<div class="wp">
-        <div class="nav3_l l">
-          <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/nav_box31.png" alt="">  </a>
-        </div>
-        <div class="nav3_l r">
-          <a class="img" @click="$router.push('/superMarketZone')"> <img src="../assets/img/nav_box32.png" alt="">  </a>
-        </div>
-      </div>-->
     </div>
 
     <div class="nav_box4 dan_wrap fix">
@@ -78,13 +71,13 @@
         </div>
       </div>
     </div>
-
+    <!--    //会员跳转-->
     <div class="nav_box5 dan_wrap">
-      <div class="wp">
-        <a class="img" @click="$router.push('/upgradeVIP')"> <img src="../assets/img/shengji1.png" alt=""> </a>
+      <div class="wp vipImgBox" @click="$router.push('/upgradeVIP')">
+        <p class="text">升级钻石会员，年省五千元&nbsp;&nbsp;&gt;</p>
       </div>
     </div>
-
+    <!--    //今日特卖标题-->
     <div class="nav_box6 dan_wrap">
       <div class="wp">
         <div class="title"><a>
@@ -92,16 +85,16 @@
           今日特卖 </a></div>
       </div>
     </div>
-
-    <div class="nav_box8 dan_wrap">
-      <div class="nav_li fix wp">
+    <!--    // tab栏-->
+    <div id="test" class="nav_box8 dan_wrap">
+      <div class="nav_li fix wp tabBox">
         <van-tabs v-model="active" @click="changeTab">
           <van-tab v-for="(item,index) in minNavList" :key="index" :title="item.label">
           </van-tab>
         </van-tabs>
       </div>
     </div>
-
+    <!--    tab下商品-->
     <div class="nav_box9 dan_wrap">
       <div class="wp">
         <div
@@ -122,15 +115,16 @@
         </div>
       </div>
     </div>
-    <div v-show="tabShow" class="nav_box10 dan_wrap">
-      <div class="hint">当前类目下没有分类</div>
+    <!--    错误提示-->
+    <div class="nav_box10 dan_wrap">
+      <div v-show="tabShow" class="hint">当前类目下没有分类</div>
     </div>
 
   </van-container>
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Search, Tab, Tabs } from 'vant'
+    import { Icon, Swipe, SwipeItem, Search, Tab, Tabs, Image } from 'vant'
 
     export default {
         components: {
@@ -139,7 +133,8 @@
             'van-icon': Icon,
             'van-search': Search,
             'van-tab': Tab,
-            'van-tabs': Tabs
+            'van-tabs': Tabs,
+            'van-image': Image
         },
         data() {
             return {
@@ -155,6 +150,15 @@
             }
         },
         computed: {},
+        watch: {
+            tabShow: function() {
+                if (this.tabShow) {
+                    this.$nextTick(function() {
+                        document.getElementById('scroll').scrollTop = document.getElementById('scroll').scrollHeight
+                    })
+                }
+            }
+        },
         mounted() {
             this.init()
         },
@@ -224,16 +228,22 @@
             async getTabListData(category) {
                 if (!category) category = this.minNavList[0].id
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                console.log(JSON.stringify(res))
                 const arr = []
+                const allImgArr = []
+                const imgArr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
+                        n.goodsStatics.forEach((img, i) => {
+                            allImgArr.push({
+                                img: img.url,
+                                key: img.spuStaticType
+                            })
+                        })
                         arr.push({
                             type: 'list-index',
                             discribe: n.goodsProfile,
                             path: '/user/productdetails',
                             title: n.goodsName,
-                            image: n.goodsStatics[i].url,
                             id: n.id,
                             indexPriceDiscribe: {},
                             indexPrice: {
@@ -243,8 +253,17 @@
                             btnGo: `/user/productdetails?id=${n.id}`
                         })
                     })
+                    allImgArr.forEach((n, i) => {
+                        if (n.key === 0) {
+                            imgArr.push({
+                                image: n.img
+                            })
+                        }
+                    })
                 }
-                this.tabListData = arr
+                this.tabListData = arr.map(function(item, index) {
+                    return { ...item, ...imgArr[index] }
+                })
             },
             // 搜索功能
             focus() {
@@ -258,7 +277,13 @@
   .hint {
     font-size: 14px;
     text-align: center;
-    margin-bottom: 100px;
+  }
+
+  .van-image{
+    width: 100%;
+    >>>.van-image__error{
+      font-size: 12px;
+    }
   }
 
   h1 {
@@ -312,6 +337,7 @@
       width: 100%;
     }
   }
+
   .nav_box {
     padding: 20px 0;
   }
@@ -345,7 +371,7 @@
       text-align: center;
       font-size: 12px;
       line-height: 30px;
-      padding: 0px;
+      padding: 0;
       margin-top: 2px;
       width: 1.5rem;
 
@@ -353,6 +379,10 @@
         color: #aaa;
       }
     }
+  }
+
+  .nav_box2 {
+    margin-bottom: 20px;
   }
 
   .nav_box3 {
@@ -365,11 +395,28 @@
   }
 
   .nav_box4 {
-    padding-bottom: 20px;
+    margin-bottom: 20px;
 
     .nav3_l {
       width: 48%;
       margin-bottom: 5px;
+    }
+  }
+
+  .nav_box5 {
+
+    .vipImgBox{
+      position: relative;
+      height: 75px;
+      background: url("../assets/img/vip.jpg") no-repeat;
+      background-size: 100%;
+      .text {
+        position: absolute;
+        top: 19px;
+        left: 70px;
+        color: #fee7b3;
+        font-size: 16px;
+      }
     }
   }
 
@@ -398,7 +445,7 @@
 
     li {
       float: left;
-      margin: 0px 20px;
+      margin: 0 20px;
       text-align: center;
     }
 
@@ -416,7 +463,7 @@
       font-size: 12px;
       color: #a6a6a6;
       line-height: 20px;
-      margin-top: 0px;
+      margin-top: 0;
       padding: 2px 5px;
     }
 
@@ -430,6 +477,7 @@
   .nav_box8 {
     height: 60px;
   }
+
   .nav_box8 .nav_li {
     display: block;
 
@@ -450,11 +498,10 @@
       background: #f8f8f8;
       font-size: 12px;
       line-height: 30px;
-      padding: 0px;
+      padding: 0;
       border-radius: 50px;
       border: 1px solid #f0f0f0;
       color: #848484;
-      font-size: 10px;
     }
 
     .li1.active p {
@@ -485,7 +532,7 @@
   }
 
   .van-search {
-    padding: 0px !important;
+    padding: 0 !important;
   }
 
   .hesde_l2 {
@@ -510,7 +557,7 @@
   }
 
   .van-search .van-cell {
-    padding: 1px 0px;
+    padding: 1px 0;
   }
 
   .nav_box9 {
@@ -524,8 +571,13 @@
       overflow: hidden;
     }
   }
+
   .nav_box10 {
     height: 150px;
+  }
+
+  >>>.main .scroll {
+    background: #fff;
   }
 
 </style>

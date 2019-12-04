@@ -5,7 +5,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2">
-        <div class="p"> 商场</div>
+        <div class="p"> 商城</div>
       </div>
     </div>
     <div class="topHead">
@@ -20,7 +20,7 @@
       <div class="publicBox box_sizing" style="margin-bottom: 10px">
         <div class="title_xl flex">
           <p class="p1">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-          <p> </p>
+          <p></p>
         </div>
         <!-- 商品 -->
         <ul class="commodityLits mt7 flex_wrap">
@@ -41,15 +41,6 @@
           <p><img src="../../assets/css/static/images/zp.png" alt="">正品保障</p>
           <p><img src="../../assets/css/static/images/sh.png" alt="">售后无忧</p>
         </div>
-        <ul class="commodityLits flex_wrap commodityLits_nav">
-
-          <li v-for="(item,index) in mallNavData" :key="index">
-            <a @click="$router.push(item.path)">
-              <p class="flex_center"><img :src="item.img" alt=""></p>
-              <span>{{ item.name }}</span>
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
 
@@ -103,7 +94,9 @@
           <ul class="flex_wrap gwcLits">
             <li v-for="(listItem, listIndex) in mallProductListData" :key="listIndex">
               <a @click="$router.push({path: listItem.path, query:{id:listItem.id}})">
-                <img :src="listItem.img" alt="" class="mallList">
+                <van-image :src="listItem.img">
+                  <template v-slot:error>图片加载失败</template>
+                </van-image>
                 <p class="p1">{{ listItem.title }}</p>
                 <div class="p3 flex_betweenc">
                   <p>¥{{ listItem.current }}
@@ -125,13 +118,14 @@
 </template>
 
 <script>
-    import { Icon, Tab, Tabs } from 'vant'
+    import { Icon, Image, Tab, Tabs } from 'vant'
 
     export default {
         components: {
             'van-icon': Icon,
             'van-tab': Tab,
-            'van-tabs': Tabs
+            'van-tabs': Tabs,
+            'van-image': Image
         },
         data() {
             return {
@@ -161,8 +155,6 @@
                 try {
                     // 店铺信息
                     this.getStoreListData()
-                    // nav
-                    this.getMallNavData()
                     // tab栏
                     await this.getMallTabData()
                     // tab栏下商品
@@ -174,21 +166,6 @@
                     throw e
                 }
                 this.status = 'success'
-            },
-            // 商城nav数据
-            async getMallNavData() {
-                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {})
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            img: n.logo,
-                            name: n.name,
-                            path: n.url
-                        })
-                    })
-                }
-                this.mallNavData = arr
             },
             // 店铺查询
             async getStoreListData() {
@@ -217,11 +194,9 @@
                                 path: `/user/productdetails?id=${good.id}`
                             })
                         })
-                        console.log(list)
                         this.mallShopsListData = list
                     })
                 }
-                console.log(arr)
                 this.mallShopsData = arr
             },
             // tab栏
@@ -248,19 +223,35 @@
                 if (!category) category = this.mallTabData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
+                const allImgArr = []
+                const imgArr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
+                        n.goodsStatics.forEach((img, i) => {
+                            allImgArr.push({
+                                img: img.url,
+                                key: img.spuStaticType
+                            })
+                        })
                         arr.push({
                             path: `/user/productdetails?id=${n.id}`,
                             title: n.goodsName,
-                            img: n.goodsStatics[i].url,
                             id: n.id,
                             current: n.showPrice,
                             pre: n.linePrice
                         })
                     })
+                    allImgArr.forEach((n, i) => {
+                        if (n.key === 0) {
+                            imgArr.push({
+                                img: n.img
+                            })
+                        }
+                    })
                 }
-                this.mallProductListData = arr
+                this.mallProductListData = arr.map(function(item, index) {
+                    return { ...item, ...imgArr[index] }
+                })
             },
             // 品牌
             async getBrandListData() {
@@ -269,7 +260,6 @@
                     'method': 'post',
                     'data': {}
                 })
-                console.log(res)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
@@ -287,6 +277,11 @@
     }
 </script>
 <style lang='scss' scoped>
+  .van-image {
+    width: 100%;
+    height: 85%;
+  }
+
   .hint {
     margin-top: 20px;
     font-size: 14px;
@@ -323,11 +318,21 @@
 
   .gwcLits li {
     width: 48%;
+    height: 6.5rem;
+  }
+
+  > > > .gwcLits li .van-image {
+    height: 75%;
+  }
+
+  > > > .gwcLits li .van-image__img {
+    height: 5rem;
   }
 
   .gwcLits li .mallList {
     height: 5rem;
   }
+
   .tuijian {
     margin-top: 30px;
   }
@@ -339,6 +344,7 @@
   .van-tab__pane {
     padding: 0 10px;
   }
+
   .tuijianNav .box {
     height: auto;
     width: 100%;
@@ -355,8 +361,13 @@
   .van-tabs--line .van-tabs__wrap {
     width: 100%;
   }
+
   .everyday_shop {
     margin-top: 50px;
+  }
+
+  .commodityLits img {
+    height: 3rem;
   }
 
   @import "../../assets/css/static/css/app.css";

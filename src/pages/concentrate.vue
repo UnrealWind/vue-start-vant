@@ -50,23 +50,6 @@
         </div>
       </div>
     </div>
-    <!--大牌上新-->
-    <!--    <div class="nav_box3 dan_wrap fix">-->
-    <!--      <div class="wp">-->
-    <!--        <div class="title"> 大牌上新 <span> 你爱的大牌上新了 </span> </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
-
-    <!--    <div class="nav_box dan_wrap fix">-->
-    <!--      <div class="wp">-->
-    <!--        <div class="nav3_l l">-->
-    <!--          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu15.png" alt="">  </a>-->
-    <!--        </div>-->
-    <!--        <div class="nav3_l r">-->
-    <!--          <a class="img" @click="$router.push('/perfume')"> <img src="../assets/img/jiangtu16.png" alt="">  </a>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
     <!--每日新选-->
     <div class="nav_box3 dan_wrap fix">
       <div class="wp">
@@ -85,11 +68,12 @@
     <!--tab栏下商品-->
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-
         <ul class="flex_wrap gwcLits ">
           <li v-for="(item,index) in choicenessData" :key="index">
             <a @click="$router.push(item.path)">
-              <img class="pic" alt="" :src="item.img">
+              <van-image :src="item.img">
+                <template v-slot:error>加载失败</template>
+              </van-image>
               <p class="p1">{{ item.title }}</p>
               <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
                 src="../assets/css/static/images/gwc2.png"
@@ -98,17 +82,18 @@
             </a>
           </li>
         </ul>
-        <div v-show="tabShow" class="nav_box10 dan_wrap">
-          <div class="hint">当前类目下没有分类</div>
-        </div>
       </div>
+    </div>
+
+    <div class="nav_box10 dan_wrap">
+      <div v-show="tabShow" class="hint">当前类目下没有分类</div>
     </div>
 
   </van-container>
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Tab, Tabs } from 'vant'
+    import { Icon, Swipe, SwipeItem, Tab, Tabs, Image } from 'vant'
 
     export default {
         components: {
@@ -116,7 +101,8 @@
             'van-swipe-item': SwipeItem,
             'van-icon': Icon,
             'van-tab': Tab,
-            'van-tabs': Tabs
+            'van-tabs': Tabs,
+            'van-image': Image
         },
         data() {
             return {
@@ -131,6 +117,13 @@
             }
         },
         computed: {},
+        watch: {
+            tabShow: function() {
+                this.$nextTick(function() {
+                    document.getElementById('scroll').scrollTop = document.getElementById('scroll').scrollHeight
+                })
+            }
+        },
         mounted() {
             this.init()
         },
@@ -167,7 +160,6 @@
                 const res = await this.$http.post('product/activity/activityGoodsList', {
                     activityCode: 'cf48dbb9013a418e87b8e47086cddc3b'
                 })
-                console.log(res)
                 const arr = []
                 res.data.forEach((n, i) => {
                     n.goods.forEach((good, i) => {
@@ -208,21 +200,36 @@
             async getConcentProductListData(category) {
                 if (!category) category = this.navList[0].id
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                console.log(res)
                 const arr = []
+                const allImgArr = []
+                const imgArr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
+                        n.goodsStatics.forEach((img, i) => {
+                            allImgArr.push({
+                                img: img.url,
+                                key: img.spuStaticType
+                            })
+                        })
                         arr.push({
                             title: n.goodsName,
-                            img: n.goodsStatics[i].url,
                             id: n.id,
                             current: n.showPrice,
                             pre: n.linePrice,
                             path: `/user/productdetails?id=${n.id}`
                         })
                     })
+                    allImgArr.forEach((n, i) => {
+                        if (n.key === 0) {
+                            imgArr.push({
+                                img: n.img
+                            })
+                        }
+                    })
                 }
-                this.choicenessData = arr
+                this.choicenessData = arr.map(function(item, index) {
+                    return { ...item, ...imgArr[index] }
+                })
             }
 
         }
@@ -323,7 +330,7 @@
 
   .hesde_l {
     position: absolute;
-    left: 0px;
+    left: 0;
     top: 2px;
     font-size: 20px;
     color: #333;
@@ -374,14 +381,15 @@
   .nav_box3 {
     padding-top: 20px;
     padding-bottom: 10px;
-    margin-top: 40px;
+    margin-top: 15px;
+
     .title {
       color: #242424;
       font-size: 16px;
       font-weight: bold;
       padding-left: 30px;
       line-height: 26px;
-      background: url("../assets/img/jiangtu14.png") no-repeat left 0px;
+      background: url("../assets/img/jiangtu14.png") no-repeat left 0;
       box-sizing: border-box;
     }
 
@@ -402,7 +410,7 @@
     margin: 0 auto;
 
     .wp {
-      width: 95%;
+      width: 100%;
       overflow-x: scroll;
       margin: 0 auto;
     }
@@ -414,7 +422,7 @@
     .icon {
       position: absolute;
       width: 10%;
-      right: 0px;
+      right: 0;
       top: 3px;
       font-size: 20px;
       background: #f7f7f7;
@@ -439,28 +447,51 @@
     }
   }
 
-  .nav_box4 {
+  .scroll .nav_box4 {
+    margin-top: 10px;
+
     .nav_li {
       margin-bottom: 10px;
     }
   }
 
-  .gwcLits li {
-    width: 48%;
-
-    .pic {
-      height: 5rem;
-    }
+  .van-image {
+    width: 100%;
+    height: 85%;
   }
 
-  .hint {
-    margin-top: 20px;
-    font-size: 14px;
-    text-align: center;
+  .gwcLits li {
+    width: 48%;
+    height: 6.5rem;
+  }
+
+  > > > .gwcLits li .van-image {
+    height: 75%;
+  }
+
+  > > > .gwcLits li .van-image__img {
+    height: 5rem;
+  }
+
+  .nav_box10{
+    margin-top: 0;
     height: 130px;
+    .hint {
+      font-size: 14px;
+      text-align: center;
+    }
   }
 
   .dan_wrap {
     background: none;
+    padding: 0;
+    margin-top: 25px;
+  }
+
+  .gwcLits .p3{
+    padding: 0;
+    img {
+      margin-right: 10px;
+    }
   }
 </style>

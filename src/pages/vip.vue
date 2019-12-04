@@ -32,14 +32,16 @@
             <ul class="commodityLits flex_wrap">
               <li v-for="(item,index) in activity.children" :key="index">
                 <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
-                  <div>
+                  <div class="imgBox">
                     <img :src="item.goodsStatics[3].url" alt="">
                   </div>
-                  <p class="title">{{ item.goodsName }}</p>
-                  <div class="p3 flex_betweenc">
-                    <p class="price">
-                      ¥ {{ item.showPrice }}<span class="pre">¥{{ item.linePrice }}</span>
-                    </p>
+                  <div class="messageBox">
+                    <p class="title">{{ item.goodsName }}</p>
+                    <div class="p3 flex_betweenc">
+                      <p class="price">
+                        ¥ {{ item.showPrice }}<span class="pre">¥{{ item.linePrice }}</span>
+                      </p>
+                    </div>
                   </div>
                 </a>
               </li>
@@ -78,8 +80,6 @@
                     // 活动
                     await this.getActivityData()
                     await this.getVipData()
-                    // await this.getVipDataMin()
-                    // await this.getData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
@@ -175,7 +175,7 @@
 
   .hesde_l {
     position: absolute;
-    left: 0px;
+    left: 0;
     top: 2px;
     font-size: 20px;
     color: #333;
@@ -253,6 +253,28 @@
     font-size: 12px;
     margin-left: 10px;
     text-decoration: line-through;
+  }
+  .commodityLits {
+    display: block;
+    li {
+      width: 100%;
+      .imgBox {
+        img {
+          width: 100%;
+          height: 200px;
+        }
+      }
+      .messageBox {
+        p {
+          float: left;
+          margin-left: 20px;
+        }
+        .p3 {
+          float: right;
+          margin-right: 20px;
+        }
+      }
+    }
   }
 
 </style>

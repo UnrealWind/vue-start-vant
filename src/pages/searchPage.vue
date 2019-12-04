@@ -74,7 +74,6 @@
                 if (value === '') {
                     return false
                 }
-                console.log(value)
                 const res = await this.$http.post('product/goods/list?pageNum=1&pageSize=10', {
                     goodsName: value
                 })

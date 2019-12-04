@@ -12,27 +12,8 @@
 
       <div class="set_cen">
         <van-cell title="个人资料" icon="manager-o" is-link @click="$router.push('personaldata')" />
-        <!--<van-cell title="账户与安全" icon="completed" is-link />-->
         <van-cell title="邀请人" icon="shop-o" :value="upUser.nickName" />
       </div>
-
-      <!-- <div class="set_cen">
-        <van-cell title="消息及模式设置" icon="volume-o" is-link />
-        <van-cell title="清除缓存" icon="fire-o" is-link value="0.00MB" />
-      </div>-->
-
-      <!--<div class="set_cen">
-        <van-cell title="关于电商" icon="warning-o" is-link />
-      </div>
-
-      <div class="set_cen">
-        <van-cell title="问题反馈" icon="chat-o" is-link />
-      </div>
-
-      <div class="set_cen">
-        <van-cell title="当前版本" icon="medel-o" value="0.0.00（0.0.00）" />
-      </div>-->
-
       <div class="set_cen">
         <div class="go" @click="logout"> 退出登录 </div>
       </div>
@@ -72,7 +53,6 @@ import { Icon, Cell } from 'vant'
         },
         async getUpUserData() {
             const res = await this.$http.post('/user/distributionRel/puser')
-            console.log(res)
             this.upUser = res.data
         },
         async logout() {

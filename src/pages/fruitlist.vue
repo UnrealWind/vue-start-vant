@@ -84,7 +84,6 @@
                 const res = await this.$http.post('product/goods/listByLastCategoryCode?pageSize=3&pageNum=1', {
                     categoryCodeList: [res1.rows[0].dictCategoryIds]
                 })
-                console.log(res)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {
@@ -114,9 +113,9 @@
     text-align: center;
     margin-bottom: 100px;
   }
-  h1 {
-    background: red;
-    width: 375px;
+
+  .container{
+    margin-bottom: 20px;
   }
 
   .fix {
@@ -176,7 +175,7 @@
 
   .hesde_l {
     position: absolute;
-    left: 0px;
+    left: 0;
     top: 2px;
     font-size: 20px;
     color: #333;
@@ -216,7 +215,6 @@
   }
 
   .nav_wrap {
-    background: #fff;
     border-radius: 10px;
     overflow: hidden;
     padding-bottom: 1px;

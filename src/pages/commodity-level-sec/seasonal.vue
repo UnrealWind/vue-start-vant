@@ -70,10 +70,13 @@
         </van-tab>
       </van-tabs>
     </div>
+    <!--    tab栏下商品-->
     <ul class="flex_wrap gwcLits gwcLits_SG">
       <li v-for="(opt,liIndex) in seasonalProductListData" :key="liIndex">
         <a @click="$router.push({path:opt.path,query:{id:opt.id}})">
-          <img class="commodityLits" :src="opt.img" alt="">
+          <van-image :src="opt.img">
+            <template v-slot:error>图片加载失败</template>
+          </van-image>
           <p class="p1">{{ opt.title }}</p>
           <div class="p3 flex_betweenc"><p>¥ {{ opt.current }}<span style="margin-left: 10px;">¥{{ opt.pre }}</span></p>
             <img
@@ -83,6 +86,7 @@
         </a>
       </li>
     </ul>
+    <!--    // 错误提示-->
     <div v-show="tabShow" class="nav_box10 dan_wrap">
       <div class="hint">当前类目下没有分类</div>
     </div>
@@ -90,13 +94,14 @@
 </template>
 
 <script>
-    import { Icon, Tab, Tabs } from 'vant'
+    import { Icon, Tab, Tabs, Image } from 'vant'
 
     export default {
         components: {
             'van-icon': Icon,
             'van-tab': Tab,
-            'van-tabs': Tabs
+            'van-tabs': Tabs,
+            'van-image': Image
         },
         data() {
             return {
@@ -175,26 +180,41 @@
                 if (!category) category = this.seasonalCategoryData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
+                const allImgArr = []
+                const imgArr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
+                        n.goodsStatics.forEach((img, i) => {
+                            allImgArr.push({
+                                img: img.url,
+                                key: img.spuStaticType
+                            })
+                        })
                         arr.push({
                             title: n.goodsName,
-                            img: n.goodsStatics[3].url,
                             id: n.id,
                             current: n.showPrice,
                             pre: n.linePrice,
                             path: `/user/productdetails?id=${n.id}`
                         })
                     })
+                    allImgArr.forEach((n, i) => {
+                        if (n.key === 0) {
+                            imgArr.push({
+                                img: n.img
+                            })
+                        }
+                    })
                 }
-                this.seasonalProductListData = arr
+                this.seasonalProductListData = arr.map(function(item, index) {
+                    return { ...item, ...imgArr[index] }
+                })
             },
             // 活动
             async getActivityData() {
                 const res = await this.$http.post('product/activity/contentActivityRel', {
                     contentId: this.$route.query.id
                 })
-                console.log(res)
                 if (res.data) {
                     res.data.forEach(async(n, i) => {
                         const res = await this.getTopOneData(n.activityCode)
@@ -209,17 +229,23 @@
                 const res = await this.$http.post('product/activity/activityGoodsList', {
                     activityCode: activityCode
                 })
-                console.log(res)
                 return res
             }
         }
     }
 </script>
 <style lang='scss' scoped>
+  *{
+    font-size: 14px;
+  }
   .hint {
     font-size: 14px;
     text-align: center;
     margin-bottom: 100px;
+  }
+
+  .title_nav{
+    font-size: 14px;
   }
 
   .fix {
@@ -267,7 +293,11 @@
     width: 48%;
   }
 
-  .gwcLits li .commodityLits {
+  .van-image {
+    width: 100%;
+    height: 75%;
+  }
+  >>> .van-image .van-image__img {
     height: 5rem;
   }
 
@@ -298,7 +328,7 @@
   }
 
   .p2 {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
 
   @import "../../assets/css/static/css/app.css";

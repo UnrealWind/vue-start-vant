@@ -14,6 +14,24 @@
 
     <!-- 内容 -->
     <div class="p2 FruitsBox contBody_top2 OnlineBox">
+      <div class="l">
+        <van-search
+          v-model="value"
+          placeholder="搜索超市商品"
+          background=""
+          shape="round"
+          @focus="focus"
+        >
+        </van-search>
+      </div>
+      <!-- 4大宣传	 -->
+      <div class="title_nav mt3 flex_betweenc ">
+        <p><img src="../../assets/css/static/images/z1.png" alt="">产地直采</p>
+        <p><img src="../../assets/css/static/images/z1.png" alt="">品质保证</p>
+        <p><img src="../../assets/css/static/images/z1.png" alt="">应季时令</p>
+        <p><img src="../../assets/css/static/images/z1.png" alt="">售后无忧</p>
+      </div>
+      <!--      轮播图-->
       <div class="imgBox">
         <van-swipe
           :autoplay="3000"
@@ -24,13 +42,6 @@
             <img :src="item.img" alt="">
           </van-swipe-item>
         </van-swipe>
-      </div>
-      <!-- 4大宣传	 -->
-      <div class="title_nav mt3 flex_betweenc ">
-        <p><img src="../../assets/css/static/images/z1.png" alt="">产地直采</p>
-        <p><img src="../../assets/css/static/images/z1.png" alt="">品质保证</p>
-        <p><img src="../../assets/css/static/images/z1.png" alt="">应季时令</p>
-        <p><img src="../../assets/css/static/images/z1.png" alt="">售后无忧</p>
       </div>
       <!--      二级导航-->
       <ul class="commodityLits flex_wrap commodityLits_nav">
@@ -50,7 +61,9 @@
         <ul class="flex_wrap gwcLits gwcLits_zxcs">
           <li v-for="(item,index) in activity.children" :key="index">
             <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
-              <img :src="item.goodsStatics[3].url" alt="">
+              <van-image :src="item.goodsStatics[3].url">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
               <p class="p1">{{ item.goodsName }}</p>
               <div class="p3 flex_betweenc"><p>¥{{ item.showPrice }} <span>¥{{ item.linePrice }}</span></p></div>
             </a>
@@ -72,7 +85,9 @@
       <ul class="flex_wrap gwcLits gwcLits_nav gwcLits_SG">
         <li v-for="(opt,liIndex) in superMarketTabData" :key="liIndex">
           <a @click="$router.push(opt.path)">
-            <img :src="opt.img" alt="" class="img">
+            <van-image :src="opt.img">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
             <p class="p1">{{ opt.title }}</p>
             <div class="p3 flex_betweenc"><p>¥{{ opt.current }} <span>¥{{ opt.pre }}</span></p><img
               src="../../assets/css/static/images/gwc.png"
@@ -90,7 +105,7 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Tab, Tabs } from 'vant'
+    import { Icon, Swipe, SwipeItem, Tab, Tabs, Search, Image } from 'vant'
 
     export default {
         components: {
@@ -98,13 +113,16 @@
             'van-tab': Tab,
             'van-tabs': Tabs,
             'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem
+            'van-swipe-item': SwipeItem,
+            'van-search': Search,
+            'van-image': Image
         },
         data() {
             return {
                 active: 0,
                 status: 'loading',
                 tabShow: false,
+                value: '',
                 bannerData: [],
                 superMarketListData: [],
                 // 活动
@@ -208,17 +226,39 @@
                 if (!category) category = this.marketCategoryData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
-                res.data.forEach((n, i) => {
-                    arr.push({
-                        title: n.goodsName,
-                        img: n.goodsStatics[2].url,
-                        id: n.id,
-                        current: n.showPrice,
-                        pre: n.linePrice,
-                        path: `/user/productdetails?id=${n.id}`
+                const allImgArr = []
+                const imgArr = []
+                if (res.data) {
+                    res.data.forEach((n, i) => {
+                        n.goodsStatics.forEach((img, i) => {
+                            allImgArr.push({
+                                img: img.url,
+                                key: img.spuStaticType
+                            })
+                        })
+                        arr.push({
+                            title: n.goodsName,
+                            id: n.id,
+                            current: n.showPrice,
+                            pre: n.linePrice,
+                            path: `/user/productdetails?id=${n.id}`
+                        })
                     })
+                    allImgArr.forEach((n, i) => {
+                        if (n.key === 0) {
+                            imgArr.push({
+                                img: n.img
+                            })
+                        }
+                    })
+                }
+                this.superMarketTabData = arr.map(function(item, index) {
+                    return { ...item, ...imgArr[index] }
                 })
-                this.superMarketTabData = arr
+            },
+            // 搜索功能
+            focus() {
+                this.$router.push('/searchPage')
             }
         }
     }
@@ -226,24 +266,36 @@
 </script>
 
 <style lang='scss' scoped>
-  .activity{
-    margin-bottom: 50px;
+  .commodityLits_nav {
+    font-size: 14px;
   }
+  .van-search {
+    padding: 0;
+  }
+
+  .activity{
+    margin-bottom: 30px;
+  }
+
   .everyday_shop {
     margin-top: 0;
   }
+
   .hint {
     margin-top: 20px;
     font-size: 14px;
     text-align: center;
   }
+
   .fix {
     background-color: #0a6b5a;
     height: 37.5px;
   }
+
   .topHead3 .box2 {
-    height: 6rem;
+    height: 7rem;
   }
+
   .header_l {
     position: absolute;
     left: 0;
@@ -279,16 +331,44 @@
     width: 32%;
     margin-right: 10px;
   }
+
   .gwcLits {
     justify-content: left;
     margin-top: -10px;
   }
+
+  .gwcLits .p1{
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+
+  .gwcLits .p3 {
+    padding: 0;
+    margin-top: 5px;
+  }
+
+  .gwcLits .p3 span {
+    margin-left: 15px;
+  }
+
   .gwcLits_zxcs li {
     width: 30%;
+    height: 4.5rem;
     margin-right: 10px;
   }
+
+  >>> .gwcLits_zxcs li .van-image{
+    width: 100%;
+    height: 70%;
+  }
+
+  >>> .gwcLits_zxcs li .van-image .van-image__img{
+    height: 3.5rem;
+  }
+
   .gwcLits_zxcs li img {
     margin-bottom: 5px;
+    height: 3rem;
   }
 
   .tuijianNav {
@@ -325,15 +405,31 @@
   .SuperValue .boxa .imim img {
     width: 100%;
   }
+
   .gwcLits_SG{
     background: none;
     padding: 0;
     margin-left: 8px;
     margin-bottom: 50px;
+    li{
+      height: 266px;
+      >>>.van-image{
+        width: 100%;
+        height: 75%;
+        .van-image__img{
+          height: 5rem;
+        }
+        .van-image__error{
+          height: 100%;
+        }
+      }
+    }
   }
+
   .OnlineBox .commodityLits {
     margin-bottom: 40px;
   }
+
   .nav_box10 {
     margin-bottom: 100px;
   }

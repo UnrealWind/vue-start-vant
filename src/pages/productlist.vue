@@ -62,7 +62,6 @@ import { Icon } from 'vant'
             const res = await this.$http.post('product/activity/activityGoodsList', {
                 activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
             })
-            console.log(res)
             const arr = []
             if (res.data) {
                 res.data.forEach((n, i) => {

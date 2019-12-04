@@ -17,16 +17,6 @@
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
       <van-swipe-item><img src="../assets/img/supermarket.png" alt=""></van-swipe-item>
     </van-swipe>
-
-    <!--    <div class="nav_box5 dan_wrap ">-->
-    <!--      <div class="wp">-->
-    <!--        <div class="nav_ul ">-->
-    <!--          <div v-for="(opt, index) in navList" :key="index" class="li1" :class=" isActive==index? 'active': '' " @click="changeTab(index)">-->
-    <!--            <p> {{ opt.title }} </p>-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </div>-->
     <div class="nav_box dan_wrap ">
       <div class="wp">
         <div class="nav_ul ">
@@ -112,7 +102,6 @@
                 const res = await this.$http.post('product/activity/activityGoodsList', {
                     activityCode: '42e3d8dad21b433cbaf85019214694fc'
                 })
-                console.log(res)
                 const arr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {

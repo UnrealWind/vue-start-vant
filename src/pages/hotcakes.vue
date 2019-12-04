@@ -47,30 +47,8 @@
             </van-tab>
           </van-tabs>
         </div>
-        <!--        <div class="icon"> <van-icon name="arrow-down" /> </div>-->
       </div>
     </div>
-
-    <!--    <div class="nav_box4 dan_wrap fix">-->
-    <!--      <div class="wp">-->
-    <!--        <div v-for="(hot,index) in hotData" :key="`${hot.type}-${index}`" class="navdan_box4" @click="$router.push('/user/productdetails')">-->
-    <!--          <commodity-->
-    <!--            :type="hot.type"-->
-    <!--            :image="hot.image"-->
-    <!--            :discribe="hot.discribe"-->
-    <!--            :title="hot.title"-->
-    <!--            :hot-price="hot.hotPrice"-->
-    <!--            :hot-price-discribe="hot.hotPriceDiscribe"-->
-    <!--            :btn-go="hot.btnGo"-->
-    <!--            :popularity="hot.popularity"-->
-    <!--            :preferential="hot.preferential"-->
-    <!--            :evaluate="hot.evaluate"-->
-    <!--          >-->
-    <!--          </commodity>-->
-    <!--        </div>-->
-
-    <!--      </div>-->
-    <!--    </div>-->
 
   </van-container>
 </template>
@@ -147,7 +125,6 @@
             async getHotTabListData(category) {
                 if (!category) category = this.navList[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                console.log(res)
                 const arr = []
                 res.data.forEach((n, i) => {
                     arr.push({

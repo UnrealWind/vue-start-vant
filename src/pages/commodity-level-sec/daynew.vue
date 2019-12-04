@@ -24,32 +24,38 @@
         <div class="title_mrsx">精选大牌</div>
         <ul class="jxdpImgList flex_wrap">
           <li v-for="(item,index) in dayNewChoicenessData" :key="index">
-            <a @click="$router.push({path:item.path,query:{id:item.id}})"><img
-              :src="item.img"
-              alt=""
-            ></a>
+            <a @click="$router.push({path:item.path,query:{id:item.id}})">
+              <van-image :src="item.img">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
+            </a>
             <h1>{{ item.discounts }}</h1>
-            <p class="flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.store }}&gt;</a></p>
+            <p class="flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.store
+            }}&gt;</a></p>
           </li>
         </ul>
         <ul class="jxdpImgList flex_wrap jxdpImgList1">
           <li v-for="(item,index) in dayNewChoicenessDatas" :key="index">
-            <a @click="$router.push({path:item.path,query:{id:item.id}})"><img
-              :src="item.img"
-              alt=""
-            ></a>
+            <a @click="$router.push({path:item.path,query:{id:item.id}})">
+              <van-image :src="item.img">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
+            </a>
             <h1>{{ item.discounts }}</h1>
-            <p class="flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.store }}></a></p>
+            <p class="flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.store }}></a>
+            </p>
           </li>
         </ul>
-        <div class="title_mrsx" style="margin-top: 50px;">精选商品</div>
+        <div class="title_mrsx">精选商品</div>
         <div class="tuijianNav flex">
           <van-tabs v-model="active" @click="changeTab">
             <van-tab v-for="(item,index) in dayNewTabData" :key="index" :title="item.label">
               <ul class="flex_wrap gwcLits ">
                 <li v-for="(opt,liIndex) in dayNewProductListData" :key="liIndex">
                   <a @click="$router.push({path:opt.path,query:{id:opt.id}})">
-                    <img class="ProductList" :src="opt.img" alt="">
+                    <van-image :src="opt.img">
+                      <template v-slot:error>图片加载失败</template>
+                    </van-image>
                     <p class="p1">{{ opt.title }}</p>
                     <div class="p3 flex_betweenc">
                       <p>
@@ -63,11 +69,11 @@
                   </a>
                 </li>
               </ul>
-              <div v-show="tabShow" class="nav_box10 dan_wrap">
-                <div class="hint">当前类目下没有分类</div>
-              </div>
             </van-tab>
           </van-tabs>
+        </div>
+        <div v-show="tabShow" class="nav_box10 dan_wrap">
+          <div class="hint">当前类目下没有分类</div>
         </div>
         <!-- 1 -->
       </div>
@@ -76,7 +82,7 @@
 </template>
 
 <script>
-    import { Icon, Tab, Tabs, Swipe, SwipeItem } from 'vant'
+    import { Icon, Image, Swipe, SwipeItem, Tab, Tabs } from 'vant'
 
     export default {
         components: {
@@ -84,7 +90,8 @@
             'van-tab': Tab,
             'van-tabs': Tabs,
             'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem
+            'van-swipe-item': SwipeItem,
+            'van-image': Image
         },
         data() {
             return {
@@ -99,7 +106,8 @@
                 // tab栏
                 dayNewTabData: [],
                 // tab栏下商品
-                dayNewProductListData: []
+                dayNewProductListData: [],
+                imageArray: []
             }
         },
         computed: {},
@@ -109,8 +117,6 @@
         methods: {
             async init() {
                 try {
-                    // 目录
-                    await this.getDayNewData()
                     // 轮播图
                     await this.getBannerData()
                     // 精选大牌
@@ -125,19 +131,6 @@
                     throw e
                 }
                 this.status = 'success'
-            },
-            // 目录
-            async getDayNewData() {
-                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
-                const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.logo,
-                        title: n.name,
-                        path: n.url
-                    })
-                })
-                this.crossBorderNavData = arr
             },
             // 轮播图
             async getBannerData() {
@@ -199,47 +192,69 @@
                 }
                 this.dayNewTabData = arr
             },
-           async changeTab(idx, title) {
-               this.tabShow = false
-               await this.getDayNewProductListData(this.dayNewTabData[idx].key)
-               if (this.dayNewProductListData.length === 0) {
-                   this.tabShow = true
-               }
+            async changeTab(idx, title) {
+                this.tabShow = false
+                await this.getDayNewProductListData(this.dayNewTabData[idx].key)
+                if (this.dayNewProductListData.length === 0) {
+                    this.tabShow = true
+                }
             },
             // tab栏下商品数据
             async getDayNewProductListData(category) {
                 if (!category) category = this.dayNewTabData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
+                const allImgArr = []
+                const imgArr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
+                        n.goodsStatics.forEach((img, i) => {
+                            allImgArr.push({
+                                img: img.url,
+                                key: img.spuStaticType
+                            })
+                        })
                         arr.push({
-                            path: '/user/productdetails',
                             title: n.goodsName,
-                            img: n.goodsStatics[i].url,
                             id: n.id,
                             current: n.showPrice,
                             pre: n.linePrice
                         })
                     })
+                    allImgArr.forEach((n, i) => {
+                        if (n.key === 0) {
+                            imgArr.push({
+                                img: n.img
+                            })
+                        }
+                    })
                 }
-                this.dayNewProductListData = arr
+                this.dayNewProductListData = arr.map(function(item, index) {
+                    return { ...item, ...imgArr[index] }
+                })
             }
         }
     }
 
 </script>
 <style lang='scss' scoped>
+  .van-image {
+    width: 100%;
+    height: 85%;
+  }
+
   .hint {
     margin-top: 20px;
     font-size: 14px;
     text-align: center;
     height: 150px;
   }
+
   .fix {
     background-color: #fff;
     height: 37.5px;
   }
+
   .header_l {
     position: absolute;
     left: 0;
@@ -266,19 +281,26 @@
     height: 0.8rem;
     line-height: 0.7rem;
     font-size: .4rem;
+    margin-top: 30px;
   }
 
   .gwcLits li {
     width: 48%;
+    height: 6.5rem;
   }
 
-  .gwcLits li .ProductList {
+  > > > .gwcLits li .van-image {
+    height: 75%;
+  }
+
+  > > > .gwcLits li .van-image__img {
     height: 5rem;
   }
 
   .tuijianNav {
     margin-bottom: 20px;
   }
+
   .tuijianNav .box {
     height: auto;
     width: 100%;
@@ -288,12 +310,36 @@
     bottom: .5rem;
     transform: translateX(35px) translateX(-50%);
   }
+
   img {
     width: 100%;
   }
-  .van-tabs{
+
+  .van-tabs {
     width: 100%;
   }
+
+  .jxdpImgList li {
+    height: 7rem;
+  }
+
+  > > > .jxdpImgList li img {
+    height: 5.8rem;
+    border-radius: 0;
+  }
+
+  > > > .jxdpImgList1 li {
+    height: 5rem;
+  }
+
+  > > > .jxdpImgList1 li .van-image {
+    height: 80%;
+  }
+
+  > > > .jxdpImgList1 li img {
+    height: 3.8rem;
+  }
+
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";

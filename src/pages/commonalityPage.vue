@@ -2,7 +2,7 @@
 <template>
   <van-container :status="status">
     <div slot="header" class="fix">
-      <div class="hesde_l " @click="$router.back()">
+      <div class="hesde_l " @click="$router.back(-1)">
         <van-icon name="arrow-left" />
       </div>
       <div class="hesde_l2">
@@ -75,7 +75,6 @@
                 const res = await this.$http.post('product/goods/listByLastCategoryCode?pageSize=4&pageNum=1', {
                     categoryCode: this.$route.query.id
                 })
-                console.log(res)
                 const arr = []
                 if (res.rows) {
                     res.rows.forEach((n, i) => {

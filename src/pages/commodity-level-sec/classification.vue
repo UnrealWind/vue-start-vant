@@ -36,8 +36,15 @@
         <div v-for="(model,divIndex) in targetData" v-show="!thisShow" :key="divIndex" class="class_right r">
           <div class="title"> {{ model.categoryName }}</div>
           <div class="class_ul fix">
-            <div v-for="(opt,liIndex) in model.list" :key="liIndex" class="li" @click="$router.push({path:'/commonalityPage',query:{id:opt.code,title: opt.categoryName}})">
-              <img src="../../assets/img/zonetu12.png" alt="">
+            <div
+              v-for="(opt,liIndex) in model.list"
+              :key="liIndex"
+              class="li"
+              @click="$router.push({path:'/commonalityPage',query:{id:opt.code,title: opt.categoryName}})"
+            >
+              <van-image :src="opt.categoryImg">
+                <template v-slot:error>加载失败</template>
+              </van-image>
               <p> {{ opt.categoryName }} </p>
             </div>
             <div v-if="model.list.length === 0" class="hint">当前类目下没有分类</div>
@@ -53,14 +60,15 @@
 </template>
 
 <script>
-    import { Icon, Sidebar, SidebarItem, Search } from 'vant'
+    import { Icon, Image, Search, Sidebar, SidebarItem } from 'vant'
 
     export default {
         components: {
             'van-icon': Icon,
             'van-search': Search,
             'van-sidebar': Sidebar,
-            'van-sidebar-item': SidebarItem
+            'van-sidebar-item': SidebarItem,
+            'van-image': Image
         },
         data() {
             return {
@@ -71,7 +79,8 @@
                 concentrateData: [],
                 classCategoryData: [],
                 classTabData: [],
-                targetData: []
+                targetData: [],
+                keepAlive: true
             }
         },
         computed: {},
@@ -105,8 +114,8 @@
                 this.targetData = this.classTabData[0].list
             },
             // 搜索功能
-             focus() {
-                 this.$router.push('/searchPage')
+            focus() {
+                this.$router.push('/searchPage')
             }
         }
     }
@@ -115,6 +124,15 @@
 <style lang='scss' scoped>
   > > > .main {
     background: #fff;
+  }
+
+  .van-image {
+    width: 100%;
+    height: 90px;
+  }
+
+  > > > .van-image__error {
+    width: 85px;
   }
 
   h1 {
@@ -172,7 +190,7 @@
       margin-left: 20px;
 
       .van-search {
-        padding: 0px;
+        padding: 0;
         border-radius: 10px;
 
       }
@@ -252,7 +270,7 @@
 
       p {
         display: block;
-        margin: 0px;
+        margin: 0;
         line-height: 30px;
         text-align: center;
         overflow: hidden;
