@@ -272,9 +272,11 @@
                 'receiverAddress': targetAddress.address,
                 'isInvoices': 0,
                 'payType': this.payType,
-                'orderType': this.orderList[0].orderType,
                 'trueMoney': this.customTotalPrice,
                 'goodsPoList': this.orderList
+            }
+            if (this.orderList.length !== 0) {
+                data['orderType'] = this.orderList[0].orderType
             }
             const res = await this.$http.post('order/order/placeOrder', data)
             console.log(res)

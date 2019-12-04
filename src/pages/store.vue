@@ -160,7 +160,7 @@
                 const res = await this.$http.post('product/activityTicket/queryList', {
                     shopCode: this.$route.query.shopCode
                 })
-                this.couponList = res.data
+                this.couponList = res.data || []
                 this.couponList.forEach((n, i) => {
                     n.ticketContent = JSON.parse(n.ticketContent)
                 })

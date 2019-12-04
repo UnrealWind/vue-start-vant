@@ -147,10 +147,15 @@
             this.status = 'success'
         },
         async getFindData() {
-            const res = await this.$http.post('product/discover/list', {
+            let res = await this.$http.post('product/discover/list', {
                 pageNum: 0,
                 pageSize: 10
             })
+            if (!res) {
+                res = {
+                    rows: []
+                }
+            }
             res.rows.forEach((n, i) => {
                 if (n.imgUrl) {
                     n.imgUrl = JSON.parse(n.imgUrl)

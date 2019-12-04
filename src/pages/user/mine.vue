@@ -195,7 +195,7 @@
       return {
           status: 'loading',
           userInfo: {},
-          coupon: {}
+          coupon: []
       }
     },
     computed: {
@@ -215,12 +215,26 @@
             this.status = 'success'
         },
         async getCoupon() {
-            const res = await this.$http.post('/manager/userTicket/list')
+            let res = await this.$http.post('/manager/userTicket/list')
+            if (!res.data) {
+                res = {
+                    data: []
+                }
+            }
             this.coupon = res.data
             console.log(res)
         },
         async getUser() {
-            const res = await this.$http.post('/manager/user/queryUser')
+            let res = await this.$http.post('/manager/user/queryUser')
+            if (!res.data) {
+                res = {
+                    data: {
+                        nickName: '请登录',
+                        money: '0',
+                        userHeadimg: ''
+                    }
+                }
+            }
             this.userInfo = res.data
         }
     }

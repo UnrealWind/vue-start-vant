@@ -728,8 +728,7 @@
                 'activityResultId': activityResultId
             })
             const res = await this.$http.post('product/goods/createOrderInfo', goodsVoList)
-            res.data ? this.$store.commit('setTargetOrder', res.data) : Toast.fail(res.msg)
-            this.$router.push('/cart/confirm_order')
+            res.code !== 500 ? (this.$store.commit('setTargetOrder', res.data), this.$router.push('/cart/confirm_order')) : Toast.fail(res.msg)
         }
     }
   }
