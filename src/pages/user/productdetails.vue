@@ -674,6 +674,15 @@
         },
         shareWx() {
           // 全局注册的时候就去跑接口权限了，但是现在没有
+            this.$wx.updateAppMessageShareData({
+                title: this.good.goodsName, // 分享标题
+                desc: this.good.goodsDesc, // 分享描述
+                link: 'https://www.zufangt.com', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                imgUrl: 'https://www.zufangt.com', // 分享图标
+                success: function() {
+                    // 设置成功
+                }
+            })
         },
         async addinCart(data) {
             const res = await this.$http.post('order/shoppingCart/add', {

@@ -224,6 +224,7 @@
             async getTabListData(category) {
                 if (!category) category = this.minNavList[0].id
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+                console.log(JSON.stringify(res))
                 const arr = []
                 if (res.data) {
                     res.data.forEach((n, i) => {
