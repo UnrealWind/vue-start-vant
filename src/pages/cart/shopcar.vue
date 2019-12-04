@@ -208,7 +208,12 @@
         this.status = 'success'
       },
       async getData() {
-          const res = await this.$http.post('order/shoppingCart/list', {})
+          let res = await this.$http.post('order/shoppingCart/list', {})
+          if (!res.data) {
+              res = {
+                  data: []
+              }
+          }
           res.data.forEach((n, i) => {
               n['checked'] = false
               n.goods.forEach((good, i) => {

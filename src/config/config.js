@@ -28,7 +28,8 @@ const config = {
     '/upgradeVIP',
     '/user/productdetails',
     '/user/mine',
-    '/supermarket'
+    '/supermarket',
+    '/cart/shopcar'
   ],
   backStageUrl: process.env.VUE_APP_BASE_URL,
   socketUrl: '115.29.109.95:8081/socket/', // 链接websocket
