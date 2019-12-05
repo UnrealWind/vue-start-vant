@@ -29,7 +29,8 @@ const config = {
     '/user/productdetails',
     '/user/mine',
     '/supermarket',
-    '/cart/shopcar'
+    '/cart/shopcar',
+    '/example'
   ],
   backStageUrl: process.env.VUE_APP_BASE_URL,
   socketUrl: '115.29.109.95:8081/socket/', // 链接websocket

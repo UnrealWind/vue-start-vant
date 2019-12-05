@@ -388,6 +388,13 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/example',
+    component: () => import('@/pages/example'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '*',
     redirect: '/'
   }

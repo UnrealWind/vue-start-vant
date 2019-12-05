@@ -15,7 +15,7 @@
       indicator-color="white"
       class="van-swipe"
     >
-      <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push('/superMarketZone')">
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
         <img :src="item.img" alt="">
       </van-swipe-item>
     </van-swipe>

@@ -729,6 +729,9 @@
             })
             const res = await this.$http.post('product/goods/createOrderInfo', goodsVoList)
             res.code !== 500 ? (this.$store.commit('setTargetOrder', res.data), this.$router.push('/cart/confirm_order')) : Toast.fail(res.msg)
+            if (res.msg === '请先登录') {
+                this.$router.push('/cart/confirm_order')
+            }
         }
     }
   }
