@@ -12,7 +12,7 @@
 
       <div class="set_cen">
         <van-cell title="个人资料" icon="manager-o" is-link @click="$router.push('personaldata')" />
-        <van-cell title="邀请人" icon="shop-o" :value="upUser.nickName" />
+        <van-cell v-if="upUser" title="邀请人" icon="shop-o" :value="upUser.nickName" />
       </div>
       <div class="set_cen">
         <div class="go" @click="logout"> 退出登录 </div>

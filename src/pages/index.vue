@@ -85,6 +85,34 @@
           今日特卖 </a></div>
       </div>
     </div>
+    <div class="nav_box7 dan_wrap">
+      <ul class="nav7_ul fix">
+        <li>
+          <div class="title2"> 14:00</div>
+          <p> 已抢光 </p>
+        </li>
+        <li>
+          <div class="title2"> 16:00</div>
+          <p> 抢购进行中 </p>
+        </li>
+        <li>
+          <div class="title2 active"> 热抢榜单</div>
+          <p class="active"> 抢购进行中 </p>
+        </li>
+        <li>
+          <div class="title2"> 18:00</div>
+          <p> 已抢光 </p>
+        </li>
+        <li>
+          <div class="title2"> 21:00</div>
+          <p> 抢购进行中 </p>
+        </li>
+        <li>
+          <div class="title2"> 22:00</div>
+          <p> 抢购进行中 </p>
+        </li>
+      </ul>
+    </div>
     <!--    // tab栏-->
     <div id="test" class="nav_box8 dan_wrap">
       <div class="nav_li fix wp tabBox">

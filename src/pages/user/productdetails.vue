@@ -147,7 +147,7 @@
       </div>
     </div>
 
-    <div v-if="false" class="sale-evaluate">
+    <div class="sale-evaluate">
       <div class="wp fix">
 
         <div class="evaluate fix">
