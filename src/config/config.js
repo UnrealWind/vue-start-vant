@@ -25,7 +25,6 @@ const config = {
     '/user/find',
     '/concentrate',
     '/trialcenter',
-    '/upgradeVIP',
     '/user/productdetails',
     '/user/mine',
     '/supermarket',

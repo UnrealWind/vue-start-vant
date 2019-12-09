@@ -357,7 +357,7 @@
     }
 
     .li1 {
-      width: 25%;
+      width: 20%;
       float: left;
     }
 
