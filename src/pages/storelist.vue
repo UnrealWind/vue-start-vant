@@ -144,6 +144,9 @@ import { Icon, Search } from 'vant'
 
 </script>
 <style lang='scss' scoped>
+  >>>.header {
+    padding-top:30px;
+  }
   h1 {
     background: red;
     width: 375px;
@@ -221,6 +224,7 @@ import { Icon, Search } from 'vant'
     .wp{
       position: relative;
       z-index: 4;
+      margin-top:30px;
     }
   }
   .storetubj{

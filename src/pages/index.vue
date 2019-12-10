@@ -14,9 +14,9 @@
           @focus="focus"
         >
         </van-search>
-        <div class="p">
+        <!--<div class="p">
           <van-icon name="scan" />
-        </div>
+        </div>-->
       </div>
       <div class="hesde_l3 r" @click="$router.push('/commodityLevelSec/classification')">
         <van-icon name="apps-o" />
@@ -302,6 +302,9 @@
 
 </script>
 <style lang='scss' scoped>
+  >>>.header {
+    padding-top:30px;
+  }
   .hint {
     font-size: 14px;
     text-align: center;

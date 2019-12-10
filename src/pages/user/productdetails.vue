@@ -428,7 +428,7 @@
     </div>
     <van-goods-action>
       <van-goods-action-icon icon="cart-o" text="购物车" @click="$router.push('/cart/shopcar')" />
-      <van-goods-action-icon icon="shop-o" text="进店" @click="goStore" />
+      <van-goods-action-icon v-if="good.shopCode!=='0'" icon="shop-o" text="进店" @click="goStore" />
       <van-goods-action-button type="warning" text="购买" @click="buy" />
       <van-goods-action-button type="danger" text="分享" @click="shopShare" />
     </van-goods-action>

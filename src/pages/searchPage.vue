@@ -105,18 +105,20 @@
 
 </script>
 <style lang='scss' scoped>
+  >>>.header .fix{
+    padding-top:30px;
+    .hesde_l {
+      top:35px;
+    }
+  }
   .hint {
     margin-top: 20px;
     font-size: 14px;
     text-align: center;
   }
   .comm {
-    margin-top: 60px;
+    margin-top: 100px;
   }
-  .container >>> {
-    margin-bottom: 20px;
-  }
-
   .fix {
     *zoom: 1;
   }

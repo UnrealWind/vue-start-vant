@@ -35,6 +35,11 @@
             placeholder="请输入密码"
           />
           <van-field
+            v-model="pid"
+            label="pid"
+            placeholder="请输入pid"
+          />
+          <van-field
             v-model="sms"
             center
             clearable
@@ -73,7 +78,8 @@
                 user: '',
                 phone: '',
                 sms: '',
-                password: ''
+                password: '',
+                pid: ''
             }
         },
         computed: {},
@@ -123,8 +129,9 @@
                     phoneNum: this.phone,
                     type: '0',
                     code: this.sms,
-                    pid: '12',
-                    password: this.password
+                    password: this.password,
+                    nickName: this.user,
+                    pid: this.pid
                 })
                 console.log(res)
                 this.$router.push('/')

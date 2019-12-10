@@ -174,14 +174,14 @@
             async getSuperMarketListData() {
                 const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {})
                 const arr = []
-                res.rows.forEach((n, i) => {
+                res.rows ? res.rows.forEach((n, i) => {
                     arr.push({
                         img: n.logo,
                         title: n.name,
                         path: n.url,
                         id: n.id
                     })
-                })
+                }) : ''
                 this.superMarketListData = arr
             },
             // 活动
@@ -191,7 +191,7 @@
                 })
                 res.data.forEach(async(n, i) => {
                     const res = await this.getGoodData(n.activityCode)
-                    this.$set(n, 'children', res.data[0].goods)
+                    res.data ? this.$set(n, 'children', res.data[0].goods) : ''
                 })
                 this.activityData = res.data
             },
@@ -206,12 +206,14 @@
             async getMarketCategoryData() {
                 const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
                 const arr = []
-                for (const i in res.data.dictMap) {
-                    arr.push({
-                        label: res.data.dictMap[i],
-                        key: i
-                    })
-                }
+                res.data ? (() => {
+                    for (const i in res.data.dictMap) {
+                        arr.push({
+                            label: res.data.dictMap[i],
+                            key: i
+                        })
+                    }
+                })() : ''
                 this.marketCategoryData = arr
             },
             async changeTab(idx, title) {
@@ -223,7 +225,7 @@
             },
             // tab栏下商品
             async getSuperMarketTabData(category) {
-                if (!category) category = this.marketCategoryData[0].key
+                if (!category && this.marketCategoryData.length > 0) category = this.marketCategoryData[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
                 const allImgArr = []
