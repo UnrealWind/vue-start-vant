@@ -8,9 +8,6 @@
       <div class="hesde_l2">
         <div class="p"> {{ this.$route.query.title }}</div>
       </div>
-      <div class="hesde_l3">
-        <van-icon name="certificate" />
-      </div>
       <div class="hesde_l4" @click="$router.push('/cart/shopcar')">
         <van-icon name="cart-o" />
       </div>

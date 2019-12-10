@@ -58,7 +58,7 @@
               <p class="s4"><span class="s42">{{ item.showPrice }}</span>元
               </p>
             </div>
-            <img :src="item.goodsStatics[3].url" alt="">
+            <img :src="item.goodsStatics[0].url" alt="">
           </a>
         </li>
       </ul>

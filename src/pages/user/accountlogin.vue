@@ -59,9 +59,9 @@
             return {
                 status: 'loading',
                 value: '',
-                valuemin: '17342062325',
+                valuemin: '',
                 showKeyboard: true,
-                password: '123456'
+                password: ''
             }
         },
         computed: {},

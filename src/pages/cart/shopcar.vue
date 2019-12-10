@@ -467,7 +467,7 @@ i {
   .detail{
     position: absolute;
     bottom: 33%;
-    left: 20%;
+    left: 25%;
     color: #f44;
   }
 

@@ -23,7 +23,7 @@
     <div class="dan_wrap">
       <div class="fix">
 
-        <div class="class_left l">
+        <div class="class_left l scroll">
           <van-sidebar v-model="activeKey">
             <van-sidebar-item
               v-for="(item,index) in classTabData"
@@ -122,12 +122,6 @@
 
 </script>
 <style lang='scss' scoped>
-  >>>.header .fix{
-    padding-top:30px;
-    .hesde_l {
-      top:35px;
-    }
-  }
   > > > .main {
     background: #fff;
   }
@@ -174,7 +168,7 @@
   }
 
   .dan_wrap {
-    padding-top: 85px;
+    padding-top: 55px;
     background: #fff;
   }
 
@@ -218,6 +212,7 @@
   .class_left {
     position: fixed;
     left: 0;
+      margin-top: 47px;
     width: 22%;
     background: #f2f2f2;
 

@@ -22,7 +22,7 @@
       <div class="wp">
 
         <div class="logo"><img :src="userInfo.userHeadimg" alt=""> </div>
-        <div class="title"> {{ userInfo.nickName }} </div>
+        <div class="title" @click="$router.push('/user/logon')"> {{ userInfo.nickName }} </div>
         <div class="header_ul fix">
           <div class="li l">
             <div class="mony"> 云币 </div>
@@ -51,7 +51,7 @@
         </div>
 
         <div class="oreder_ul fix">
-          <div class="li" @click="$router.push('/cart/order_list')">
+          <div class="li" @click="$router.push({path:'/cart/order_list',query:{node_code:0}})">
             <van-icon name="balance-list-o" />
             <p> 待付款 </p>
           </div>
