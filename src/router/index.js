@@ -374,6 +374,13 @@ export const constantRoutes = [
     }
   },
   {
+    path: '/user/appraisesDetails',
+    component: () => import('@/pages/user/appraisesDetails'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
     path: '/origin',
     component: () => import('@/pages/origin'),
     meta: {
@@ -390,6 +397,13 @@ export const constantRoutes = [
   {
     path: '/example',
     component: () => import('@/pages/example'),
+    meta: {
+      keepAlive: false
+    }
+  },
+  {
+    path: '/user/addEvaluation',
+    component: () => import('@/pages/user/addEvaluation'),
     meta: {
       keepAlive: false
     }

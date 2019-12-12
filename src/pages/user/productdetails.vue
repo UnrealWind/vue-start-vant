@@ -147,39 +147,30 @@
       </div>
     </div>
 
-    <div class="sale-evaluate">
+    <div v-if="good.orderAppraisesList && good.orderAppraisesList.length>0" class="sale-evaluate">
       <div class="wp fix">
         <div class="evaluate fix">
           <div class="l">
-            商品评价 <span> （{{ good.appraiseNum }}） </span>
+            商品评价 <span> （{{ good.orderAppraisesList.length }}） </span>
           </div>
-          <div class="r">
-            <span> 好评率94% <van-icon name="arrow" /> </span>
+          <div class="r" @click="$router.push({path:'/user/appraisesDetails',query:good})">
+            <span>查看全部 <van-icon name="arrow" /> </span>
           </div>
         </div>
-        <div>
-          <div class="logo">
+        <div v-for="(appraises, index) in good.orderAppraisesList.slice(0,1)" :key="index">
+          <!--<div class="logo">
             <img src="../../assets/img/logo.jpg" alt="">
             <span> 小**爱 </span>
+          </div>-->
+          <div class="content">
+            {{ appraises.userCode }}：{{ appraises.content|judNull }}
           </div>
           <div class="love">
-            <span> <van-icon name="star" /> <van-icon name="star" /> <van-icon name="star" /> <van-icon name="star" /> <van-icon name="star" /> </span>
-          </div>
-          <div class="content">
-            质量杠杠的，是真皮的，做工精细又美观，面料也很好，物流也很给力。颜色也很好。质量相当不错，非常完美，和图片.上描述的一-样，车险做工也很精细，款式很好看，摸起来有手感，款式好看,  背着很有气质
+            <span> <van-icon v-for="(n,idx) in appraises.goodsScore" :key="idx" name="star" :size="16"/>  </span>
           </div>
           <div class="product fix">
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
-            </div>
-            <div class="li">
-              <img src="../../assets/img/zonetu12.png" alt="">
+            <div v-for="(n,idx) in appraises.images" :key="idx" class="li">
+              <img :src="n.url" alt="">
             </div>
           </div>
         </div>
@@ -569,6 +560,9 @@
                 id: id
             })
             this.good = res.data
+            this.good.orderAppraisesList.forEach((n, i) => {
+                n.images = JSON.parse(n.images)
+            })
 
             // 超级适配器，目测大几十行
             this.goods.title = this.good.goodsName

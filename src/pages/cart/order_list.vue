@@ -72,6 +72,7 @@
                         <!--<van-button size="mini" class="font_bottom" @click="$router.push('/cart/stepspage')"> 查看物流 </van-button>-->
                         <van-button size="mini" class="font_bottom" @click="viewOrder(shop)"> 查看详情 </van-button>
                         <van-button v-if="shop.nodeCode === '2'" size="mini" class="font_bottom"> 确认收货 </van-button>
+                        <van-button size="mini" class="font_bottom" @click="evaluation(shop)"> 评价 </van-button>
                       </span>
                       <van-button v-if="shop.nodeCode!=='0'" size="mini" class="font_bottom" @click="refund(commodity)"> 售后 </van-button>
                       <van-button v-else size="mini" class="font_bottom" @click="refund(commodity)"> 售后 </van-button>
@@ -152,23 +153,23 @@
           tabArr: [
               {
                   label: '待付款',
-                  node_code: '0'
-              },
-              {
-                  label: '待发货',
                   node_code: '1'
               },
               {
-                  label: '待收货',
+                  label: '待发货',
                   node_code: '2'
               },
               {
-                  label: '待评价',
+                  label: '待收货',
                   node_code: '3'
               },
               {
-                  label: '已完成',
+                  label: '待评价',
                   node_code: '4'
+              },
+              {
+                  label: '已完成',
+                  node_code: '5'
               }
           ]
       }
@@ -220,6 +221,12 @@
                 'payType': this.payType
             })
             console.log(res)
+        },
+        evaluation(shop) {
+            this.$router.push({
+                path: '/user/addEvaluation',
+                query: shop
+            })
         },
         showPopup(shop) {
             this.targetOrder = shop
