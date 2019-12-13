@@ -182,6 +182,7 @@
     },
     methods: {
         async init() {
+            this.$route.query ? this.active = this.$route.query.node_code + 1 : ''
             try {
                 await this.getOrderList()
             } catch (e) {

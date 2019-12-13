@@ -56,20 +56,21 @@
             <van-icon name="balance-list-o" />
             <p> 待付款 </p>
           </div>
-          <div class="li" @click="$router.push('/cart/order_list')">
+          <div class="li" @click="$router.push({path:'/cart/order_list',query:{node_code:1}})">
             <van-icon name="todo-list-o" />
             <p> 待发货 </p>
           </div>
-          <div class="li" @click="$router.push('/cart/order_list')">
+          <div class="li" @click="$router.push({path:'/cart/order_list',query:{node_code:2}})">
             <van-icon name="logistics" />
             <p> 待收货 </p>
-          </div><div class="li">
+          </div>
+          <div class="li" @click="$router.push({path:'/cart/order_list',query:{node_code:3}})">
             <van-icon name="comment-o" />
             <p> 待评价 </p>
           </div>
-          <div class="li" @click="$router.push('/cart/order_list')">
+          <div class="li" @click="$router.push({path:'/cart/order_list',query:{node_code:4}})">
             <van-icon name="star-o" />
-            <p> 退款售后 </p>
+            <p> 已完成 </p>
           </div>
         </div>
 
