@@ -221,7 +221,9 @@
 
 </script>
 <style lang='scss' scoped>
-
+  >>>.header {
+    background: #f8f8f8;
+  }
   h1 {
     background: red;
     width: 375px;

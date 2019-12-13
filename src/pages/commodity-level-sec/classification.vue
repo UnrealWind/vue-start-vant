@@ -125,7 +125,6 @@
   > > > .main {
     background: #fff;
   }
-
   .van-image {
     width: 100%;
     height: 90px;
@@ -256,12 +255,14 @@
 
     .class_ul {
       margin-bottom: 10px;
+      overflow: hidden;
 
       .li {
         float: left;
         width: 32%;
         margin-left: 1%;
         margin-top: 20px;
+        overflow: hidden;
       }
 
       img {

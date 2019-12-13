@@ -148,11 +148,13 @@
             async getBannerData() {
                 const res = await this.$http.post('product/banner/list?showFlag=1')
                 const arr = []
+              if (res.rows) {
                 res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.url
-                    })
+                  arr.push({
+                    img: n.url
+                  })
                 })
+              }
                 this.bannerData = arr
             },
             // 超人气新品
@@ -161,20 +163,22 @@
                     activityCode: 'cf48dbb9013a418e87b8e47086cddc3b'
                 })
                 const arr = []
+              if (res.data) {
                 res.data.forEach((n, i) => {
-                    n.goods.forEach((good, i) => {
-                        arr.push({
-                            type: 'list-concentrate',
-                            image: require('assets/img/testtu1.png'),
-                            describe: '日1本1进1口',
-                            title: good.goodsProfile,
-                            concentratePrice: '121010',
-                            concentratePriceDiscribe: '新1品1福1￥',
-                            id: good.id,
-                            btnGo: `/user/productdetails?id=${good.id}`
-                        })
+                  n.goods.forEach((good, i) => {
+                    arr.push({
+                      type: 'list-concentrate',
+                      image: require('assets/img/testtu1.png'),
+                      describe: '日1本1进1口',
+                      title: good.goodsProfile,
+                      concentratePrice: '121010',
+                      concentratePriceDiscribe: '新1品1福1￥',
+                      id: good.id,
+                      btnGo: `/user/productdetails?id=${good.id}`
                     })
+                  })
                 })
+              }
                 this.concentrateData = arr
             },
             // tab栏

@@ -17,7 +17,9 @@
         class="van-swipe"
       >
         <van-swipe-item v-for="(item,index) in bannerData" :key="index">
-          <img :src="item.img" alt="">
+          <van-image :src="item.img">
+            <template v-slot:error>图片加载失败</template>
+          </van-image>
         </van-swipe-item>
       </van-swipe>
       <div class="p2">
@@ -34,18 +36,6 @@
             }}&gt;</a></p>
           </li>
         </ul>
-        <ul class="jxdpImgList flex_wrap jxdpImgList1">
-          <li v-for="(item,index) in dayNewChoicenessDatas" :key="index">
-            <a @click="$router.push({path:item.path,query:{id:item.id}})">
-              <van-image :src="item.img">
-                <template v-slot:error>图片加载失败</template>
-              </van-image>
-            </a>
-            <h1>{{ item.discounts }}</h1>
-            <p class="flex_center"><a @click="$router.push({path:item.path,query:{id:item.id}})">{{ item.store }}></a>
-            </p>
-          </li>
-        </ul>
         <div class="title_mrsx">精选商品</div>
         <div class="tuijianNav flex">
           <van-tabs v-model="active" @click="changeTab">
@@ -60,6 +50,7 @@
                     <div class="p3 flex_betweenc">
                       <p>
                         ¥ {{ opt.current }}
+                        <span class="separate">/</span>
                         <span>
                           ¥ {{ opt.pre }}
                         </span>
@@ -121,7 +112,6 @@
                     await this.getBannerData()
                     // 精选大牌
                     await this.getBrandData()
-                    await this.getBrandDatas()
                     // tab栏
                     await this.getDayNewTabData()
                     // tab栏下商品
@@ -141,6 +131,7 @@
                         img: n.url
                     })
                 })
+              console.log(arr)
                 this.bannerData = arr
             },
             // 精选大牌
@@ -161,24 +152,6 @@
                     })
                 }
                 this.dayNewChoicenessData = arr
-            },
-            async getBrandDatas() {
-                const res = await this.$http.post('product/goods/recommendGoodslist', {
-                    type: 1
-                })
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            store: n.goodsName,
-                            discounts: n.goodsProfile,
-                            img: n.mainImg,
-                            path: '/user/productdetails',
-                            id: n.id
-                        })
-                    })
-                }
-                this.dayNewChoicenessDatas = arr
             },
             // tab栏
             async getDayNewTabData() {
@@ -240,7 +213,15 @@
 <style lang='scss' scoped>
   .van-image {
     width: 100%;
-    height: 85%;
+    height: 80%;
+    overflow: hidden;
+  }
+  .van-swipe{
+    height: 120px;
+    overflow: hidden;
+    .van-image{
+      height: 100%;
+    }
   }
 
   .hint {
@@ -282,15 +263,18 @@
     line-height: 0.7rem;
     font-size: .4rem;
     margin-top: 30px;
+    margin-bottom: 15px;
   }
 
   .gwcLits li {
     width: 48%;
     height: 6.5rem;
+    overflow: hidden;
   }
 
   > > > .gwcLits li .van-image {
     height: 75%;
+    overflow: hidden;
   }
 
   > > > .gwcLits li .van-image__img {
@@ -320,7 +304,9 @@
   }
 
   .jxdpImgList li {
+    padding: 0;
     height: 7rem;
+    overflow: hidden;
   }
 
   > > > .jxdpImgList li img {
@@ -329,15 +315,21 @@
   }
 
   > > > .jxdpImgList1 li {
+    overflow: hidden;
     height: 5rem;
   }
 
   > > > .jxdpImgList1 li .van-image {
+    overflow: hidden;
     height: 80%;
   }
 
   > > > .jxdpImgList1 li img {
     height: 3.8rem;
+  }
+  .separate{
+    margin: 0 5px;
+    text-decoration: none !important;
   }
 
   @import "../../assets/css/static/css/app.css";

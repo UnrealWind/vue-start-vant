@@ -1,8 +1,11 @@
 <!-- home -->
 <template>
   <van-container :active="'cart'" :status="status" :tabbar="true">
-    <div slot="header" class="fix"></div>
-    <van-nav-bar title="购物车" color="#fff" />
+    <div slot="header" class="fix">
+      <div class="header_l2">
+        <div class="p"> 购物车</div>
+      </div>
+    </div>
     <div class="main">
       <div v-if="cartList.length >0" class="commodity">
         <div v-for="(shop, index) in cartList" :key="index" class="card_top">
@@ -346,6 +349,12 @@
 
 </script>
 <style lang="scss" scoped>
+>>>.header {
+  background: red;
+  .header_l2 {
+    text-align: center;
+  }
+}
 i {
   font-style: normal;
 }

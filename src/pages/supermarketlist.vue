@@ -95,6 +95,7 @@
             async getMarketTabData() {
                 const res = await this.$http.post(`product/content/selectById?level=3&id=${this.$route.query.id}`)
                 const arr = []
+              console.log(res)
                 for (const i in res.data.dictMap) {
                     arr.push({
                         label: res.data.dictMap[i],
@@ -118,7 +119,7 @@
                     res.data.forEach((n, i) => {
                         arr.push({
                             path: `/user/productdetails?id=${n.id}`,
-                            img: n.goodsStatics[i].url,
+                            img: n.goodsStatics[0].url,
                             title: n.goodsName,
                             intro: n.goodsgoodsProfile,
                             current: n.showPrice,
@@ -141,9 +142,11 @@
 
   .gwcLits {
     font-size: 14px;
+    justify-content: normal;
 
     li {
       width: 31%;
+      margin-right: 7px;
     }
 
     p {

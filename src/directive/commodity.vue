@@ -39,6 +39,9 @@
               <span class="current">
                 <i class="yuan">￥{{ indexPrice.current }}</i>
               </span>
+              <i class="separate">
+                /
+              </i>
               <span class="pre">
                 <i class="yuan">￥{{ indexPrice.pre }}</i>
               </span>
@@ -347,7 +350,7 @@
     .img-box {
       width:100%;
       height:140px;
-      border-radius:5px 5px 0px 0px;
+      border-radius:5px 5px 0 0;
       overflow: hidden;
       position: relative;
       .van-button {
@@ -375,16 +378,20 @@
       .price {
         display: inline-block;
         text-align: right;
-        margin:15px 0 0 0;
-        padding: 0 18px 0 0;
+        margin:15px 0 0 -10px;
         width:120px;
         font-size:15px;
-        color: #e90a00;
         font-weight: 700;
+        .current{
+          color: #e90a00;
+        }
         .pre {
           color:#ccc;
           text-decoration:line-through
         }
+      }
+      .separate{
+        margin: 0 5px;
       }
       .priceDiscribe {
         display: inline-block;

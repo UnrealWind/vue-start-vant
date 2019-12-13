@@ -25,7 +25,7 @@
       <div class="wp fix">
 
         <div class="sale_l l">
-          <div class="price"> ￥{{ priceArea }}  </div>
+          <div class="price"> ￥{{ good.showPrice }} / <span class="gray">￥{{ good.linePrice }}</span>  </div>
           <div v-if="false" class="end">
             <span> 距结束 </span> 4天 07:00：00
           </div>
@@ -166,7 +166,7 @@
             {{ appraises.userCode }}：{{ appraises.content|judNull }}
           </div>
           <div class="love">
-            <span> <van-icon v-for="(n,idx) in appraises.goodsScore" :key="idx" name="star" :size="16"/>  </span>
+            <span> <van-icon v-for="(n,idx) in appraises.goodsScore" :key="idx" name="star" :size="16" />  </span>
           </div>
           <div class="product fix">
             <div v-for="(n,idx) in appraises.images" :key="idx" class="li">
@@ -728,7 +728,15 @@
 
 </script>
 <style lang='scss' scoped>
-
+  >>>.header {
+    background: rgba(0,0,0,0);
+  }
+  >>>.scroll {
+    padding-top: 0;
+  }
+  .gray {
+    text-decoration:line-through
+  }
   .main{
     background: #f8f8f8;
   }

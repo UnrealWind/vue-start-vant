@@ -26,6 +26,9 @@
         </van-cell-group>
       </div>
     </div>
+    <p v-else class="nInfo">
+      暂无消息！！
+    </p>
   </van-container>
 </template>
 
@@ -76,7 +79,14 @@
 
 </script>
 <style lang='scss' scoped>
-
+  >>>.header{
+    background: #f8f8f8
+  }
+  .nInfo {
+    margin-top:80px;
+    text-align: center;
+    font-size:15px;
+  }
   h1 {
     background: red;
     width: 375px;

@@ -105,10 +105,10 @@ export default {
     async login() {
       const res = await this.$http({
         method: 'post',
-        url: `login?username=17342062325&password=123456&rememberMe=true`,
+        url: `login?username=${this.user}&password=${this.password}&rememberMe=true`,
         data: {
-          username: '17342062325',
-          password: '123456',
+          username: this.user,
+          password: this.password,
           rememberMe: true
         }
       })
@@ -131,7 +131,7 @@ export default {
         Toast('请填写密码')
         return false
       }
-      const res = await this.$http.post('user/userRegistration/register', {
+      await this.$http.post('user/userRegistration/register', {
         phoneNum: this.phone,
         type: '0',
         code: this.sms,
@@ -139,7 +139,6 @@ export default {
         nickName: this.user,
         pid: this.pid
       })
-      console.log(res)
       this.$router.push('/')
       this.login()
     },

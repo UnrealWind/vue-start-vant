@@ -3,50 +3,20 @@
     <!-- 头部 -->
     <div slot="header" class="fix">
       <span @click="$router.back()"> <van-icon name="arrow-left" /> </span>
-      注册电商app
+      会员升级
     </div>
     <div class="main">
-      <div class="name clearfix">
-        <div class="logo fl">
-          <img src="../../src/assets/img/logo.jpg" alt>
-        </div>
-        <div class="fl text">
-          <p>
-            Hi,我是
-            <i>云妈妈公益</i>
-          </p>
-          <p>分享一个正品购物平台给你~</p>
-        </div>
-      </div>
-      <!-- 会员卡部分 -->
-      <div class="card clearfix">
-        <div class="pic">
-          <img src="../../src/assets/img/图层 1.png" alt>
-        </div>
-        <ul class="">
-          <li>
-            <img src="../../src/assets/img/图层 2.png" alt>
-            <p>尊享礼包</p>
-          </li>
-          <li>
-            <img src="../../src/assets/img/图层 3.png" alt>
-            <p>年省5000元</p>
-          </li>
-          <li>
-            <img src="../../src/assets/img/图层 4.png" alt>
-            <p>最高返利40%</p>
-          </li>
-          <li>
-            <img src="../../src/assets/img/图层 5.png" alt>
-            <p>3000+品牌</p>
-          </li>
-        </ul>
+      <div class="topImgBox">
+        <img src="../assets/img/VipTop.png" alt="">
       </div>
       <!-- 礼包部分 -->
       <div class="gift clearfix">
         <div class="title">
-          <img src="../../src/assets/img/钻石.jpg" alt>
-          <span>请选择任一礼包，购买注册</span>
+          <div class="firstLine">
+            购买以下产品
+            <img src="../../src/assets/img/VIP.png" alt>
+          </div>
+          <span>即可升级永久钻石VIP</span>
         </div>
         <!-- commodity 商品 -->
         <div class="commodity">
@@ -56,209 +26,154 @@
               :key="index"
               @click="$router.push({path:item.path,query:{id:item.id}})"
             >
-              <div>
+              <div class="imgBox">
                 <img :src="item.image" alt>
               </div>
-              <div class="label">{{ item.discribe }}</div>
               <span class="tag">{{ item.title }}</span>
+              <span class="intro">{{ item.discribe }}</span>
               <span class="money">
                 ￥ {{ item.current }}
-                <i style="text-decoration:line-through">市场价：{{ item.pre }}</i>
+              </span>
+            </li>
+            <li
+              v-for="(item,index) in registeredItemsData"
+              :key="index"
+              @click="$router.push({path:item.path,query:{id:item.id}})"
+            >
+              <div class="imgBox">
+                <img :src="item.image" alt>
+              </div>
+              <span class="tag">{{ item.title }}</span>
+              <span class="intro">{{ item.discribe }}</span>
+              <span class="money">
+                ￥ {{ item.current }}
               </span>
             </li>
           </ul>
         </div>
       </div>
-      <!-- brand 商标 -->
-      <div class="brand">
-        <h2>·一线大牌直供·</h2>
-        <span>直接与品牌合作，从源头确保低价正品</span>
-        <div class="pic">
-          <img src="../../src/assets/img/图层 9.png" alt>
+      <div class="bottomImgBox">
+        <div class="bottomTitle">
+          <div class="firstLine">
+            部分入驻品牌
+            <img src="../../src/assets/img/brand.png" alt>
+          </div>
+          <span>SOME BRANDS SETTLED IN</span>
         </div>
+        <img src="../assets/img/VipBottom.png" alt="">
       </div>
     </div>
   </van-container>
 </template>
 <script>
-    import { Icon } from 'vant'
+  import { Icon } from 'vant'
 
-    export default {
-        components: {
-            'van-icon': Icon
-        },
-        data() {
-            return {
-                status: 'loading',
-                registeredItemsData: []
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    await this.getRegisteredItemsData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            async getRegisteredItemsData() {
-                const res = await this.$http.post('product/goods/listByRegister')
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        arr.push({
-                            image: require('../../src/assets/img/图层 6.png'),
-                            title: n.goodsName,
-                            discribe: n.goodsProfile,
-                            current: '200',
-                            pre: n.linePrice,
-                            path: '/user/productdetails',
-                            id: n.id
-                        })
-                    })
-                }
-                this.registeredItemsData = arr
-            }
+  export default {
+    components: {
+      'van-icon': Icon
+    },
+    data() {
+      return {
+        status: 'loading',
+        registeredItemsData: []
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          await this.getRegisteredItemsData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      async getRegisteredItemsData() {
+        const res = await this.$http.post('product/goods/listByRegister')
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            arr.push({
+              image: require('../../src/assets/img/图层 6.png'),
+              title: n.goodsName,
+              discribe: n.goodsProfile,
+              current: '200',
+              pre: n.linePrice,
+              path: '/user/productdetails',
+              id: n.id
+            })
+          })
+        }
+        this.registeredItemsData = arr
+      }
     }
+  }
 </script>
 
 <style lang="scss" scoped>
+  >>>.header {
+    background: #312F3B;
+  }
   i {
     font-style: normal;
   }
 
+  img {
+    vertical-align: middle;
+  }
+
   .main {
-    background: #fff;
+    background: #312F3B;
   }
 
   .fix {
     *zoom: 1;
-    /*position: relative;*/
     height: 1.3rem;
     border-bottom: 0.01rem solid rgb(220, 220, 220);
     font-size: 0.45rem;
     line-height: 1.3rem;
     text-align: center;
-    background: #fff;
-    color: #000;
+    background: #312F3B;
+    color: #fff;
 
     .van-icon {
       position: absolute;
       left: 14px;
-      top: 14px;
+      top: 43px;
       font-size: 0.5rem;
     }
   }
 
-  .name {
-    height: 2rem;
-    margin-top: 1.3rem;
-    margin-left: 0.3rem;
-    padding-top: 0.3rem;
-
-    .logo {
-      float: left;
-      margin-right: 0.3rem;
-
-      img {
-        height: 1.2rem;
-        text-align: center;
-      }
-    }
-
-    .text {
-      p:nth-child(1) {
-        font-size: 0.4rem;
-        color: #989898;
-
-        i {
-          font-weight: 700;
-          color: #000;
-        }
-      }
-
-      p:nth-child(2) {
-        font-size: 0.4rem;
-        font-weight: 500;
-      }
-    }
-  }
-
-  .card {
-    text-align: center;
-    height: 9rem;
-
-    .pic {
-      background: -webkit-linear-gradient(left, #fba96c, #fe8271);
-      padding-top: 0.4rem;
-
-      img {
-        width: 9.6rem;
-        vertical-align: middle;
-        border-radius: 8%;
-      }
-    }
-
-    ul {
-      li {
-        float: left;
-        padding: 0.8rem 0;
-        width: 25%;
-        text-align: center;
-
-        img {
-          width: 1.5rem;
-        }
-
-        p {
-          text-align: center;
-          font-size: 3px;
-        }
-      }
+  .topImgBox {
+    img {
+      width: 100%;
     }
   }
 
   .gift {
+    padding-top: 10px;
+    margin-top: 10px;
+    background: url("../assets/img/VipBackGround.png") repeat-y;
+
     .title {
-      margin: 0 2rem;
-      position: relative;
+      text-align: center;
+      font-size: 16px;
+      color: #000000;
+      font-weight: 600;
+      letter-spacing: 1px;
 
-      img {
-        height: 0.45rem;
-        vertical-align: middle;
-        position: relative;
-        top: -3px;
-      }
+      .firstLine {
+        margin-bottom: 10px;
+        padding-left: 25px;
 
-      span {
-        font-size: 0.45rem;
-        font-weight: 700;
-      }
-
-      i {
-        display: block;
-        width: 0.9rem;
-        height: 0.05rem;
-        background-color: #949494;
-      }
-
-      .line-left {
-        position: absolute;
-        top: 22px;
-        left: -58px;
-      }
-
-      .line-right {
-        position: absolute;
-        top: 22px;
-        right: -50px;
+        img {
+          width: 40px;
+          vertical-align: bottom;
+        }
       }
     }
 
@@ -270,270 +185,82 @@
           float: left;
           width: 4.4rem;
           height: 6.25rem;
-          text-align: center;
           margin-bottom: 0.4rem;
-          padding-top: 0.8rem;
+          padding: 20px 10px;
           box-sizing: border-box;
           border: 0.02rem solid #f1f1f1;
-          border-radius: 10%;
+          border-radius: 10px;
+          background-color: #fff;
 
           &:nth-child(2n-1) {
             margin-right: 0.74rem;
           }
 
-          img {
-            width: 3.4rem;
-          }
-
-          .label {
-            height: 0.54rem;
-            width: 3.26rem;
-            background-color: red;
-            border-radius: 0 20px 20px 0;
-            color: #fff;
+          .imgBox {
             text-align: center;
-            padding-top: 0.13rem;
-            margin-bottom: 0.3rem;
-          }
+            margin-bottom: 20px;
 
-          span {
-            display: block;
-            margin-left: 0.2rem;
+            img {
+              width: 3.4rem;
+            }
           }
 
           .tag {
+            margin-bottom: 10px;
             font-size: 0.28rem;
             text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: bolder;
+          }
+
+          .intro {
+            display: block;
+            margin-bottom: 25px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
 
           .money {
+            display: block;
             font-size: 0.42rem;
-            color: red;
-
-            i {
-              font-size: 0.3rem;
-              color: #c6c6c6;
-              margin-left: 0.36rem;
-            }
+            color: #000000;
           }
         }
       }
     }
   }
 
-  .tradePrice {
-    padding: 0 0.9rem;
+  .bottomImgBox {
+    padding: 15px 10px;
+    background-color: #4A4357;
 
-    .title {
-      height: 2.1rem;
+    .bottomTitle {
+      padding-top: 30px;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
 
-      span {
-        display: block;
-        text-align: center;
-      }
-
-      span:nth-child(1) {
-        font-size: 0.75rem;
-        margin-bottom: 0.2rem;
-      }
-
-      span:nth-child(2) {
-        font-size: 0.44rem;
-        color: #818181;
-      }
-    }
-
-    ul {
-      li {
-        margin-bottom: 1rem;
-
-        .pic {
-          float: left;
-
-          img {
-            height: 2.5rem;
-            vertical-align: middle;
-          }
-        }
-
-        .text {
-          float: left;
-          width: 5.1rem;
-          margin-left: 0.18rem;
-
-          span {
-            width: 6rem;
-            font-size: 0.4rem;
-
-            i {
-              color: red;
-            }
-          }
-
-          i:nth-child(2) {
-            margin-top: 0.56rem;
-            margin-bottom: 0.1rem;
-            display: block;
-            color: red;
-          }
-
-          i:nth-child(3) {
-            display: block;
-            color: #c6c6c6;
-          }
+      .firstLine {
+        color: #fff;
+        margin-bottom: 10px;
+        padding-left: 25px;
+        font-size: 22px;
+        img {
+          width: 40px;
+          vertical-align: middle;
         }
       }
-    }
-  }
-
-  .cutOff {
-    padding: 0 0.4rem;
-    height: 0.3rem;
-    margin-bottom: 1.2rem;
-
-    i:nth-child(2n-1) {
-      display: inline-block;
-      width: 4.32rem;
-      height: 0.02rem;
-      background-color: #efefef;
-    }
-
-    i:nth-child(2) {
-      display: inline-block;
-      width: 0.2rem;
-      height: 0.2rem;
-      border-radius: 50%;
-      background-color: #efefef;
-    }
-  }
-
-  .share {
-    margin-bottom: 0.68rem;
-
-    .title {
-      height: 2.1rem;
-
-      span {
-        display: block;
-        text-align: center;
-      }
-
-      span:nth-child(1) {
-        font-size: 0.75rem;
-        margin-bottom: 0.2rem;
-      }
-
-      span:nth-child(2) {
-        font-size: 0.44rem;
-        color: #818181;
+      span{
+        font-size: 14px;
+        color: #dddddd;
       }
     }
 
-    ul {
+    img:last-child {
       width: 100%;
-
-      li {
-        width: 50%;
-        float: left;
-
-        .pic {
-          text-align: center;
-
-          img {
-            width: 3rem;
-          }
-        }
-
-        span {
-          display: block;
-          text-align: center;
-        }
-
-        span:nth-child(2) {
-          color: red;
-          font-size: 0.4rem;
-
-          i {
-            font-size: 0.56rem;
-          }
-        }
-
-        span:nth-child(3),
-        span:nth-child(4) {
-          color: #adadad;
-        }
-      }
-    }
-  }
-
-  .brand {
-    background-color: red;
-    text-align: center;
-    padding: 0.6rem 0.3rem;
-
-    h2 {
-      color: #fff;
-      margin: 0.58rem auto;
-    }
-
-    span {
-      color: #fff;
-      font-size: 0.4rem;
-    }
-
-    .pic {
-      padding-top: 0.3rem;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    .list {
-      ul {
-        li {
-          background: -webkit-linear-gradient(left, #ffe4b6, #fe9f56);
-          height: 3.2rem;
-          border-radius: 0.3rem;
-          padding-left: 0.7rem;
-          padding-top: 0.2rem;
-          margin-bottom: 0.15rem;
-          text-align: center;
-
-          .pic {
-            float: left;
-
-            img {
-              float: left;
-              width: 2rem;
-            }
-          }
-
-          .text {
-            span {
-              display: block;
-            }
-
-            & span:nth-child(1) {
-              font-size: 0.43rem;
-              color: #000;
-              margin-bottom: 0.38rem;
-
-              i {
-                font-size: 0.74rem;
-              }
-            }
-
-            & span:nth-child(2) {
-              font-size: 0.3rem;
-              color: #a67c51;
-            }
-          }
-        }
-      }
-    }
-    >>>.list-rebate-box{
-      margin-top: 25px;
     }
   }
 </style>

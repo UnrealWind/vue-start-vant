@@ -105,12 +105,6 @@
 
 </script>
 <style lang='scss' scoped>
-  >>>.header .fix{
-    padding-top:30px;
-    .hesde_l {
-      top:35px;
-    }
-  }
   .hint {
     margin-top: 20px;
     font-size: 14px;

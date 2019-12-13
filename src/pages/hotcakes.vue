@@ -126,17 +126,20 @@
                 if (!category) category = this.navList[0].key
                 const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
                 const arr = []
+              console.log(res.data)
+              if (res.data) {
                 res.data.forEach((n, i) => {
-                    arr.push({
-                        type: 'list-concentrate',
-                        image: n.goodsStatics[i].url,
-                        discribe: n.goodsProfile,
-                        title: n.goodsName,
-                        concentratePrice: n.linePrice + '',
-                        concentratePriceDiscribe: '￥',
-                        btnGo: `/user/productdetails?id=${n.id}`
-                    })
+                  arr.push({
+                    type: 'list-concentrate',
+                    image: n.goodsStatics[0].url,
+                    discribe: n.goodsProfile,
+                    title: n.goodsName,
+                    concentratePrice: n.linePrice + '',
+                    concentratePriceDiscribe: '￥',
+                    btnGo: `/user/productdetails?id=${n.id}`
+                  })
                 })
+              }
                 this.hotData = arr
             }
         }
@@ -222,7 +225,7 @@
   .hesde_l4 {
     position: absolute;
     right: 15px;
-    top: 5px;
+    top: 33px;
     font-size: 20px;
     color: #333;
   }

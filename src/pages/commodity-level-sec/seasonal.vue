@@ -32,7 +32,7 @@
             <span>{{ item.title }}</span>
           </a>
         </li>
-        <li class="more">
+        <li v-if="false" class="more">
           <a @click="$router.push('/commodityLevelSec/classification')">
             <p class="flex_center"><img src="../../assets/css/static/images/more.png" alt=""></p>
             <span>更多分类</span>
@@ -40,25 +40,34 @@
         </li>
       </ul>
     </div>
-    <!-- 镇店之宝 -->
+    <!-- 活动 -->
     <div v-for="(activity,actIndex) in activityData" :key="actIndex" class="p2">
       <div class="tuijian2 flex_center">
         <p class="p1">{{ activity.activityName }}</p>
         <p class="p2">每天三波福利 新鲜来袭</p>
       </div>
-      <ul class="Treasure_list Treasure_top">
+      <ul v-if="false" class="Treasure_list Treasure_top clearfix">
         <li v-for="(item,index) in activity.children" :key="index" class="li1">
           <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
+            <img :src="item.goodsStatics[0].url" alt="">
             <div class="contBox box_sizing">
-              <p class="s1">{{ item.goodsName }}</p>
-              <p class="s0">___</p>
               <p class="s2">{{ item.goodsName }}</p>
               <p class="s3">{{ item.goodsProfile }}</p>
-              <!--              <span class="s41">惊爆价</span>-->
               <p class="s4"><span class="s42">{{ item.showPrice }}</span>元
               </p>
             </div>
-            <img :src="item.goodsStatics[0].url" alt="">
+          </a>
+        </li>
+      </ul>
+      <ul class="flex_wrap gwcLits gwcLits_SG">
+        <li v-for="(item,index) in activity.children" :key="index">
+          <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
+            <van-image :src="item.goodsStatics[0].url" style="height: 70%;">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
+            <p class="p1">{{ item.goodsName }}</p>
+            <p class="p1">{{ item.goodsProfile }}</p>
+            <div class="p3 flex_betweenc"><p>¥ {{ item.showPrice }}</p></div>
           </a>
         </li>
       </ul>
@@ -94,163 +103,167 @@
 </template>
 
 <script>
-    import { Icon, Tab, Tabs, Image } from 'vant'
+  import { Icon, Tab, Tabs, Image } from 'vant'
 
-    export default {
-        components: {
-            'van-icon': Icon,
-            'van-tab': Tab,
-            'van-tabs': Tabs,
-            'van-image': Image
-        },
-        data() {
-            return {
-                active: 0,
-                status: 'loading',
-                tabShow: false,
-                seasonalNavData: [],
-                seasonalHalfPriceData: [],
-                seasonalTopOneData: [],
-                seasonalHotStyleData: [],
-                seasonalProductListData: [],
-                seasonalCategoryData: [],
-                activityData: []
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    await this.getSeasonalData()
-                    await this.getSeasonalNavData()
-                    await this.getSeasonalProductListData()
-                    // 活动
-                    await this.getActivityData()
-                    // 半价试吃
-                    // await this.getHalfPriceData()
-                    // 镇店之宝
-                    // 爆款直降
-                    // await this.getHotStyleData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            // 导航数据
-            async getSeasonalNavData() {
-                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            img: n.logo,
-                            title: n.name,
-                            path: n.url,
-                            id: n.id
-                        })
-                    })
-                }
-                this.seasonalNavData = arr
-            },
-            // tab栏数据
-            async getSeasonalData() {
-                const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
-                const arr = []
-                for (const i in res.data.dictMap) {
-                    arr.push({
-                        label: res.data.dictMap[i],
-                        key: i
-                    })
-                }
-                this.seasonalCategoryData = arr
-            },
-            async changeTab(idx, title) {
-                this.tabShow = false
-                await this.getSeasonalProductListData(this.seasonalCategoryData[idx].key)
-                if (this.seasonalProductListData.length === 0) {
-                    this.tabShow = true
-                }
-            },
-            // tab栏下商品数据
-            async getSeasonalProductListData(category) {
-                if (!category) category = this.seasonalCategoryData[0].key
-                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                const arr = []
-                const allImgArr = []
-                const imgArr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goodsStatics.forEach((img, i) => {
-                            allImgArr.push({
-                                img: img.url,
-                                key: img.spuStaticType
-                            })
-                        })
-                        arr.push({
-                            title: n.goodsName,
-                            id: n.id,
-                            current: n.showPrice,
-                            pre: n.linePrice,
-                            path: `/user/productdetails?id=${n.id}`
-                        })
-                    })
-                    allImgArr.forEach((n, i) => {
-                        if (n.key === 0) {
-                            imgArr.push({
-                                img: n.img
-                            })
-                        }
-                    })
-                }
-                this.seasonalProductListData = arr.map(function(item, index) {
-                    return { ...item, ...imgArr[index] }
-                })
-            },
-            // 活动
-            async getActivityData() {
-                const res = await this.$http.post('product/activity/contentActivityRel', {
-                    contentId: this.$route.query.id
-                })
-                if (res.data) {
-                    res.data.forEach(async(n, i) => {
-                        const res = await this.getTopOneData(n.activityCode)
-                        this.$set(n, 'children', res.data[0].goods)
-                    })
-                }
-                this.activityData = res.data
-            },
-
-            // 镇店之宝
-            async getTopOneData(activityCode) {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: activityCode
-                })
-                return res
-            }
+  export default {
+    components: {
+      'van-icon': Icon,
+      'van-tab': Tab,
+      'van-tabs': Tabs,
+      'van-image': Image
+    },
+    data() {
+      return {
+        active: 0,
+        status: 'loading',
+        tabShow: false,
+        seasonalNavData: [],
+        seasonalHalfPriceData: [],
+        seasonalTopOneData: [],
+        seasonalHotStyleData: [],
+        seasonalProductListData: [],
+        seasonalCategoryData: [],
+        activityData: []
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          await this.getSeasonalData()
+          await this.getSeasonalNavData()
+          await this.getSeasonalProductListData()
+          // 活动
+          await this.getActivityData()
+          // 半价试吃
+          // await this.getHalfPriceData()
+          // 镇店之宝
+          // 爆款直降
+          // await this.getHotStyleData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      // 导航数据
+      async getSeasonalNavData() {
+        const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              img: n.logo,
+              title: n.name,
+              path: n.url,
+              id: n.id
+            })
+          })
+        }
+        this.seasonalNavData = arr
+      },
+      // tab栏数据
+      async getSeasonalData() {
+        const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
+        const arr = []
+        for (const i in res.data.dictMap) {
+          arr.push({
+            label: res.data.dictMap[i],
+            key: i
+          })
+        }
+        this.seasonalCategoryData = arr
+      },
+      async changeTab(idx, title) {
+        this.tabShow = false
+        await this.getSeasonalProductListData(this.seasonalCategoryData[idx].key)
+        if (this.seasonalProductListData.length === 0) {
+          this.tabShow = true
+        }
+      },
+      // tab栏下商品数据
+      async getSeasonalProductListData(category) {
+        if (!category) category = this.seasonalCategoryData[0].key
+        const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+        const arr = []
+        const allImgArr = []
+        const imgArr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            n.goodsStatics.forEach((img, i) => {
+              allImgArr.push({
+                img: img.url,
+                key: img.spuStaticType
+              })
+            })
+            arr.push({
+              title: n.goodsName,
+              id: n.id,
+              current: n.showPrice,
+              pre: n.linePrice,
+              path: `/user/productdetails?id=${n.id}`
+            })
+          })
+          allImgArr.forEach((n, i) => {
+            if (n.key === 0) {
+              imgArr.push({
+                img: n.img
+              })
+            }
+          })
+        }
+        this.seasonalProductListData = arr.map(function(item, index) {
+          return { ...item, ...imgArr[index] }
+        })
+      },
+      // 活动
+      async getActivityData() {
+        const res = await this.$http.post('product/activity/contentActivityRel', {
+          contentId: this.$route.query.id
+        })
+        if (res.data) {
+          res.data.forEach(async(n, i) => {
+            const res = await this.getTopOneData(n.activityCode)
+            this.$set(n, 'children', res.data[0].goods)
+          })
+        }
+        this.activityData = res.data
+      },
+
+      // 镇店之宝
+      async getTopOneData(activityCode) {
+        const res = await this.$http.post('product/activity/activityGoodsList', {
+          activityCode: activityCode
+        })
+        return res
+      }
     }
+  }
 </script>
 <style lang='scss' scoped>
-  *{
+  * {
     font-size: 14px;
   }
+
   .hint {
     font-size: 14px;
     text-align: center;
     margin-bottom: 100px;
   }
 
-  .title_nav{
+  .title_nav {
     font-size: 14px;
+  }
+  >>>.header {
+    background: #04c16f;
   }
 
   .fix {
     background-color: #04c16f;
-    height: 37.5px;
+    height: 40px;
   }
 
   .header_l {
@@ -277,12 +290,14 @@
 
   .swiper-wrapper .swiper-slide {
     width: 25%;
+    overflow: hidden;
   }
-
-  .Treasure_list li {
-    background: #fff;
+  .tuijian2{
+    margin-bottom: 55px;
   }
-
+  .Treasure_list2 li{
+    overflow: hidden;
+  }
   .Treasure_list2 li img {
     position: static;
     width: 100%;
@@ -291,13 +306,17 @@
 
   .gwcLits li {
     width: 48%;
+    height: 260px;
+    overflow: hidden;
   }
 
   .van-image {
     width: 100%;
     height: 75%;
+    overflow: hidden;
   }
-  >>> .van-image .van-image__img {
+
+  > > > .van-image .van-image__img {
     height: 5rem;
   }
 
@@ -329,6 +348,10 @@
 
   .p2 {
     margin-bottom: 30px;
+  }
+  .imgBox{
+    height: 135px;
+    overflow: hidden;
   }
 
   @import "../../assets/css/static/css/app.css";

@@ -35,7 +35,9 @@
           indicator-color="white"
         >
           <van-swipe-item v-for="(item,index) in bannerData" :key="index">
-            <img :src="item.img" alt="">
+            <van-image :src="item.img">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -64,6 +66,9 @@
             </a>
           </li>
         </ul>
+        <div v-show="todayErrBox" class="errorBox">
+          该活动下暂无商品
+        </div>
       </div>
       <!-- 热门榜单 -->
       <div class="Storefront publicBox mt3 Storefront1">
@@ -86,7 +91,11 @@
               item.title }}</a></p>
           </li>
         </ul>
-        <ul class="bangdan2 flex_betweenc">
+        <div v-show="hotErrBox" class="errorBox">
+          该活动下暂无商品
+        </div>
+
+        <ul v-if="false" class="bangdan2 flex_betweenc">
           <li v-for="(item,index) in crossBorderHotListData" :key="index" class="flex_betweenc li1">
             <p class="flex_center"><img :src="item.image" alt=""></p>
             <a @click="$router.push({path:item.path,query:{id:item.id,title: item.title}})">{{ item.title }}></a>
@@ -94,16 +103,13 @@
         </ul>
       </div>
       <!-- 品牌 -->
-      <ul class="publicBox logo_ification flex_wrap mt3">
-        <li v-for="(item,index) in crossBorderBrandData" :key="index">
-          <a @click="$router.push({path:'/store',query:{shopCode: item.shopCode}})">
-            <p class="p1 flex_center">
-              <van-image :src="item.image">
-                <template v-slot:error>加载失败</template>
-              </van-image>
-            </p>
-            <p class="p2"></p>
-            <p class="p3">{{ item.title }}</p>
+      <ul class="publicBox logo_ification flex_wrap">
+        <li v-for="(items, indexs) in crossBorderBrandData" :key="indexs">
+          <a @click="$router.push({path:'/store',query:{shopCode: items.shopCode}})">
+            <van-image :src="items.image">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
+            <p class="p3">{{ items.title }}</p>
           </a>
         </li>
       </ul>
@@ -121,188 +127,212 @@
           </a>
         </li>
       </ul>
+      <div v-show="jrtjErrBox" class="jrtjerrorBox">
+        该活动下暂无商品
+      </div>
     </div>
   </van-container>
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Image } from 'vant'
 
-    export default {
-        components: {
-            'van-icon': Icon,
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
-            'van-image': Image
-        },
-        data() {
-            return {
-                status: 'loading',
-                // 轮播图
-                bannerData: [],
-                // nav
-                crossBorderNavData: [],
-                // 活动
-                activityData: [],
-                // 今日必抢
-                crossBorderRobData: [],
-                // 热门榜单
-                crossBorderHotListData: [],
-                // 今日推荐
-                crossBorderProductListData: [],
-                crossBorderBrandData: [],
-                // 种草推荐
-                crossBorderRecommendData: [],
-                sonData: []
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    // 轮播图
-                    this.getBannerData()
-                    // nav
-                    await this.getCrossBorderNavData()
-                    // 活动
-                    await this.getActivityData()
-                    // 今日必抢
-                    await this.getRobData()
-                    // 热门榜单
-                    await this.getHotListData()
-                    // 品牌列表
-                    await this.getBrandListData()
-                    // 今日推荐
-                    await this.getTodayRecommendData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            // 轮播图
-            async getBannerData() {
-                const res = await this.$http.post(`product/banner/list?showFlag=2`)
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            img: n.url
-                        })
-                    })
-                }
-                this.bannerData = arr
-            },
-            // 导航nav
-            async getCrossBorderNavData() {
-                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            img: n.logo,
-                            categoryName: n.name,
-                            path: n.url,
-                            id: n.id
-                        })
-                    })
-                }
-                this.crossBorderNavData = arr
-            },
-            // 活动
-            async getActivityData() {
-                const res = await this.$http.post('product/activity/contentActivityRel', {
-                    contentId: this.$route.query.id
-                })
-                res.data.forEach(async(n, i) => {
-                    const res = await this.getRobData(n.activityCode)
-                    this.$set(n, 'children', res.data[0].goods)
-                })
-                this.activityData = res.data
-            },
-            // 今日必抢
-            async getRobData(activityCode) {
-                return await this.$http.post(`product/activity/activityGoodsList`, {
-                    activityCode: activityCode
-                })
-            },
-            // 热门榜单
-            async getHotListData() {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
-                })
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        arr.push({
-                            title: n.actDetailName,
-                            image: n.logo,
-                            path: `/productlistmin`,
-                            id: n.id
-                        })
-                    })
-                }
-                this.crossBorderHotListData = arr
-            },
-            // 品牌列表
-            async getBrandListData() {
-                const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=6', {
-                    'dataType': 'json',
-                    'method': 'post',
-                    'data': {}
-                })
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            image: n.logo,
-                            title: n.shopName,
-                            id: n.id,
-                            shopCode: n.shopCode
-                        })
-                    })
-                }
-                this.crossBorderBrandData = arr
-            },
-            // 今日推荐
-            async getTodayRecommendData() {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: '5670925cb2b84399961c9a15a3bb4cd4'
-                })
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goods.forEach((good, i) => {
-                            arr.push({
-                                image: good.goodsStatics[i].url,
-                                title: good.goodsName,
-                                current: good.showPrice, // 现价
-                                pre: good.linePrice, // 原价
-                                path: '/user/productdetails',
-                                id: good.id
-                            })
-                        })
-                    })
-                }
-                this.crossBorderProductListData = arr
-            }
+  export default {
+    components: {
+      'van-icon': Icon,
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem,
+      'van-image': Image
+    },
+    data() {
+      return {
+        status: 'loading',
+        todayErrBox: false,
+        hotErrBox: false,
+        jrtjErrBox: false,
+        // 轮播图
+        bannerData: [],
+        // nav
+        crossBorderNavData: [],
+        // 活动
+        activityData: [],
+        // 今日必抢
+        crossBorderRobData: [],
+        // 热门榜单
+        crossBorderHotListData: [],
+        // 今日推荐
+        crossBorderProductListData: [],
+        crossBorderBrandData: [],
+        // 种草推荐
+        crossBorderRecommendData: [],
+        sonData: []
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          // 轮播图
+          this.getBannerData()
+          // nav
+          await this.getCrossBorderNavData()
+          // 活动
+          await this.getActivityData()
+          // 今日必抢
+          await this.getRobData()
+          // 热门榜单
+          await this.getHotListData()
+          // 品牌列表
+          await this.getBrandListData()
+          // 今日推荐
+          await this.getTodayRecommendData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      // 轮播图
+      async getBannerData() {
+        const res = await this.$http.post(`product/banner/list?showFlag=2`)
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              img: n.url
+            })
+          })
+        }
+        this.bannerData = arr
+      },
+      // 导航nav
+      async getCrossBorderNavData() {
+        const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              img: n.logo,
+              categoryName: n.name,
+              path: n.url,
+              id: n.id
+            })
+          })
+        }
+        this.crossBorderNavData = arr
+      },
+      // 活动
+      async getActivityData() {
+        const res = await this.$http.post('product/activity/contentActivityRel', {
+          contentId: this.$route.query.id
+        })
+        this.todayErrBox = false
+        if (res.data) {
+          res.data.forEach(async(n, i) => {
+            if (n[i]) {
+              const res = await this.getRobData(n.activityCode)
+              this.$set(n, 'children', res.data[0].goods)
+            } else {
+              this.todayErrBox = true
+            }
+          })
+        }
+        this.activityData = res.data
+      },
+      // 今日必抢
+      async getRobData(activityCode) {
+        return await this.$http.post(`product/activity/activityGoodsList`, {
+          activityCode: activityCode
+        })
+      },
+      // 热门榜单
+      async getHotListData() {
+        const res = await this.$http.post('product/activity/activityGoodsList', {
+          activityCode: 'e211c6bf6edf4b1aaaa4d80b568c4fdb'
+        })
+        this.hotErrBox = false
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            arr.push({
+              title: n.actDetailName,
+              image: n.logo,
+              path: `/productlistmin`,
+              id: n.id
+            })
+          })
+        } else {
+          this.hotErrBox = true
+        }
+        this.crossBorderHotListData = arr
+      },
+      // 品牌列表
+      async getBrandListData() {
+        const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=6', {
+          'dataType': 'json',
+          'method': 'post',
+          'data': {}
+        })
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              image: n.logo,
+              title: n.shopName,
+              id: n.id,
+              shopCode: n.shopCode
+            })
+          })
+        }
+        this.crossBorderBrandData = arr
+      },
+      // 今日推荐
+      async getTodayRecommendData() {
+        const res = await this.$http.post('product/activity/activityGoodsList', {
+          activityCode: '5670925cb2b84399961c9a15a3bb4cd4'
+        })
+        this.jrtjErrBox = false
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            n.goods.forEach((good, i) => {
+              arr.push({
+                image: good.goodsStatics[0].url,
+                title: good.goodsName,
+                current: good.showPrice, // 现价
+                pre: good.linePrice, // 原价
+                path: '/user/productdetails',
+                id: good.id
+              })
+            })
+          })
+        } else {
+          this.jrtjErrBox = true
+        }
+        this.crossBorderProductListData = arr
+      }
     }
+  }
 
 </script>
 <style lang='scss' scoped>
   .van-swipe {
     height: 100%;
   }
+  >>>.header {
+    background: #ac45f8;
+  }
   .mt3 h1 {
     font-size: 0.3rem;
   }
+
   .Storefront {
     margin-bottom: 30px;
   }
+
   .fix {
     background-color: #ac45f8;
     height: 37.5px;
@@ -316,7 +346,7 @@
   }
 
   .swiper_tabBox {
-    height: 4rem;
+    height: auto;
   }
 
   .swiper-slide a {
@@ -353,16 +383,21 @@
 
   .gwcLits li {
     width: 50%;
+    overflow: hidden;
   }
 
   .gwcLits li .commodityList {
+    overflow: hidden;
     height: 5rem;
   }
 
-  .commodityLits img{
+  .commodityLits img {
     height: 150px;
   }
 
+  .imgBox{
+    overflow: hidden;
+  }
   .imgBox img {
     margin-left: 20px;
   }
@@ -373,6 +408,33 @@
 
   .bangdan2 li {
     width: 33%;
+  }
+
+  .errorBox {
+    text-align: center;
+  }
+  .jrtjerrorBox{
+    margin: 10px 0 50px;
+    height: 100px;
+    text-align: center;
+  }
+
+  .logo_ification {
+    text-align: center;
+    justify-content: normal;
+    margin: 0 10px;
+
+    li {
+      height: 101px;
+      background: none;
+      overflow: hidden;
+
+      .van-image {
+        width: 80%;
+        height: 80%;
+      }
+    }
+
   }
 
   @import "../../assets/css/static/css/app.css";

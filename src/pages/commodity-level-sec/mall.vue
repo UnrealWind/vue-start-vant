@@ -26,7 +26,9 @@
         <ul class="commodityLits mt7 flex_wrap">
           <li v-for="(item,index) in mallShopsListData" :key="index">
             <a @click="$router.push(item.path)">
-              <img :src="item.img" alt="">
+              <van-image :src="item.img">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
               <p class="title">{{ item.title }}</p>
               <p class="money"><span>¥{{ item.current }}</span> <samp>¥{{ item.pre }}</samp></p>
             </a>
@@ -63,7 +65,9 @@
         <ul class="commodityLits flex_wrap">
           <li v-for="(module,stepIndex) in mallShopsListData" :key="stepIndex">
             <a @click="$router.push(module.path)">
-              <img :src="module.img" alt="">
+              <van-image :src="module.img">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
               <p class="title">{{ module.title }}</p>
               <p class="money"><span>¥{{ module.current }}</span> <samp>¥{{ module.pre }}</samp></p>
             </a>
@@ -78,8 +82,9 @@
     <ul class="publicBox logo_ification flex_wrap">
       <li v-for="(items, indexs) in mallBrandData" :key="indexs">
         <a @click="$router.push({path:'/store',query:{shopCode: items.shopCode}})">
-          <p class="p1 flex_center"><img :src="items.img" alt=""></p>
-          <p class="p2"></p>
+          <van-image :src="items.img">
+            <template v-slot:error>图片加载失败</template>
+          </van-image>
           <p class="p3">{{ items.title }}</p>
         </a>
       </li>
@@ -279,7 +284,8 @@
 <style lang='scss' scoped>
   .van-image {
     width: 100%;
-    height: 85%;
+    height: 75%;
+    overflow: hidden;
   }
 
   .hint {
@@ -316,13 +322,22 @@
     }
   }
 
+  .title_nav p{
+    width: 70px;
+    height: 15px;
+    overflow: hidden;
+  }
+
   .gwcLits li {
     width: 48%;
     height: 6.5rem;
+    overflow: hidden;
+    margin: 0 auto;
   }
 
   > > > .gwcLits li .van-image {
     height: 75%;
+    overflow: hidden;
   }
 
   > > > .gwcLits li .van-image__img {
@@ -331,6 +346,7 @@
 
   .gwcLits li .mallList {
     height: 5rem;
+    overflow: hidden;
   }
 
   .tuijian {
@@ -366,8 +382,29 @@
     margin-top: 50px;
   }
 
+  .commodityLits li{
+    width: 110px;
+    height: 150px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
   .commodityLits img {
     height: 3rem;
+  }
+  .logo_ification{
+    text-align: center;
+    justify-content: normal;
+    margin: 0 10px;
+    li{
+      height: 101px;
+      background: none;
+      overflow: hidden;
+      .van-image{
+        width: 80%;
+        height: 80%;
+      }
+    }
+
   }
 
   @import "../../assets/css/static/css/app.css";

@@ -167,6 +167,14 @@
   }
   #app .hasScroll{
     background: rgba(0,0,0,0.5);
+    color:#fff;
+    .fix {
+      background: rgba(0,0,0,0);
+      color:#fff;
+      .hesde_l4,.hesde_l,.hesde_l2 .p{
+        color:#fff;
+      }
+    }
   }
   .main{
     flex: 1;

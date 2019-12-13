@@ -26,7 +26,7 @@
           ></div>
         </div>
       </div>
-      <div class=" dan_wrap fix">
+      <div class="dan_wrap fix">
         <div class="wp">
           <div class="navdan_box4">
             <ul class="commodityLits flex_wrap">
@@ -48,7 +48,11 @@
             </ul>
           </div>
         </div>
+        <div v-show="goodErr" class="vipRrrorBox">
+          该活动下暂无商品
+        </div>
       </div>
+
     </div>
   </van-container>
 </template>
@@ -65,6 +69,8 @@
         data() {
             return {
                 status: 'loading',
+              goodErr: false,
+              todayErr: false,
                 vipData: [],
                 activityData: []
 
@@ -91,13 +97,16 @@
                 const res = await this.$http.post('product/activity/contentActivityRel', {
                     contentId: this.$route.query.id
                 })
+              this.goodErr = false
                 if (res.data) {
                     res.data.forEach(async(n, i) => {
+                      if (n[i]) {
                         const res = await this.getVipData(n.activityCode)
                         this.$set(n, 'children', res.data[0].goods)
+                      } else {
+                        this.goodErr = true
+                      }
                     })
-                } else {
-                    alert(1)
                 }
                 this.activityData = res.data
             },
@@ -113,6 +122,12 @@
 
 </script>
 <style lang='scss' scoped>
+  .vipRrrorBox{
+    margin: 10px 0 50px;
+    height: 100px;
+    text-align: center;
+    color: #fff;
+  }
   h1 {
     background: red;
     width: 375px;

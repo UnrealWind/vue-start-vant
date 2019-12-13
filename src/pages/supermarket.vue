@@ -39,6 +39,9 @@
           >
           </commodity>
         </div>
+        <div v-show="errBox" class="errorBox">
+          没有查询到数据。请刷新重试
+        </div>
 
       </div>
     </div>
@@ -58,6 +61,7 @@
         data() {
             return {
                 status: 'loading',
+              errBox: false,
                 rebateData: [],
                 isActive: '',
                 navList: [
@@ -103,6 +107,7 @@
                     activityCode: '42e3d8dad21b433cbaf85019214694fc'
                 })
                 const arr = []
+             this.errBox = false
                 if (res.data) {
                     res.data.forEach((n, i) => {
                         n.goods.forEach((good, i) => {
@@ -120,6 +125,8 @@
                             })
                         })
                     })
+                } else {
+                  this.errBox = true
                 }
                 this.rebateData = arr
             }
@@ -128,6 +135,15 @@
 
 </script>
 <style lang='scss' scoped>
+  >>>.main{
+    background: #f31929;
+  }
+  .errorBox{
+    text-align: center;
+    color: #fff;
+    font-size:15px;
+  }
+
   h1 {
     background: red;
     width: 375px;

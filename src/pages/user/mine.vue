@@ -22,7 +22,8 @@
       <div class="wp">
 
         <div class="logo"><img :src="userInfo.userHeadimg" alt=""> </div>
-        <div class="title" @click="$router.push('/user/logon')"> {{ userInfo.nickName }} </div>
+        <div v-if="userInfo.nickName === '请登录'" class="title" @click="$router.push('/user/logon')"> {{ userInfo.nickName }} </div>
+        <div v-if="userInfo.nickName !== '请登录'" class="title"> {{ userInfo.nickName }} </div>
         <div class="header_ul fix">
           <div class="li l">
             <div class="mony"> 云币 </div>
@@ -222,7 +223,6 @@
                 }
             }
             this.coupon = res.data
-            console.log(res)
         },
         async getUser() {
             let res = await this.$http.post('/manager/user/queryUser')
@@ -296,7 +296,8 @@
     background: #f2f2f2;
   }
 
-  .header{
+  >>>.header{
+    background: #fc4a26;
     .fix{
       background: #fc4a26;
       color: #fff;

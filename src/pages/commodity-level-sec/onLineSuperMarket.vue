@@ -1,11 +1,15 @@
 <template>
   <van-container :tabber="true" :status="status">
     <div slot="header" class="fix">
-      <div class="header_l " @click="$router.back()">
+      <div class="header_l l" @click="$router.back()">
         <van-icon name="arrow-left" />
       </div>
-      <div class="header_l2">
-        <div class="p"> 在线超市</div>
+      <div class="header_l2 l">
+        <div class="p"> 际派超市</div>
+      </div>
+      <div class="header_r r">
+        <van-icon name="cart-o" />
+        <van-icon name="share" />
       </div>
     </div>
     <div class="topHead2 topHead3 ">
@@ -14,63 +18,168 @@
 
     <!-- 内容 -->
     <div class="p2 FruitsBox contBody_top2 OnlineBox">
-      <div class="l">
+      <!--      搜索栏-->
+      <div class="searchBox">
         <van-search
           v-model="value"
           placeholder="搜索超市商品"
-          background=""
           shape="round"
           @focus="focus"
         >
         </van-search>
       </div>
-      <!-- 4大宣传	 -->
-      <div class="title_nav mt3 flex_betweenc ">
-        <p><img src="../../assets/css/static/images/z1.png" alt="">产地直采</p>
-        <p><img src="../../assets/css/static/images/z1.png" alt="">品质保证</p>
-        <p><img src="../../assets/css/static/images/z1.png" alt="">应季时令</p>
-        <p><img src="../../assets/css/static/images/z1.png" alt="">售后无忧</p>
-      </div>
       <!--      轮播图-->
-      <div class="imgBox">
+      <div class="imgBox  bannerBox">
         <van-swipe
           :autoplay="3000"
           indicator-color="white"
           class="van-swipe"
         >
           <van-swipe-item v-for="(item,index) in bannerData" :key="index">
-            <img :src="item.img" alt="">
+            <van-image :src="item.img">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
           </van-swipe-item>
         </van-swipe>
       </div>
+      <!-- 4大宣传	 -->
+      <div class="title_nav mt3 flex_betweenc">
+        <p><img src="../../assets/css/static/images/qqjp.png" alt="">全球精品</p>
+        <p><img src="../../assets/css/static/images/ttpj.png" alt="">天天平价</p>
+        <p><img src="../../assets/css/static/images/yzgq.png" alt="">一站购齐</p>
+        <p><img src="../../assets/css/static/images/wysh.png" alt="">无忧售后</p>
+      </div>
       <!--      二级导航-->
-      <ul class="commodityLits flex_wrap commodityLits_nav">
-        <li v-for="(item,index) in superMarketListData" :key="index">
-          <a @click="$router.push({path: item.path,query:{id:item.id,title:item.title}})">
-            <p class="flex_center"><img :src="item.img" alt=""></p>
-            <span>{{ item.title }}</span>
-          </a>
-        </li>
-      </ul>
-
-      <!-- 必墩好货 -->
-      <div v-for="(activity,actIndex) in activityData" :key="actIndex" class="activity">
-        <div class="everyday_shop flex">
-          <h1>{{ activity.activityName }}</h1>
-        </div>
-        <ul class="flex_wrap gwcLits gwcLits_zxcs">
-          <li v-for="(item,index) in activity.children" :key="index">
-            <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
-              <van-image :src="item.goodsStatics[3].url">
-                <template v-slot:error>图片加载失败</template>
-              </van-image>
-              <p class="p1">{{ item.goodsName }}</p>
-              <div class="p3 flex_betweenc"><p>¥{{ item.showPrice }} <span>¥{{ item.linePrice }}</span></p></div>
+      <div class="superMarketNav">
+        <ul class="commodityLits flex_wrap commodityLits_nav">
+          <li v-for="(item,index) in superMarketListData" :key="index">
+            <a @click="$router.push({path: item.path,query:{id:item.id,title:item.title}})">
+              <p class="flex_center"><img :src="item.img" alt=""></p>
+              <span>{{ item.title }}</span>
             </a>
           </li>
         </ul>
       </div>
-      <!-- 导航 -->
+      <!--        超市必抢-->
+      <div class="superMarketBiQiang clearfix">
+        <!--          活动标题-->
+        <div class="title">
+          <h2>超市必抢</h2>
+          <span>拼手速抢惊喜</span>
+        </div>
+        <!--          时间tab栏-->
+        <div class="timeTab">
+          <ul class="clearfix">
+            <li v-for="(item,index) in timeList" :key="index" @click="changeTime(item)">
+              <div class="title2" :class="tabStyleActive===item.key? 'tabStyleActive':''">{{ item.time }}</div>
+            </li>
+          </ul>
+        </div>
+        <!--          时间下商品列表-->
+        <div class="timeList">
+          <ul>
+            <li v-for="(item,index) in tabListData" :key="index">
+              <div class="imgBox">
+                <van-image :src="item.image">
+                  <template v-slot:error>图片加载失败</template>
+                </van-image>
+              </div>
+              <div class="title">
+                {{ item.title }}
+              </div>
+              <div class="price">
+                <span class="nowPrice">￥{{ item.current }}</span>
+                <span class="gain">赚{{ item.gain }}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--        超值好物-->
+      <div class="chaozhihaowu clearfix superMarketBiQiang">
+        <!--          活动标题-->
+        <div class="title">
+          <h2>超值好物</h2>
+          <span>超大牌超低价</span>
+        </div>
+        <div class="czhwMain">
+          <div class="mainLeft">
+            <div class="title">—今日超值好物—</div>
+            <span class="first">爆款直降</span>
+            <span class="second">大品牌值得买</span>
+            <div class="imgBox">
+              <img src="../../assets/img/zonetu12.png" alt="">
+            </div>
+            <span class="last">优质品牌，放心之选</span>
+          </div>
+          <div class="mainRight">
+            <ul class="clearfix">
+              <li @click="$router.push('/user/productdetails')">
+                <div class="imgBox">
+                  <van-image src="../../assets/img/brandtu20.png">
+                    <template v-slot:error>图片加载失败</template>
+                  </van-image>
+                </div>
+                <div class="title">
+                  意大利埃里克减肥ID老师看风景
+                </div>
+                <div class="price">
+                  <span class="nowPrice">￥1522</span>
+                  <span class="gain">赚215</span>
+                </div>
+              </li>
+              <li>
+                <div class="imgBox">
+                  <van-image src="../../assets/img/brandtu20.png">
+                    <template v-slot:error>图片加载失败</template>
+                  </van-image>
+                </div>
+                <div class="title">
+                  意大利埃里克减肥ID老师看风景
+                </div>
+                <div class="price">
+                  <span class="nowPrice">￥1522</span>
+                  <span class="gain">赚215</span>
+                </div>
+              </li>
+              <li>
+                <div class="imgBox">
+                  <van-image src="../../assets/img/brandtu20.png">
+                    <template v-slot:error>图片加载失败</template>
+                  </van-image>
+                </div>
+                <div class="title">
+                  意大利埃里克减肥ID老师看风景
+                </div>
+                <div class="price">
+                  <span class="nowPrice">￥1522</span>
+                  <span class="gain">赚215</span>
+                </div>
+              </li>
+              <li>
+                <div class="imgBox">
+                  <van-image src="../../assets/img/brandtu20.png">
+                    <template v-slot:error>图片加载失败</template>
+                  </van-image>
+                </div>
+                <div class="title">
+                  意大利埃里克减肥ID老师看风景
+                </div>
+                <div class="price">
+                  <span class="nowPrice">￥1522</span>
+                  <span class="gain">赚215</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!--        精品推荐标题-->
+      <div class="jptjTitle">
+        精品推荐
+      </div>
+      <!-- tab栏 -->
       <div class="tuijianNav flex">
         <van-tabs v-model="active" @click="changeTab">
           <van-tab v-for="(item,index) in marketCategoryData" :key="index" :title="item.label">
@@ -88,8 +197,8 @@
             <van-image :src="opt.img">
               <template v-slot:error>图片加载失败</template>
             </van-image>
-            <p class="p1">{{ opt.title }}</p>
-            <div class="p3 flex_betweenc"><p>¥{{ opt.current }} <span>¥{{ opt.pre }}</span></p><img
+            <p class="title">{{ opt.title }}</p>
+            <div class="p3 flex_betweenc"><p>¥{{ opt.current }} <span class="separate">/</span> <span>¥{{ opt.pre }}</span></p><img
               src="../../assets/css/static/images/gwc.png"
               alt=""
             ></div>
@@ -105,233 +214,511 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Tab, Tabs, Search, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Tab, Tabs, Search, Image } from 'vant'
 
-    export default {
-        components: {
-            'van-icon': Icon,
-            'van-tab': Tab,
-            'van-tabs': Tabs,
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
-            'van-search': Search,
-            'van-image': Image
-        },
-        data() {
-            return {
-                active: 0,
-                status: 'loading',
-                tabShow: false,
-                value: '',
-                bannerData: [],
-                superMarketListData: [],
-                // 活动
-                activityData: [],
-                // Tab栏
-                marketCategoryData: [],
-                // tab栏下商品
-                superMarketTabData: []
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-            this.getSuperMarketListData()
-        },
-        methods: {
-            async init() {
-                try {
-                    // 轮播图
-                    this.getBannerData()
-                    // 二级目录
-                    this.getSuperMarketListData()
-                    // 活动
-                    await this.getActivityData()
-                    // 必囤好货
-                    await this.getGoodData()
-                    // tab 栏
-                    await this.getMarketCategoryData()
-                    // tab栏下商品
-                    await this.getSuperMarketTabData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            // 轮播图
-            async getBannerData() {
-                const res = await this.$http.post('product/banner/list')
-                const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: require('../../assets/css/static/images/a14.jpg')
-                    })
-                })
-                this.bannerData = arr
-            },
-            // 二级目录
-            async getSuperMarketListData() {
-                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {})
-                const arr = []
-                res.rows ? res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.logo,
-                        title: n.name,
-                        path: n.url,
-                        id: n.id
-                    })
-                }) : ''
-                this.superMarketListData = arr
-            },
-            // 活动
-            async getActivityData() {
-                const res = await this.$http.post('product/activity/contentActivityRel', {
-                    contentId: this.$route.query.id
-                })
-                res.data.forEach(async(n, i) => {
-                    const res = await this.getGoodData(n.activityCode)
-                    res.data ? this.$set(n, 'children', res.data[0].goods) : ''
-                })
-                this.activityData = res.data
-            },
-            // 必囤好货
-            async getGoodData(activityCode) {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: activityCode
-                })
-                return res
-            },
-            // Tab栏
-            async getMarketCategoryData() {
-                const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
-                const arr = []
-                res.data ? (() => {
-                    for (const i in res.data.dictMap) {
-                        arr.push({
-                            label: res.data.dictMap[i],
-                            key: i
-                        })
-                    }
-                })() : ''
-                this.marketCategoryData = arr
-            },
-            async changeTab(idx, title) {
-                this.tabShow = false
-               await this.getSuperMarketTabData(this.marketCategoryData[idx].key)
-                if (this.superMarketTabData.length === 0) {
-                    this.tabShow = true
-                }
-            },
-            // tab栏下商品
-            async getSuperMarketTabData(category) {
-                if (!category && this.marketCategoryData.length > 0) category = this.marketCategoryData[0].key
-                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                const arr = []
-                const allImgArr = []
-                const imgArr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goodsStatics.forEach((img, i) => {
-                            allImgArr.push({
-                                img: img.url,
-                                key: img.spuStaticType
-                            })
-                        })
-                        arr.push({
-                            title: n.goodsName,
-                            id: n.id,
-                            current: n.showPrice,
-                            pre: n.linePrice,
-                            path: `/user/productdetails?id=${n.id}`
-                        })
-                    })
-                    allImgArr.forEach((n, i) => {
-                        if (n.key === 0) {
-                            imgArr.push({
-                                img: n.img
-                            })
-                        }
-                    })
-                }
-                this.superMarketTabData = arr.map(function(item, index) {
-                    return { ...item, ...imgArr[index] }
-                })
-            },
-            // 搜索功能
-            focus() {
-                this.$router.push('/searchPage')
-            }
+  export default {
+    components: {
+      'van-icon': Icon,
+      'van-tab': Tab,
+      'van-tabs': Tabs,
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem,
+      'van-search': Search,
+      'van-image': Image
+    },
+    data() {
+      return {
+        active: 0,
+        status: 'loading',
+        tabShow: false,
+        value: '',
+        tabStyleActive: '',
+        // 轮播图
+        bannerData: [],
+        // 二级目录
+        superMarketListData: [],
+        // 超市必抢  时间列表
+        timeList: [],
+        tabListData: [],
+        // Tab栏
+        marketCategoryData: [],
+        // tab栏下商品
+        superMarketTabData: [],
+        activityData: []
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          // 轮播图
+          this.getBannerData()
+          // 二级目录
+          this.getSuperMarketListData()
+          // 获取活动时间
+          await this.getTime()
+          // 时间下的商品列表
+          await this.getTodaySaleList()
+          // tab 栏
+          await this.getMarketCategoryData()
+          // tab栏下商品
+          await this.getSuperMarketTabData()
+          await this.setTime()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      // 轮播图
+      async getBannerData() {
+        const res = await this.$http.post('product/banner/list')
+        const arr = []
+        console.log(res.rows)
+        res.rows.forEach((n, i) => {
+          arr.push({
+            img: n.url
+          })
+        })
+        this.bannerData = arr
+      },
+      // 二级目录
+      async getSuperMarketListData() {
+        const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {})
+        const arr = []
+        res.rows.forEach((n, i) => {
+          arr.push({
+            img: n.logo,
+            title: n.name,
+            path: n.url,
+            id: n.id
+          })
+        })
+        this.superMarketListData = arr
+      },
+      // 获取活动时间
+      async getTime() {
+        const res = await this.$http.post('/product/todaySale/list')
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              time: n.dictLabel.slice(0, 5),
+              key: n.dictValue
+            })
+          })
+        }
+        this.timeList = arr
+      },
+      async changeTime(item) {
+        this.tabShow = false
+        await this.getTodaySaleList(item.key)
+        if (this.tabListData.length === 0) {
+          this.tabShow = true
+        }
+        this.tabStyleActive = item.key
+      },
+      // 今日特卖商品
+      async getTodaySaleList(timeType) {
+        const res = await this.$http.post(`/product/todaySale/todaySalelist`, {
+          timeType: timeType
+        })
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            arr.push({
+              discribe: n.goodsProfile,
+              title: n.goodsName,
+              image: n.mainImg,
+              current: n.showPrice,
+              gain: n.linePrice - n.showPrice,
+              btnGo: `/user/productdetails?id=${n.id}`
+            })
+          })
+        }
+        this.tabListData = arr
+      },
+      // Tab栏
+      async getMarketCategoryData() {
+        const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
+        const arr = []
+        for (const i in res.data.dictMap) {
+          arr.push({
+            label: res.data.dictMap[i],
+            key: i
+          })
+        }
+        this.marketCategoryData = arr
+      },
+      async changeTab(idx, title) {
+        this.tabShow = false
+        await this.getSuperMarketTabData(this.marketCategoryData[idx].key)
+        if (this.superMarketTabData.length === 0) {
+          this.tabShow = true
+        }
+      },
+      // tab栏下商品
+      async getSuperMarketTabData(category) {
+        if (!category) category = this.marketCategoryData[0].key
+        const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+        const arr = []
+        const allImgArr = []
+        const imgArr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            n.goodsStatics.forEach((img, i) => {
+              allImgArr.push({
+                img: img.url,
+                key: img.spuStaticType
+              })
+            })
+            arr.push({
+              title: n.goodsName,
+              id: n.id,
+              current: n.showPrice,
+              pre: n.linePrice,
+              path: `/user/productdetails?id=${n.id}`
+            })
+          })
+          allImgArr.forEach((n, i) => {
+            if (n.key === 0) {
+              imgArr.push({
+                img: n.img
+              })
+            }
+          })
+        }
+        this.superMarketTabData = arr.map(function(item, index) {
+          return { ...item, ...imgArr[index] }
+        })
+      },
+      // 搜索功能
+      focus() {
+        this.$router.push('/searchPage')
+      },
+      async setTime() {
+        const myDate = new Date().getHours()
+        await this.timeList.forEach((n, i) => {
+          const time = n.time.slice(0, 2) / 1
+          if (time <= myDate && (time + 2) > myDate) {
+            this.timeList.forEach((o, i) => {
+              if (o.time.slice(0, 2) / 1 === time) {
+                this.tabStyleActive = o.key
+                this.getTodaySaleList(o.key)
+              }
+            })
+          }
+        })
+      }
     }
+  }
 
 </script>
 
 <style lang='scss' scoped>
-  .commodityLits_nav {
-    font-size: 14px;
-  }
-  .van-search {
-    padding: 0;
+  >>>.header {
+     background: #ef2154;
+   }
+  .l {
+    float: left;
   }
 
-  .activity{
-    margin-bottom: 30px;
+  .r {
+    float: right;
+  }
+
+  .van-icon {
+    font-size: 24px;
+  }
+
+  .van-image {
+    width: 100%;
+    height: 100%;
+
+    > > > .van-image__error {
+      font-size: 12px;
+    }
+  }
+  .van-swipe{
+    height: 120px;
+  }
+
+  .tabStyleActive {
+    color: #e6253b;
+  }
+  .separate{
+    color: #000000 !important;
+    text-decoration: none !important;
+  }
+
+  .title_nav{
+    position: absolute;
+    left: 16px;
+    p{
+      margin:0 10px;
+    }
+  }
+
+  .superMarketNav {
+    background-color: #fff;
+    overflow: scroll;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 30px 5px 10px 5px;
+    ul {
+      width: 120%;
+      height: 125px;
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+
+      li {
+        height: 50px;
+        width: 60px;
+      }
+    }
+  }
+
+  .searchBox {
+    margin-top: 20px;
+  }
+
+  .van-search {
+    padding: 0;
+    border-radius: 25px;
   }
 
   .everyday_shop {
     margin-top: 0;
   }
 
-  .hint {
-    margin-top: 20px;
-    font-size: 14px;
-    text-align: center;
-  }
-
   .fix {
-    background-color: #0a6b5a;
+    display: flex;
+    margin: 0 10px;
     height: 37.5px;
-  }
 
-  .topHead3 .box2 {
-    height: 7rem;
-  }
-
-  .header_l {
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 20px;
-    color: #fff;
-  }
-
-  .header_l2 {
-    position: relative;
-    width: 62%;
-    margin: 0 auto;
-    text-align: center;
-
-    .p {
-      height: 37.5px;
-      line-height: 37.5px;
-      font-size: 16px;
+    .header_l {
+      font-size: 20px;
       color: #fff;
+      width: 15%;
+    }
+
+    .header_l2 {
+      text-align: center;
+      width: 70%;
+
+      .p {
+        height: 37.5px;
+        line-height: 37.5px;
+        font-size: 16px;
+        color: #fff;
+      }
+    }
+
+    .header_r {
+      width: 15%;
+      height: 39px;
+      line-height: 50px;
+
+      .van-icon :first-child {
+        margin-right: 10px;
+      }
     }
   }
 
-  .searchInput img {
-    width: 0.5rem;
-    margin-left: 8px;
+  .topHead3 .box2 {
+    height: 5rem;
+    background-color: #ef2154;
   }
 
-  .timeLists {
-    width: 25%;
+  .bannerBox{
+    margin: 20px 0;
   }
 
-  .swiper-slide {
-    width: 32%;
-    margin-right: 10px;
+  .mt3{
+    p {
+      color: #000000;
+    }
+  }
+
+  .superMarketBiQiang {
+    margin-top: 30px;
+
+    .title {
+      margin-bottom: 15px;
+
+      h2 {
+        display: inline-block;
+        color: #000000;
+      }
+
+      span {
+        display: inline-block;
+        margin-left: 15px;
+        padding-left: 15px;
+        border-left: 1px solid #999999;
+      }
+    }
+
+    .timeTab {
+      overflow: scroll;
+      background-color: #fff;
+      border-radius: 10px;
+
+      ul {
+
+        width: 155%;
+
+        li {
+          float: left;
+          font-size: 24px;
+          color: #dddddd;
+          margin: 12px 15px 0 15px;
+        }
+      }
+    }
+
+    .timeList {
+      overflow: scroll;
+      margin-top: 10px;
+
+      ul {
+        width: 315%;
+
+        li {
+          float: left;
+          padding: 10px;
+          margin-right: 10px;
+          background-color: #fff;
+          border-radius: 10px;
+          width: 150px;
+          height: 200px;
+
+          .imgBox {
+            margin-bottom: 10px;
+            width: 100%;
+            height: 125px;
+          }
+
+          .title {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          .price {
+            .gain {
+              float: right;
+              display: inline-block;
+              border: 1px solid #ef2154;
+              border-radius: 5px;
+              color: #ef2154;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .chaozhihaowu {
+    width: 100%;
+    padding: 0 5px;
+
+    .czhwMain {
+      display: flex;
+      width: 100%;
+
+      .mainLeft {
+        float: left;
+        width: 38%;
+        background: url("../../assets/img/mainLeft.png") no-repeat;
+        background-size: cover;
+        color: #fff;
+        text-align: center;
+
+        .title {
+          font-size: 14px;
+          margin: 30px 0 30px 0;
+        }
+
+        .first {
+          display: block;
+          font-size: 22px;
+          margin-bottom: 25px;
+        }
+
+        .second {
+          font-size: 14px;
+        }
+
+        .imgBox {
+          background-color: #fff;
+          margin: 30px 15px 30px 15px;
+        }
+
+        .last {
+          font-size: 12px;
+        }
+      }
+
+      .mainRight {
+        float: left;
+        width: 62%;
+        background-color: #fff;
+        border-radius: 10px;
+
+        ul {
+          width: 100%;
+          padding: 5px;
+
+          li {
+            float: left;
+            width: 45%;
+            margin-left: 10px;
+
+            .imgBox {
+              margin-bottom: 10px;
+              width: 100%;
+              height: 125px;
+            }
+
+            .title {
+              width: 100%;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+
+            .price {
+              .gain {
+                float: right;
+                display: inline-block;
+                border: 1px solid #ef2154;
+                border-radius: 5px;
+                color: #ef2154;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .jptjTitle {
+    width: 98%;
+    height: 50px;
+    margin: 20px 5px;
+    background: url("../../assets/img/jptj.png") no-repeat;
+    background-size: cover;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 10px;
   }
 
   .gwcLits {
@@ -339,9 +726,12 @@
     margin-top: -10px;
   }
 
-  .gwcLits .p1{
+  .gwcLits .title {
     margin-top: 15px;
     margin-bottom: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .gwcLits .p3 {
@@ -359,12 +749,12 @@
     margin-right: 10px;
   }
 
-  >>> .gwcLits_zxcs li .van-image{
+  > > > .gwcLits_zxcs li .van-image {
     width: 100%;
     height: 70%;
   }
 
-  >>> .gwcLits_zxcs li .van-image .van-image__img{
+  > > > .gwcLits_zxcs li .van-image .van-image__img {
     height: 3.5rem;
   }
 
@@ -382,11 +772,6 @@
     width: 100%;
   }
 
-  .van-tabs__line {
-    bottom: .5rem;
-    transform: translateX(35px) translateX(-50%);
-  }
-
   .gwcLits_nav li {
     width: 48%;
     margin-right: 7px;
@@ -400,40 +785,38 @@
     width: 100%;
   }
 
-  .jiujiu li img {
-    width: 100%;
-  }
-
-  .SuperValue .boxa .imim img {
-    width: 100%;
-  }
-
-  .gwcLits_SG{
+  .gwcLits_SG {
     background: none;
     padding: 0;
     margin-left: 8px;
     margin-bottom: 50px;
-    li{
+
+    li {
       height: 266px;
-      >>>.van-image{
+
+      > > > .van-image {
         width: 100%;
         height: 75%;
-        .van-image__img{
+
+        .van-image__img {
           height: 5rem;
         }
-        .van-image__error{
+
+        .van-image__error {
           height: 100%;
         }
       }
     }
   }
 
-  .OnlineBox .commodityLits {
-    margin-bottom: 40px;
-  }
-
   .nav_box10 {
     margin-bottom: 100px;
+
+    .hint {
+      margin-top: 20px;
+      font-size: 14px;
+      text-align: center;
+    }
   }
 
   @import "../../assets/css/static/css/app.css";

@@ -4,13 +4,13 @@
     <div slot="header" class="fix">
       <div class="hesde_l " @click="$router.back()"> <van-icon name="arrow-left" /> </div>
       <div class="hesde_l2">
-        <div class="p"> 试用中心 </div>
+        <div class="p"> 试用中心</div>
       </div>
       <div class="hesde_l3"> <van-icon name="share" />  </div>
       <div class="hesde_l4" @click="$router.push('/cart/shopcar')"> <van-icon name="cart-o" />  </div>
     </div>
 
-    <div class="nav_box4 dan_wrap fix">
+    <div v-if="vipDataMin.length>0" class="nav_box4 dan_wrap fix">
       <div class="wp">
         <commodity
           v-for="(commodity,index) in vipDataMin"
@@ -26,6 +26,9 @@
         </commodity>
       </div>
     </div>
+    <p v-else class="marginT-80">
+      暂无数据！
+    </p>
 
   </van-container>
 </template>
@@ -85,6 +88,14 @@
 
 </script>
 <style lang='scss' scoped>
+  .marginT-80{
+    margin-top:80px;
+    text-align: center;
+    font-size:15px;
+  }
+  >>>.main {
+    background: #f7f7f7;
+  }
   h1 {
     background: red;
     width: 375px;
@@ -118,7 +129,7 @@
     position: absolute; right: 15px; top: 5px; font-size: 20px; color: #333;
   }
   .hesde_l4{
-    position: absolute; right: 15px; top: 5px; font-size: 20px;  color: #333;
+    position: absolute; right: 15px; top: 33px; font-size: 20px;  color: #333;
   }
 
   .hesde_l2{ position: relative; width: 62%; margin: 0 auto; text-align: center;
