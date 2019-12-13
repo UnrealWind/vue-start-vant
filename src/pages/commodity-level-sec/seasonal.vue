@@ -305,8 +305,8 @@
   }
 
   .gwcLits li {
-    width: 48%;
-    height: 260px;
+    width: 100%;
+    height: 300px;
     overflow: hidden;
   }
 

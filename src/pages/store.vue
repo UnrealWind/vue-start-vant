@@ -14,7 +14,9 @@
     </div>
 
     <div class="nav_box dan_wrap fix">
-      <div class="storetubj img"><img src="../assets/img/storetubj.png" alt=""></div>
+      <div class="storetubj img">
+        <!--<img src="../assets/img/storetubj.png" alt="">-->
+      </div>
       <div class="wp">
 
         <div class="nav_header fix">
@@ -77,10 +79,17 @@
           </commodity>
         </div>
 
-        <div class="nav_box8 dan_wrap">
-          <div class="nav_li fix wp">
-            <div v-for="(item,index) in tabList" :key="index" class="li" :class="{ active:item.active }" @click="getShopListData(item)">{{ item.label }}</div>
-          </div>
+        <div class="nav_box8 dan_wrap sortBox">
+          <ul class="clearfix">
+            <li @click="change">综合</li>
+            <li>
+              <span @click="changeIcon">价格</span>
+              <span class="arrow-box">
+                <van-icon :size="12" :class="iconActive === true?'redIcon': ''" name="arrow-up" />
+                <van-icon :size="12" :class="iconActive === false?'redIcon': ''" name="arrow-down" />
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -88,158 +97,195 @@
         <ul class="flex_wrap gwcLits ">
           <li v-for="(item,index) in storeListData" :key="index">
             <a @click="$router.push('/user/productdetails')">
-              <img :src="item.img" alt="" class="pic">
+              <van-image :src="item.img">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
+
               <p class="p1">{{ item.title }}</p>
-              <div class="p3 flex_betweenc"><p>¥{{ item.current }}<span>¥{{ item.pre }}</span></p><img
-                src="../assets/css/static/images/gwc2.png"
-                alt=""
-              ></div>
+              <div class="p3 flex_betweenc">
+                <p>
+                  ¥{{ item.current }}
+                  <span class="separate">/</span>
+                  <span>¥{{ item.pre }}</span>
+                </p>
+                <img
+                  src="../assets/css/static/images/gwc2.png"
+                  alt=""
+                >
+              </div>
             </a>
           </li>
         </ul>
-
       </div>
-
     </div>
 
   </van-container>
 </template>
 
 <script>
-    import { Icon, Toast } from 'vant'
+  import { Icon, Image } from 'vant'
 
-    export default {
-        components: {
-            'van-icon': Icon
-        },
-        data() {
-            return {
-                status: 'loading',
-                value: '',
-                vipData: [],
-                storeListData: [],
-                shopData: {},
-                couponList: [],
-                tabList: [{
-                    label: '综合',
-                    value: '',
-                    active: true
-                }, {
-                    label: '上新',
-                    value: 'modifyTime'
-                }, {
-                    label: '价格',
-                    value: 'linePrice'
-                }]
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    await this.getShopData()
-                    await this.getFaddishData()
-                    await this.getShopListData()
-                    await this.getCouponList()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            async receiveCoupon(item) {
-                const res = await this.$http.post('manager/userTicket/add', {
-                    ticketCode: item.ticketCode
-                })
-                res.code === 0 ? Toast.success('领取成功') : Toast.fail('领取失败')
-            },
-            async getCouponList() {
-                const res = await this.$http.post('product/activityTicket/queryList', {
-                    shopCode: this.$route.query.shopCode
-                })
-                this.couponList = res.data || []
-                this.couponList.forEach((n, i) => {
-                    n.ticketContent = JSON.parse(n.ticketContent)
-                })
-            },
-            async getShopData() {
-                const res = await this.$http.post('user/shop/queryByCode', {
-                    shopCode: this.$route.query.shopCode
-                })
-                this.shopData = res.data
-            },
-            // 必抢爆款
-            async getFaddishData() {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: '89f3986c4e76419cbb3265633ae0d153'
-                })
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goods.forEach((good, i) => {
-                            arr.push({
-                                type: 'list-vip',
-                                discribe: good.goodsProfile,
-                                title: good.goodsName,
-                                vipPriceDiscribe: {},
-                                vipPrice: {
-                                    current: good.showPrice,
-                                    pre: good.linePrice
-                                },
-                                btnGo: `/user/productdetails?id=${good.id}`,
-                                image: good.goodsStatics[i].url
-                            })
-                        })
-                    })
-                }
-                this.vipData = arr
-            },
-            // 商品
-            async getShopListData(opt) {
-                const data = {
-                    pageNum: 1,
-                    pageSize: 4,
-                    shopCode: this.$route.query.shopCode
-                }
-                if (opt) {
-                    this.tabList.forEach((n, i) => {
-                        n['active'] = false
-                    })
-                    opt['active'] = true
-
-                    if (opt.value) data['orderByColumn'] = opt.value
-                }
-                const res = await this.$http.post('product/goods/list', data)
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            title: n.goodsName,
-                            current: n.showPrice,
-                            pre: n.linePrice,
-                            img: n.mainImg
-                        })
-                    })
-                }
-                this.storeListData = arr
-            }
+  export default {
+    components: {
+      'van-icon': Icon,
+      'van-image': Image
+    },
+    data() {
+      return {
+        status: 'loading',
+        iconActive: '',
+        value: '',
+        active: '',
+        vipData: [],
+        storeListData: [],
+        shopData: {},
+        couponList: []
+      }
+    },
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          await this.getShopData()
+          await this.getFaddishData()
+          await this.getShopListData()
+          await this.getCouponList()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      async receiveCoupon(item) {
+        const res = await this.$http.post('manager/userTicket/add', {
+          ticketCode: item.ticketCode
+        })
+        // eslint-disable-next-line no-undef
+        res.code === 0 ? Toast.success('领取成功') : Toast.fail('领取失败')
+      },
+      async getCouponList() {
+        const res = await this.$http.post('product/activityTicket/queryList', {
+          shopCode: this.$route.query.shopCode
+        })
+        this.couponList = res.data || []
+        this.couponList.forEach((n, i) => {
+          n.ticketContent = JSON.parse(n.ticketContent)
+        })
+      },
+      // 店铺信息
+      async getShopData() {
+        const res = await this.$http.post('user/shop/queryByCode', {
+          shopCode: this.$route.query.shopCode
+        })
+        this.shopData = res.data
+      },
+      // 必抢爆款
+      async getFaddishData() {
+        const res = await this.$http.post('product/activity/activityGoodsList', {
+          activityCode: '89f3986c4e76419cbb3265633ae0d153'
+        })
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            n.goods.forEach((good, i) => {
+              arr.push({
+                type: 'list-vip',
+                discribe: good.goodsProfile,
+                title: good.goodsName,
+                vipPriceDiscribe: {},
+                vipPrice: {
+                  current: good.showPrice,
+                  pre: good.linePrice
+                },
+                btnGo: `/user/productdetails?id=${good.id}`,
+                image: good.goodsStatics[i].url
+              })
+            })
+          })
+        }
+        this.vipData = arr
+      },
+      change() {
+        this.active = ''
+        this.getShopListData()
+      },
+      changeIcon() {
+        function sortNumber(a, b) {
+          return a.current - b.current
+        }
+        function sortNum(a, b) {
+          return b.current - a.current
+        }
+        if (this.iconActive === '') {
+          this.storeListData.sort(sortNum)
+          this.iconActive = false
+          console.log(this.active, this.iconActive)
+          return false
+        } else if (this.iconActive === true) {
+          this.storeListData.sort(sortNum)
+          this.iconActive = false
+          console.log(this.active, this.iconActive)
+          return false
+        } else if (this.iconActive === false) {
+          this.storeListData.sort(sortNumber)
+          console.log(this.active, this.iconActive)
+          this.iconActive = true
+          return false
+        }
+      },
+      // 商品
+      async getShopListData(opt) {
+        const data = {
+          pageNum: 1,
+          pageSize: 4,
+          shopCode: this.$route.query.shopCode
+        }
+        if (opt) {
+          this.tabList.forEach((n, i) => {
+            n['active'] = false
+          })
+          opt['active'] = true
+
+          if (opt.value) data['orderByColumn'] = opt.value
+        }
+        const res = await this.$http.post('product/goods/list', data)
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              title: n.goodsName,
+              current: n.showPrice,
+              pre: n.linePrice,
+              img: n.mainImg
+            })
+          })
+        }
+        this.storeListData = arr
+      }
     }
+  }
 
 </script>
 <style lang='scss' scoped>
   @import "../assets/css/static/css/app.css";
   @import "../assets/css/static/css/style.css";
+  .arrow-box {
+    margin-left: 5px;
+  }
+  .redIcon{
+    color: red;
+  }
 
   .gwcLits li {
-    width: 49%;
     margin-right: 1px;
+    width: 48%;
+    height: 7rem;
+    overflow: hidden;
 
-    .pic {
-      height: 5rem;
+    > > > .van-image__img {
+      height: 100%;
     }
   }
 
@@ -254,6 +300,21 @@
     .p2 span {
       font-size: 12px;
     }
+  }
+
+  .gwcLits li .van-image {
+    width: 100%;
+    height: 5.2rem;
+    overflow: hidden;
+  }
+
+  .gwcLits li .van-image__img {
+    height: 5rem;
+  }
+
+  .van-image__error {
+    width: 100%;
+    height: 100%;
   }
 
   h1 {
@@ -282,12 +343,12 @@
     width: 62%;
     margin: 0 auto;
     text-align: center;
-    color:#000;
+    color: #000;
   }
 
   .header_l3 {
     position: absolute;
-    top: 0px;
+    top: 0;
     right: 10px;
     font-size: 20px;
     color: #000;
@@ -346,7 +407,6 @@
     margin-right: 20px;
     line-height: 38px;
     padding-top: 12px;
-    line-height: 20px;
 
     .van-icon {
       font-size: 20px;
@@ -364,7 +424,7 @@
   }
 
   .van-search {
-    padding: 0px !important;
+    padding: 0 !important;
   }
 
   .hesde_l2 {
@@ -389,7 +449,7 @@
   }
 
   .van-search .van-cell {
-    padding: 1px 0px;
+    padding: 1px 0;
   }
 
   .nav_box {
@@ -403,10 +463,13 @@
 
   .storetubj {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 1;
     overflow: hidden;
+    background: #2e0932;
+    height: 360px;
+    width: 100%;
   }
 
   .nav_box {
@@ -462,6 +525,7 @@
       }
     }
   }
+
   .nav_coupons {
     margin-top: 10px;
     width: 100%;
@@ -532,12 +596,15 @@
       }
 
     }
+
     .gray {
-      background:#ccc;
-      a{
-        background:#ccc;
+      background: #ccc;
+
+      a {
+        background: #ccc;
       }
     }
+
     .nav_r.on {
       background: #ff5a5e;
 
@@ -562,7 +629,8 @@
     text-align: center;
     font-size: 20px;
     margin-bottom: 20px;
-    margin-top:140px;
+    margin-top: 120px;
+    color:#fff;
     a {
       display: inline-block;
       box-sizing: border-box;
@@ -580,7 +648,6 @@
     background: #fff;
     border-radius: 20px;
     margin-bottom: 20px;
-    border-radius: 10px;
     overflow: hidden;
 
     h4 {
@@ -594,12 +661,10 @@
     .li {
       width: 25%;
       float: left;
-      margin: 0 auto;
-      margin-bottom: 10px;
+      margin: 0 auto 10px;
       text-align: center;
-      font-size: 12px;
       line-height: 30px;
-      padding: 0px;
+      padding: 0;
       color: #202020;
       font-size: 14px;
     }
@@ -622,16 +687,54 @@
         display: block;
         position: absolute;
         top: -15px;
-        left: 0px;
+        left: 0;
       }
 
       .fon-icon13 {
         display: block;
         position: absolute;
         top: -7px;
-        left: 0px;
+        left: 0;
       }
     }
+  }
+
+  .sortBox {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+
+    ul {
+      margin: 20px auto;
+      color: #000;
+      li {
+        float: left;
+        margin-left: 30px;
+        font-size: 18px;
+        min-width: 60px;
+      }
+
+      li:last-child {
+        span {
+          position: relative;
+
+          .van-icon-arrow-up {
+            position: absolute;
+            top: -3px;
+          }
+
+          .van-icon-arrow-down {
+            position: absolute;
+            bottom: -3px;
+          }
+        }
+      }
+    }
+  }
+
+  .separate {
+    margin: 0 5px;
+    text-decoration: none !important;
   }
 
 </style>
