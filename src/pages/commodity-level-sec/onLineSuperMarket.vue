@@ -5,7 +5,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2 l">
-        <div class="p"> 际派超市</div>
+        <div class="p">  {{ this.$route.query.title }}</div>
       </div>
       <div class="header_r r">
         <van-icon name="cart-o" />
@@ -42,23 +42,25 @@
           </van-swipe-item>
         </van-swipe>
       </div>
-      <!-- 4大宣传	 -->
-      <div class="title_nav mt3 flex_betweenc">
-        <p><img src="../../assets/css/static/images/qqjp.png" alt="">全球精品</p>
-        <p><img src="../../assets/css/static/images/ttpj.png" alt="">天天平价</p>
-        <p><img src="../../assets/css/static/images/yzgq.png" alt="">一站购齐</p>
-        <p><img src="../../assets/css/static/images/wysh.png" alt="">无忧售后</p>
-      </div>
-      <!--      二级导航-->
-      <div class="superMarketNav">
-        <ul class="commodityLits flex_wrap commodityLits_nav">
-          <li v-for="(item,index) in superMarketListData" :key="index">
-            <a @click="$router.push({path: item.path,query:{id:item.id,title:item.title}})">
-              <p class="flex_center"><img :src="item.img" alt=""></p>
-              <span>{{ item.title }}</span>
-            </a>
-          </li>
-        </ul>
+      <div class="propagandaAndNav">
+        <!-- 4大宣传	 -->
+        <div class="title_nav mt3 flex_betweenc">
+          <p><img src="../../assets/css/static/images/qqjp.png" alt="">全球精品</p>
+          <p><img src="../../assets/css/static/images/ttpj.png" alt="">天天平价</p>
+          <p><img src="../../assets/css/static/images/yzgq.png" alt="">一站购齐</p>
+          <p><img src="../../assets/css/static/images/wysh.png" alt="">无忧售后</p>
+        </div>
+        <!--      二级导航-->
+        <div class="superMarketNav">
+          <ul class="commodityLits flex_wrap commodityLits_nav">
+            <li v-for="(item,index) in superMarketListData" :key="index">
+              <a @click="$router.push({path: item.path,query:{id:item.id,title:item.title}})">
+                <p class="flex_center"><img :src="item.img" alt=""></p>
+                <span>{{ item.title }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <!--        超市必抢-->
       <div class="superMarketBiQiang clearfix">
@@ -78,7 +80,7 @@
         <!--          时间下商品列表-->
         <div class="timeList">
           <ul>
-            <li v-for="(item,index) in tabListData" :key="index">
+            <li v-for="(item,index) in tabListData" :key="index" @click="$router.push(item.btnGo)">
               <div class="imgBox">
                 <van-image :src="item.image">
                   <template v-slot:error>图片加载失败</template>
@@ -94,12 +96,16 @@
             </li>
           </ul>
         </div>
+        <!--    错误提示-->
+        <div class="nav_box10 dan_wrap">
+          <div v-show="timeBoxShow" class="hint">当前时段下暂无商品</div>
+        </div>
       </div>
       <!--        超值好物-->
-      <div class="chaozhihaowu clearfix superMarketBiQiang">
+      <div v-for="(activity,actIndex) in activityData" :key="actIndex" class="chaozhihaowu clearfix superMarketBiQiang">
         <!--          活动标题-->
         <div class="title">
-          <h2>超值好物</h2>
+          <h2>{{ activity.activityName }}</h2>
           <span>超大牌超低价</span>
         </div>
         <div class="czhwMain">
@@ -108,69 +114,32 @@
             <span class="first">爆款直降</span>
             <span class="second">大品牌值得买</span>
             <div class="imgBox">
-              <img src="../../assets/img/zonetu12.png" alt="">
+              <van-image v-if="activity.children" :src="activity.children.goodsStatics[0].url">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
             </div>
             <span class="last">优质品牌，放心之选</span>
           </div>
           <div class="mainRight">
             <ul class="clearfix">
-              <li @click="$router.push('/user/productdetails')">
+              <li v-for="(item,index) in activity.children" :key="index" @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
                 <div class="imgBox">
-                  <van-image src="../../assets/img/brandtu20.png">
+                  <van-image :src="item.goodsStatics[0].url">
                     <template v-slot:error>图片加载失败</template>
                   </van-image>
                 </div>
                 <div class="title">
-                  意大利埃里克减肥ID老师看风景
+                  {{ item.goodsName }}
                 </div>
                 <div class="price">
-                  <span class="nowPrice">￥1522</span>
-                  <span class="gain">赚215</span>
-                </div>
-              </li>
-              <li>
-                <div class="imgBox">
-                  <van-image src="../../assets/img/brandtu20.png">
-                    <template v-slot:error>图片加载失败</template>
-                  </van-image>
-                </div>
-                <div class="title">
-                  意大利埃里克减肥ID老师看风景
-                </div>
-                <div class="price">
-                  <span class="nowPrice">￥1522</span>
-                  <span class="gain">赚215</span>
-                </div>
-              </li>
-              <li>
-                <div class="imgBox">
-                  <van-image src="../../assets/img/brandtu20.png">
-                    <template v-slot:error>图片加载失败</template>
-                  </van-image>
-                </div>
-                <div class="title">
-                  意大利埃里克减肥ID老师看风景
-                </div>
-                <div class="price">
-                  <span class="nowPrice">￥1522</span>
-                  <span class="gain">赚215</span>
-                </div>
-              </li>
-              <li>
-                <div class="imgBox">
-                  <van-image src="../../assets/img/brandtu20.png">
-                    <template v-slot:error>图片加载失败</template>
-                  </van-image>
-                </div>
-                <div class="title">
-                  意大利埃里克减肥ID老师看风景
-                </div>
-                <div class="price">
-                  <span class="nowPrice">￥1522</span>
-                  <span class="gain">赚215</span>
+                  <span class="nowPrice">¥{{ item.showPrice }}</span>
+                  <span class="gain">赚{{ item.linePrice-item.showPrice }}</span>
                 </div>
               </li>
             </ul>
+            <div v-show="errBox" class="errorBox">
+              该活动下暂无商品
+            </div>
           </div>
         </div>
       </div>
@@ -231,6 +200,8 @@
         active: 0,
         status: 'loading',
         tabShow: false,
+        timeBoxShow: true,
+        errBox: false,
         value: '',
         tabStyleActive: '',
         // 轮播图
@@ -262,6 +233,10 @@
           await this.getTime()
           // 时间下的商品列表
           await this.getTodaySaleList()
+          // 活动
+          await this.getActivityData()
+          // 今日必抢
+          await this.getRobData()
           // tab 栏
           await this.getMarketCategoryData()
           // tab栏下商品
@@ -314,12 +289,36 @@
         this.timeList = arr
       },
       async changeTime(item) {
-        this.tabShow = false
+        this.timeBoxShow = true
         await this.getTodaySaleList(item.key)
-        if (this.tabListData.length === 0) {
-          this.tabShow = true
+        if (this.tabListData.length !== 0) {
+          this.timeBoxShow = false
         }
         this.tabStyleActive = item.key
+      },
+      // 活动
+      async getActivityData() {
+        const res = await this.$http.post('product/activity/contentActivityRel', {
+          contentId: this.$route.query.id
+        })
+        this.errBox = false
+        if (res.data) {
+          res.data.forEach(async(n, i) => {
+            if (n[i]) {
+              const res = await this.getRobData(n.activityCode)
+              this.$set(n, 'children', res.data[0].goods)
+            } else {
+              this.errBox = true
+            }
+          })
+        }
+        this.activityData = res.data
+      },
+      // 今日必抢
+      async getRobData(activityCode) {
+        return await this.$http.post(`product/activity/activityGoodsList`, {
+          activityCode: activityCode
+        })
       },
       // 今日特卖商品
       async getTodaySaleList(timeType) {
@@ -453,21 +452,29 @@
     color: #000000 !important;
     text-decoration: none !important;
   }
+  .errorBox {
+    text-align: center;
+    line-height: 120px;
+  }
 
   .title_nav{
-    position: absolute;
-    left: 16px;
+    padding: 30px 10px 0;
     p{
-      margin:0 10px;
+      margin:0 5px;
+      img{
+        margin-right: 5px;
+      }
     }
+  }
+  .propagandaAndNav{
+    border-radius: 10px;
+    background-color: #fff;
   }
 
   .superMarketNav {
-    background-color: #fff;
     overflow: scroll;
-    margin-top: 20px;
     border-radius: 20px;
-    padding: 30px 5px 10px 5px;
+    padding: 0 5px 10px 5px;
     ul {
       width: 120%;
       height: 125px;
@@ -477,7 +484,7 @@
 
       li {
         height: 50px;
-        width: 60px;
+        width: 17%;
       }
     }
   }
@@ -658,6 +665,7 @@
         .imgBox {
           background-color: #fff;
           margin: 30px 15px 30px 15px;
+          min-height:115px;
         }
 
         .last {

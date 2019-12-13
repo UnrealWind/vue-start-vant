@@ -5,16 +5,29 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2">
-        <div class="p"> 商城</div>
+        <div class="p"> {{ this.$route.query.title }}</div>
       </div>
     </div>
-    <div class="topHead">
-      <div class="box1 p2 box_sizing">
-        <img src="../../assets/css/static/images/jx.jpg" alt="" class="jxhdImg">
-      </div>
-      <div class="box2"></div>
-    </div>
+    <!--    <div class="topHead">-->
+    <!--      <div class="box1 p2 box_sizing">-->
+    <!--        <img src="../../assets/css/static/images/jx.jpg" alt="" class="jxhdImg">-->
+    <!--      </div>-->
+    <!--      <div class="box2"></div>-->
+    <!--    </div>-->
     <!-- 内容 -->
+    <!--      轮播图-->
+    <van-swipe
+
+      :autoplay="3000"
+      indicator-color="white"
+      class="van-swipe"
+    >
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+        <van-image :src="item.img">
+          <template v-slot:error>图片加载失败</template>
+        </van-image>
+      </van-swipe-item>
+    </van-swipe>
     <div class="p2 contBody_top">
       <!-- 1 -->
       <div class="publicBox box_sizing" style="margin-bottom: 10px">
@@ -123,169 +136,190 @@
 </template>
 
 <script>
-    import { Icon, Image, Tab, Tabs } from 'vant'
+  import { Icon, Image, Tab, Tabs, Swipe, SwipeItem } from 'vant'
 
-    export default {
-        components: {
-            'van-icon': Icon,
-            'van-tab': Tab,
-            'van-tabs': Tabs,
-            'van-image': Image
-        },
-        data() {
-            return {
-                status: 'loading',
-                active: 0,
-                tabShow: false,
-                // 店铺信息
-                mallShopsData: [],
-                // 店铺下商品信息
-                mallShopsListData: [],
-                // nav
-                mallNavData: [],
-                // 品牌
-                mallBrandData: [],
-                // tab栏下商品
-                mallProductListData: [],
-                // tab栏
-                mallTabData: []
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    // 店铺信息
-                    this.getStoreListData()
-                    // tab栏
-                    await this.getMallTabData()
-                    // tab栏下商品
-                    await this.getMallProductListData()
-                    // 品牌
-                    this.getBrandListData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            // 店铺查询
-            async getStoreListData() {
-                const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=1', {
-                    'dataType': 'json',
-                    'method': 'post',
-                    'data': {}
-                })
-                const arr = []
-                const list = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            title: n.shopName,
-                            img: n.logo,
-                            discounts: '',
-                            id: n.id,
-                            shopCode: n.shopCode
-                        })
-                        n.goods.forEach((good, i) => {
-                            list.push({
-                                title: good.goodsName,
-                                img: good.mainImg,
-                                current: good.showPrice,
-                                pre: good.linePrice,
-                                path: `/user/productdetails?id=${good.id}`
-                            })
-                        })
-                        this.mallShopsListData = list
-                    })
-                }
-                this.mallShopsData = arr
-            },
-            // tab栏
-            async getMallTabData() {
-                const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
-                const arr = []
-                for (const i in res.data.dictMap) {
-                    arr.push({
-                        label: res.data.dictMap[i],
-                        key: i
-                    })
-                }
-                this.mallTabData = arr
-            },
-            async changeTab(idx, title) {
-                this.tabShow = false
-                await this.getMallProductListData(this.mallTabData[idx].key)
-                if (this.mallProductListData.length === 0) {
-                    this.tabShow = true
-                }
-            },
-            // tab栏下商品
-            async getMallProductListData(category) {
-                if (!category) category = this.mallTabData[0].key
-                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                const arr = []
-                const allImgArr = []
-                const imgArr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goodsStatics.forEach((img, i) => {
-                            allImgArr.push({
-                                img: img.url,
-                                key: img.spuStaticType
-                            })
-                        })
-                        arr.push({
-                            path: `/user/productdetails?id=${n.id}`,
-                            title: n.goodsName,
-                            id: n.id,
-                            current: n.showPrice,
-                            pre: n.linePrice
-                        })
-                    })
-                    allImgArr.forEach((n, i) => {
-                        if (n.key === 0) {
-                            imgArr.push({
-                                img: n.img
-                            })
-                        }
-                    })
-                }
-                this.mallProductListData = arr.map(function(item, index) {
-                    return { ...item, ...imgArr[index] }
-                })
-            },
-            // 品牌
-            async getBrandListData() {
-                const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=10', {
-                    'dataType': 'json',
-                    'method': 'post',
-                    'data': {}
-                })
-                const arr = []
-                if (res.rows) {
-                    res.rows.forEach((n, i) => {
-                        arr.push({
-                            title: n.shopName,
-                            img: n.logo,
-                            id: n.id,
-                            shopCode: n.shopCode
-                        })
-                    })
-                    this.mallBrandData = arr
-                }
-            }
+  export default {
+    components: {
+      'van-icon': Icon,
+      'van-tab': Tab,
+      'van-tabs': Tabs,
+      'van-image': Image,
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem
+    },
+    data() {
+      return {
+        status: 'loading',
+        active: 0,
+        tabShow: false,
+        // 轮播图
+        bannerData: [],
+        // 店铺信息
+        mallShopsData: [],
+        // 店铺下商品信息
+        mallShopsListData: [],
+        // nav
+        mallNavData: [],
+        // 品牌
+        mallBrandData: [],
+        // tab栏下商品
+        mallProductListData: [],
+        // tab栏
+        mallTabData: []
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          // 轮播图
+          await this.getBannerData()
+          // 店铺信息
+          this.getStoreListData()
+          // tab栏
+          await this.getMallTabData()
+          // tab栏下商品
+          await this.getMallProductListData()
+          // 品牌
+          this.getBrandListData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      // 轮播图
+      async getBannerData() {
+        const res = await this.$http.post('product/banner/list?showFlag=2')
+        const arr = []
+        res.rows.forEach((n, i) => {
+          arr.push({
+            img: n.url
+          })
+        })
+        this.bannerData = arr
+      },
+      // 店铺查询
+      async getStoreListData() {
+        const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=1', {
+          'dataType': 'json',
+          'method': 'post',
+          'data': {}
+        })
+        const arr = []
+        const list = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              title: n.shopName,
+              img: n.logo,
+              discounts: '',
+              id: n.id,
+              shopCode: n.shopCode
+            })
+            n.goods.forEach((good, i) => {
+              list.push({
+                title: good.goodsName,
+                img: good.mainImg,
+                current: good.showPrice,
+                pre: good.linePrice,
+                path: `/user/productdetails?id=${good.id}`
+              })
+            })
+            this.mallShopsListData = list
+          })
+        }
+        this.mallShopsData = arr
+      },
+      // tab栏
+      async getMallTabData() {
+        const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
+        const arr = []
+        for (const i in res.data.dictMap) {
+          arr.push({
+            label: res.data.dictMap[i],
+            key: i
+          })
+        }
+        this.mallTabData = arr
+      },
+      async changeTab(idx, title) {
+        this.tabShow = false
+        await this.getMallProductListData(this.mallTabData[idx].key)
+        if (this.mallProductListData.length === 0) {
+          this.tabShow = true
+        }
+      },
+      // tab栏下商品
+      async getMallProductListData(category) {
+        if (!category) category = this.mallTabData[0].key
+        const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+        const arr = []
+        const allImgArr = []
+        const imgArr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            n.goodsStatics.forEach((img, i) => {
+              allImgArr.push({
+                img: img.url,
+                key: img.spuStaticType
+              })
+            })
+            arr.push({
+              path: `/user/productdetails?id=${n.id}`,
+              title: n.goodsName,
+              id: n.id,
+              current: n.showPrice,
+              pre: n.linePrice
+            })
+          })
+          allImgArr.forEach((n, i) => {
+            if (n.key === 0) {
+              imgArr.push({
+                img: n.img
+              })
+            }
+          })
+        }
+        this.mallProductListData = arr.map(function(item, index) {
+          return { ...item, ...imgArr[index] }
+        })
+      },
+      // 品牌
+      async getBrandListData() {
+        const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=10', {
+          'dataType': 'json',
+          'method': 'post',
+          'data': {}
+        })
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              title: n.shopName,
+              img: n.logo,
+              id: n.id,
+              shopCode: n.shopCode
+            })
+          })
+          this.mallBrandData = arr
+        }
+      }
     }
+  }
 </script>
 <style lang='scss' scoped>
   .van-image {
     width: 100%;
     height: 75%;
     overflow: hidden;
+  }
+
+  .van-swipe {
+    margin-top: 35px;
   }
 
   .hint {
@@ -322,7 +356,11 @@
     }
   }
 
-  .title_nav p{
+  .contBody_top {
+    margin-top: 1.22rem;
+  }
+
+  .title_nav p {
     width: 70px;
     height: 15px;
     overflow: hidden;
@@ -382,24 +420,28 @@
     margin-top: 50px;
   }
 
-  .commodityLits li{
+  .commodityLits li {
     width: 110px;
     height: 150px;
     overflow: hidden;
     margin: 0 auto;
   }
+
   .commodityLits img {
     height: 3rem;
   }
-  .logo_ification{
+
+  .logo_ification {
     text-align: center;
     justify-content: normal;
     margin: 0 10px;
-    li{
+
+    li {
       height: 101px;
       background: none;
       overflow: hidden;
-      .van-image{
+
+      .van-image {
         width: 80%;
         height: 80%;
       }

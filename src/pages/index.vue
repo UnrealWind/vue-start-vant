@@ -39,7 +39,7 @@
     <div class="nav_box dan_wrap">
       <div class="nav_li fix wp">
         <div v-for="(opt, index) in navList" :key="index" class="li1">
-          <a class="img" @click="$router.push({path:opt.path,query:{id:opt.id}})">
+          <a class="img" @click="$router.push({path:opt.path,query:{id:opt.id,title:opt.title}})">
             <van-image :src="opt.img">
               <template v-slot:error>图片加载失败</template>
             </van-image>
@@ -124,7 +124,7 @@
     </div>
     <!--    错误提示-->
     <div class="nav_box10 dan_wrap">
-      <div v-show="tabShow" class="hint">当前类目下没有分类</div>
+      <div v-show="tabShow" class="hint">当前时段下暂无商品</div>
     </div>
 
   </van-container>
@@ -146,7 +146,7 @@
         active: 0,
         status: 'loading',
         value: '',
-        tabShow: false,
+        tabShow: true,
         tabListData: [],
         bannerData: [],
         tabStyleActive: '',
@@ -228,10 +228,10 @@
         this.timeList = arr
       },
       async changeTime(item) {
-        this.tabShow = false
+        this.tabShow = true
         await this.getTodaySaleList(item.key)
-        if (this.tabListData.length === 0) {
-          this.tabShow = true
+        if (this.tabListData.length !== 0) {
+          this.tabShow = false
         }
         this.tabStyleActive = item.key
       },

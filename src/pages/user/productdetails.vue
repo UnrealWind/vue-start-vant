@@ -560,6 +560,7 @@
                 id: id
             })
             this.good = res.data
+            !this.good.orderAppraisesList ? this.good.orderAppraisesList = [] : ''
             this.good.orderAppraisesList.forEach((n, i) => {
                 n.images = JSON.parse(n.images)
             })

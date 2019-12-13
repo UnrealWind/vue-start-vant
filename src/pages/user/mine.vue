@@ -3,7 +3,7 @@
   <van-container :status="status" :tabbar="true" :active="'mine'">
     <div slot="header" class="fix">
       <div class="wp">
-        <div class="header_r l">
+        <div class="header_r l" @click="$router.push('/user/infoList')">
           <van-icon name="chat-o" />
           <div class="p"> 消息 </div>
         </div>

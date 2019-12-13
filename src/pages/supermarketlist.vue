@@ -14,7 +14,10 @@
     </div>
 
     <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item><img src="../assets/img/supermarketlist.png" alt="">
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+        <van-image :src="item.img">
+          <template v-slot:error>图片加载失败</template>
+        </van-image>
       </van-swipe-item>
     </van-swipe>
 
@@ -56,83 +59,97 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Tab, Tabs } from 'vant'
+  import { Icon, Swipe, SwipeItem, Tab, Tabs, Image } from 'vant'
 
-    export default {
-        components: {
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
-            'van-icon': Icon,
-            'van-tab': Tab,
-            'van-tabs': Tabs
-        },
-        data() {
-            return {
-                active: 0,
-                status: 'loading',
-                value: '',
-                tabShow: false,
-                errorShow: false,
-                navList: [],
-                listData: []
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    await this.getMarketTabData()
-                    await this.getSuperMarketListData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            async getMarketTabData() {
-                const res = await this.$http.post(`product/content/selectById?level=3&id=${this.$route.query.id}`)
-                const arr = []
-              console.log(res)
-                for (const i in res.data.dictMap) {
-                    arr.push({
-                        label: res.data.dictMap[i],
-                        key: i
-                    })
-                }
-                this.navList = arr
-            },
-            async changeTab(idx, title) {
-                this.tabShow = false
-                await this.getSuperMarketListData(this.navList[idx].key)
-                if (this.listData.length === 0) {
-                    this.tabShow = true
-                }
-            },
-            async getSuperMarketListData(category) {
-                if (!category) category = this.navList[0].key
-                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                const arr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        arr.push({
-                            path: `/user/productdetails?id=${n.id}`,
-                            img: n.goodsStatics[0].url,
-                            title: n.goodsName,
-                            intro: n.goodsgoodsProfile,
-                            current: n.showPrice,
-                            pre: n.linePrice
-                        })
-                    })
-                } else {
-                    this.errorShow = true
-                }
-                this.listData = arr
-            }
+  export default {
+    components: {
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem,
+      'van-icon': Icon,
+      'van-tab': Tab,
+      'van-tabs': Tabs,
+      'van-image': Image
+    },
+    data() {
+      return {
+        active: 0,
+        status: 'loading',
+        value: '',
+        tabShow: false,
+        errorShow: false,
+        // 轮播图
+        bannerData: [],
+        navList: [],
+        listData: []
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          await this.getBannerData()
+          await this.getMarketTabData()
+          await this.getSuperMarketListData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      async getBannerData() {
+        const res = await this.$http.post('product/banner/list?showFlag=3')
+        const arr = []
+        res.rows.forEach((n, i) => {
+          arr.push({
+            img: n.url
+          })
+        })
+        this.bannerData = arr
+      },
+      async getMarketTabData() {
+        const res = await this.$http.post(`product/content/selectById?level=3&id=${this.$route.query.id}`)
+        const arr = []
+        console.log(res)
+        for (const i in res.data.dictMap) {
+          arr.push({
+            label: res.data.dictMap[i],
+            key: i
+          })
+        }
+        this.navList = arr
+      },
+      async changeTab(idx, title) {
+        this.tabShow = false
+        await this.getSuperMarketListData(this.navList[idx].key)
+        if (this.listData.length === 0) {
+          this.tabShow = true
+        }
+      },
+      async getSuperMarketListData(category) {
+        if (!category) category = this.navList[0].key
+        const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            arr.push({
+              path: `/user/productdetails?id=${n.id}`,
+              img: n.goodsStatics[0].url,
+              title: n.goodsName,
+              intro: n.goodsgoodsProfile,
+              current: n.showPrice,
+              pre: n.linePrice
+            })
+          })
+        } else {
+          this.errorShow = true
+        }
+        this.listData = arr
+      }
     }
+  }
 
 </script>
 <style lang='scss' scoped>
@@ -194,7 +211,8 @@
       font-size: 12px;
     }
   }
-  >>>.main{
+
+  > > > .main {
     background: #86c8e8;
   }
 
@@ -351,6 +369,7 @@
       padding-bottom: 2px;
     }
   }
+
   .hint {
     margin-top: 20px;
     font-size: 14px;

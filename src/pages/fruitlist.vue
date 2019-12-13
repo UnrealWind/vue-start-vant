@@ -15,8 +15,16 @@
         <van-icon name="cart-o" />
       </div>
     </div>
-    <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item><img src="../assets/img/fruittu1.png" alt="">
+    <van-swipe
+
+      :autoplay="3000"
+      indicator-color="white"
+      class="van-swipe"
+    >
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+        <van-image :src="item.img">
+          <template v-slot:error>图片加载失败</template>
+        </van-image>
       </van-swipe-item>
     </van-swipe>
 
@@ -48,20 +56,22 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem } from 'vant'
+    import { Icon, Swipe, SwipeItem, Image } from 'vant'
 
     export default {
         components: {
             'van-swipe': Swipe,
             'van-swipe-item': SwipeItem,
-            'van-icon': Icon
+            'van-icon': Icon,
+          'van-image': Image
         },
         data() {
             return {
                 status: 'loading',
                 value: '',
                 vipData: [],
-                tabShow: false
+                tabShow: false,
+              bannerData: []
             }
         },
         computed: {},
@@ -72,7 +82,7 @@
             async init() {
                 try {
                     await this.getFruitListData()
-                    // await this.getData()
+                    await this.getBannerData()
                 } catch (e) {
                     this.status = 'error'
                     throw e
@@ -102,12 +112,29 @@
                     this.tabShow = true
                 }
                 this.vipData = arr
-            }
+            },
+          async getBannerData() {
+            const res = await this.$http.post('product/banner/list?showFlag=3')
+            const arr = []
+            res.rows.forEach((n, i) => {
+              arr.push({
+                img: n.url
+              })
+            })
+            this.bannerData = arr
+          }
+
         }
     }
 
 </script>
 <style lang='scss' scoped>
+
+  .van-image {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+  }
   .hint {
     font-size: 16px;
     text-align: center;

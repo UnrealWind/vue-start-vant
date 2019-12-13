@@ -5,7 +5,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2">
-        <div class="p"> 跨境电商</div>
+        <div class="p">  {{ this.$route.query.title }}</div>
       </div>
     </div>
     <div class="topHead topHead1">

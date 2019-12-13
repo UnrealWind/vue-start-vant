@@ -81,7 +81,7 @@
 
         <div class="nav_box8 dan_wrap sortBox">
           <ul class="clearfix">
-            <li @click="change">综合</li>
+            <li :class="iconActive === ''?'redIcon': ''" @click="change">综合</li>
             <li>
               <span @click="changeIcon">价格</span>
               <span class="arrow-box">
@@ -221,16 +221,13 @@
         if (this.iconActive === '') {
           this.storeListData.sort(sortNum)
           this.iconActive = false
-          console.log(this.active, this.iconActive)
           return false
         } else if (this.iconActive === true) {
           this.storeListData.sort(sortNum)
           this.iconActive = false
-          console.log(this.active, this.iconActive)
           return false
         } else if (this.iconActive === false) {
           this.storeListData.sort(sortNumber)
-          console.log(this.active, this.iconActive)
           this.iconActive = true
           return false
         }

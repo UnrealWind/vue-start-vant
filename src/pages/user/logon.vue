@@ -36,7 +36,7 @@
           />
           <van-field
             v-model="pid"
-            label="pid"
+            label="推荐人"
             placeholder="请输入pid"
           />
           <van-field

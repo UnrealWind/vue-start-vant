@@ -6,17 +6,26 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2">
-        <div class="p"> 时令水果</div>
+        <div class="p"> {{ this.$route.query.title }}</div>
       </div>
     </div>
     <div class="topHead2">
       <div class="box2"></div>
     </div>
     <div class="p2 FruitsBox contBody_top2">
-      <!-- 1 -->
-      <div class="imgBox">
-        <img src="../../assets/css/static/images/a12.jpg" alt="">
-      </div>
+      <!-- 轮播图 -->
+      <van-swipe
+
+        :autoplay="3000"
+        indicator-color="white"
+        class="van-swipe"
+      >
+        <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+          <van-image :src="item.img">
+            <template v-slot:error>图片加载失败</template>
+          </van-image>
+        </van-swipe-item>
+      </van-swipe>
       <!-- 4大宣传	 -->
       <div class="title_nav mt3 flex_betweenc">
         <p><img src="../../assets/css/static/images/z.png" alt="">产地直采</p>
@@ -103,14 +112,16 @@
 </template>
 
 <script>
-  import { Icon, Tab, Tabs, Image } from 'vant'
+  import { Icon, Tab, Tabs, Image, Swipe, SwipeItem } from 'vant'
 
   export default {
     components: {
       'van-icon': Icon,
       'van-tab': Tab,
       'van-tabs': Tabs,
-      'van-image': Image
+      'van-image': Image,
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem
     },
     data() {
       return {
@@ -123,7 +134,8 @@
         seasonalHotStyleData: [],
         seasonalProductListData: [],
         seasonalCategoryData: [],
-        activityData: []
+        activityData: [],
+        bannerData: []
       }
     },
     computed: {},
@@ -133,6 +145,7 @@
     methods: {
       async init() {
         try {
+          await this.getBannerData()
           await this.getSeasonalData()
           await this.getSeasonalNavData()
           await this.getSeasonalProductListData()
@@ -148,6 +161,17 @@
           throw e
         }
         this.status = 'success'
+      },
+      // 轮播图
+      async getBannerData() {
+        const res = await this.$http.post('product/banner/list?showFlag=2')
+        const arr = []
+        res.rows.forEach((n, i) => {
+          arr.push({
+            img: n.url
+          })
+        })
+        this.bannerData = arr
       },
       // 导航数据
       async getSeasonalNavData() {
@@ -288,9 +312,15 @@
     }
   }
 
-  .swiper-wrapper .swiper-slide {
-    width: 25%;
+  .van-swipe{
+    height: 120px;
     overflow: hidden;
+    .van-image{
+      height: 100%;
+      .van-image__img{
+        height: auto;
+      }
+    }
   }
   .tuijian2{
     margin-bottom: 55px;

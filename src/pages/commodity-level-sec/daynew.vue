@@ -5,7 +5,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2">
-        <div class="p">每日精选</div>
+        <div class="p"> {{ this.$route.query.title }}</div>
       </div>
     </div>
     <div class="mrsxBox">
@@ -131,7 +131,6 @@
                         img: n.url
                     })
                 })
-              console.log(arr)
                 this.bannerData = arr
             },
             // 精选大牌
@@ -157,12 +156,14 @@
             async getDayNewTabData() {
                 const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
                 const arr = []
+              if (res.data.dictMap) {
                 for (const i in res.data.dictMap) {
-                    arr.push({
-                        label: res.data.dictMap[i],
-                        key: i
-                    })
+                  arr.push({
+                    label: res.data.dictMap[i],
+                    key: i
+                  })
                 }
+              }
                 this.dayNewTabData = arr
             },
             async changeTab(idx, title) {
@@ -179,6 +180,7 @@
                 const arr = []
                 const allImgArr = []
                 const imgArr = []
+              console.log(res.data)
                 if (res.data) {
                     res.data.forEach((n, i) => {
                         n.goodsStatics.forEach((img, i) => {
@@ -191,7 +193,8 @@
                             title: n.goodsName,
                             id: n.id,
                             current: n.showPrice,
-                            pre: n.linePrice
+                            pre: n.linePrice,
+                          path: '/user/productdetails'
                         })
                     })
                     allImgArr.forEach((n, i) => {

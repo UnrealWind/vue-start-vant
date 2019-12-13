@@ -16,8 +16,17 @@
       </div>
     </div>
 
-    <van-swipe :autoplay="3000" indicator-color="white" class="van-swipe">
-      <van-swipe-item><img src="../assets/img/hottu1.png" alt=""></van-swipe-item>
+    <van-swipe
+
+      :autoplay="3000"
+      indicator-color="white"
+      class="van-swipe"
+    >
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+        <van-image :src="item.img">
+          <template v-slot:error>图片加载失败</template>
+        </van-image>
+      </van-swipe-item>
     </van-swipe>
 
     <div class="nav_box5 dan_wrap ">
@@ -54,96 +63,97 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Tab, Tabs } from 'vant'
+  import { Icon, Swipe, SwipeItem, Tab, Tabs, Image } from 'vant'
 
-    export default {
-        components: {
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
-            'van-icon': Icon,
-            'van-tab': Tab,
-            'van-tabs': Tabs
-        },
-        data() {
-            return {
-                active: 0,
-                status: 'loading',
-                value: '',
-                tabShow: false,
-                hotData: [],
-                navList: []
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    await this.getHotData()
-                    await this.getHotTabData()
-                    await this.getHotTabListData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            async getHotData() {
-                const res = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`, {})
-                const arr = []
-                res.rows.forEach((n, i) => {
-                    arr.push({
-                        img: n.logo,
-                        name: n.name,
-                        path: `/user/productdetails?id=${n.id}`
-                    })
-                })
-                this.mallNavData = arr
-            },
-            // tab栏数据
-            async getHotTabData() {
-                const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
-                const arr = []
-                for (const i in res.data.dictMap) {
-                    arr.push({
-                        label: res.data.dictMap[i],
-                        key: i
-                    })
-                }
-                this.navList = arr
-            },
-            async changeTab(idx, title) {
-                this.tabShow = false
-                await this.getHotTabListData(this.navList[idx].key)
-                if (this.hotData.length === 0) {
-                    this.tabShow = true
-                }
-            },
-            // tab栏下商品数据
-            async getHotTabListData(category) {
-                if (!category) category = this.navList[0].key
-                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                const arr = []
-              console.log(res.data)
-              if (res.data) {
-                res.data.forEach((n, i) => {
-                  arr.push({
-                    type: 'list-concentrate',
-                    image: n.goodsStatics[0].url,
-                    discribe: n.goodsProfile,
-                    title: n.goodsName,
-                    concentratePrice: n.linePrice + '',
-                    concentratePriceDiscribe: '￥',
-                    btnGo: `/user/productdetails?id=${n.id}`
-                  })
-                })
-              }
-                this.hotData = arr
-            }
+  export default {
+    components: {
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem,
+      'van-icon': Icon,
+      'van-tab': Tab,
+      'van-tabs': Tabs,
+      'van-image': Image
+    },
+    data() {
+      return {
+        active: 0,
+        status: 'loading',
+        value: '',
+        tabShow: false,
+        hotData: [],
+        navList: [],
+        bannerData: []
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          await this.getBannerData()
+          await this.getHotTabData()
+          await this.getHotTabListData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      // 轮播图
+      async getBannerData() {
+        const res = await this.$http.post('product/banner/list?showFlag=2')
+        const arr = []
+        res.rows.forEach((n, i) => {
+          arr.push({
+            img: n.url
+          })
+        })
+        this.bannerData = arr
+        console.log(this.bannerData[0])
+      },
+      // tab栏数据
+      async getHotTabData() {
+        const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
+        const arr = []
+        for (const i in res.data.dictMap) {
+          arr.push({
+            label: res.data.dictMap[i],
+            key: i
+          })
+        }
+        this.navList = arr
+      },
+      async changeTab(idx, title) {
+        this.tabShow = false
+        await this.getHotTabListData(this.navList[idx].key)
+        if (this.hotData.length === 0) {
+          this.tabShow = true
+        }
+      },
+      // tab栏下商品数据
+      async getHotTabListData(category) {
+        if (!category) category = this.navList[0].key
+        const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            arr.push({
+              type: 'list-concentrate',
+              image: n.goodsStatics[0].url,
+              discribe: n.goodsProfile,
+              title: n.goodsName,
+              concentratePrice: n.linePrice + '',
+              concentratePriceDiscribe: '￥',
+              btnGo: `/user/productdetails?id=${n.id}`
+            })
+          })
+        }
+        this.hotData = arr
+      }
     }
+  }
 
 </script>
 <style lang='scss' scoped>
@@ -305,7 +315,8 @@
     font-size: 14px;
     text-align: center;
   }
-  >>>.van-tabs__content {
+
+  > > > .van-tabs__content {
     margin-top: 20px;
   }
 </style>
