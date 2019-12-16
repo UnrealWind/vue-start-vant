@@ -70,9 +70,9 @@
             class="cou_bottom"
           >
             <div class="title"> ￥{{ customTotalPrice }}  </div>
-            <div class="title_time">
+            <!--<div class="title_time">
               请在 <span> 12.00 </span> 内完成支付
-            </div>
+            </div>-->
             <van-radio-group v-model="payType">
               <van-cell-group>
                 <div class="img">

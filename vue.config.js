@@ -4,7 +4,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = 'vue mobile template' // page title
+const name = '既派商城' // page title
 const port = 23333 // dev port
 const externals = {
   vue: 'Vue',
