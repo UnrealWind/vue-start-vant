@@ -53,7 +53,7 @@
             </van-button>
           </van-field>
         </van-cell-group>
-        <div class="goLogin"><a @click="$router.push('/user/accountLogin')">已有账号，点击登录</a></div>
+        <div class="goLogin"><a @click="$router.push('/user/accountlogin')">已有账号，点击登录</a></div>
         <div class="nextSte" @click="logon">
           确认
         </div>

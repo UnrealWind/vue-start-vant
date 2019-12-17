@@ -5,7 +5,7 @@ const config = {
   ],
   excPath: [
     '/user/logon',
-    '/user/accountLogin',
+    '/user/accountlogin',
     '/',
     '/origin',
     '/commodityLevelSec/seasonal',

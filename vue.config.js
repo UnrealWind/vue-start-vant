@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const VueAutoRoutingPlugin = require('vue-auto-routing/lib/webpack-plugin')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -64,7 +65,19 @@ module.exports = {
     }
     // 为开发环境修改配置...
     if (process.env.NODE_ENV === 'development') {
+      //
     }
+    // 这里对应webpackde plugins
+    const pluginsPro = [
+      new VueAutoRoutingPlugin({
+        // Path to the directory that contains your page components.
+        pages: 'src/pages',
+
+        // A string that will be added to importing component path (default @/pages/).
+        importPrefix: '@/pages/'
+      })
+    ]
+    config.plugins = [...config.plugins, ...pluginsPro]
   },
   chainWebpack(config) {
     config.plugins.delete('preload') // TODO: need test

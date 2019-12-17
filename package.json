@@ -48,6 +48,7 @@
     "script-loader": "0.7.2",
     "serve-static": "^1.13.2",
     "svgo": "1.2.2",
+    "vue-auto-routing": "^0.4.0",
     "vue-template-compiler": "2.6.10"
   },
   "engines": {
