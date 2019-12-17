@@ -19,7 +19,7 @@ export const constantRoutes = [
 ]
 
 const targetRouter = constantRoutes.concat(routes)
-console.log(targetRouter, 123123123123123)
+
 const createRouter = () =>
   new Router({
     mode: 'hash', // require service support
