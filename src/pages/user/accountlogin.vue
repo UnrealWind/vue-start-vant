@@ -116,6 +116,7 @@
 
   .fix {
     *zoom: 1;
+    height: 10px;
   }
 
   .l {

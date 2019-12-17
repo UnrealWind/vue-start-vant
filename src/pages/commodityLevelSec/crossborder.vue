@@ -232,7 +232,7 @@
         this.todayErrBox = false
         if (res.data) {
           res.data.forEach(async(n, i) => {
-            if (n[i]) {
+            if (n) {
               const res = await this.getRobData(n.activityCode)
               this.$set(n, 'children', res.data[0].goods)
             } else {

@@ -35,20 +35,6 @@
                 ￥ {{ item.current }}
               </span>
             </li>
-            <li
-              v-for="(item,index) in registeredItemsData"
-              :key="index"
-              @click="$router.push({path:item.path,query:{id:item.id}})"
-            >
-              <div class="imgBox">
-                <img :src="item.image" alt>
-              </div>
-              <span class="tag">{{ item.title }}</span>
-              <span class="intro">{{ item.discribe }}</span>
-              <span class="money">
-                ￥ {{ item.current }}
-              </span>
-            </li>
           </ul>
         </div>
       </div>
@@ -115,9 +101,10 @@
 </script>
 
 <style lang="scss" scoped>
-  >>>.header {
+  > > > .header {
     background: #312F3B;
   }
+
   i {
     font-style: normal;
   }
@@ -248,12 +235,14 @@
         margin-bottom: 10px;
         padding-left: 25px;
         font-size: 22px;
+
         img {
           width: 40px;
           vertical-align: middle;
         }
       }
-      span{
+
+      span {
         font-size: 14px;
         color: #dddddd;
       }

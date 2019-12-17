@@ -71,7 +71,7 @@
       <ul class="flex_wrap gwcLits gwcLits_SG">
         <li v-for="(item,index) in activity.children" :key="index">
           <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
-            <van-image :src="item.goodsStatics[0].url" style="height: 70%;">
+            <van-image :src="item.goodsStatics[0].url" style="height: 71%;">
               <template v-slot:error>图片加载失败</template>
             </van-image>
             <p class="p1">{{ item.goodsName }}</p>
@@ -112,7 +112,7 @@
 </template>
 
 <script>
-  import { Icon, Tab, Tabs, Image, Swipe, SwipeItem } from 'vant'
+  import { Icon, Image, Swipe, SwipeItem, Tab, Tabs } from 'vant'
 
   export default {
     components: {
@@ -249,6 +249,7 @@
           contentId: this.$route.query.id
         })
         if (res.data) {
+          console.log(res.data)
           res.data.forEach(async(n, i) => {
             const res = await this.getTopOneData(n.activityCode)
             this.$set(n, 'children', res.data[0].goods)
@@ -259,10 +260,9 @@
 
       // 镇店之宝
       async getTopOneData(activityCode) {
-        const res = await this.$http.post('product/activity/activityGoodsList', {
+        return await this.$http.post('product/activity/activityGoodsList', {
           activityCode: activityCode
         })
-        return res
       }
     }
   }
@@ -336,7 +336,7 @@
 
   .gwcLits li {
     width: 100%;
-    height: 300px;
+    height: 262.5px;
     overflow: hidden;
   }
 

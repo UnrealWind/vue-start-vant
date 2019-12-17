@@ -8,8 +8,8 @@
         <div class="p">  {{ this.$route.query.title }}</div>
       </div>
       <div class="header_r r">
-        <van-icon name="cart-o" />
-        <van-icon name="share" />
+        <van-icon name="cart-o" @click="$router.push('/cart/shopcar')" />
+        <!--        <van-icon name="share" />-->
       </div>
     </div>
     <div class="topHead2 topHead3 ">
@@ -97,8 +97,8 @@
           </ul>
         </div>
         <!--    错误提示-->
-        <div class="nav_box10 dan_wrap">
-          <div v-show="timeBoxShow" class="hint">当前时段下暂无商品</div>
+        <div v-if="timeBoxShow" class="nav_box10 dan_wrap">
+          <div class="hint">当前时段下暂无商品</div>
         </div>
       </div>
       <!--        超值好物-->
@@ -174,8 +174,8 @@
           </a>
         </li>
       </ul>
-      <div v-show="tabShow" class="nav_box10 dan_wrap">
-        <div class="hint">当前类目下没有分类</div>
+      <div class="nav_box10 dan_wrap">
+        <div v-show="tabShow" class="hint">当前类目下没有分类</div>
       </div>
     </div>
 
@@ -252,7 +252,6 @@
       async getBannerData() {
         const res = await this.$http.post('product/banner/list')
         const arr = []
-        console.log(res.rows)
         res.rows.forEach((n, i) => {
           arr.push({
             img: n.url
@@ -289,12 +288,29 @@
         this.timeList = arr
       },
       async changeTime(item) {
-        this.timeBoxShow = true
         await this.getTodaySaleList(item.key)
-        if (this.tabListData.length !== 0) {
-          this.timeBoxShow = false
-        }
+        this.timeBoxShow = this.tabListData.length === 0
         this.tabStyleActive = item.key
+      },
+      // 今日特卖商品
+      async getTodaySaleList(timeType) {
+        const res = await this.$http.post(`/product/todaySale/todaySalelist`, {
+          timeType: timeType
+        })
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            arr.push({
+              discribe: n.goodsProfile,
+              title: n.goodsName,
+              image: n.mainImg,
+              current: n.showPrice,
+              gain: n.linePrice - n.showPrice,
+              btnGo: `/user/productdetails?id=${n.id}`
+            })
+          })
+        }
+        this.tabListData = arr
       },
       // 活动
       async getActivityData() {
@@ -319,26 +335,6 @@
         return await this.$http.post(`product/activity/activityGoodsList`, {
           activityCode: activityCode
         })
-      },
-      // 今日特卖商品
-      async getTodaySaleList(timeType) {
-        const res = await this.$http.post(`/product/todaySale/todaySalelist`, {
-          timeType: timeType
-        })
-        const arr = []
-        if (res.data) {
-          res.data.forEach((n, i) => {
-            arr.push({
-              discribe: n.goodsProfile,
-              title: n.goodsName,
-              image: n.mainImg,
-              current: n.showPrice,
-              gain: n.linePrice - n.showPrice,
-              btnGo: `/user/productdetails?id=${n.id}`
-            })
-          })
-        }
-        this.tabListData = arr
       },
       // Tab栏
       async getMarketCategoryData() {
@@ -619,11 +615,14 @@
 
           .price {
             .gain {
+              margin-top: -3px;
+              padding: 3px 4px 1px;
               float: right;
               display: inline-block;
               border: 1px solid #ef2154;
               border-radius: 5px;
               color: #ef2154;
+              text-align: center;
             }
           }
         }
@@ -664,12 +663,14 @@
 
         .imgBox {
           background-color: #fff;
-          margin: 30px 15px 30px 15px;
+          margin: 30px 15px 20px 15px;
           min-height:115px;
         }
 
         .last {
+          display: block;
           font-size: 12px;
+          margin-bottom: 10px;
         }
       }
 
@@ -818,7 +819,7 @@
   }
 
   .nav_box10 {
-    margin-bottom: 100px;
+    height: 100px;
 
     .hint {
       margin-top: 20px;

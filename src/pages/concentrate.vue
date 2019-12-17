@@ -50,6 +50,9 @@
         </div>
       </div>
     </div>
+    <div v-if="newErrBox" class="errBox">
+      活动下暂无商品
+    </div>
     <!--每日新选-->
     <div class="nav_box3 dan_wrap fix">
       <div class="wp">
@@ -71,7 +74,7 @@
         <ul class="flex_wrap gwcLits ">
           <li v-for="(item,index) in choicenessData" :key="index">
             <a @click="$router.push(item.path)">
-              <van-image :src="item.img">
+              <van-image :src="item.img" fill>
                 <template v-slot:error>加载失败</template>
               </van-image>
               <p class="p1">{{ item.title }}</p>
@@ -110,6 +113,7 @@
                 status: 'loading',
                 value: '',
                 tabShow: false,
+                newErrBox: false,
                 concentrateData: [],
                 navList: [],
                 choicenessData: [],
@@ -159,6 +163,7 @@
             },
             // 超人气新品
             async getNewProduct() {
+              this.newErrBox = false
                 const res = await this.$http.post('product/activity/activityGoodsList', {
                     activityCode: 'cf48dbb9013a418e87b8e47086cddc3b'
                 })
@@ -178,6 +183,8 @@
                     })
                   })
                 })
+              } else {
+                this.newErrBox = true
               }
                 this.concentrateData = arr
             },
@@ -243,6 +250,11 @@
 <style lang='scss' scoped>
   @import "../assets/css/static/css/app.css";
   @import "../assets/css/static/css/style.css";
+
+  .errBox{
+    text-align: center;
+    font-size: 15px;
+  }
 
   .gwcLits {
     padding-bottom: 10px;
@@ -461,16 +473,12 @@
 
   .van-image {
     width: 100%;
-    height: 85%;
+    height: 77%;
   }
 
   .gwcLits li {
     width: 48%;
     height: 6.5rem;
-  }
-
-  > > > .gwcLits li .van-image {
-    height: 75%;
   }
 
   > > > .gwcLits li .van-image__img {

@@ -121,12 +121,11 @@
           </commodity>
         </div>
       </div>
+      <!--    错误提示-->
+      <div v-if="tabShow" class="nav_box10 dan_wrap">
+        <div class="hint">当前时段下暂无商品</div>
+      </div>
     </div>
-    <!--    错误提示-->
-    <div class="nav_box10 dan_wrap">
-      <div v-show="tabShow" class="hint">当前时段下暂无商品</div>
-    </div>
-
   </van-container>
 </template>
 
@@ -156,15 +155,6 @@
       }
     },
     computed: {},
-    watch: {
-      tabShow: function() {
-        if (this.tabShow) {
-          this.$nextTick(function() {
-            document.getElementById('scroll').scrollTop = document.getElementById('scroll').scrollHeight
-          })
-        }
-      }
-    },
     mounted() {
       this.init()
     },
@@ -228,11 +218,8 @@
         this.timeList = arr
       },
       async changeTime(item) {
-        this.tabShow = true
         await this.getTodaySaleList(item.key)
-        if (this.tabListData.length !== 0) {
-          this.tabShow = false
-        }
+        this.tabShow = this.tabListData.length === 0
         this.tabStyleActive = item.key
       },
       // 今日特卖商品

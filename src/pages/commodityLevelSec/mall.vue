@@ -32,8 +32,7 @@
       <!-- 1 -->
       <div class="publicBox box_sizing" style="margin-bottom: 10px">
         <div class="title_xl flex">
-          <p class="p1">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-          <p></p>
+          <p class="p1" style="width: 100px;">推荐好货</p>
         </div>
         <!-- 商品 -->
         <ul class="commodityLits mt7 flex_wrap">
@@ -69,7 +68,7 @@
         <div class="flex_betweenc  Storefront_cont">
           <div class="box1 flex">
             <img :src="item.img" alt="">
-            <p><span>{{ item.title }}</span><span class="bj">{{ item.discounts }}</span></p>
+            <span>{{ item.title }}</span>
           </div>
           <div class="box2 flex_center"><a
             @click="$router.push({path:'/store',query:{shopCode: item.shopCode}})"
