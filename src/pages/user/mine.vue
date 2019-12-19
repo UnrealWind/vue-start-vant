@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :status="status" :tabbar="true" :active="'mine'">
+  <van-container :status="status" :tabbar="true" :active="'mine'" :header-color="'#fc4a26'">
     <div slot="header" class="fix">
       <div class="wp">
         <div class="header_r l" @click="$router.push('/user/infoList')">

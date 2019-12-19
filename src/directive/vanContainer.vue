@@ -185,7 +185,7 @@
     .fix {
       background: rgba(0,0,0,0)!important;
       color:#fff!important;
-      .hesde_l4,.hesde_l,.hesde_l2 .p{
+      .hesde_l4,.hesde_l,.hesde_l2 .p ,span, .header_l .van-icon{
         color:#fff!important;
       }
     }

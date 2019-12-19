@@ -1,5 +1,5 @@
 <template>
-  <van-container :status="status">
+  <van-container :status="status" :header-color="'#312F3B'">
     <!-- 头部 -->
     <div slot="header" class="fix">
       <span @click="$router.back()"> <van-icon name="arrow-left" /> </span>

@@ -1,7 +1,7 @@
 <!-- home -->
 <template>
   <van-container :status="status" :tabbar="true" :active="'zone'">
-    <div slot="header" class="fix header">
+    <div slot="header" class="fix">
       <div class="wp">
         <!--<div class="header_l l" @click="$router.push('/user/myshop')">
           <van-icon name="user-o" />

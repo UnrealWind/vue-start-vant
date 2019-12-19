@@ -88,7 +88,7 @@
   }
   .r{
     position: absolute;
-    top:5px;
+    top:35px !important;
     right: 10px;
   }
   h1 {

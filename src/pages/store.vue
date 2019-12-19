@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :status="status">
+  <van-container :status="status" :header-color="''">
     <div slot="header" class="fix">
       <div class="header_l l" @click="$router.back()">
         <van-icon name="arrow-left" />

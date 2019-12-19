@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :status="status" :active="'index'" :tabbar="true">
+  <van-container :status="status" :active="'index'" :tabbar="true" :header-color="'rgba(0,0,0,0)'">
     <!--    顶部-->
     <div slot="header" class="fix">
       <div class="hesde_l l" @click="$router.push('/user/infoList')">

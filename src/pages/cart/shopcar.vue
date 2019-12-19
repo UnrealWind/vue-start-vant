@@ -1,6 +1,6 @@
 <!-- home -->
 <template>
-  <van-container :active="'cart'" :status="status" :tabbar="true">
+  <van-container :active="'cart'" :status="status" :tabbar="true" :header-color="'#fc4a26'">
     <div slot="header" class="fix">
       <div class="header_l2">
         <div class="p"> 购物车</div>
