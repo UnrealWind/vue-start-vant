@@ -335,7 +335,6 @@
 
   .dan_wrap {
     background: #ffffff;
-
     .wp {
       width: 95%;
       margin: 0 auto;

@@ -250,7 +250,7 @@
     }
 </script>
 
-<style lang=scss>
+<style lang=scss scoped>
   h1 {
     background: red;
     width: 375px;
