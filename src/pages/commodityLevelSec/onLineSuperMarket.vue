@@ -1,5 +1,5 @@
 <template>
-  <van-container :tabber="true" :status="status">
+  <van-container :tabber="true" :status="status" :header-color="`#${$route.query.color}`">
     <div slot="header" class="fix">
       <div class="header_l l" @click="$router.back()">
         <van-icon name="arrow-left" />
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="topHead2 topHead3 ">
-      <div class="box2"></div>
+      <div class="box2" :header-color="`#${$route.query.color}`"></div>
     </div>
 
     <!-- 内容 -->

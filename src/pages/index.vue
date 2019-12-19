@@ -39,7 +39,7 @@
     <div class="nav_box dan_wrap">
       <div class="nav_li fix wp">
         <div v-for="(opt, index) in navList" :key="index" class="li1">
-          <a class="img" @click="$router.push({path:opt.path,query:{id:opt.id,title:opt.title}})">
+          <a class="img" @click="$router.push({path:opt.path,query:{id:opt.id,title:opt.title,color:opt.color}})">
             <van-image :src="opt.img">
               <template v-slot:error>图片加载失败</template>
             </van-image>
@@ -184,10 +184,12 @@
               img: n.logo,
               path: n.url,
               title: n.name,
-              id: n.id
+              id: n.id,
+              color: n.color
             })
           })
         }
+        console.log(res.rows)
         this.navList = arr
       },
       // 轮播图数据
@@ -370,12 +372,15 @@
     .li1 {
       width: 20%;
       float: left;
-    }
-
-    a.img {
-      max-width: 50px;
-      margin: 0 auto;
-      display: block;
+      height: 90px;
+      .img {
+        max-width: 50px;
+        margin: 0 auto;
+        display: block;
+        .van-image{
+          height: 50px;
+        }
+      }
     }
 
     p {

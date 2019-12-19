@@ -12,7 +12,7 @@
       <p>没有找到数据哦 (*￣︶￣*)</p>
       <van-icon :name="'smile-comment-o'" size="50px"></van-icon>
     </div>
-    <header v-if="!iframe" class="header" :class="{ 'hasScroll': scroll }">
+    <header v-if="!iframe" class="header" :style="customHeaderColor" :class="{ 'hasScroll': scroll }">
       <slot name="header"></slot>
     </header>
     <main v-if="status === 'success'" class="main" :style="customMain">
@@ -59,6 +59,10 @@
                 type: String,
                 default: 'loading' // error empty waiting
             },
+            headerColor: {
+              type: String,
+              default: '#fff'
+            },
             active: {
                 type: String,
                 default: 'index'
@@ -92,6 +96,13 @@
                     // return str
                     return ''
                 }
+            },
+            customHeaderColor() {
+              if (this.headerColor) {
+                return `background:${this.headerColor}`
+              } else {
+                return ''
+              }
             }
         },
         mounted() {
@@ -164,15 +175,18 @@
     view {
       display: inline-block;
     }
+    .fix {
+      background: transparent;
+    }
   }
   #app .hasScroll{
-    background: rgba(0,0,0,0.5);
-    color:#fff;
+    background: rgba(0,0,0,0.5) !important;
+    color:#fff!important;
     .fix {
-      background: rgba(0,0,0,0);
-      color:#fff;
+      background: rgba(0,0,0,0)!important;
+      color:#fff!important;
       .hesde_l4,.hesde_l,.hesde_l2 .p{
-        color:#fff;
+        color:#fff!important;
       }
     }
   }

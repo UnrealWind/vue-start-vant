@@ -448,6 +448,9 @@
 
   }
 
+  >>>.van-tabs__content{
+    margin-top: 15px;
+  }
   @import "../../assets/css/static/css/app.css";
   @import "../../assets/css/static/css/style.css";
   @import "../../assets/css/static/css/swiper.min.css";
