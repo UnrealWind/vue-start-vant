@@ -154,7 +154,7 @@
         <div class="mess_wrap fix">
           <div class="ms_title l"> 订单编号: </div>
           <div class="ms_title_cen l"> {{ shop.orderCode }}  </div>
-          <div class="ms_title_right r"> <span> 复制 </span> </div>
+          <div class="ms_title_right r"> <span>  </span> </div>
         </div>
 
         <!--<div class="mess_wrap fix">

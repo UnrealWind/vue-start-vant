@@ -13,6 +13,8 @@ import VanContainer from './directive/vanContainer'
 Vue.component('VanContainer', VanContainer)
 import Commodity from './directive/commodity'
 Vue.component('Commodity', Commodity)
+import OrderList from './directive/orderList'
+Vue.component('OrderList', OrderList)
 
 import http from './components/http'
 Vue.use(http)
@@ -38,7 +40,8 @@ const init = async() => {
     store,
     components: {
       'van-Container': VanContainer,
-      'commodity': Commodity
+      'commodity': Commodity,
+      'order-list': OrderList
     },
     render: h => h(App)
   })
