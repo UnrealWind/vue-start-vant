@@ -108,4 +108,29 @@
     overflow: hidden;
     visibility: hidden;
   }
+  .header{
+    .fix{
+      background: #fff;
+    }
+  }
+  .hesde_l{
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    font-size: 20px;
+    color: #333;
+  }
+  .hesde_l2{
+    position: relative;
+    width: 62%;
+    margin: 0 auto;
+    text-align: center;
+    .p {
+      font-size: 16px;
+      color: #333;
+    }
+  }
+  >>>.main {
+    background: #f2f2f2;
+  }
 </style>

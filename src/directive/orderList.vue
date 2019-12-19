@@ -268,29 +268,6 @@
     }
   }
 
-  .header{
-    .fix{
-      background: #fff;
-    }
-  }
-  .hesde_l{
-    position: absolute;
-    left: 0px;
-    top: 2px;
-    font-size: 20px;
-    color: #333;
-  }
-  .hesde_l2{
-    position: relative;
-    width: 62%;
-    margin: 0 auto;
-    text-align: center;
-    .p {
-      font-size: 16px;
-      color: #333;
-    }
-  }
-
   .card_top{
     margin-top: 15px;
     padding-bottom: 10px;
