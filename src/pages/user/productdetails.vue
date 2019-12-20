@@ -664,15 +664,26 @@
             })
         },
         shareWx() {
-          // 全局注册的时候就去跑接口权限了，但是现在没有
-            this.$wx.updateAppMessageShareData({
-                title: this.good.goodsName, // 分享标题
-                desc: this.good.goodsDesc, // 分享描述
-                link: 'https://www.zufangt.com', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                imgUrl: 'https://www.zufangt.com', // 分享图标
-                success: function() {
-                    // 设置成功
+            /* this.$uni.navigateTo({
+                url: '/pages/index/share/share'
+            })*/
+            this.$uni.postMessage({
+                data: {
+                    provider: 'weixin',
+                    scene: 'WXSceneSession',
+                    type: 5,
+                    imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/share-logo@3.png',
+                    title: '欢迎体验uniapp',
+                    miniProgram: {
+                        id: 'gh_abcdefg',
+                        path: 'pages/index/index',
+                        type: 0,
+                        webUrl: 'http://uniapp.dcloud.io'
+                    }
                 }
+            })
+            this.$uni.navigateTo({
+                url: '/pages/index/test'
             })
         },
         async addinCart(data) {

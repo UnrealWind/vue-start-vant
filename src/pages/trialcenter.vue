@@ -71,7 +71,7 @@
                         n.goods.forEach((good, i) => {
                             arr.push({
                                 'type': 'list-index',
-                                'image': good.goodsStatics[i].url,
+                                'image': good.goodsStatics[0].url,
                                 'discribe': good.goodsProfile,
                                 'title': good.goodsName,
                                 'indexPrice': { 'current': good.showPrice, 'pre': good.linePrice },

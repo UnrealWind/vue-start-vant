@@ -224,7 +224,7 @@ export default {
         }
 
         .nextSte {
-            margin-top: 50%;
+            margin-top: 20%;
             width: 100%;
             border-radius: 50px;
             color: #fff;

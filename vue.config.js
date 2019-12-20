@@ -21,7 +21,7 @@ const cdn = {
     css: [],
     js: [
       'https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.4/polyfill.js',
-      'https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.0.1.52.js'
+      'https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js'
     ]
   },
   // 生产环境
@@ -35,7 +35,7 @@ const cdn = {
       'https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.1/vuex.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js',
       'https://cdn.jsdelivr.net/npm/vant@beta/lib/vant.min.js',
-      'https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.0.1.52.js'
+      'https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js'
     ]
   }
 }

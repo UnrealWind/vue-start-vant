@@ -59,7 +59,7 @@
           <li v-for="(item,index) in activity.children" :key="index">
             <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
               <div>
-                <img :src="item.goodsStatics[3].url" alt="">
+                <img :src="item.goodsStatics[0].url" alt="">
               </div>
               <p class="title">{{ item.goodsName }}</p>
               <p class="money flex_betweenc"><span>¥{{ item.showPrice }}</span></p>

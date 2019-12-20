@@ -32,7 +32,7 @@
 /*购物车商品list*/
 .gwcLits{ justify-content: space-between;}
 .gwcLits li{ width: 31%; background: #fff; border-radius: 0.15rem; overflow: hidden; margin-top: 0.2rem;}
-.gwcLits li img{ width: 100%; height: 3rem }
+/*.gwcLits li img{ width: 100%; height: 3rem }*/
 .gwcLits li a{ color: #333 }
 .gwcLits p{ padding:0 0.2rem }
 .gwcLits .p1{overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;  padding: 0 0.2rem;margin-top: 4px ;margin-bottom: 8px;}

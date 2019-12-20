@@ -1,7 +1,6 @@
 const init = {
   install: async(Vue) => {
     const unisdk = {}
-    Vue.prototype.$wx = unisdk
     initunisdk.init(unisdk, Vue)
   }
 }
@@ -9,6 +8,10 @@ const init = {
 const initunisdk = {
   init: (unisdk, Vue) => {
     document.addEventListener('UniAppJSBridgeReady', () => {
+      uni.getEnv(function(res) {
+        console.log('当前环境：' + JSON.stringify(res))
+      })
+
       /*global uni:true*/
       /*eslint no-undef: "error"*/
       unisdk = uni

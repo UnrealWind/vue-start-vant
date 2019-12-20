@@ -26,6 +26,8 @@ import upload from './components/upload'
 Vue.use(upload)
 import wx from './components/wxInit'
 Vue.use(wx)
+import uni from './components/uniInit'
+Vue.use(uni)
 
 Vue.config.productionTip = false
 

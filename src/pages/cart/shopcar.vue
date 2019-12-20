@@ -163,7 +163,7 @@
                             case 2:good.activityMoney = good.goodsMoney * good.num * JSON.parse(good.activityList[0].resultJson).discount / 10; break
                         }
                         price += good.activityMoney
-                    } else if (good.checked && good.activityList.length > 0) {
+                    } else if (good.checked && good.activityList.length === 0) {
                         price += good.goodsMoney * good.num
                     }
                 })
