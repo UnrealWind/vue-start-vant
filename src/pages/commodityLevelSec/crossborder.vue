@@ -1,5 +1,5 @@
 <template>
-  <van-container :tabber="true" :status="status" :header-color="''">
+  <van-container :tabber="true" :status="status" :header-color="`#${$route.query.color}`">
     <div slot="header" class="fix">
       <div class="header_l " @click="$router.back()">
         <van-icon name="arrow-left" />
@@ -8,7 +8,7 @@
         <div class="p">  {{ this.$route.query.title }}</div>
       </div>
     </div>
-    <div class="topHead topHead1">
+    <div class="topHead topHead1" :style="{background: '#'+$route.query.color}">
       <div class="box1 p2 box_sizing">
         <div class="swiper_minNav">
           <div class="swiper-container">
@@ -49,25 +49,29 @@
         <p><img src="../../assets/css/static/images/sh.png" alt="">售后无忧</p>
       </div>
       <!-- 今日必抢 -->
-      <div v-for="(activity,actIndex) in activityData" :key="actIndex" class="Storefront publicBox mt3 Storefront1">
-        <div class="flex_betweenc  Storefront_cont">
-          <div class="box1 flex">
-            <p class="p1">{{ activity.activityName }}</p>
+      <div v-if="activityData.length !== 0">
+        <div v-for="(activity,actIndex) in activityData" :key="actIndex" class="Storefront publicBox mt3 Storefront1">
+          <div class="flex_betweenc  Storefront_cont">
+            <div class="box1 flex">
+              <p class="p1">{{ activity.activityName }}</p>
+            </div>
           </div>
-        </div>
-        <ul class="commodityLits flex_wrap">
-          <li v-for="(item,index) in activity.children" :key="index">
-            <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
-              <div>
-                <img :src="item.goodsStatics[0].url" alt="">
-              </div>
-              <p class="title">{{ item.goodsName }}</p>
-              <p class="money flex_betweenc"><span>¥{{ item.showPrice }}</span></p>
-            </a>
-          </li>
-        </ul>
-        <div v-show="todayErrBox" class="errorBox">
-          该活动下暂无商品
+          <ul class="commodityLits flex_wrap">
+            <li v-for="(item,index) in activity.children" :key="index">
+              <a @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
+                <div>
+                  <van-image :src="item.goodsStatics[0].url">
+                    <template v-slot:error>图片加载失败</template>
+                  </van-image>
+                </div>
+                <p class="title">{{ item.goodsName }}</p>
+                <p class="money flex_betweenc"><span>¥{{ item.showPrice }}</span></p>
+              </a>
+            </li>
+          </ul>
+          <div v-show="todayErrBox" class="errorBox">
+            该活动下暂无商品
+          </div>
         </div>
       </div>
       <!-- 热门榜单 -->
@@ -114,11 +118,13 @@
         </li>
       </ul>
       <!-- 今日推荐 -->
-      <div class="mt3"><h1>今日推荐</h1></div>
-      <ul class="flex_wrap gwcLits">
+      <div class="mt3 jrtjTitle"><h1>今日推荐</h1></div>
+      <ul class="flex_wrap gwcLits jrtjUl">
         <li v-for="(item,index) in crossBorderProductListData" :key="index">
           <a @click="$router.push({path:item.path,query:{id:item.id}})">
-            <img :src="item.image" alt="" class="commodityList">
+            <van-image :src="item.image">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
             <p class="p1">{{ item.title }}</p>
             <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
               src="../../assets/css/static/images/gwc.png"
@@ -179,10 +185,6 @@
           this.getBannerData()
           // nav
           await this.getCrossBorderNavData()
-          // 活动
-          await this.getActivityData()
-          // 今日必抢
-          await this.getRobData()
           // 热门榜单
           await this.getHotListData()
           // 品牌列表
@@ -194,6 +196,8 @@
           throw e
         }
         this.status = 'success'
+        // 活动
+        await this.getActivityData()
       },
       // 轮播图
       async getBannerData() {
@@ -224,29 +228,25 @@
         }
         this.crossBorderNavData = arr
       },
-      // 活动
-      async getActivityData() {
-        const res = await this.$http.post('product/activity/contentActivityRel', {
-          contentId: this.$route.query.id
+      // 品牌列表
+      async getBrandListData() {
+        const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=6', {
+          'dataType': 'json',
+          'method': 'post',
+          'data': {}
         })
-        this.todayErrBox = false
-        if (res.data) {
-          res.data.forEach(async(n, i) => {
-            if (n) {
-              const res = await this.getRobData(n.activityCode)
-              this.$set(n, 'children', res.data[0].goods)
-            } else {
-              this.todayErrBox = true
-            }
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              image: n.logo,
+              title: n.shopName,
+              id: n.id,
+              shopCode: n.shopCode
+            })
           })
         }
-        this.activityData = res.data
-      },
-      // 今日必抢
-      async getRobData(activityCode) {
-        return await this.$http.post(`product/activity/activityGoodsList`, {
-          activityCode: activityCode
-        })
+        this.crossBorderBrandData = arr
       },
       // 热门榜单
       async getHotListData() {
@@ -269,30 +269,11 @@
         }
         this.crossBorderHotListData = arr
       },
-      // 品牌列表
-      async getBrandListData() {
-        const res = await this.$http.post('user/shop/list?pageNum=1&pageSize=6', {
-          'dataType': 'json',
-          'method': 'post',
-          'data': {}
-        })
-        const arr = []
-        if (res.rows) {
-          res.rows.forEach((n, i) => {
-            arr.push({
-              image: n.logo,
-              title: n.shopName,
-              id: n.id,
-              shopCode: n.shopCode
-            })
-          })
-        }
-        this.crossBorderBrandData = arr
-      },
       // 今日推荐
       async getTodayRecommendData() {
         const res = await this.$http.post('product/activity/activityGoodsList', {
-          activityCode: '5670925cb2b84399961c9a15a3bb4cd4'
+          activityCode: '5670925cb2b84399961c9a15a3bb4cd4',
+          pageSize: 6
         })
         this.jrtjErrBox = false
         const arr = []
@@ -313,6 +294,31 @@
           this.jrtjErrBox = true
         }
         this.crossBorderProductListData = arr
+      },
+      // 活动
+      async getActivityData() {
+        const res = await this.$http.post('product/activity/contentActivityRel', {
+          contentId: this.$route.query.id
+        })
+        this.todayErrBox = false
+        if (res.data) {
+          res.data.forEach(async(n, i) => {
+              const res = await this.getRobData(n.activityCode)
+            if (res.data[i].goods) {
+              this.$set(n, 'children', res.data[i].goods)
+            } else {
+              this.todayErrBox = true
+            }
+          })
+        }
+        this.activityData = res.data
+      },
+      // 今日必抢
+      async getRobData(activityCode) {
+        return await this.$http.post(`product/activity/activityGoodsList`, {
+          activityCode: activityCode,
+          pageSize: 4
+        })
       }
     }
   }
@@ -346,7 +352,21 @@
   }
 
   .swiper_tabBox {
-    height: auto;
+    margin: 0 auto;
+    width: 360px;
+    height: 120px;
+    .van-swipe{
+      width: 100%;
+      height: 100%;
+      .van-image{
+        width: 100%;
+        height: 100%;
+        .van-image__error{
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
   }
 
   .swiper-slide a {
@@ -382,17 +402,35 @@
   }
 
   .gwcLits li {
-    width: 50%;
+    width: 49%;
     overflow: hidden;
+    height: 7rem;
+  }
+  .jrtjTitle{
+    margin-top: 40px;
+    margin-bottom: 10px;
+    h1{
+      font-size: 22px;
+    }
   }
 
-  .gwcLits li .commodityList {
-    overflow: hidden;
-    height: 5rem;
+  .jrtjUl li {
+    .van-image{
+      width: 100%;
+      height: 70%;
+      img{
+        height: 100px !important;
+      }
+      .van-image__error{
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 
-  .commodityLits img {
-    height: 150px;
+  .commodityLits .van-image {
+    height: 105px;
+    width: 100%;
   }
 
   .imgBox{
@@ -422,7 +460,6 @@
   .logo_ification {
     text-align: center;
     justify-content: normal;
-    margin: 0 10px;
 
     li {
       height: 101px;

@@ -5,7 +5,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2 l">
-        <div class="p">  {{ this.$route.query.title }}</div>
+        <div class="p"> {{ this.$route.query.title }}</div>
       </div>
       <div class="header_r r">
         <van-icon name="cart-o" @click="$router.push('/cart/shopcar')" />
@@ -102,48 +102,57 @@
         </div>
       </div>
       <!--        超值好物-->
-      <div v-for="(activity,actIndex) in activityData" :key="actIndex" class="chaozhihaowu clearfix superMarketBiQiang">
-        <!--          活动标题-->
-        <div class="title">
-          <h2>{{ activity.activityName }}</h2>
-          <span>超大牌超低价</span>
-        </div>
-        <div class="czhwMain">
-          <div class="mainLeft">
-            <div class="title">—今日超值好物—</div>
-            <span class="first">爆款直降</span>
-            <span class="second">大品牌值得买</span>
-            <div class="imgBox">
-              <van-image v-if="activity.children" :src="activity.children.goodsStatics[0].url">
-                <template v-slot:error>图片加载失败</template>
-              </van-image>
-            </div>
-            <span class="last">优质品牌，放心之选</span>
+      <div v-if="activityData.length !== 0">
+        <div
+          v-for="(activity,actIndex) in activityData"
+          :key="actIndex"
+          class="chaozhihaowu clearfix superMarketBiQiang"
+        >
+          <!--          活动标题-->
+          <div class="title">
+            <h2>{{ activity.activityName }}</h2>
+            <span>超大牌超低价</span>
           </div>
-          <div class="mainRight">
-            <ul class="clearfix">
-              <li v-for="(item,index) in activity.children" :key="index" @click="$router.push({path:'/user/productdetails',query:{id:item.id}})">
-                <div class="imgBox">
-                  <van-image :src="item.goodsStatics[0].url">
-                    <template v-slot:error>图片加载失败</template>
-                  </van-image>
-                </div>
-                <div class="title">
-                  {{ item.goodsName }}
-                </div>
-                <div class="price">
-                  <span class="nowPrice">¥{{ item.showPrice }}</span>
-                  <span class="gain">赚{{ item.linePrice-item.showPrice }}</span>
-                </div>
-              </li>
-            </ul>
-            <div v-show="errBox" class="errorBox">
-              该活动下暂无商品
+          <div class="czhwMain">
+            <div class="mainLeft">
+              <div class="title">—今日超值好物—</div>
+              <span class="first">爆款直降</span>
+              <span class="second">大品牌值得买</span>
+              <div class="imgBox">
+                <van-image v-if="activity.children" :src="activity.activityImg">
+                  <template v-slot:error>图片加载失败</template>
+                </van-image>
+              </div>
+              <span class="last">优质品牌，放心之选</span>
+            </div>
+            <div class="mainRight">
+              <ul class="clearfix">
+                <li
+                  v-for="(item,index) in activity.children"
+                  :key="index"
+                  @click="$router.push({path:'/user/productdetails',query:{id:item.id}})"
+                >
+                  <div class="imgBox">
+                    <van-image :src="item.goodsStatics[0].url">
+                      <template v-slot:error>图片加载失败</template>
+                    </van-image>
+                  </div>
+                  <div class="title">
+                    {{ item.goodsName }}
+                  </div>
+                  <div class="price">
+                    <span class="nowPrice">¥{{ item.showPrice }}</span>
+                    <span class="gain">赚{{ item.linePrice-item.showPrice }}</span>
+                  </div>
+                </li>
+              </ul>
+              <div v-show="errBox" class="errorBox">
+                该活动下暂无商品
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       <!--        精品推荐标题-->
       <div class="jptjTitle">
         精品推荐
@@ -167,7 +176,8 @@
               <template v-slot:error>图片加载失败</template>
             </van-image>
             <p class="title">{{ opt.title }}</p>
-            <div class="p3 flex_betweenc"><p>¥{{ opt.current }} <span class="separate">/</span> <span>¥{{ opt.pre }}</span></p><img
+            <div class="p3 flex_betweenc"><p>¥{{ opt.current }} <span class="separate">/</span>
+              <span>¥{{ opt.pre }}</span></p><img
               src="../../assets/css/static/images/gwc.png"
               alt=""
             ></div>
@@ -233,10 +243,6 @@
           await this.getTime()
           // 时间下的商品列表
           await this.getTodaySaleList()
-          // 活动
-          await this.getActivityData()
-          // 今日必抢
-          await this.getRobData()
           // tab 栏
           await this.getMarketCategoryData()
           // tab栏下商品
@@ -247,6 +253,8 @@
           throw e
         }
         this.status = 'success'
+        // 活动
+        await this.getActivityData()
       },
       // 轮播图
       async getBannerData() {
@@ -292,8 +300,9 @@
         this.timeBoxShow = this.tabListData.length === 0
         this.tabStyleActive = item.key
       },
-      // 今日特卖商品
+      // 超市必抢商品
       async getTodaySaleList(timeType) {
+        this.timeBoxShow = false
         const res = await this.$http.post(`/product/todaySale/todaySalelist`, {
           timeType: timeType
         })
@@ -309,32 +318,10 @@
               btnGo: `/user/productdetails?id=${n.id}`
             })
           })
+        } else {
+          this.timeBoxShow = true
         }
         this.tabListData = arr
-      },
-      // 活动
-      async getActivityData() {
-        const res = await this.$http.post('product/activity/contentActivityRel', {
-          contentId: this.$route.query.id
-        })
-        this.errBox = false
-        if (res.data) {
-          res.data.forEach(async(n, i) => {
-            if (n[i]) {
-              const res = await this.getRobData(n.activityCode)
-              this.$set(n, 'children', res.data[0].goods)
-            } else {
-              this.errBox = true
-            }
-          })
-        }
-        this.activityData = res.data
-      },
-      // 今日必抢
-      async getRobData(activityCode) {
-        return await this.$http.post(`product/activity/activityGoodsList`, {
-          activityCode: activityCode
-        })
       },
       // Tab栏
       async getMarketCategoryData() {
@@ -349,7 +336,6 @@
         this.marketCategoryData = arr
       },
       async changeTab(idx, title) {
-        this.tabShow = false
         await this.getSuperMarketTabData(this.marketCategoryData[idx].key)
         if (this.superMarketTabData.length === 0) {
           this.tabShow = true
@@ -357,6 +343,7 @@
       },
       // tab栏下商品
       async getSuperMarketTabData(category) {
+        this.tabShow = false
         if (!category) category = this.marketCategoryData[0].key
         const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
         const arr = []
@@ -385,6 +372,8 @@
               })
             }
           })
+        } else {
+          this.tabShow = true
         }
         this.superMarketTabData = arr.map(function(item, index) {
           return { ...item, ...imgArr[index] }
@@ -407,6 +396,33 @@
             })
           }
         })
+      },
+      // 活动
+      async getActivityData() {
+        const res = await this.$http.post('product/activity/contentActivityRel', {
+          contentId: this.$route.query.id
+        })
+        console.log(res)
+        this.errBox = false
+        if (res.data) {
+          res.data.forEach(async(n, i) => {
+            const res = await this.getRobData(n.activityCode)
+            console.log(res)
+            if (res.data[i].goods) {
+              this.$set(n, 'children', res.data[i].goods)
+            } else {
+              this.errBox = true
+            }
+          })
+        }
+        this.activityData = res.data
+      },
+      // 今日必抢
+      async getRobData(activityCode) {
+         return await this.$http.post(`product/activity/activityGoodsList`, {
+          activityCode: activityCode,
+           pageSize: 4
+        })
       }
     }
   }
@@ -414,9 +430,10 @@
 </script>
 
 <style lang='scss' scoped>
-  >>>.header {
-     background: #ef2154;
-   }
+  > > > .header {
+    background: #ef2154;
+  }
+
   .l {
     float: left;
   }
@@ -437,32 +454,38 @@
       font-size: 12px;
     }
   }
-  .van-swipe{
+
+  .van-swipe {
     height: 120px;
   }
 
   .tabStyleActive {
     color: #e6253b;
   }
-  .separate{
+
+  .separate {
     color: #000000 !important;
     text-decoration: none !important;
   }
+
   .errorBox {
     text-align: center;
     line-height: 120px;
   }
 
-  .title_nav{
+  .title_nav {
     padding: 30px 10px 0;
-    p{
-      margin:0 5px;
-      img{
+
+    p {
+      margin: 0 5px;
+
+      img {
         margin-right: 5px;
       }
     }
   }
-  .propagandaAndNav{
+
+  .propagandaAndNav {
     border-radius: 10px;
     background-color: #fff;
   }
@@ -471,6 +494,7 @@
     overflow: scroll;
     border-radius: 20px;
     padding: 0 5px 10px 5px;
+
     ul {
       width: 120%;
       height: 125px;
@@ -537,11 +561,11 @@
     background-color: #ef2154;
   }
 
-  .bannerBox{
+  .bannerBox {
     margin: 20px 0;
   }
 
-  .mt3{
+  .mt3 {
     p {
       color: #000000;
     }
@@ -664,7 +688,7 @@
         .imgBox {
           background-color: #fff;
           margin: 30px 15px 20px 15px;
-          min-height:115px;
+          min-height: 115px;
         }
 
         .last {

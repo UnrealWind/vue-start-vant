@@ -58,76 +58,75 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem } from 'vant'
+  import { Icon, Swipe, SwipeItem } from 'vant'
 
-    export default {
-        components: {
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
-            'van-icon': Icon
-        },
-        data() {
-            return {
-                status: 'loading',
-              goodErr: false,
-              todayErr: false,
-                vipData: [],
-                activityData: []
+  export default {
+    components: {
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem,
+      'van-icon': Icon
+    },
+    data() {
+      return {
+        status: 'loading',
+        goodErr: false,
+        vipData: [],
+        activityData: []
 
-            }
-        },
-        computed: {},
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    // 活动
-                    await this.getActivityData()
-                    await this.getVipData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            // 活动
-            async getActivityData() {
-                const res = await this.$http.post('product/activity/contentActivityRel', {
-                    contentId: this.$route.query.id
-                })
-              this.goodErr = false
-                if (res.data) {
-                    res.data.forEach(async(n, i) => {
-                      if (n[i]) {
-                        const res = await this.getVipData(n.activityCode)
-                        this.$set(n, 'children', res.data[0].goods)
-                      } else {
-                        this.goodErr = true
-                      }
-                    })
-                }
-                this.activityData = res.data
-            },
-            // 今日必抢
-            async getVipData(activityCode) {
-                const res = await this.$http.post(`product/activity/activityGoodsList`, {
-                    activityCode: activityCode
-                })
-                return res
-            }
+      }
+    },
+    computed: {},
+    mounted() {
+      this.init()
+    },
+    methods: {
+      async init() {
+        try {
+          // 活动
+          await this.getActivityData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      // 活动
+      async getActivityData() {
+        const res = await this.$http.post('product/activity/contentActivityRel', {
+          contentId: this.$route.query.id
+        })
+        this.goodErr = false
+        if (res.data) {
+          res.data.forEach(async(n, i) => {
+            const res1 = await this.getVipData(n.activityCode)
+            if (res.data[i].goods) {
+              this.$set(n, 'children', res1.data[i].goods)
+            } else {
+              this.goodErr = true
+            }
+          })
+        }
+        this.activityData = res.data
+      },
+      // 今日必抢
+      async getVipData(activityCode) {
+        return await this.$http.post(`product/activity/activityGoodsList`, {
+          activityCode: activityCode,
+          pageSize: 4
+        })
+      }
     }
+  }
 
 </script>
 <style lang='scss' scoped>
-  .vipRrrorBox{
+  .vipRrrorBox {
     margin: 10px 0 50px;
     height: 100px;
     text-align: center;
     color: #fff;
   }
+
   h1 {
     background: red;
     width: 375px;
@@ -259,7 +258,7 @@
     font-size: 18px;
   }
 
-  .title{
+  .title {
     font-size: 16px;
   }
 
@@ -269,21 +268,26 @@
     margin-left: 10px;
     text-decoration: line-through;
   }
+
   .commodityLits {
     display: block;
+
     li {
       width: 100%;
+
       .imgBox {
         img {
           width: 100%;
           height: 200px;
         }
       }
+
       .messageBox {
         p {
           float: left;
           margin-left: 20px;
         }
+
         .p3 {
           float: right;
           margin-right: 20px;

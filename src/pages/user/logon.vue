@@ -106,9 +106,9 @@ export default {
         // 17342062325
       const res = await this.$http({
         method: 'post',
-        url: `login?username=${this.user}&password=${this.password}&rememberMe=true`,
+        url: `login?username=${this.phone}&password=${this.password}&rememberMe=true`,
         data: {
-          username: this.user,
+          username: this.phone,
           password: this.password,
           rememberMe: true
         }

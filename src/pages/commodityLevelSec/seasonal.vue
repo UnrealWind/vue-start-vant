@@ -204,12 +204,10 @@
             })
           })
         }
-        console.log(res.rows)
         this.seasonalNavData = arr
       },
       // tab栏数据
       async getSeasonalData() {
-        console.log(this.$route.query.color)
         const res = await this.$http.post(`product/content/selectById?level=2&id=${this.$route.query.id}`)
         const arr = []
         for (const i in res.data.dictMap) {

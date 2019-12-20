@@ -63,13 +63,13 @@
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
         <div class="nav3_l l">
-          <a class="img" @click="$router.push({path:'/commodityLevelSec/seasonal',query:{id:2}})"> <img
+          <a class="img" @click="$router.push({path:'/commodityLevelSec/seasonal',query:{id:2,title:'时令鲜果'}})"> <img
             src="../assets/img/nav413.png"
             alt=""
           > </a>
         </div>
         <div class="nav3_l r">
-          <a class="img" @click="$router.push({path:'/commodityLevelSec/daynew',query:{id:14}})"> <img
+          <a class="img" @click="$router.push({path:'/commodityLevelSec/daynew',query:{id:14,title:'每日上新'}})"> <img
             src="../assets/img/nav412.png"
             alt=""
           > </a>
@@ -226,6 +226,7 @@
       },
       // 今日特卖商品
       async getTodaySaleList(timeType) {
+        this.tabShow = false
         const res = await this.$http.post(`/product/todaySale/todaySalelist`, {
           timeType: timeType
         })
@@ -246,6 +247,8 @@
               btnGo: `/user/productdetails?id=${n.id}`
             })
           })
+        } else {
+          this.tabShow = true
         }
         this.tabListData = arr
       },
@@ -273,7 +276,7 @@
 </script>
 <style lang='scss' scoped>
   >>>.header {
-    background: rgba(0,0,0,0);
+    background: rgba(0,0,0,0) !important;
   }
   >>>.scroll {
     padding-top: 0;

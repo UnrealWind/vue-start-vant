@@ -5,7 +5,7 @@
         <van-icon name="arrow-left" />
       </div>
       <div class="header_l2">
-        <div class="p"> {{ this.$route.query.title }}</div>
+        <div class="p"> {{ $route.query.title }}</div>
       </div>
     </div>
     <div class="mrsxBox">
@@ -93,7 +93,6 @@
                 bannerData: [],
                 // 精选大牌
                 dayNewChoicenessData: [],
-                dayNewChoicenessDatas: [],
                 // tab栏
                 dayNewTabData: [],
                 // tab栏下商品
