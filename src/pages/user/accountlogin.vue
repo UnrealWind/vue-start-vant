@@ -83,6 +83,10 @@
                 console.log(res)
             },
             async login() {
+                if (this.valuemin === '' || this.password === '') {
+                    Toast('用户名或密码不能为空，请重新登陆')
+                    return false
+                }
                 const res = await this.$http({
                     method: 'post',
                     url: `login`,
@@ -92,8 +96,8 @@
                         rememberMe: true
                     }
                 })
-                if (this.valuemin === '' || this.password === '') {
-                    Toast('用户名或密码不能为空，请重新登陆')
+                if (!res.data || !res.data.userCode) {
+                    Toast.fail('用户名密码错误')
                     return false
                 }
                 this.$store.commit('setUserCode', res.data.userCode)

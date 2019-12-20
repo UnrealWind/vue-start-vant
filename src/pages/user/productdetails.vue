@@ -682,9 +682,9 @@
                     }
                 }
             })
-            this.$uni.navigateTo({
+            /* this.$uni.navigateTo({
                 url: '/pages/index/test'
-            })
+            })*/
         },
         async addinCart(data) {
             const res = await this.$http.post('order/shoppingCart/add', {
