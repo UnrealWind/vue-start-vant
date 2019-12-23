@@ -504,6 +504,7 @@
       return {
           status: 'loading',
           active: 0,
+          id: 0, // 商品id
           show: false,
           share: false,
           goodsId: '',
@@ -556,6 +557,7 @@
         },
         async getData() {
             const id = this.getQueryString(window.location.href, 'id')
+            this.id = id
             const res = await this.$http.post('product/goods/orderDetail', {
                 id: id
             })
@@ -683,29 +685,20 @@
                 }
             })*/
             const data = {
-                provider: 'weixin',
-                scene: 'WXSceneSession',
-                type: 5,
                 imageUrl: this.good.goodsStatics[0].url,
                 title: this.good.goodsName,
-                miniProgram: {
-                    id: 'wx3181696a9ac883a4',
-                    path: 'pages/common/index',
-                    type: 2,
-                    webUrl: 'http://www.jipaisc.com/#/'
-                }
+                id: this.id
             }
             this.$uni.navigateTo({
                 url: '/pages/index/test?msg=' + JSON.stringify(data)
             })
         },
         async addinCart(data) {
-            const res = await this.$http.post('order/shoppingCart/add', {
+            await this.$http.post('order/shoppingCart/add', {
                 skuCode: data.selectedSkuComb.id,
                 num: data.selectedNum,
                 isShare: 0
             })
-            console.log(res)
             Toast.success('加入购物车成功')
             this.show = false
         },

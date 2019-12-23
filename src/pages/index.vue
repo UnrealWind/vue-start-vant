@@ -69,7 +69,7 @@
           > </a>
         </div>
         <div class="nav3_l r">
-          <a class="img" @click="$router.push({path:'/commodityLevelSec/daynew',query:{id:14,title:'每日上新'}})"> <img
+          <a class="img" @click="$router.push({path:'/fruitlist',query:{id:14,title:'每日上新'}})"> <img
             src="../assets/img/nav412.png"
             alt=""
           > </a>

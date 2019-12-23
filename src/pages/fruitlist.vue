@@ -71,7 +71,7 @@
                 value: '',
                 vipData: [],
                 tabShow: false,
-              bannerData: []
+                bannerData: []
             }
         },
         computed: {},
@@ -90,12 +90,12 @@
                 this.status = 'success'
             },
             async getFruitListData() {
-                const res1 = await this.$http.post(`product/content/list?level=3&parentId=${this.$route.query.id}`)
+                const res1 = await this.$http.post(`product/content/list?level=2&parentId=${this.$route.query.id}`)
                 const res = await this.$http.post('product/goods/listByLastCategoryCode?pageSize=3&pageNum=1', {
                     categoryCodeList: [res1.rows[0].dictCategoryIds]
                 })
                 const arr = []
-                if (res.rows) {
+                if (res.rows && res.rows.length > 0) {
                     res.rows.forEach((n, i) => {
                         arr.push({
                             type: 'list-vip',
@@ -114,7 +114,7 @@
                 this.vipData = arr
             },
           async getBannerData() {
-            const res = await this.$http.post('product/banner/list?showFlag=3')
+            const res = await this.$http.post('product/banner/list?showFlag=2')
             const arr = []
             res.rows.forEach((n, i) => {
               arr.push({
@@ -220,7 +220,7 @@
   .hesde_l4 {
     position: absolute;
     right: 15px;
-    top: 5px;
+    top: 32px;
     font-size: 20px;
     color: #333;
   }

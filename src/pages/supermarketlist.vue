@@ -176,7 +176,8 @@
 
     .p2 {
       position: relative;
-
+      height: 100px;
+      overflow: hidden;
       span {
         position: absolute;
         left: 2px;
