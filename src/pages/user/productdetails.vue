@@ -667,7 +667,7 @@
             /* this.$uni.navigateTo({
                 url: '/pages/index/share/share'
             })*/
-            this.$uni.postMessage({
+            /* this.$uni.postMessage({
                 data: {
                     provider: 'weixin',
                     scene: 'WXSceneSession',
@@ -681,10 +681,23 @@
                         webUrl: 'http://uniapp.dcloud.io'
                     }
                 }
-            })
-            /* this.$uni.navigateTo({
-                url: '/pages/index/test'
             })*/
+            const data = {
+                provider: 'weixin',
+                scene: 'WXSceneSession',
+                type: 5,
+                imageUrl: this.good.goodsStatics[0].url,
+                title: this.good.goodsName,
+                miniProgram: {
+                    id: 'wx3181696a9ac883a4',
+                    path: 'pages/common/index',
+                    type: 2,
+                    webUrl: 'http://www.jipaisc.com/#/'
+                }
+            }
+            this.$uni.navigateTo({
+                url: '/pages/index/test?msg=' + JSON.stringify(data)
+            })
         },
         async addinCart(data) {
             const res = await this.$http.post('order/shoppingCart/add', {
