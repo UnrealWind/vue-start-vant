@@ -6,11 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vue-cli-service serve --mode development",
-    "build": "vue-cli-service build --mode production",
-    "lint": "eslint --ext .js,.vue src",
-    "test:unit": "jest --clearCache && vue-cli-service test:unit",
-    "test:ci": "npm run lint && npm run test:unit",
-    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
+    "test": "vue-cli-service serve --mode test",
+    "build": "vue-cli-service build --mode production"
   },
   "dependencies": {
     "axios": "^0.19.0",

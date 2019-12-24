@@ -24,6 +24,14 @@ const cdn = {
       'https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js'
     ]
   },
+  // 联调环境
+  test: {
+    css: [],
+    js: [
+      'https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.4/polyfill.js',
+      'https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js'
+    ]
+  },
   // 生产环境
   build: {
     css: ['https://cdn.jsdelivr.net/npm/vant@beta/lib/index.css'],
@@ -67,7 +75,7 @@ module.exports = {
     if (process.env.NODE_ENV === 'development') {
       //
     }
-    // 这里对应webpackde plugins
+    // 自动注入路由
     const pluginsPro = [
       new VueAutoRoutingPlugin({
         // Path to the directory that contains your page components.
@@ -95,6 +103,9 @@ module.exports = {
       if (process.env.NODE_ENV === 'production') {
         args[0].cdn = cdn.build
       }
+      if (process.env.NODE_ENV === 'test') {
+        args[0].cdn = cdn.test
+      }
       if (process.env.NODE_ENV === 'development') {
         args[0].cdn = cdn.dev
       }
@@ -115,6 +126,9 @@ module.exports = {
     config
       // https://webpack.js.org/configuration/devtool/#development
       .when(process.env.NODE_ENV === 'development', config => config.devtool('cheap-source-map'))
+    config
+    // https://webpack.js.org/configuration/devtool/#development
+      .when(process.env.NODE_ENV === 'test', config => config.devtool('cheap-source-map'))
 
     config.when(process.env.NODE_ENV !== 'development', config => {
       config
