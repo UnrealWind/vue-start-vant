@@ -3,7 +3,10 @@
     <!-- 头部 -->
     <div slot="header" class="fix">
       <span @click="$router.back()"> <van-icon name="arrow-left" /> </span>
-      会员升级
+      会员升级12s
+      <div class="float-r" @click="vipShare">
+        <van-icon name="share" />
+      </div>
     </div>
     <div class="main">
       <div class="topImgBox">
@@ -78,6 +81,16 @@
         }
         this.status = 'success'
       },
+      vipShare() {
+          const data = {
+              imageUrl: 'test',
+              title: 'test',
+              id: 'test'
+          }
+          this.$uni.navigateTo({
+              url: '/pages/index/test?msg=' + JSON.stringify(data)
+          })
+      },
       async getRegisteredItemsData() {
         const res = await this.$http.post('product/goods/listByRegister')
         const arr = []
@@ -104,7 +117,14 @@
   > > > .header {
     background: #312F3B;
   }
-
+  .float-r {
+    float: right;
+    .van-icon {
+      position: static !important;
+      margin-right: 15px;
+      margin-top: 15px !important;
+    }
+  }
   i {
     font-style: normal;
   }

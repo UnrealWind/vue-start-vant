@@ -29,7 +29,7 @@
       indicator-color="white"
       class="van-swipe"
     >
-      <van-swipe-item v-for="(item,index) in bannerData" :key="index">
+      <van-swipe-item v-for="(item,index) in bannerData" :key="index" @click="$router.push(item.hrefUrl)">
         <van-image :src="item.img">
           <template v-slot:error>图片加载失败</template>
         </van-image>
@@ -199,7 +199,8 @@
         if (res.rows) {
           res.rows.forEach((n, i) => {
             arr.push({
-              img: n.url
+              img: n.url,
+              hrefUrl: n.hrefUrl
             })
           })
         }
