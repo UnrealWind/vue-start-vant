@@ -53,9 +53,13 @@
       <div class="wp">
         <a class="img" @click="$router.push('/supermarket')"> <img src="../assets/img/index_ads.gif" alt=""> </a>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li v-for="(opt, index) in rebateData" :key="index" @click="$router.push(opt.btnGo)">
+            <div class="activeImgBox">
+              <van-image v-if="opt.image" :src="opt.image">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -151,7 +155,8 @@
         tabStyleActive: '',
         navList: [],
         minNavList: [],
-        timeList: []
+        timeList: [],
+        rebateData: []
       }
     },
     computed: {},
@@ -162,6 +167,7 @@
       async init() {
         try {
           this.getIndexData()
+          this.getActiveData()
           await this.getBannerData()
           await this.getTime()
           await this.getTodaySaleList()
@@ -173,6 +179,32 @@
           throw e
         }
         this.status = 'success'
+      },
+      async getActiveData() {
+          const res = await this.$http.post('product/activity/activityGoodsList', {
+              activityCode: '42e3d8dad21b433cbaf85019214694fc'
+          })
+          const arr = []
+          if (res.data) {
+              res.data.forEach((n, i) => {
+                  n.goods.forEach((good, i) => {
+                      arr.push({
+                          type: 'list-rebate',
+                          rebatePrice: {
+                              current: good.showPrice,
+                              pre: good.linePrice
+                          },
+                          title: good.goodsName,
+                          btnGo: `/user/productdetails?id=${good.id}`,
+                          image: good.goodsStatics[0].url,
+                          imageRebateLine: require('assets/img/rebate1.jpg'),
+                          imageRebate: require('assets/img/rebate2.jpg')
+                      })
+                  })
+              })
+          }
+          this.rebateData = arr
+          this.rebateData.length = 3
       },
       // 首页nav数据
       async getIndexData() {
@@ -408,13 +440,13 @@
       width: 100%;
       padding: 10px 5px;
       background-color: #EE2E55;
-
       li {
         float: left;
         background-color: #fff;
-        width: 30%;
+        width:30%;
         height: 100px;
         margin: 0 auto;
+        overflow: hidden;
       }
     }
   }
@@ -469,8 +501,7 @@
   }
 
   .nav7_ul {
-    width: 180%;
-
+    width: 215%;
     li {
       float: left;
       margin: 0 20px;
@@ -606,6 +637,9 @@
 
   > > > .main .scroll {
     background: #fff;
+  }
+  .activeImgBox {
+
   }
 
 </style>

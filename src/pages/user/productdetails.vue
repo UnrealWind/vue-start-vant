@@ -1420,5 +1420,8 @@
       border-radius: 50px;
     }
   }
+  .van-goods-action {
+    z-index: 999;
+  }
 </style>
 

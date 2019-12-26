@@ -134,7 +134,7 @@
             },
             // 精选大牌
             async getBrandData() {
-                const res = await this.$http.post('product/goods/recommendGoodslist?pageNum=1&pageSize=2', {
+                const res = await this.$http.post('product/goods/recommendGoodslist', {
                     type: 1
                 })
                 const arr = []
@@ -179,7 +179,6 @@
                 const arr = []
                 const allImgArr = []
                 const imgArr = []
-              console.log(res.data)
                 if (res.data) {
                     res.data.forEach((n, i) => {
                         n.goodsStatics.forEach((img, i) => {

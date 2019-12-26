@@ -304,8 +304,8 @@
         if (res.data) {
           res.data.forEach(async(n, i) => {
               const res = await this.getRobData(n.activityCode)
-            if (res.data[i].goods) {
-              this.$set(n, 'children', res.data[i].goods)
+            if (res.data[0].goods) {
+              this.$set(n, 'children', res.data[0].goods)
             } else {
               this.todayErrBox = true
             }

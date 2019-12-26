@@ -103,32 +103,32 @@
             },
             // tab栏下商品
             async getData() {
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: '42e3d8dad21b433cbaf85019214694fc'
-                })
+              const res = await this.$http.post('product/activity/activityGoodsList', {
+                  activityCode: '42e3d8dad21b433cbaf85019214694fc'
+              })
                 const arr = []
-             this.errBox = false
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goods.forEach((good, i) => {
-                            arr.push({
-                                type: 'list-rebate',
-                                rebatePrice: {
-                                    current: good.showPrice,
-                                    pre: good.linePrice
-                                },
-                                title: good.goodsName,
-                                btnGo: `/user/productdetails?id=${good.id}`,
-                                image: good.goodsStatics[1].url,
-                                imageRebateLine: require('assets/img/rebate1.jpg'),
-                                imageRebate: require('assets/img/rebate2.jpg')
-                            })
-                        })
-                    })
-                } else {
-                  this.errBox = true
-                }
-                this.rebateData = arr
+               this.errBox = false
+                  if (res.data) {
+                      res.data.forEach((n, i) => {
+                          n.goods.forEach((good, i) => {
+                              arr.push({
+                                  type: 'list-rebate',
+                                  rebatePrice: {
+                                      current: good.showPrice,
+                                      pre: good.linePrice
+                                  },
+                                  title: good.goodsName,
+                                  btnGo: `/user/productdetails?id=${good.id}`,
+                                  image: good.goodsStatics[0].url,
+                                  imageRebateLine: require('assets/img/rebate1.jpg'),
+                                  imageRebate: require('assets/img/rebate2.jpg')
+                              })
+                          })
+                      })
+                  } else {
+                    this.errBox = true
+                  }
+                  this.rebateData = arr
             }
         }
     }

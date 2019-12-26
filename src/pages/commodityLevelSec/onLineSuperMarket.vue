@@ -142,7 +142,7 @@
                   </div>
                   <div class="price">
                     <span class="nowPrice">¥{{ item.showPrice }}</span>
-                    <span class="gain">赚{{ item.linePrice-item.showPrice }}</span>
+                    <span class="gain">赚{{ (item.linePrice*1000-item.showPrice*1000)/1000 }}</span>
                   </div>
                 </li>
               </ul>
@@ -314,7 +314,7 @@
               title: n.goodsName,
               image: n.mainImg,
               current: n.showPrice,
-              gain: n.linePrice - n.showPrice,
+              gain: (n.linePrice * 1000 - n.showPrice * 1000) / 1000,
               btnGo: `/user/productdetails?id=${n.id}`
             })
           })
@@ -408,8 +408,8 @@
           res.data.forEach(async(n, i) => {
             const res = await this.getRobData(n.activityCode)
             console.log(res)
-            if (res.data[i].goods) {
-              this.$set(n, 'children', res.data[i].goods)
+            if (res.data[0].goods) {
+              this.$set(n, 'children', res.data[0].goods)
             } else {
               this.errBox = true
             }
@@ -597,7 +597,7 @@
 
       ul {
 
-        width: 155%;
+        width: 205%;
 
         li {
           float: left;
