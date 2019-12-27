@@ -28,13 +28,13 @@
         </van-image>
       </van-swipe-item>
     </van-swipe>
-    <div class="p2 contBody_top">
-      <!-- 1 -->
+    <!--<div class="p2 contBody_top">
+      &lt;!&ndash; 1 &ndash;&gt;
       <div class="publicBox box_sizing" style="margin-bottom: 10px">
         <div class="title_xl flex">
           <p class="p1" style="width: 100px;">推荐好货</p>
         </div>
-        <!-- 商品 -->
+        &lt;!&ndash; 商品 &ndash;&gt;
         <ul class="commodityLits mt7 flex_wrap">
           <li v-for="(item,index) in mallShopsListData" :key="index">
             <a @click="$router.push(item.path)">
@@ -47,7 +47,7 @@
           </li>
         </ul>
       </div>
-      <!-- 2 -->
+      &lt;!&ndash; 2 &ndash;&gt;
       <div class="publicBox box_sizing">
         <div class="title_nav flex_betweenc">
           <p><img src="../../assets/css/static/images/dianzan.png" alt="">极致精选</p>
@@ -58,11 +58,11 @@
       </div>
     </div>
 
-    <!-- 每日好店 -->
+    &lt;!&ndash; 每日好店 &ndash;&gt;
     <div class="everyday_shop flex">
       <h1>每日好店</h1><span>天天上新，好店推荐</span>
     </div>
-    <!-- 内容2 -->
+    &lt;!&ndash; 内容2 &ndash;&gt;
     <div v-for="(item,index) in mallShopsData" :key="index" class="p2 mt3 mb3">
       <div class="Storefront publicBox mt3">
         <div class="flex_betweenc  Storefront_cont">
@@ -87,7 +87,7 @@
         </ul>
       </div>
     </div>
-    <!-- 更多好店 -->
+    &lt;!&ndash; 更多好店 &ndash;&gt;
     <div class="everyday_shop flex">
       <h1>更多好店</h1><span>天天上新，好店推荐</span>
     </div>
@@ -100,7 +100,7 @@
           <p class="p3">{{ items.title }}</p>
         </a>
       </li>
-    </ul>
+    </ul>-->
     <!--      为您推荐-->
     <div class="tuijian flex_center">
       <p class="flex"><img src="../../assets/css/static/images/dianzan.png" alt="">为您推荐</p>

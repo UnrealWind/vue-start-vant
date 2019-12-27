@@ -15,7 +15,7 @@
 
     <div class="nav_box dan_wrap fix">
       <div class="storetubj img">
-        <!--<img src="../assets/img/storetubj.png" alt="">-->
+        <img :src="shopData.logo" alt="">
       </div>
       <div class="wp">
 
@@ -58,9 +58,9 @@
           </div>
         </div>-->
 
-        <div class="navc_title">
+        <!--<div class="navc_title">
           <a class="title"> <img src="../assets/img/storetu14.png" alt=""> 必抢爆款 </a>
-        </div>
+        </div>-->
 
         <div
           v-for="(vip,index) in vipData"
@@ -96,7 +96,7 @@
       <div class="wp">
         <ul class="flex_wrap gwcLits ">
           <li v-for="(item,index) in storeListData" :key="index">
-            <a @click="$router.push('/user/productdetails')">
+            <a @click="$router.push('/user/productdetails?id='+item.id)">
               <van-image :src="item.img">
                 <template v-slot:error>图片加载失败</template>
               </van-image>
@@ -200,7 +200,7 @@
                   pre: good.linePrice
                 },
                 btnGo: `/user/productdetails?id=${good.id}`,
-                image: good.goodsStatics[i].url
+                image: good.goodsStatics[0].url
               })
             })
           })
@@ -255,7 +255,8 @@
               title: n.goodsName,
               current: n.showPrice,
               pre: n.linePrice,
-              img: n.mainImg
+              img: n.mainImg,
+              id: n.id
             })
           })
         }
@@ -464,8 +465,6 @@
     left: 0;
     z-index: 1;
     overflow: hidden;
-    background: #2e0932;
-    height: 360px;
     width: 100%;
   }
 
