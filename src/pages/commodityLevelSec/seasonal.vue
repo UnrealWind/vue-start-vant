@@ -401,7 +401,7 @@
   }
 
   > > > .van-image .van-image__img {
-    height: 5rem;
+    height: 100%;
   }
 
   .van-tabs {
