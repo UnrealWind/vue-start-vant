@@ -11,13 +11,11 @@
           placeholder="请输入搜索关键词"
           show-action
           shape="round"
-          autofocus="autofocus"
           @search="search"
         >
           <div slot="action" @click="search(value)">搜索</div>
         </van-search>
       </div>
-
     </div>
 
     <div class="comm">
@@ -111,7 +109,7 @@
     text-align: center;
   }
   .comm {
-    margin-top: 100px;
+    margin-top: 65px;
   }
   .fix {
     *zoom: 1;
@@ -175,7 +173,7 @@
   .hesde_l {
     position: absolute;
     left: 0px;
-    top: 5px;
+    top: 35px !important;
     font-size: 20px;
     color: #333;
   }

@@ -202,9 +202,9 @@
                       })
                   })
               })
+              this.rebateData = arr
+              this.rebateData.length = 3
           }
-          this.rebateData = arr
-          this.rebateData.length = 3
       },
       // 首页nav数据
       async getIndexData() {
