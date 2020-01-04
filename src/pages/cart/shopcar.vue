@@ -19,7 +19,7 @@
                 <i v-else class="red" @click="useCoupon(shop)">{{ shop.targetShopCoupon.ticketName }}</i>-->
               </div>
               <!--卡片-->
-              <div v-for="(goods, idx) in shop.goods" :key="idx" class="list_wrap">
+              <div v-for="(goods, idx) in shop.goods" :key="idx" class="list_wrap" @click="goGoodsDetail(goods)">
                 <van-checkbox v-model="goods.checked"></van-checkbox>
                 <van-card
                   :price="goods.goodsMoney"
@@ -222,6 +222,10 @@
               })
           })
           this.cartList = JSON.parse(JSON.stringify(res.data))
+      },
+      goGoodsDetail(goods) {
+          // fydebug 这里后台没有提供商品的id，无法进行跳转
+          // this.$router.push('/user/productDetails')
       },
       useCoupon(shop) {
           this.coupons = []
