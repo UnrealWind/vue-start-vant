@@ -90,14 +90,6 @@
             <van-icon name="cluster-o" />
             <p> 关系 <span>  </span> </p>
           </div>
-          <div class="li">
-            <van-icon name="gold-coin-o" @click="$router.push('/mine')" />
-            <p> 提现 </p>
-          </div>
-          <div class="li">
-            <van-icon name="fire-o" @click="$router.push('/bindOtherPayway')" />
-            <p> 绑定 </p>
-          </div>
         </div>
       </div>
     </div>

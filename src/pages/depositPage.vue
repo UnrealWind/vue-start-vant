@@ -7,9 +7,9 @@
       <div class="header_l2 l">
         <div class="p"> 提现 </div>
       </div>
-      <!--<div class="header_r r">
+      <div class="header_r r">
         <van-icon name="question-o" />
-      </div>-->
+      </div>
     </div>
     <div class="main">
       <div class="bankBox clearfix" @click="$router.push('/selectBankCard')">
@@ -173,7 +173,6 @@
     background-color: #fff;
     .line{
       border-bottom: 1px solid #e1e1e1;
-      margin-top: 10px;
       .symbol{
         display: inline-block;
         font-size: 30px;
@@ -193,7 +192,7 @@
         color: #888888;
       }
       .btn {
-        font-size: 16px;
+        font-size: 18px;
         color: #1791E9;
       }
     }

@@ -106,21 +106,28 @@
       <span>买到就是赚到</span>
     </div>
     <!--    tab栏下商品-->
-    <ul class="flex_wrap gwcLits gwcLits_SG">
-      <li v-for="(opt,liIndex) in seasonalProductListData" :key="liIndex">
-        <a @click="$router.push({path:opt.path,query:{id:opt.id}})">
-          <van-image :src="opt.img">
-            <template v-slot:error>图片加载失败</template>
-          </van-image>
-          <p class="p1">{{ opt.title }}</p>
-          <div class="p3 flex_betweenc"><p>¥ {{ opt.current }}<span style="margin-left: 10px;">¥{{ opt.pre }}</span></p>
-            <img
-              src="../../assets/css/static/images/gwc2.png"
-              alt=""
-            ></div>
-        </a>
-      </li>
-    </ul>
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <ul class="flex_wrap gwcLits gwcLits_SG">
+        <li v-for="(opt,liIndex) in resData" :key="liIndex">
+          <a @click="$router.push({path:opt.path,query:{id:opt.id}})">
+            <van-image :src="opt.img">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
+            <p class="p1">{{ opt.title }}</p>
+            <div class="p3 flex_betweenc"><p>¥ {{ opt.current }}<span style="margin-left: 10px;">¥{{ opt.pre }}</span></p>
+              <img
+                src="../../assets/css/static/images/gwc2.png"
+                alt=""
+              ></div>
+          </a>
+        </li>
+      </ul>
+    </van-list>
     <!--    // 错误提示-->
     <div v-show="tabShow" class="nav_box10 dan_wrap">
       <div class="hint">当前类目下没有分类</div>
@@ -129,7 +136,7 @@
 </template>
 
 <script>
-  import { Icon, Image, Search, Swipe, SwipeItem } from 'vant'
+  import { Icon, Image, Search, Swipe, SwipeItem, List } from 'vant'
 
   export default {
     components: {
@@ -137,7 +144,8 @@
       'van-search': Search,
       'van-image': Image,
       'van-swipe': Swipe,
-      'van-swipe-item': SwipeItem
+      'van-swipe-item': SwipeItem,
+      'van-list': List
     },
     data() {
       return {
@@ -152,7 +160,12 @@
         seasonalProductListData: [],
         seasonalCategoryData: [],
         activityData: [],
-        bannerData: []
+        bannerData: [],
+        resData: [],
+        pageIndex: 1,
+        listTotal: 0,
+        loading: false,
+        finished: false
       }
     },
     computed: {},
@@ -160,6 +173,17 @@
       this.init()
     },
     methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          this.resData.push(this.seasonalProductListData.shift())
+          this.pageIndex++
+          this.loading = false
+          if (this.resData.length >= this.listTotal) {
+            this.finished = true
+          }
+        }, 500)
+      },
       async init() {
         try {
           await this.getBannerData()
@@ -259,6 +283,7 @@
         this.seasonalProductListData = arr.map(function(item, index) {
           return { ...item, ...imgArr[index] }
         })
+        this.listTotal = this.seasonalProductListData.length
       },
       focus() {
         this.$router.push('/searchPage')

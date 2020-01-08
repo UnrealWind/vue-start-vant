@@ -1,5 +1,5 @@
 <template>
-  <van-container :tabber="true" :status="status">
+  <van-container :tabber="true" :status="status" :header-color="`#${$route.query.color}`">
     <div slot="header" class="fix">
       <div class="header_l " @click="$router.back()">
         <van-icon name="arrow-left" />
@@ -108,23 +108,30 @@
     <div class="tuijianNav flex">
       <van-tabs v-model="active" @click="changeTab">
         <van-tab v-for="(opt,tabIndex) in mallTabData" :key="tabIndex" class="act" :title="opt.label">
-          <ul class="flex_wrap gwcLits">
-            <li v-for="(listItem, listIndex) in mallProductListData" :key="listIndex">
-              <a @click="$router.push({path: listItem.path, query:{id:listItem.id}})">
-                <van-image :src="listItem.img">
-                  <template v-slot:error>图片加载失败</template>
-                </van-image>
-                <p class="p1">{{ listItem.title }}</p>
-                <div class="p3 flex_betweenc">
-                  <p>¥{{ listItem.current }}
-                    <span>
-                      ¥{{ listItem.pre }}
-                    </span>
-                  </p>
-                  <img src="../../assets/css/static/images/gwc.png" alt=""></div>
-              </a>
-            </li>
-          </ul>
+          <van-list
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+          >
+            <ul class="flex_wrap gwcLits">
+              <li v-for="(listItem, listIndex) in resData" :key="listIndex">
+                <a @click="$router.push({path: listItem.path, query:{id:listItem.id}})">
+                  <van-image :src="listItem.img">
+                    <template v-slot:error>图片加载失败</template>
+                  </van-image>
+                  <p class="p1">{{ listItem.title }}</p>
+                  <div class="p3 flex_betweenc">
+                    <p>¥{{ listItem.current }}
+                      <span>
+                        ¥{{ listItem.pre }}
+                      </span>
+                    </p>
+                    <img src="../../assets/css/static/images/gwc.png" alt=""></div>
+                </a>
+              </li>
+            </ul>
+          </van-list>
           <div v-show="tabShow" class="nav_box10 dan_wrap">
             <div class="hint">当前类目下没有分类</div>
           </div>
@@ -135,7 +142,7 @@
 </template>
 
 <script>
-  import { Icon, Image, Tab, Tabs, Swipe, SwipeItem } from 'vant'
+  import { Icon, Image, Tab, Tabs, Swipe, SwipeItem, List } from 'vant'
 
   export default {
     components: {
@@ -144,7 +151,8 @@
       'van-tabs': Tabs,
       'van-image': Image,
       'van-swipe': Swipe,
-      'van-swipe-item': SwipeItem
+      'van-swipe-item': SwipeItem,
+      'van-list': List
     },
     data() {
       return {
@@ -164,7 +172,12 @@
         // tab栏下商品
         mallProductListData: [],
         // tab栏
-        mallTabData: []
+        mallTabData: [],
+        resData: [],
+        pageIndex: 1,
+        listTotal: 0,
+        loading: false,
+        finished: false
       }
     },
     computed: {},
@@ -172,6 +185,19 @@
       this.init()
     },
     methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          if (this.mallProductListData.shift() !== undefined) {
+            this.resData.push(this.mallProductListData.shift())
+            this.pageIndex++
+            this.loading = false
+            if (this.resData.length >= this.listTotal) {
+              this.finished = true
+            }
+          }
+        }, 500)
+      },
       async init() {
         try {
           // 轮播图
@@ -246,11 +272,13 @@
         this.mallTabData = arr
       },
       async changeTab(idx, title) {
+        this.resData = []
         this.tabShow = false
         await this.getMallProductListData(this.mallTabData[idx].key)
         if (this.mallProductListData.length === 0) {
           this.tabShow = true
         }
+        this.onLoad()
       },
       // tab栏下商品
       async getMallProductListData(category) {
@@ -286,6 +314,7 @@
         this.mallProductListData = arr.map(function(item, index) {
           return { ...item, ...imgArr[index] }
         })
+        this.listTotal = this.mallProductListData.length
       },
       // 品牌
       async getBrandListData() {
@@ -369,7 +398,6 @@
     width: 48%;
     height: 6.5rem;
     overflow: hidden;
-    margin: 0 auto;
   }
 
   > > > .gwcLits li .van-image {

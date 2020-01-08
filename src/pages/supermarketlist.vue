@@ -34,18 +34,25 @@
 
     <div class="nav_box dan_wrap fix">
       <div class="wp">
-        <ul class="flex_wrap gwcLits ">
-          <li v-for="(item,index) in listData" :key="index">
-            <a @click="$router.push(item.path)">
-              <div class="p2">
-                <img :src="item.img" alt="">
-              </div>
-              <p class="p1"> {{ item.title }}</p>
-              <p class="p4"> {{ item.intro }}</p>
-              <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p></div>
-            </a>
-          </li>
-        </ul>
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <ul class="flex_wrap gwcLits ">
+            <li v-for="(item,index) in resData" :key="index">
+              <a @click="$router.push(item.path)">
+                <div class="p2">
+                  <img :src="item.img" alt="">
+                </div>
+                <p class="p1"> {{ item.title }}</p>
+                <p class="p4"> {{ item.intro }}</p>
+                <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p></div>
+              </a>
+            </li>
+          </ul>
+        </van-list>
         <div v-show="tabShow" class="nav_box10 dan_wrap">
           <div class="hint">当前类目下没有分类</div>
         </div>
@@ -59,7 +66,7 @@
 </template>
 
 <script>
-  import { Icon, Swipe, SwipeItem, Tab, Tabs, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Tab, Tabs, Image, list } from 'vant'
 
   export default {
     components: {
@@ -68,7 +75,8 @@
       'van-icon': Icon,
       'van-tab': Tab,
       'van-tabs': Tabs,
-      'van-image': Image
+      'van-image': Image,
+      'van-list': list
     },
     data() {
       return {
@@ -80,7 +88,12 @@
         // 轮播图
         bannerData: [],
         navList: [],
-        listData: []
+        listData: [],
+        resData: [],
+        pageIndex: 1,
+        listTotal: 0,
+        loading: false,
+        finished: false
       }
     },
     computed: {},
@@ -88,6 +101,19 @@
       this.init()
     },
     methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          if (this.listData.shift() !== undefined) {
+            this.resData.push(this.listData.shift())
+            this.pageIndex++
+            this.loading = false
+            if (this.resData.length >= this.listTotal) {
+              this.finished = true
+            }
+          }
+        }, 500)
+      },
       async init() {
         try {
           await this.getBannerData()
@@ -124,9 +150,11 @@
       async changeTab(idx, title) {
         this.tabShow = false
         await this.getSuperMarketListData(this.navList[idx].key)
-        if (this.listData.length === 0) {
+        if (this.resData.length === 0) {
           this.tabShow = true
         }
+        this.resData = []
+        this.onLoad()
       },
       async getSuperMarketListData(category) {
         if (!category) category = this.navList[0].key
@@ -147,6 +175,7 @@
           this.errorShow = true
         }
         this.listData = arr
+        this.listTotal = this.listData.length
       }
     }
   }

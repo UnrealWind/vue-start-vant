@@ -51,21 +51,17 @@
         </li>
       </ul>
     </div>
-    <div class="btnBox">
-      <van-button type="info" size="large" @click="$router.push('/depositPage')"> 提现 </van-button>
-    </div>
   </van-container>
 </template>
 
 <script>
-  import { Icon, Image, Cell, Button } from 'vant'
+  import { Icon, Image, Cell } from 'vant'
 
   export default {
     components: {
       'van-icon': Icon,
       'van-image': Image,
-      'van-cell': Cell,
-      'van-button': Button
+      'van-cell': Cell
     },
     data() {
       return {
@@ -227,13 +223,6 @@
       .cellBox-li {
         border-bottom: 1px solid #e1e1e1;
       }
-    }
-    .btnBox{
-      margin-top: 50px;
-      padding: 0 20px;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
     }
   }
 

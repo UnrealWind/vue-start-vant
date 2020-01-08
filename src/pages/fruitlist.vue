@@ -30,21 +30,26 @@
 
     <div class="nav_box dan_wrap fix">
       <div class="wp">
-        <div
-          class="nav_wrap"
-        >
-          <commodity
-            v-for="(vip,index) in vipData"
-            :key="`${vip.type}-${index}`"
-            :type="vip.type"
-            :image="vip.image"
-            :describe="vip.describe"
-            :title="vip.title"
-            :vip-price="vip.vipPrice"
-            :vip-price-describe="vip.vipPriceDescribe"
-            :btn-go="vip.btnGo"
+        <div class="nav_wrap">
+          <van-list
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
           >
-          </commodity>
+            <commodity
+              v-for="(vip,index) in resData"
+              :key="`${vip.type}-${index}`"
+              :type="vip.type"
+              :image="vip.image"
+              :describe="vip.describe"
+              :title="vip.title"
+              :vip-price="vip.vipPrice"
+              :vip-price-describe="vip.vipPriceDescribe"
+              :btn-go="vip.btnGo"
+            >
+            </commodity>
+          </van-list>
         </div>
       </div>
       <div v-show="tabShow" class="nav_box10 dan_wrap">
@@ -56,14 +61,15 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Image } from 'vant'
+    import { Icon, Swipe, SwipeItem, Image, List } from 'vant'
 
     export default {
         components: {
             'van-swipe': Swipe,
             'van-swipe-item': SwipeItem,
             'van-icon': Icon,
-          'van-image': Image
+          'van-image': Image,
+          'van-list': List
         },
         data() {
             return {
@@ -71,7 +77,12 @@
                 value: '',
                 vipData: [],
                 tabShow: false,
-                bannerData: []
+                bannerData: [],
+              resData: [],
+              pageIndex: 1,
+              listTotal: 0,
+              loading: false,
+              finished: false
             }
         },
         computed: {},
@@ -79,6 +90,19 @@
             this.init()
         },
         methods: {
+          onLoad() {
+            // 异步更新数据
+            setTimeout(() => {
+              if (this.vipData.shift() !== undefined) {
+                this.resData.push(this.vipData.shift())
+                this.pageIndex = this.pageIndex + 5
+                this.loading = false
+                if (this.resData.length >= this.listTotal) {
+                  this.finished = true
+                }
+              }
+            }, 500)
+          },
             async init() {
                 try {
                     await this.getFruitListData()
@@ -112,6 +136,7 @@
                     this.tabShow = true
                 }
                 this.vipData = arr
+              this.listTotal = this.vipData.length
             },
           async getBannerData() {
             const res = await this.$http.post('product/banner/list?showFlag=2')

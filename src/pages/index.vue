@@ -97,8 +97,8 @@
     <!--    // tab栏-->
     <div class="nav_box7 dan_wrap">
       <ul class="nav7_ul fix">
-        <li v-for="(item,index) in timeList" :key="index" @click="changeTime(item)">
-          <div class="title2" :class="tabStyleActive===item.key? 'tabStyleActive':''">{{ item.time }}</div>
+        <li v-for="(item,index) in timeList" :key="index" @click="changeTime(item,$event)">
+          <div :id="color===item.key?'color':''" class="title2" :class="tabStyleActive===item.key? 'tabStyleActive':''">{{ item.time }}</div>
           <p v-show="tabStyleActive===item.key"> 抢购进行中 </p>
           <p v-show="tabStyleActive > item.key"> 已抢光 </p>
           <p v-show="tabStyleActive < item.key"> 即将开抢 </p>
@@ -108,22 +108,29 @@
     <!--    tab下商品-->
     <div class="nav_box9 dan_wrap">
       <div class="wp">
-        <div
-          v-for="(commodity,index) in tabListData"
-          :key="`${commodity.type}-${index}`"
-          class="nav_li"
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
         >
-          <commodity
-            :type="commodity.type"
-            :image="commodity.image"
-            :discribe="commodity.discribe"
-            :title="commodity.title"
-            :index-price="commodity.indexPrice"
-            :index-price-discribe="commodity.indexPriceDiscribe"
-            :btn-go="commodity.btnGo"
+          <div
+            v-for="(commodity,index) in resData"
+            :key="`${commodity.type}-${index}`"
+            class="nav_li"
           >
-          </commodity>
-        </div>
+            <commodity
+              :type="commodity.type"
+              :image="commodity.image"
+              :discribe="commodity.discribe"
+              :title="commodity.title"
+              :index-price="commodity.indexPrice"
+              :index-price-discribe="commodity.indexPriceDiscribe"
+              :btn-go="commodity.btnGo"
+            >
+            </commodity>
+          </div>
+        </van-list>
       </div>
       <!--    错误提示-->
       <div v-if="tabShow" class="nav_box10 dan_wrap">
@@ -134,7 +141,7 @@
 </template>
 
 <script>
-  import { Icon, Swipe, SwipeItem, Search, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Search, Image, List } from 'vant'
 
   export default {
     components: {
@@ -142,7 +149,8 @@
       'van-swipe-item': SwipeItem,
       'van-icon': Icon,
       'van-search': Search,
-      'van-image': Image
+      'van-image': Image,
+      'van-list': List
     },
     data() {
       return {
@@ -150,13 +158,20 @@
         status: 'loading',
         value: '',
         tabShow: true,
+        color: '',
         tabListData: [],
         bannerData: [],
         tabStyleActive: '',
         navList: [],
         minNavList: [],
         timeList: [],
-        rebateData: []
+        rebateData: [],
+        resData: [],
+        pageIndex: 1,
+        listTotal: 0,
+        loading: false,
+        finished: false,
+        addBtnFlag: true
       }
     },
     computed: {},
@@ -164,6 +179,19 @@
       this.init()
     },
     methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          if (this.tabListData.shift() !== undefined) {
+            this.resData.push(this.tabListData.shift())
+            this.pageIndex++
+            this.loading = false
+            if (this.resData.length >= this.listTotal) {
+              this.finished = true
+            }
+          }
+        }, 500)
+      },
       async init() {
         try {
           this.getIndexData()
@@ -221,7 +249,6 @@
             })
           })
         }
-        console.log(res.rows)
         this.navList = arr
       },
       // 轮播图数据
@@ -252,10 +279,14 @@
         }
         this.timeList = arr
       },
-      async changeTime(item) {
+      async changeTime(item, e) {
         await this.getTodaySaleList(item.key)
+        this.color = item.key
         this.tabShow = this.tabListData.length === 0
-        this.tabStyleActive = item.key
+        this.resData = []
+        this.onLoad()
+        var off = document.getElementsByClassName('tabStyleActive').offsetTop
+        console.log(off)
       },
       // 今日特卖商品
       async getTodaySaleList(timeType) {
@@ -284,6 +315,7 @@
           this.tabShow = true
         }
         this.tabListData = arr
+        this.listTotal = this.tabListData.length
       },
       // 搜索功能
       focus() {
@@ -299,6 +331,9 @@
                 this.tabStyleActive = o.key
                 this.getTodaySaleList(o.key)
               }
+              // if (o.time.slice(0, 2) / 1 < time) {
+              //   this.addBtnFlag = false
+              // }
             })
           }
         })
@@ -308,6 +343,10 @@
 
 </script>
 <style lang='scss' scoped>
+ #color{
+    background-color: #b3d8e2;
+    border-radius: 14px;
+  }
   >>>.header {
     background: rgba(0,0,0,0) !important;
   }
@@ -501,7 +540,7 @@
   }
 
   .nav7_ul {
-    width: 215%;
+    width: 250%;
     li {
       float: left;
       margin: 0 20px;
@@ -602,6 +641,7 @@
 
     .van-search {
       border-radius: 50px;
+      background-color: transparent!important;
     }
 
     .p {
@@ -612,6 +652,7 @@
   }
 
   .van-search__content {
+    background-color: rgba(255,255,255,0.5) !important;
     border-radius: 50px;
   }
 

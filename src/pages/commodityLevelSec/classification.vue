@@ -36,6 +36,7 @@
         <div v-for="(model,divIndex) in targetData" v-show="!thisShow" :key="divIndex" class="class_right r">
           <div class="title"> {{ model.categoryName }}</div>
           <div class="class_ul fix">
+
             <div
               v-for="(opt,liIndex) in model.list"
               :key="liIndex"
@@ -60,7 +61,7 @@
 </template>
 
 <script>
-    import { Icon, Image, Search, Sidebar, SidebarItem } from 'vant'
+  import { Icon, Image, Search, Sidebar, SidebarItem } from 'vant'
 
     export default {
         components: {
@@ -80,7 +81,8 @@
                 classCategoryData: [],
                 classTabData: [],
                 targetData: [],
-                keepAlive: true
+                keepAlive: true,
+              thisData: []
             }
         },
         computed: {},
@@ -178,6 +180,7 @@
     }
 
     .van-search__content {
+      background-color: rgba(255,255,255,0.5);
       border-radius: 50px;
       overflow: hidden;
       width: 100%;
@@ -191,6 +194,7 @@
       .van-search {
         padding: 0;
         border-radius: 10px;
+        background-color: transparent !important;
 
       }
     }
@@ -211,7 +215,7 @@
   .class_left {
     position: fixed;
     left: 0;
-      margin-top: 47px;
+    padding-top: 86px;
     width: 22%;
     background: #f2f2f2;
 

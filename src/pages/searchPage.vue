@@ -19,19 +19,27 @@
     </div>
 
     <div class="comm">
-      <commodity
-        v-for="(commodity,index) in commodityData"
-        :key="`${commodity.type}-${index}`"
-        :type="commodity.type"
-        :image="commodity.image"
-        :discribe="commodity.discribe"
-        :title="commodity.title"
-        :index-price="commodity.indexPrice"
-        :index-price-discribe="commodity.indexPriceDiscribe"
-        :btn-go="commodity.btnGo"
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
       >
-      </commodity>
+        <commodity
+          v-for="(commodity,index) in resData"
+          :key="index"
+          :type="commodity.type"
+          :image="commodity.image"
+          :discribe="commodity.discribe"
+          :title="commodity.title"
+          :index-price="commodity.indexPrice"
+          :index-price-discribe="commodity.indexPriceDiscribe"
+          :btn-go="commodity.btnGo"
+        >
+        </commodity>
+      </van-list>
     </div>
+
     <div v-show="hintShow" class="hint">
       <p>暂未搜索到商品</p>
     </div>
@@ -39,19 +47,25 @@
 </template>
 
 <script>
-    import { Icon, Search } from 'vant'
+    import { Icon, Search, List } from 'vant'
 
     export default {
         components: {
             'van-icon': Icon,
-            'van-search': Search
+            'van-search': Search,
+          'van-list': List
         },
         data() {
             return {
                 status: 'loading',
                 value: '',
                 hintShow: false,
-                commodityData: []
+                commodityData: [],
+              resData: [],
+              pageIndex: 1,
+              listTotal: 0,
+              loading: false,
+              finished: false
             }
         },
         computed: {},
@@ -59,6 +73,17 @@
             this.init()
         },
         methods: {
+          onLoad() {
+            // 异步更新数据
+            setTimeout(() => {
+              this.resData.push(this.commodityData.shift())
+              this.pageIndex = this.pageIndex + 5
+              this.loading = false
+              if (this.resData.length >= this.listTotal) {
+                this.finished = true
+              }
+            }, 500)
+          },
             async init() {
                 try {
                     //
@@ -92,10 +117,9 @@
                         })
                     })
                     this.commodityData = arr
-                    this.hintShow = false
-                    if (this.commodityData.length === 0) {
-                        this.hintShow = true
-                    }
+                  this.listTotal = this.commodityData.length
+
+                    this.hintShow = this.commodityData.length === 0
                 }
             }
         }

@@ -119,20 +119,27 @@
       </ul>
       <!-- 今日推荐 -->
       <div class="mt3 jrtjTitle"><h1>今日推荐</h1></div>
-      <ul class="flex_wrap gwcLits jrtjUl">
-        <li v-for="(item,index) in crossBorderProductListData" :key="index">
-          <a @click="$router.push({path:item.path,query:{id:item.id}})">
-            <van-image :src="item.image">
-              <template v-slot:error>图片加载失败</template>
-            </van-image>
-            <p class="p1">{{ item.title }}</p>
-            <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-      </ul>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <ul class="flex_wrap gwcLits jrtjUl">
+          <li v-for="(item,index) in resData" :key="index">
+            <a @click="$router.push({path:item.path,query:{id:item.id}})">
+              <van-image :src="item.image">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
+              <p class="p1">{{ item.title }}</p>
+              <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
+                src="../../assets/css/static/images/gwc.png"
+                alt=""
+              ></div>
+            </a>
+          </li>
+        </ul>
+      </van-list>
       <div v-show="jrtjErrBox" class="jrtjerrorBox">
         该活动下暂无商品
       </div>
@@ -141,14 +148,15 @@
 </template>
 
 <script>
-  import { Icon, Swipe, SwipeItem, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Image, List } from 'vant'
 
   export default {
     components: {
       'van-icon': Icon,
       'van-swipe': Swipe,
       'van-swipe-item': SwipeItem,
-      'van-image': Image
+      'van-image': Image,
+      'van-list': List
     },
     data() {
       return {
@@ -171,7 +179,12 @@
         crossBorderBrandData: [],
         // 种草推荐
         crossBorderRecommendData: [],
-        sonData: []
+        sonData: [],
+        resData: [],
+        pageIndex: 1,
+        listTotal: 0,
+        loading: false,
+        finished: false
       }
     },
     computed: {},
@@ -179,6 +192,19 @@
       this.init()
     },
     methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          if (this.crossBorderProductListData.shift() !== undefined) {
+            this.resData.push(this.crossBorderProductListData.shift())
+            this.pageIndex++
+            this.loading = false
+            if (this.resData.length >= this.listTotal) {
+              this.finished = true
+            }
+          }
+        }, 500)
+      },
       async init() {
         try {
           // 轮播图
@@ -294,6 +320,7 @@
           this.jrtjErrBox = true
         }
         this.crossBorderProductListData = arr
+        this.listTotal = this.crossBorderHotListData.length
       },
       // 活动
       async getActivityData() {
@@ -340,7 +367,7 @@
   }
 
   .fix {
-    background-color: #ac45f8;
+    background-color: transparent;
     height: 37.5px;
   }
 

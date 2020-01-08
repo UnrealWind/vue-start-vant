@@ -36,18 +36,25 @@
 
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <div v-for="(commodity,index) in concentrateData" :key="`${commodity.type}-${index}`" class="nav_li">
-          <commodity
-            :type="commodity.type"
-            :image="commodity.image"
-            :discribe="commodity.discribe"
-            :title="commodity.title"
-            :concentrate-price="commodity.concentratePrice"
-            :concentrate-price-discribe="commodity.concentratePriceDiscribe"
-            :btn-go="commodity.btnGo"
-          >
-          </commodity>
-        </div>
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <div v-for="(commodity,index) in resData" :key="`${commodity.type}-${index}`" class="nav_li">
+            <commodity
+              :type="commodity.type"
+              :image="commodity.image"
+              :discribe="commodity.discribe"
+              :title="commodity.title"
+              :concentrate-price="commodity.concentratePrice"
+              :concentrate-price-discribe="commodity.concentratePriceDiscribe"
+              :btn-go="commodity.btnGo"
+            >
+            </commodity>
+          </div>
+        </van-list>
       </div>
     </div>
     <div v-if="newErrBox" class="errBox">
@@ -71,20 +78,29 @@
     <!--tab栏下商品-->
     <div class="nav_box4 dan_wrap fix">
       <div class="wp">
-        <ul class="flex_wrap gwcLits ">
-          <li v-for="(item,index) in choicenessData" :key="index">
-            <a @click="$router.push(item.path)">
-              <van-image :src="item.img" fill>
-                <template v-slot:error>加载失败</template>
-              </van-image>
-              <p class="p1">{{ item.title }}</p>
-              <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
-                src="../assets/css/static/images/gwc2.png"
-                alt=""
-              ></div>
-            </a>
-          </li>
-        </ul>
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <ul v-for="(item,index) in resData1" :key="index" class="flex_wrap gwcLits ">
+
+            <li :key="index">
+              <a @click="$router.push(item.path)">
+                <van-image :src="item.img" fill>
+                  <template v-slot:error>加载失败</template>
+                </van-image>
+                <p class="p1">{{ item.title }}</p>
+                <div class="p3 flex_betweenc"><p>¥{{ item.current }} <span>¥{{ item.pre }}</span></p><img
+                  src="../assets/css/static/images/gwc2.png"
+                  alt=""
+                ></div>
+              </a>
+            </li>
+
+          </ul>
+        </van-list>
       </div>
     </div>
 
@@ -96,162 +112,197 @@
 </template>
 
 <script>
-    import { Icon, Swipe, SwipeItem, Tab, Tabs, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Tab, Tabs, Image, list } from 'vant'
 
-    export default {
-        components: {
-            'van-swipe': Swipe,
-            'van-swipe-item': SwipeItem,
-            'van-icon': Icon,
-            'van-tab': Tab,
-            'van-tabs': Tabs,
-            'van-image': Image
-        },
-        data() {
-            return {
-                active: 0,
-                status: 'loading',
-                value: '',
-                tabShow: false,
-                newErrBox: false,
-                concentrateData: [],
-                navList: [],
-                choicenessData: [],
-                bannerData: []
+  export default {
+    components: {
+      'van-swipe': Swipe,
+      'van-swipe-item': SwipeItem,
+      'van-icon': Icon,
+      'van-tab': Tab,
+      'van-tabs': Tabs,
+      'van-image': Image,
+      'van-list': list
+    },
+    data() {
+      return {
+        active: 0,
+        status: 'loading',
+        value: '',
+        tabShow: false,
+        newErrBox: false,
+        concentrateData: [],
+        navList: [],
+        choicenessData: [],
+        bannerData: [],
+        resData: [],
+        resData1: [],
+        pageIndex: 1,
+        listTotal: 0,
+        listTotal1: 0,
+        loading: false,
+        finished: false
+      }
+    },
+    computed: {},
+    watch: {
+      tabShow: function() {
+        this.$nextTick(function() {
+          document.getElementById('scroll').scrollTop = document.getElementById('scroll').scrollHeight
+        })
+      }
+    },
+    mounted() {
+      this.init()
+    },
+    methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          if (this.concentrateData.shift() !== undefined) {
+            this.resData.push(this.concentrateData.shift())
+            this.pageIndex = this.pageIndex + 5
+            this.loading = false
+            if (this.resData.length >= this.listTotal) {
+              this.finished = true
             }
-        },
-        computed: {},
-        watch: {
-            tabShow: function() {
-                this.$nextTick(function() {
-                    document.getElementById('scroll').scrollTop = document.getElementById('scroll').scrollHeight
-                })
+          }
+        }, 500)
+        setTimeout(() => {
+          if (this.choicenessData.shift() !== undefined) {
+            this.resData1.push(this.choicenessData.shift())
+            this.pageIndex = this.pageIndex + 5
+            this.loading = false
+            if (this.resData.length >= this.listTotal1) {
+              this.finished = true
             }
-        },
-        mounted() {
-            this.init()
-        },
-        methods: {
-            async init() {
-                try {
-                    // 轮播图
-                    await this.getBannerData()
-                    // 超人气新品
-                    await this.getNewProduct()
-                    // tab 栏
-                    await this.getConcentrateTabData()
-                    // tab 栏下商品
-                    await this.getConcentProductListData()
-                } catch (e) {
-                    this.status = 'error'
-                    throw e
-                }
-                this.status = 'success'
-            },
-            // 轮播图
-            async getBannerData() {
-                const res = await this.$http.post('product/banner/list?showFlag=1')
-                const arr = []
-              if (res.rows) {
-                res.rows.forEach((n, i) => {
-                  arr.push({
-                    img: n.url
-                  })
-                })
-              }
-                this.bannerData = arr
-            },
-            // 超人气新品
-            async getNewProduct() {
-              this.newErrBox = false
-                const res = await this.$http.post('product/activity/activityGoodsList', {
-                    activityCode: 'cf48dbb9013a418e87b8e47086cddc3b'
-                })
-                const arr = []
-              if (res.data) {
-                res.data.forEach((n, i) => {
-                  n.goods.forEach((good, i) => {
-                    arr.push({
-                      type: 'list-concentrate',
-                      image: require('assets/img/testtu1.png'),
-                      describe: '日1本1进1口',
-                      title: good.goodsProfile,
-                      concentratePrice: '121010',
-                      concentratePriceDiscribe: '新1品1福1￥',
-                      id: good.id,
-                      btnGo: `/user/productdetails?id=${good.id}`
-                    })
-                  })
-                })
-              } else {
-                this.newErrBox = true
-              }
-                this.concentrateData = arr
-            },
-            // tab栏
-            async getConcentrateTabData() {
-                const res = await this.$http.post('product/content/list?level=0')
-                const arr = []
-                for (const i in res.rows[0].dictMap) {
-                    arr.push({
-                        label: res.rows[0].dictMap[i],
-                        id: i
-                    })
-                }
-                this.navList = arr
-            },
-            async changeTab(index) {
-                this.tabShow = false
-                await this.getConcentProductListData(this.navList[index].id)
-                if (this.choicenessData.length === 0) {
-                    this.tabShow = true
-                }
-            },
-            // tab下商品
-            async getConcentProductListData(category) {
-                if (!category) category = this.navList[0].id
-                const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
-                const arr = []
-                const allImgArr = []
-                const imgArr = []
-                if (res.data) {
-                    res.data.forEach((n, i) => {
-                        n.goodsStatics.forEach((img, i) => {
-                            allImgArr.push({
-                                img: img.url,
-                                key: img.spuStaticType
-                            })
-                        })
-                        arr.push({
-                            title: n.goodsName,
-                            id: n.id,
-                            current: n.showPrice,
-                            pre: n.linePrice,
-                            path: `/user/productdetails?id=${n.id}`
-                        })
-                    })
-                    allImgArr.forEach((n, i) => {
-                        if (n.key === 0) {
-                            imgArr.push({
-                                img: n.img
-                            })
-                        }
-                    })
-                }
-                this.choicenessData = arr.map(function(item, index) {
-                    return { ...item, ...imgArr[index] }
-                })
-            }
-
+          }
+        }, 500)
+      },
+      async init() {
+        try {
+          // 轮播图
+          await this.getBannerData()
+          // 超人气新品
+          await this.getNewProduct()
+          // tab 栏
+          await this.getConcentrateTabData()
+          // tab 栏下商品
+          await this.getConcentProductListData()
+        } catch (e) {
+          this.status = 'error'
+          throw e
         }
+        this.status = 'success'
+      },
+      // 轮播图
+      async getBannerData() {
+        const res = await this.$http.post('product/banner/list?showFlag=1')
+        const arr = []
+        if (res.rows) {
+          res.rows.forEach((n, i) => {
+            arr.push({
+              img: n.url
+            })
+          })
+        }
+        this.bannerData = arr
+      },
+      // 超人气新品
+      async getNewProduct() {
+        this.newErrBox = false
+        const res = await this.$http.post('product/activity/activityGoodsList', {
+          activityCode: 'cf48dbb9013a418e87b8e47086cddc3b'
+        })
+        const arr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            n.goods.forEach((good, i) => {
+              arr.push({
+                type: 'list-concentrate',
+                image: require('assets/img/testtu1.png'),
+                describe: '日1本1进1口',
+                title: good.goodsProfile,
+                concentratePrice: '121010',
+                concentratePriceDiscribe: '新1品1福1￥',
+                id: good.id,
+                btnGo: `/user/productdetails?id=${good.id}`
+              })
+            })
+          })
+        } else {
+          this.newErrBox = true
+        }
+        this.concentrateData = arr
+        this.listTotal = this.concentrateData.length
+      },
+      // tab栏
+      async getConcentrateTabData() {
+        const res = await this.$http.post('product/content/list?level=0')
+        const arr = []
+        for (const i in res.rows[0].dictMap) {
+          arr.push({
+            label: res.rows[0].dictMap[i],
+            id: i
+          })
+        }
+        this.navList = arr
+      },
+      async changeTab(index) {
+        this.tabShow = false
+        await this.getConcentProductListData(this.navList[index].id)
+        if (this.choicenessData.length === 0) {
+          this.tabShow = true
+        }
+        this.resData1 = []
+        this.onLoad()
+      },
+      // tab下商品
+      async getConcentProductListData(category) {
+        if (!category) category = this.navList[0].id
+        const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
+        const arr = []
+        const allImgArr = []
+        const imgArr = []
+        if (res.data) {
+          res.data.forEach((n, i) => {
+            n.goodsStatics.forEach((img, i) => {
+              allImgArr.push({
+                img: img.url,
+                key: img.spuStaticType
+              })
+            })
+            arr.push({
+              title: n.goodsName,
+              id: n.id,
+              current: n.showPrice,
+              pre: n.linePrice,
+              path: `/user/productdetails?id=${n.id}`
+            })
+          })
+          allImgArr.forEach((n, i) => {
+            if (n.key === 0) {
+              imgArr.push({
+                img: n.img
+              })
+            }
+          })
+        }
+        this.choicenessData = arr.map(function(item, index) {
+          return { ...item, ...imgArr[index] }
+        })
+        this.listTotal1 = this.choicenessData.length
+      }
+
     }
+  }
 
 </script>
 <style lang='scss' scoped>
   @import "../assets/css/static/css/app.css";
   @import "../assets/css/static/css/style.css";
 
-  .errBox{
+  .errBox {
     text-align: center;
     font-size: 15px;
   }
@@ -485,9 +536,10 @@
     height: 5rem;
   }
 
-  .nav_box10{
+  .nav_box10 {
     margin-top: 0;
     height: 130px;
+
     .hint {
       font-size: 14px;
       text-align: center;
@@ -500,8 +552,9 @@
     margin-top: 25px;
   }
 
-  .gwcLits .p3{
+  .gwcLits .p3 {
     padding: 0;
+
     img {
       margin-right: 10px;
     }

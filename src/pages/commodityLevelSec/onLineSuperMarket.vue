@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="topHead2 topHead3 ">
-      <div class="box2" :header-color="`#${$route.query.color}`"></div>
+      <div class="box2" :style="{background: '#'+$route.query.color}"></div>
     </div>
 
     <!-- 内容 -->
@@ -63,44 +63,51 @@
         </div>
       </div>
       <!--        超市必抢-->
-      <!--<div class="superMarketBiQiang clearfix">
-        &lt;!&ndash;          活动标题&ndash;&gt;
-        <div class="title">
-          <h2>超市必抢</h2>
-          <span>拼手速抢惊喜</span>
-        </div>
-        &lt;!&ndash;          时间tab栏&ndash;&gt;
-        <div class="timeTab">
-          <ul class="clearfix">
-            <li v-for="(item,index) in timeList" :key="index" @click="changeTime(item)">
-              <div class="title2" :class="tabStyleActive===item.key? 'tabStyleActive':''">{{ item.time }}</div>
-            </li>
-          </ul>
-        </div>
-        &lt;!&ndash;          时间下商品列表&ndash;&gt;
-        <div class="timeList">
-          <ul>
-            <li v-for="(item,index) in tabListData" :key="index" @click="$router.push(item.btnGo)">
-              <div class="imgBox">
-                <van-image :src="item.image">
-                  <template v-slot:error>图片加载失败</template>
-                </van-image>
-              </div>
-              <div class="title">
-                {{ item.title }}
-              </div>
-              <div class="price">
-                <span class="nowPrice">￥{{ item.current }}</span>
-                <span class="gain">赚{{ item.gain }}</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-        &lt;!&ndash;    错误提示&ndash;&gt;
-        <div v-if="timeBoxShow" class="nav_box10 dan_wrap">
-          <div class="hint">当前时段下暂无商品</div>
-        </div>
-      </div>-->
+      <!--      <div class="superMarketBiQiang clearfix">-->
+      <!--        &lt;!&ndash;          活动标题&ndash;&gt;-->
+      <!--        <div class="title">-->
+      <!--          <h2>超市必抢</h2>-->
+      <!--          <span>拼手速抢惊喜</span>-->
+      <!--        </div>-->
+      <!--        &lt;!&ndash;          时间tab栏&ndash;&gt;-->
+      <!--        <div class="timeTab">-->
+      <!--          <ul class="clearfix">-->
+      <!--            <li v-for="(item,index) in timeList" :key="index" @click="changeTime(item)">-->
+      <!--              <div class="title2" :class="tabStyleActive===item.key? 'tabStyleActive':''">{{ item.time }}</div>-->
+      <!--            </li>-->
+      <!--          </ul>-->
+      <!--        </div>-->
+      <!--        &lt;!&ndash;          时间下商品列表&ndash;&gt;-->
+      <!--        <div class="timeList">-->
+      <!--          <van-list-->
+      <!--            v-model="loading"-->
+      <!--            :finished="finished"-->
+      <!--            finished-text="没有更多了"-->
+      <!--            @load="onLoad"-->
+      <!--          >-->
+      <!--            <ul>-->
+      <!--              <li v-for="(item,index) in timeResData" :key="index" @click="$router.push(item.btnGo)">-->
+      <!--                <div class="imgBox">-->
+      <!--                  <van-image :src="item.image">-->
+      <!--                    <template v-slot:error>图片加载失败</template>-->
+      <!--                  </van-image>-->
+      <!--                </div>-->
+      <!--                <div class="title">-->
+      <!--                  {{ item.title }}-->
+      <!--                </div>-->
+      <!--                <div class="price">-->
+      <!--                  <span class="nowPrice">￥{{ item.current }}</span>-->
+      <!--                  <span class="gain">赚{{ item.gain }}</span>-->
+      <!--                </div>-->
+      <!--              </li>-->
+      <!--            </ul>-->
+      <!--          </van-list>-->
+      <!--        </div>-->
+      <!--        &lt;!&ndash;    错误提示&ndash;&gt;-->
+      <!--        <div v-if="timeBoxShow" class="nav_box10 dan_wrap">-->
+      <!--          <div class="hint">当前时段下暂无商品</div>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <!--        超值好物-->
       <div v-if="activityData.length !== 0">
         <div
@@ -161,29 +168,36 @@
       <div class="tuijianNav flex">
         <van-tabs v-model="active" @click="changeTab">
           <van-tab v-for="(item,index) in marketCategoryData" :key="index" :title="item.label">
-            <div style="margin-top: 10px">
-              <div class="nav_zaixan_title">
-                <p>{{ item.label }}</p>
-              </div>
-            </div>
+            <!--            <div style="margin-top: 10px">-->
+            <!--              <div class="nav_zaixan_title">-->
+            <!--                <p>{{ item.label }}</p>-->
+            <!--              </div>-->
+            <!--            </div>-->
           </van-tab>
         </van-tabs>
       </div>
-      <ul class="flex_wrap gwcLits gwcLits_nav gwcLits_SG">
-        <li v-for="(opt,liIndex) in superMarketTabData" :key="liIndex">
-          <a @click="$router.push(opt.path)">
-            <van-image :src="opt.img">
-              <template v-slot:error>图片加载失败</template>
-            </van-image>
-            <p class="title">{{ opt.title }}</p>
-            <div class="p3 flex_betweenc"><p>¥{{ opt.current }} <span class="separate">/</span>
-              <span>¥{{ opt.pre }}</span></p><img
-              src="../../assets/css/static/images/gwc.png"
-              alt=""
-            ></div>
-          </a>
-        </li>
-      </ul>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <ul class="flex_wrap gwcLits gwcLits_nav gwcLits_SG">
+          <li v-for="(opt,liIndex) in resData" :key="liIndex">
+            <a @click="$router.push(opt.path)">
+              <van-image :src="opt.img">
+                <template v-slot:error>图片加载失败</template>
+              </van-image>
+              <p class="title">{{ opt.title }}</p>
+              <div class="p3 flex_betweenc"><p>¥{{ opt.current }} <span class="separate">/</span>
+                <span>¥{{ opt.pre }}</span></p><img
+                src="../../assets/css/static/images/gwc.png"
+                alt=""
+              ></div>
+            </a>
+          </li>
+        </ul>
+      </van-list>
       <div class="nav_box10 dan_wrap">
         <div v-show="tabShow" class="hint">当前类目下没有分类</div>
       </div>
@@ -193,7 +207,7 @@
 </template>
 
 <script>
-  import { Icon, Swipe, SwipeItem, Tab, Tabs, Search, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Tab, Tabs, Search, Image, List } from 'vant'
 
   export default {
     components: {
@@ -203,7 +217,8 @@
       'van-swipe': Swipe,
       'van-swipe-item': SwipeItem,
       'van-search': Search,
-      'van-image': Image
+      'van-image': Image,
+      'van-list': List
     },
     data() {
       return {
@@ -225,7 +240,13 @@
         marketCategoryData: [],
         // tab栏下商品
         superMarketTabData: [],
-        activityData: []
+        activityData: [],
+        resData: [],
+        timeResData: [],
+        pageIndex: 1,
+        listTotal: 0,
+        loading: false,
+        finished: false
       }
     },
     computed: {},
@@ -233,6 +254,17 @@
       this.init()
     },
     methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          this.resData.push(this.superMarketTabData.shift())
+          this.pageIndex++
+          this.loading = false
+          if (this.resData.length >= this.listTotal) {
+            this.finished = true
+          }
+        }, 500)
+      },
       async init() {
         try {
           // 轮播图
@@ -322,6 +354,7 @@
           this.timeBoxShow = true
         }
         this.tabListData = arr
+        this.listTotal = this.tabListData.length
       },
       // Tab栏
       async getMarketCategoryData() {
@@ -378,6 +411,7 @@
         this.superMarketTabData = arr.map(function(item, index) {
           return { ...item, ...imgArr[index] }
         })
+        this.listTotal = this.superMarketTabData.length
       },
       // 搜索功能
       focus() {
@@ -402,12 +436,10 @@
         const res = await this.$http.post('product/activity/contentActivityRel', {
           contentId: this.$route.query.id
         })
-        console.log(res)
         this.errBox = false
         if (res.data) {
           res.data.forEach(async(n, i) => {
             const res = await this.getRobData(n.activityCode)
-            console.log(res)
             if (res.data[0].goods) {
               this.$set(n, 'children', res.data[0].goods)
             } else {

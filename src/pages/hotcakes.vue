@@ -36,18 +36,25 @@
             <van-tab v-for="(item,index) in navList" :key="index" :title="item.label">
               <div class="nav_box4 dan_wrap fix">
                 <div class="wp">
-                  <div v-for="(hot,navIndex) in hotData" :key="`${hot.type}-${navIndex}`" class="navdan_box4">
-                    <commodity
-                      :type="hot.type"
-                      :image="hot.image"
-                      :discribe="hot.discribe"
-                      :title="hot.title"
-                      :concentrate-price="hot.concentratePrice"
-                      :concentrate-price-discribe="hot.concentratePriceDiscribe"
-                      :btn-go="hot.btnGo"
-                    >
-                    </commodity>
-                  </div>
+                  <van-list
+                    v-model="loading"
+                    :finished="finished"
+                    finished-text="没有更多了"
+                    @load="onLoad"
+                  >
+                    <div v-for="(hot,navIndex) in resData" :key="navIndex" class="navdan_box4">
+                      <commodity
+                        :type="hot.type"
+                        :image="hot.image"
+                        :discribe="hot.discribe"
+                        :title="hot.title"
+                        :concentrate-price="hot.concentratePrice"
+                        :concentrate-price-discribe="hot.concentratePriceDiscribe"
+                        :btn-go="hot.btnGo"
+                      >
+                      </commodity>
+                    </div>
+                  </van-list>
                   <div v-show="tabShow" class="nav_box10 dan_wrap">
                     <div class="hint">当前类目下没有分类</div>
                   </div>
@@ -63,7 +70,7 @@
 </template>
 
 <script>
-  import { Icon, Swipe, SwipeItem, Tab, Tabs, Image } from 'vant'
+  import { Icon, Swipe, SwipeItem, Tab, Tabs, Image, List } from 'vant'
 
   export default {
     components: {
@@ -72,17 +79,23 @@
       'van-icon': Icon,
       'van-tab': Tab,
       'van-tabs': Tabs,
-      'van-image': Image
+      'van-image': Image,
+      'van-list': List
     },
     data() {
       return {
         active: 0,
         status: 'loading',
         value: '',
-        tabShow: false,
+        tabShow: true,
         hotData: [],
         navList: [],
-        bannerData: []
+        bannerData: [],
+        resData: [],
+        pageIndex: 1,
+        listTotal: 0,
+        loading: false,
+        finished: false
       }
     },
     computed: {},
@@ -90,6 +103,19 @@
       this.init()
     },
     methods: {
+      onLoad() {
+        // 异步更新数据
+        setTimeout(() => {
+          if (this.hotData.shift() !== undefined) {
+            this.resData.push(this.hotData.shift())
+            this.pageIndex++
+            this.loading = false
+            if (this.resData.length >= this.listTotal) {
+              this.finished = true
+            }
+          }
+        }, 500)
+      },
       async init() {
         try {
           await this.getBannerData()
@@ -125,15 +151,17 @@
         }
         this.navList = arr
       },
-      async changeTab(idx, title) {
-        this.tabShow = false
+      async changeTab(idx) {
         await this.getHotTabListData(this.navList[idx].key)
         if (this.hotData.length === 0) {
           this.tabShow = true
         }
+        this.resData = []
+        this.onLoad()
       },
       // tab栏下商品数据
       async getHotTabListData(category) {
+        this.tabShow = false
         if (!category) category = this.navList[0].key
         const res = await this.$http.post(`product/goods/listByCategory?category=${category}`)
         const arr = []
@@ -151,6 +179,7 @@
           })
         }
         this.hotData = arr
+        this.listTotal = this.hotData.length
       }
     }
   }
