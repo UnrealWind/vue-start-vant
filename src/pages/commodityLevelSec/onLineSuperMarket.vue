@@ -63,13 +63,13 @@
         </div>
       </div>
       <!--        超市必抢-->
-      <div class="superMarketBiQiang clearfix">
-        <!--          活动标题-->
+      <!--<div class="superMarketBiQiang clearfix">
+        &lt;!&ndash;          活动标题&ndash;&gt;
         <div class="title">
           <h2>超市必抢</h2>
           <span>拼手速抢惊喜</span>
         </div>
-        <!--          时间tab栏-->
+        &lt;!&ndash;          时间tab栏&ndash;&gt;
         <div class="timeTab">
           <ul class="clearfix">
             <li v-for="(item,index) in timeList" :key="index" @click="changeTime(item)">
@@ -77,7 +77,7 @@
             </li>
           </ul>
         </div>
-        <!--          时间下商品列表-->
+        &lt;!&ndash;          时间下商品列表&ndash;&gt;
         <div class="timeList">
           <ul>
             <li v-for="(item,index) in tabListData" :key="index" @click="$router.push(item.btnGo)">
@@ -96,11 +96,11 @@
             </li>
           </ul>
         </div>
-        <!--    错误提示-->
+        &lt;!&ndash;    错误提示&ndash;&gt;
         <div v-if="timeBoxShow" class="nav_box10 dan_wrap">
           <div class="hint">当前时段下暂无商品</div>
         </div>
-      </div>
+      </div>-->
       <!--        超值好物-->
       <div v-if="activityData.length !== 0">
         <div
