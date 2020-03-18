@@ -6,7 +6,7 @@
 #### 目录说明
 1. src/assets  静态资源文件
 2. components  与angular保持一致，components为非模板型组件<br>
-   1). http  拦截器，基于vuex<br>
+   1). http  拦截器，基于axios<br>
    2). socket  websocket 没啥大用唯一的用处就是走的统一配置<br>
    3). uninit  作为webview内嵌于app中时，可以调用uni部分api实现跳转<br>
    4). upload  文件上传<br>
