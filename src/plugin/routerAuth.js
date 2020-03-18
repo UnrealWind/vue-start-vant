@@ -37,10 +37,11 @@ const routerAuth = () => {
     } catch (e) {
       return
     }
-    if (sessionStorage.getItem('token')) {
+    // 这里鉴权判断去那个页面
+    if (store.state.test) {
       next()
     } else {
-      next({ path: '/user/logon' })
+      next({ path: '/index' })
     }
   })
 }

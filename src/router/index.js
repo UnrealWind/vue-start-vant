@@ -7,7 +7,7 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/',
-    component: () => import('@/pages/index'),
+    component: () => import('@/pages/planC'),
     meta: {
       keepAlive: false
     }
@@ -19,7 +19,6 @@ export const constantRoutes = [
 ]
 
 const targetRouter = constantRoutes.concat(routes)
-
 const createRouter = () =>
   new Router({
     mode: 'hash', // require service support

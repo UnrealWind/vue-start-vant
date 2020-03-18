@@ -108,7 +108,6 @@
         mounted() {
           this.target = this.active
           window.addEventListener('scroll', this.handleScroll, true)
-
             console.log(navigator.userAgent)
         },
         methods: {

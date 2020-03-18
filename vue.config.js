@@ -5,7 +5,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = '既派商城' // page title
+const name = '帮助' // page title
 const port = 23333 // dev port
 const externals = {
   vue: 'Vue',
@@ -122,6 +122,12 @@ module.exports = {
         return options
       })
       .end()
+
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, { limit: 100000000 }))
 
     config
       // https://webpack.js.org/configuration/devtool/#development

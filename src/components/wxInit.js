@@ -17,11 +17,12 @@ const initjssdk = {
   /* 进行config的 配置详情见https://mp.weixin.qq.com/wiki?action=doc&id=mp1421141115&t=0.605348614985378#62
       才可以使用微信对webview开放的接口，webview中的接口必须通过配置config才可以通过调试，与原声小程序不同 */
   init: (url, wxjssdk, Vue) => {
+    if (!config.jssdkUrl) return
     axios.post(`${config.jssdkUrl}?url=` + encodeURIComponent(url))
       .then((result) => {
         const res = result.data.data
         wx.config({
-          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印
           appId: res.appId, // 必填，公众号的唯一标识
           timestamp: res.timestamp, // 必填，生成签名的时间戳
           nonceStr: res.nonceStr, // 必填，生成签名的随机串

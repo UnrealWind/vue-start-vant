@@ -11,12 +11,6 @@ import config from './config/config'
 
 import VanContainer from './directive/vanContainer'
 Vue.component('VanContainer', VanContainer)
-import Commodity from './directive/commodity'
-Vue.component('Commodity', Commodity)
-import OrderList from './directive/orderList'
-Vue.component('OrderList', OrderList)
-import OrderDetail from './directive/orderDetail'
-Vue.component('OrderDetail', OrderDetail)
 
 import http from './components/http'
 Vue.use(http)
@@ -32,6 +26,7 @@ Vue.use(uni)
 Vue.config.productionTip = false
 
 const init = async() => {
+  // 根据配置文件加载配置文件的js插件
   for (const pluginName of config.plugins) {
     const plugin = require('./plugin/' + pluginName)
     if (plugin && plugin.default && typeof plugin.default === 'function') {
@@ -43,10 +38,7 @@ const init = async() => {
     router,
     store,
     components: {
-      'van-Container': VanContainer,
-      'commodity': Commodity,
-      'order-list': OrderList,
-      'order-detail': OrderDetail
+      'van-Container': VanContainer
     },
     render: h => h(App)
   })
