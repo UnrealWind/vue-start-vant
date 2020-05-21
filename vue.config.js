@@ -5,7 +5,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = '帮助' // page title
+const name = '主动升级' // page title
 const port = 23333 // dev port
 const externals = {
   vue: 'Vue',

@@ -12,16 +12,12 @@ import config from './config/config'
 import VanContainer from './directive/vanContainer'
 Vue.component('VanContainer', VanContainer)
 
+import ClientServer from './components/clientServer'
+Vue.use(ClientServer)
 import http from './components/http'
 Vue.use(http)
-import socket from './components/socket'
-Vue.use(socket)
 import upload from './components/upload'
 Vue.use(upload)
-import wx from './components/wxInit'
-Vue.use(wx)
-import uni from './components/uniInit'
-Vue.use(uni)
 
 Vue.config.productionTip = false
 

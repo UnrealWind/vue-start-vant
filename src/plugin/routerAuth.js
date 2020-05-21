@@ -41,7 +41,7 @@ const routerAuth = () => {
     if (store.state.test) {
       next()
     } else {
-      next({ path: '/index' })
+      next({ path: '/' })
     }
   })
 }

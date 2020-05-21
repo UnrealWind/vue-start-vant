@@ -7,7 +7,7 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/',
-    component: () => import('@/pages/planC'),
+    component: () => import('@/pages/upgrade'),
     meta: {
       keepAlive: false
     }

@@ -12,7 +12,7 @@
       <p>没有找到数据哦 (*￣︶￣*)</p>
       <van-icon :name="'smile-comment-o'" size="50px"></van-icon>
     </div>
-    <header v-if="!iframe" class="header" :style="customHeaderColor" :class="{ 'hasScroll': scroll }">
+    <header class="header" :style="customHeaderColor">
       <slot name="header"></slot>
     </header>
     <main v-if="status === 'success'" class="main" :style="customMain">
@@ -61,7 +61,7 @@
             },
             headerColor: {
               type: String,
-              default: '#fff'
+              default: '#DA291C'
             },
             active: {
                 type: String,
@@ -74,10 +74,6 @@
             data: {
                 type: Object,
                 default: () => {}
-            },
-            iframe: {
-                type: Boolean,
-                default: false
             }
         },
         data() {
@@ -89,13 +85,7 @@
         },
         computed: {
             customMain() {
-                // const str = `margin-top:${this.height + 45}px`
-                if (this.iframe) {
-                    return ''
-                } else {
-                    // return str
-                    return ''
-                }
+                  return ''
             },
             customHeaderColor() {
               if (this.headerColor) {
@@ -110,6 +100,9 @@
           window.addEventListener('scroll', this.handleScroll, true)
             console.log(navigator.userAgent)
         },
+        inject: [
+          'refresh'
+        ],
         methods: {
             go(page) {
                 this.$router.push(page)
@@ -121,7 +114,7 @@
                 scrollTop === 0 ? this.scroll = false : this.scroll = true
             },
             reload() {
-                this.$router.go(0)
+                this.refresh()
             }
         }
     }

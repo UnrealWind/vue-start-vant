@@ -38,7 +38,7 @@ const hidePhone = (phone) => {
 
 const judNull = (opt) => {
   if (!opt) {
-    return '0'
+    return '-'
   } else {
     return opt
   }

@@ -2,19 +2,38 @@
   <div id="app">
     <!--<transition :name="transitionName">-->
     <keep-alive v-if="$route.meta.keepAlive">
-      <router-view class="router"></router-view>
+      <router-view v-if="doRefresh" class="router"></router-view>
     </keep-alive>
-    <router-view class="router"></router-view>
+    <router-view v-if="doRefresh" class="router"></router-view>
     <!--</transition>-->
   </div>
 </template>
 <script>
   export default {
     name: 'App',
+    data() {
+      return {
+        doRefresh: true // 控制router-view的隐藏与展示
+      }
+    },
+    provide() {
+      return {
+        refresh: this.refresh
+      }
+    },
     computed: {
         transitionName() {
             return this.$store.state.direction
         }
+    },
+    methods: {
+      refresh() {
+        this.doRefresh = false
+        // $nextTick() 将回调延迟到下次 DOM 更新循环之后执行
+        this.$nextTick(() => {
+          this.doRefresh = true
+        })
+      }
     }
   }
 
